@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTA — Quality · Supply Chain · Systems</title>
+<style>
+  :root{
+    --bg:#0e1726; --bg2:#0b1220; --panel:#131f33; --panel2:#0f1a2c;
+    --ink:#e8eef7; --muted:#9fb0c7; --line:#243450;
+    --accent:#3fb6a8; --accent2:#5b8cff; --gold:#c8a96a;
+    --radius:16px; --maxw:1080px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(11,18,32,.72);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.04em}
+  .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:15px;color:#06121f;font-weight:800}
+  .nav nav{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+  .nav nav a:hover{color:var(--ink)}
+  .badge{font-size:11px;color:var(--gold);border:1px solid rgba(200,169,106,.4);padding:3px 9px;border-radius:999px;letter-spacing:.06em}
+
+  /* Hero */
+  .hero{padding:96px 0 72px;text-align:left}
+  .eyebrow{color:var(--accent);font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+  .hero h1{font-size:clamp(34px,5vw,56px);line-height:1.1;margin:18px 0 18px;font-weight:700;letter-spacing:-.01em}
+  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{max-width:620px;color:var(--muted);font-size:18px}
+  .cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .btn{padding:13px 22px;border-radius:11px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s}
+  .btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06121f}
+  .btn-p:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn-g{border-color:var(--line);color:var(--ink)}
+  .btn-g:hover{border-color:var(--accent);color:var(--accent)}
+  .stats{display:flex;gap:40px;margin-top:54px;flex-wrap:wrap}
+  .stat .n{font-size:28px;font-weight:700}
+  .stat .l{font-size:13px;color:var(--muted)}
+
+  section{padding:62px 0;border-top:1px solid var(--line)}
+  .stitle{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .shead{font-size:clamp(24px,3.4vw,34px);font-weight:700;margin:10px 0 8px;letter-spacing:-.01em}
+  .ssub{color:var(--muted);max-width:640px;margin-bottom:34px}
+
+  /* Services */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:.2s}
+  .card:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .card .ic{width:40px;height:40px;border-radius:10px;background:rgba(63,182,168,.12);display:grid;place-items:center;color:var(--accent);font-weight:800;margin-bottom:16px}
+  .card h3{font-size:18px;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:14px}
+
+  /* Engine */
+  .engine{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:20px;padding:30px;margin-top:8px}
+  .engine .row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+  .engine .tag{font-size:12px;color:var(--gold);letter-spacing:.06em}
+  .ask{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .ask input{flex:1;min-width:220px;background:#0a1322;border:1px solid var(--line);border-radius:11px;color:var(--ink);padding:14px 16px;font-size:15px;font-family:var(--font)}
+  .ask input:focus{outline:none;border-color:var(--accent)}
+  .answer{margin-top:18px;background:#0a1322;border:1px dashed var(--line);border-radius:12px;padding:18px;color:var(--muted);font-size:14px;min-height:54px}
+  .pipeline{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+  .pill{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+  .pill b{color:var(--accent2)}
+
+  /* Email */
+  .mailbox{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mailcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .mailcard .addr{font-family:ui-monospace,Menlo,monospace;color:var(--accent);font-size:15px}
+  .mailcard ul{list-style:none;margin-top:14px;font-size:14px;color:var(--muted)}
+  .mailcard li{padding:7px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between}
+  .ok{color:var(--accent)} .warn{color:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media(max-width:640px){.mailbox{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="logo"><div class="mark">F</div> FTA</div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#engine">Knowledge Engine</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="badge">SKELETON · v0.1</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <section class="hero" style="border-top:none">
+    <div class="eyebrow">Quality · Supply Chain · Systems</div>
+    <h1>Building reliable systems for<br><span>quality, supply chain &amp; AI-driven operations</span></h1>
+    <p>FTA is an advisory and systems practice — combining deep Quality &amp; Supply Chain expertise with modern AI engineering (SOI / SAA / Agent systems) to make organizations measurably better.</p>
+    <div class="cta">
+      <button class="btn btn-p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Work with us</button>
+      <button class="btn btn-g" onclick="document.getElementById('engine').scrollIntoView({behavior:'smooth'})">See the Knowledge Engine</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">20+ yrs</div><div class="l">Quality &amp; Supply Chain</div></div>
+      <div class="stat"><div class="n">SOI / SAA</div><div class="l">Proprietary frameworks</div></div>
+      <div class="stat"><div class="n">AI-native</div><div class="l">LLM + RAG engineering</div></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="stitle">Capabilities</div>
+    <div class="shead">What FTA does</div>
+    <p class="ssub">Five connected practice areas, delivered as advisory, systems, or hands-on engineering.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">Q</div><h3>Quality</h3><p>Quality systems, audits, root-cause and continuous improvement across complex operations.</p></div>
+      <div class="card"><div class="ic">SC</div><h3>Supply Chain</h3><p>End-to-end supply chain design, resilience and supplier quality management.</p></div>
+      <div class="card"><div class="ic">SOI</div><h3>SOI</h3><p>Systems of Intelligence — structured operating frameworks for decision quality.</p></div>
+      <div class="card"><div class="ic">SAA</div><h3>SAA</h3><p>Smart Agent Architecture — designing agent organizations that do real work.</p></div>
+      <div class="card"><div class="ic">C</div><h3>Consulting</h3><p>Senior advisory bridging operational rigor and AI transformation.</p></div>
+    </div>
+  </section>
+
+  <!-- KNOWLEDGE ENGINE (the runnable skeleton) -->
+  <section id="engine">
+    <div class="stitle">Global system</div>
+    <div class="shead">Knowledge Engine</div>
+    <p class="ssub">The core engine behind FTA: a retrieval system over our knowledge base using LLM + chunking + embedding. This is a runnable <b>skeleton</b> — the pipeline is wired, the model gets connected on the Mac Mini / cloud later.</p>
+    <div class="engine">
+      <div class="row"><span class="dot"></span><span class="tag">ENGINE STATUS: SKELETON MODE — model not yet connected</span></div>
+      <p style="color:var(--muted);font-size:14px">Ask the engine a question to see the retrieval flow run end-to-end (placeholder response).</p>
+      <div class="ask">
+        <input id="q" type="text" placeholder="e.g. What is FTA's approach to supplier quality?" />
+        <button class="btn btn-p" onclick="ask()">Ask</button>
+      </div>
+      <div class="answer" id="ans">Awaiting your question…</div>
+      <div class="pipeline">
+        <span class="pill">1 · <b>Query</b></span>
+        <span class="pill">2 · <b>Embed</b> (vector)</span>
+        <span class="pill">3 · <b>Retrieve</b> chunks</span>
+        <span class="pill">4 · <b>LLM</b> synthesize</span>
+        <span class="pill">5 · <b>Answer</b> + sources</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="stitle">Projects</div>
+    <div class="shead">Systems we are building</div>
+    <div class="grid">
+      <div class="card"><div class="ic">AO</div><h3>Agent Organization</h3><p>A coordinated set of AI agents that run real operational workflows.</p></div>
+      <div class="card"><div class="ic">SS</div><h3>SAA / SOI</h3><p>The frameworks productized into deployable systems.</p></div>
+      <div class="card"><div class="ic">FT</div><h3>FTA System</h3><p>The umbrella platform tying knowledge, agents and advisory together.</p></div>
+    </div>
+  </section>
+
+  <!-- EMAIL / CONTACT -->
+  <section id="contact">
+    <div class="stitle">Contact &amp; mail</div>
+    <div class="shead">Company email</div>
+    <p class="ssub">Company mail runs on Zoho Mail under fta7ai.com. Status panel below reflects the current setup to keep it managed.</p>
+    <div class="mailbox">
+      <div class="mailcard">
+        <div class="addr">jg@fta7ai.com</div>
+        <p style="color:var(--muted);font-size:14px;margin-top:6px">Primary professional address</p>
+        <ul>
+          <li><span>Provider</span><span class="ok">Zoho Mail (Mail Lite)</span></li>
+          <li><span>Aliases</span><span>jg@ · jinsonggong@</span></li>
+          <li><span>SPF</span><span class="ok">configured</span></li>
+          <li><span>DMARC</span><span class="warn">to be added</span></li>
+        </ul>
+      </div>
+      <div class="mailcard">
+        <h3 style="font-size:16px">Get in touch</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 14px">For consulting and systems work.</p>
+        <a class="btn btn-p" style="display:inline-block" href="mailto:jg@fta7ai.com">Email jg@fta7ai.com</a>
+        <p style="color:var(--muted);font-size:12px;margin-top:14px">Functional addresses (consulting@, invest@…) can be added as aliases later.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div>© <span id="yr"></span> FTA · fta7ai.com</div>
+  <div>Company HQ · skeleton build — iterate as we go</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  function ask(){
+    var q=document.getElementById('q').value.trim();
+    var ans=document.getElementById('ans');
+    if(!q){ans.textContent='Please type a question first.';return;}
+    ans.innerHTML='<span style="color:var(--accent2)">▍running pipeline…</span>';
+    var steps=['🔹 Query received','🔹 Embedding query → vector','🔹 Retrieving top-k chunks from knowledge base','🔹 LLM synthesizing answer'];
+    var i=0;
+    var t=setInterval(function(){
+      if(i<steps.length){ans.innerHTML=steps.slice(0,i+1).join('<br>');i++;}
+      else{
+        clearInterval(t);
+        ans.innerHTML='<b style="color:var(--ink)">Skeleton response</b><br>The retrieval pipeline ran for: <i>"'+q.replace(/</g,'&lt;')+'"</i>.<br><br>This is a placeholder answer — connect an LLM + embedding model (locally on the Mac Mini, or via API) to return real, sourced answers from FTA\'s knowledge base.';
+      }
+    },420);
+  }
+  document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter')ask();});
+</script>
+</body>
+</html>
