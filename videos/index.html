@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTA — Insight Series</title>
+<meta name="description" content="Six short field notes on supplier quality and audit practice, from the floor to the boardroom.">
+<style>
+:root{
+--bg:#0e1726; --bg2:#0b1220; --panel:#131f33; --panel2:#0f1a2c;
+--ink:#e8eef7; --muted:#9fb0c7; --line:#243450;
+--accent:#3fb6a8; --accent2:#5b8cff; --gold:#c8a96a;
+--radius:16px; --maxw:1080px;
+--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(11,18,32,.72);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.04em}
+.mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:15px;color:#06121f;font-weight:800}
+.nav nav{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+.nav nav a:hover{color:var(--ink)}
+.badge{font-size:11px;color:var(--gold);border:1px solid rgba(200,169,106,.4);padding:3px 9px;border-radius:999px;letter-spacing:.06em}
+
+.hero{padding:72px 0 48px;text-align:left}
+.eyebrow{color:var(--accent);font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+.hero h1{font-size:clamp(30px,4.6vw,48px);line-height:1.15;margin:16px 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero p{max-width:620px;color:var(--muted);font-size:17px}
+
+section{padding:20px 0 56px}
+.stitle{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+
+/* Episode list */
+.eplist{display:flex;flex-direction:column;gap:22px;margin-top:20px}
+.epcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;grid-template-columns:280px 1fr;gap:22px;align-items:center}
+.epcard video{width:100%;border-radius:12px;display:block;background:#000;aspect-ratio:16/9}
+.epn{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.epcard h3{font-size:19px;margin-bottom:8px;letter-spacing:-.005em}
+.epcard p{color:var(--muted);font-size:14.5px}
+
+@media(max-width:720px){
+  .epcard{grid-template-columns:1fr}
+}
+
+/* CTA band */
+.ctaband{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:30px;margin-top:44px;text-align:center}
+.ctaband h3{font-size:20px;margin-bottom:8px}
+.ctaband p{color:var(--muted);font-size:14.5px;max-width:520px;margin:0 auto 20px}
+.btn{padding:13px 24px;border-radius:11px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s;display:inline-block}
+.btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06121f}
+.btn-p:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap nav">
+<a class="logo" href="/"><div class="mark">F</div> FTA</a>
+<nav>
+<a href="/#services">Services</a>
+<a href="/videos/">Insights</a>
+<a href="/#contact">Contact</a>
+</nav>
+<span class="badge">INSIGHT SERIES</span>
+</div>
+</header>
+
+<main class="wrap">
+<section class="hero" style="padding-bottom:0">
+<div class="eyebrow">Insight Series</div>
+<h1>Field notes from the audit floor</h1>
+<p>Six short pieces on what actually happens between placing an order and receiving good parts — told from twenty-plus years of on-site quality and supply chain work.</p>
+</section>
+
+<section>
+<div class="stitle">Episodes</div>
+<div class="eplist">
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep1_mp4_20260712_EyesOnAsia_1cover_synth_v1+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 1</div>
+<h3>Who's Keeping Eyes on Your Asian Suppliers?</h3>
+<p>Twelve time zones away, and the reports always say everything is fine — distance hides more than it shows.</p>
+</div>
+</div>
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep2_mp4_20260712_First48Hours_1cover_synth_v1+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 2</div>
+<h3>The First 48 Hours</h3>
+<p>What an experienced auditor actually checks before you commit to a new supplier.</p>
+</div>
+</div>
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep3_mp4_20260712_CAPAFakeClosure_1cover_synth_v1+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 3</div>
+<h3>The 8D Looked Perfect. The Problem Came Back.</h3>
+<p>Telling a real corrective action from a paperwork exercise.</p>
+</div>
+</div>
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep4_mp4_20260711_RemoteAuditBlindSpots_synth_Brian_v2+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 4</div>
+<h3>What Your Remote Audit Missed</h3>
+<p>What a camera can tell you — and what it never will.</p>
+</div>
+</div>
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep5_mp4_20260711_PerfectSampleProductionDisaster_synth_v1+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 5</div>
+<h3>Perfect Sample, Production Disaster</h3>
+<p>Passing the sample approval isn't the same as surviving the production ramp.</p>
+</div>
+</div>
+
+<div class="epcard">
+<video controls preload="none" poster="" playsinline><source src="ep6_mp4_20260711_AfterTheAuditReport_synth_v1+++++.mp4" type="video/mp4"></video>
+<div>
+<div class="epn">EPISODE 6</div>
+<h3>After the Audit Report</h3>
+<p>A report describes a problem. Follow-through is what actually fixes it.</p>
+</div>
+</div>
+
+</div>
+
+<div class="ctaband">
+<h3>Want a second pair of eyes on your supply chain?</h3>
+<p>Fifteen minutes is enough to see if there's a fit.</p>
+<a class="btn btn-p" href="https://calendly.com/fta-quality" target="_blank" rel="noopener">Book a call</a>
+</div>
+</section>
+</main>
+
+<footer class="wrap">
+<div>© <span id="yr"></span> FTA · fta7ai.com</div>
+<div>Chicago HQ · Hong Kong base</div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
