@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FTA — Quality · Supply Chain · Systems</title>
+<title>FTA — Supplier Quality Consulting</title>
+<meta name="description" content="Supplier quality consultancy led by a 30+ year SQE veteran (since 1992). On-site supplier audits, supplier assessments, and CAPA/SCAR closure across the U.S., Mexico, and Asia.">
 <style>
   :root{
     --bg:#0e1726; --bg2:#0b1220; --panel:#131f33; --panel2:#0f1a2c;
@@ -17,43 +18,50 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
-  /* Header */
   header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(11,18,32,.72);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
   .logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.04em}
   .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:15px;color:#06121f;font-weight:800}
   .nav nav{display:flex;gap:26px;font-size:14px;color:var(--muted)}
   .nav nav a:hover{color:var(--ink)}
-  .badge{font-size:11px;color:var(--gold);border:1px solid rgba(200,169,106,.4);padding:3px 9px;border-radius:999px;letter-spacing:.06em}
+  .badge{font-size:11px;color:var(--gold);border:1px solid rgba(200,169,106,.4);padding:3px 9px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
 
   /* Hero */
-  .hero{padding:96px 0 72px;text-align:left}
+  .hero{padding:80px 0 64px}
+  .herowrap{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center}
   .eyebrow{color:var(--accent);font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
-  .hero h1{font-size:clamp(34px,5vw,56px);line-height:1.1;margin:18px 0 18px;font-weight:700;letter-spacing:-.01em}
-  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{max-width:620px;color:var(--muted);font-size:18px}
-  .cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
-  .btn{padding:13px 22px;border-radius:11px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s}
+  .hero h1{font-size:clamp(30px,4.4vw,50px);line-height:1.12;margin:16px 0 18px;font-weight:700;letter-spacing:-.01em}
+  .hero p{max-width:560px;color:var(--muted);font-size:17.5px}
+  .cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .btn{padding:13px 22px;border-radius:11px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s;display:inline-block}
   .btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06121f}
   .btn-p:hover{filter:brightness(1.08);transform:translateY(-1px)}
   .btn-g{border-color:var(--line);color:var(--ink)}
   .btn-g:hover{border-color:var(--accent);color:var(--accent)}
-  .stats{display:flex;gap:40px;margin-top:54px;flex-wrap:wrap}
-  .stat .n{font-size:28px;font-weight:700}
-  .stat .l{font-size:13px;color:var(--muted)}
+  .herovid{width:100%;border-radius:14px;display:block;background:#000;aspect-ratio:16/9;border:1px solid var(--line)}
+  .vidcap{margin-top:10px;font-size:12.5px;color:var(--muted);text-align:center}
+  @media(max-width:820px){.herowrap{grid-template-columns:1fr;gap:28px}}
 
-  section{padding:62px 0;border-top:1px solid var(--line)}
+  section{padding:58px 0;border-top:1px solid var(--line)}
   .stitle{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
   .shead{font-size:clamp(24px,3.4vw,34px);font-weight:700;margin:10px 0 8px;letter-spacing:-.01em}
   .ssub{color:var(--muted);max-width:640px;margin-bottom:34px}
 
-  /* Services */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
   .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:.2s}
   .card:hover{border-color:var(--accent);transform:translateY(-3px)}
-  .card .ic{width:40px;height:40px;border-radius:10px;background:rgba(63,182,168,.12);display:grid;place-items:center;color:var(--accent);font-weight:800;margin-bottom:16px}
+  .card .ic{width:40px;height:40px;border-radius:10px;background:rgba(63,182,168,.12);display:grid;place-items:center;color:var(--accent);font-weight:800;margin-bottom:16px;font-size:13px}
   .card h3{font-size:18px;margin-bottom:7px}
   .card p{color:var(--muted);font-size:14px}
+
+  /* Insight episodes */
+  .eplist{display:flex;flex-direction:column;gap:22px}
+  .epcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;grid-template-columns:280px 1fr;gap:22px;align-items:center}
+  .epcard video{width:100%;border-radius:12px;display:block;background:#000;aspect-ratio:16/9}
+  .epn{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+  .epcard h3{font-size:19px;margin-bottom:8px;letter-spacing:-.005em}
+  .epcard p{color:var(--muted);font-size:14.5px}
+  @media(max-width:720px){.epcard{grid-template-columns:1fr}}
 
   /* Engine */
   .engine{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:20px;padding:30px;margin-top:8px}
@@ -68,69 +76,155 @@
   .pill{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
   .pill b{color:var(--accent2)}
 
-  /* Email */
+  /* Contact */
   .mailbox{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .mailcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
   .mailcard .addr{font-family:ui-monospace,Menlo,monospace;color:var(--accent);font-size:15px}
   .mailcard ul{list-style:none;margin-top:14px;font-size:14px;color:var(--muted)}
   .mailcard li{padding:7px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between}
   .ok{color:var(--accent)} .warn{color:var(--gold)}
+  @media(max-width:640px){.mailbox{grid-template-columns:1fr}}
 
   footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-  @media(max-width:640px){.mailbox{grid-template-columns:1fr}}
+  footer a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <div class="logo"><div class="mark">F</div> FTA</div>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#engine">Knowledge Engine</a>
-      <a href="#projects">Projects</a>
-      <a href="/videos/">Insights</a>
-      <a href="#contact">Contact</a>
+    <a class="logo" href="/"><div class="mark">F</div> FTA</a>
+    <nav id="nav">
+      <noscript>
+        <a href="#services">Services</a>
+        <a href="/videos/">Insights</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </noscript>
     </nav>
-    <span class="badge">SKELETON · v0.1</span>
+    <span class="badge">Since 1992</span>
   </div>
 </header>
 
 <main class="wrap">
-  <!-- HERO -->
+  <!-- HERO: consulting intro + Insight video (EP1) -->
   <section class="hero" style="border-top:none">
-    <div class="eyebrow">Quality · Supply Chain · Systems</div>
-    <h1>Building reliable systems for<br><span>quality, supply chain &amp; AI-driven operations</span></h1>
-    <p>FTA is an advisory and systems practice — combining deep Quality &amp; Supply Chain expertise with modern AI engineering (SOI / SAA / Agent systems) to make organizations measurably better.</p>
-    <div class="cta">
-      <button class="btn btn-p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Work with us</button>
-      <button class="btn btn-g" onclick="document.getElementById('engine').scrollIntoView({behavior:'smooth'})">See the Knowledge Engine</button>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="n">20+ yrs</div><div class="l">Quality &amp; Supply Chain</div></div>
-      <div class="stat"><div class="n">SOI / SAA</div><div class="l">Proprietary frameworks</div></div>
-      <div class="stat"><div class="n">AI-native</div><div class="l">LLM + RAG engineering</div></div>
+    <div class="herowrap">
+      <div>
+        <div class="eyebrow">Supplier Quality Consulting</div>
+        <h1>Eyes on your suppliers — across the U.S., Mexico, and Asia.</h1>
+        <p>FTA is a supplier quality consultancy led by a 30+ year SQE veteran (since 1992). On-site supplier audits, supplier assessments, and CAPA/SCAR closure for manufacturers who can't afford surprises.</p>
+        <div class="cta">
+          <a class="btn btn-p" href="mailto:jg@fta7ai.com">Get in touch</a>
+          <a class="btn btn-g" href="#insights">Watch the Insight Series</a>
+        </div>
+      </div>
+      <div>
+        <video class="herovid" controls preload="metadata" poster="videos/EP1_EyesOnAsia_poster.jpg" playsinline>
+          <source src="videos/EP1_EyesOnAsia_web_ready.mp4" type="video/mp4">
+        </video>
+        <div class="vidcap">Insight Series · EP1 — Who's Keeping Eyes on Your Asian Suppliers?</div>
+      </div>
     </div>
   </section>
 
   <!-- SERVICES -->
   <section id="services">
-    <div class="stitle">Capabilities</div>
-    <div class="shead">What FTA does</div>
-    <p class="ssub">Five connected practice areas, delivered as advisory, systems, or hands-on engineering.</p>
+    <div class="stitle">What we do</div>
+    <div class="shead">Supplier quality, on the floor</div>
+    <p class="ssub">Independent quality eyes at the supplier — before a problem reaches your dock.</p>
     <div class="grid">
-      <div class="card"><div class="ic">Q</div><h3>Quality</h3><p>Quality systems, audits, root-cause and continuous improvement across complex operations.</p></div>
-      <div class="card"><div class="ic">SC</div><h3>Supply Chain</h3><p>End-to-end supply chain design, resilience and supplier quality management.</p></div>
-      <div class="card"><div class="ic">SOI</div><h3>SOI</h3><p>Systems of Intelligence — structured operating frameworks for decision quality.</p></div>
-      <div class="card"><div class="ic">SAA</div><h3>SAA</h3><p>Smart Agent Architecture — designing agent organizations that do real work.</p></div>
-      <div class="card"><div class="ic">C</div><h3>Consulting</h3><p>Senior advisory bridging operational rigor and AI transformation.</p></div>
+      <div class="card"><div class="ic">AUD</div><h3>On-site Supplier Audits</h3><p>Independent audits at the supplier's floor across the U.S., Mexico, and Asia — not a desk review.</p></div>
+      <div class="card"><div class="ic">ASM</div><h3>Supplier Assessments</h3><p>Structured assessment of capability, quality systems, and risk before you commit to a new supplier.</p></div>
+      <div class="card"><div class="ic">CAP</div><h3>CAPA / SCAR Closure</h3><p>Driving corrective actions and SCARs to real, verified closure — not a paperwork exercise.</p></div>
     </div>
   </section>
 
-  <!-- KNOWLEDGE ENGINE (the runnable skeleton) -->
+  <!-- INSIGHTS: all 7 episodes -->
+  <section id="insights">
+    <div class="stitle">Insight Series</div>
+    <div class="shead">Field notes from the audit floor</div>
+    <p class="ssub">Seven short pieces on what actually happens between placing an order and receiving good parts — from twenty-plus years of on-site quality and supply chain work.</p>
+    <div class="eplist">
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP1_EyesOnAsia_poster.jpg" playsinline><source src="videos/EP1_EyesOnAsia_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 1</div><h3>Who's Keeping Eyes on Your Asian Suppliers?</h3><p>Twelve time zones away, and the reports always say everything is fine — distance hides more than it shows.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP2_First48Hours_poster.jpg" playsinline><source src="videos/EP2_First48Hours_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 2</div><h3>The First 48 Hours</h3><p>What an experienced auditor actually checks before you commit to a new supplier.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP3_CAPAFakeClosure_poster.jpg" playsinline><source src="videos/EP3_CAPAFakeClosure_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 3</div><h3>The 8D Looked Perfect. The Problem Came Back.</h3><p>Telling a real corrective action from a paperwork exercise.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP4_RemoteAuditBlindSpots_poster.jpg" playsinline><source src="videos/EP4_RemoteAuditBlindSpots_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 4</div><h3>What Your Remote Audit Missed</h3><p>What a camera can tell you — and what it never will.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP5_PerfectSampleProductionDisaster_poster.jpg" playsinline><source src="videos/EP5_PerfectSampleProductionDisaster_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 5</div><h3>Perfect Sample, Production Disaster</h3><p>Passing the sample approval isn't the same as surviving the production ramp.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP6_AfterTheAuditReport_poster.jpg" playsinline><source src="videos/EP6_AfterTheAuditReport_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 6</div><h3>After the Audit Report</h3><p>A report describes a problem. Follow-through is what actually fixes it.</p></div>
+      </div>
+
+      <div class="epcard">
+        <video controls preload="metadata" poster="videos/EP7_ThirtyMetersToTheTruth_poster.jpg" playsinline><source src="videos/EP7_ThirtyMetersToTheTruth_web_ready.mp4" type="video/mp4"></video>
+        <div><div class="epn">EPISODE 7</div><h3>Thirty Meters to the Truth</h3><p>For ten years, one quality problem refused to die — the answer sat thirty meters from where everyone was looking.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="stitle">Projects</div>
+    <div class="shead">Systems we are building</div>
+    <div class="grid">
+      <div class="card"><div class="ic">AO</div><h3>Agent Organization</h3><p>A coordinated set of AI agents that run real operational workflows.</p></div>
+      <div class="card"><div class="ic">SS</div><h3>SAA / SOI</h3><p>The frameworks productized into deployable systems.</p></div>
+      <div class="card"><div class="ic">FT</div><h3>FTA System</h3><p>The umbrella platform tying knowledge, agents and advisory together.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="stitle">Contact &amp; mail</div>
+    <div class="shead">Get in touch</div>
+    <p class="ssub">For supplier audits, assessments, and CAPA/SCAR work.</p>
+    <div class="mailbox">
+      <div class="mailcard">
+        <div class="addr">jg@fta7ai.com</div>
+        <p style="color:var(--muted);font-size:14px;margin-top:6px">Primary professional address</p>
+        <ul>
+          <li><span>Provider</span><span class="ok">Zoho Mail (Mail Lite)</span></li>
+          <li><span>Aliases</span><span>jg@ · jinsonggong@</span></li>
+          <li><span>SPF</span><span class="ok">configured</span></li>
+          <li><span>DMARC</span><span class="warn">to be added</span></li>
+        </ul>
+      </div>
+      <div class="mailcard">
+        <h3 style="font-size:16px">Work with FTA</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 14px">A short call is enough to see if there's a fit.</p>
+        <a class="btn btn-p" style="display:inline-block" href="mailto:jg@fta7ai.com">Email jg@fta7ai.com</a>
+        <p style="color:var(--muted);font-size:12px;margin-top:14px">Functional addresses (consulting@, invest@…) can be added as aliases later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KNOWLEDGE ENGINE (internal system; entry from footer, not top nav) -->
   <section id="engine">
     <div class="stitle">Global system</div>
     <div class="shead">Knowledge Engine</div>
-    <p class="ssub">The core engine behind FTA: a retrieval system over our knowledge base using LLM + chunking + embedding. This is a runnable <b>skeleton</b> — the pipeline is wired, the model gets connected on the Mac Mini / cloud later.</p>
+    <p class="ssub">The internal engine behind FTA: a retrieval system over our knowledge base using LLM + chunking + embedding. A runnable <b>skeleton</b> — pipeline wired, model connected on the Mac Mini / cloud later.</p>
     <div class="engine">
       <div class="row"><span class="dot"></span><span class="tag">ENGINE STATUS: SKELETON MODE — model not yet connected</span></div>
       <p style="color:var(--muted);font-size:14px">Ask the engine a question to see the retrieval flow run end-to-end (placeholder response).</p>
@@ -148,55 +242,34 @@
       </div>
     </div>
   </section>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="stitle">Projects</div>
-    <div class="shead">Systems we are building</div>
-    <div class="grid">
-      <div class="card"><div class="ic">AO</div><h3>Agent Organization</h3><p>A coordinated set of AI agents that run real operational workflows.</p></div>
-      <div class="card"><div class="ic">SS</div><h3>SAA / SOI</h3><p>The frameworks productized into deployable systems.</p></div>
-      <div class="card"><div class="ic">FT</div><h3>FTA System</h3><p>The umbrella platform tying knowledge, agents and advisory together.</p></div>
-    </div>
-  </section>
-
-  <!-- EMAIL / CONTACT -->
-  <section id="contact">
-    <div class="stitle">Contact &amp; mail</div>
-    <div class="shead">Company email</div>
-    <p class="ssub">Company mail runs on Zoho Mail under fta7ai.com. Status panel below reflects the current setup to keep it managed.</p>
-    <div class="mailbox">
-      <div class="mailcard">
-        <div class="addr">jg@fta7ai.com</div>
-        <p style="color:var(--muted);font-size:14px;margin-top:6px">Primary professional address</p>
-        <ul>
-          <li><span>Provider</span><span class="ok">Zoho Mail (Mail Lite)</span></li>
-          <li><span>Aliases</span><span>jg@ · jinsonggong@</span></li>
-          <li><span>SPF</span><span class="ok">configured</span></li>
-          <li><span>DMARC</span><span class="warn">to be added</span></li>
-        </ul>
-      </div>
-      <div class="mailcard">
-        <h3 style="font-size:16px">Get in touch</h3>
-        <p style="color:var(--muted);font-size:14px;margin:8px 0 14px">For consulting and systems work.</p>
-        <a class="btn btn-p" style="display:inline-block" href="mailto:jg@fta7ai.com">Email jg@fta7ai.com</a>
-        <p style="color:var(--muted);font-size:12px;margin-top:14px">Functional addresses (consulting@, invest@…) can be added as aliases later.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="wrap">
-  <div>© <span id="yr"></span> FTA · fta7ai.com</div>
-  <div>Company HQ · skeleton build — iterate as we go</div>
+  <div>© <span id="yr"></span> FTA · fta7ai.com · Supplier quality since 1992</div>
+  <div><a href="#engine">Knowledge Engine</a> · <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a> · Chicago HQ · Hong Kong base</div>
 </footer>
 
 <script>
+  // Top nav — single source of truth. Add a business unit later = add one line here.
+  // Structural reserve only (no visual placeholder): SAA launches via a low-key footer entry; Vita (B2C) is not on the FTA site.
+  var NAV=[
+    {label:'Services',  href:'#services'},
+    {label:'Insights',  href:'/videos/'},
+    {label:'Projects',  href:'#projects'},
+    {label:'Contact',   href:'#contact'}
+    // ,{label:'SAA', href:'/saa/'}   // reserved — enable when SAA site is live
+  ];
+  (function(){
+    var nav=document.getElementById('nav');
+    nav.innerHTML=NAV.map(function(i){return '<a href="'+i.href+'">'+i.label+'</a>';}).join('');
+  })();
+
   document.getElementById('yr').textContent=new Date().getFullYear();
+
   function ask(){
     var q=document.getElementById('q').value.trim();
     var ans=document.getElementById('ans');
-    if(!q){ans.textContent='Please type a question first.';return;}
+    if(!q){ans.textContent='Type a question first.';return;}
     ans.innerHTML='<span style="color:var(--accent2)">▍running pipeline…</span>';
     var steps=['🔹 Query received','🔹 Embedding query → vector','🔹 Retrieving top-k chunks from knowledge base','🔹 LLM synthesizing answer'];
     var i=0;
@@ -204,7 +277,7 @@
       if(i<steps.length){ans.innerHTML=steps.slice(0,i+1).join('<br>');i++;}
       else{
         clearInterval(t);
-        ans.innerHTML='<b style="color:var(--ink)">Skeleton response</b><br>The retrieval pipeline ran for: <i>"'+q.replace(/</g,'&lt;')+'"</i>.<br><br>This is a placeholder answer — connect an LLM + embedding model (locally on the Mac Mini, or via API) to return real, sourced answers from FTA\'s knowledge base.';
+        ans.innerHTML='<b style="color:var(--ink)">Skeleton response</b><br>The retrieval pipeline ran for: <i>"'+q.replace(/</g,'&lt;')+'"</i>.<br><br>This is a placeholder answer — connect an LLM + embedding model to return real, sourced answers from FTA\'s knowledge base.';
       }
     },420);
   }
