@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FTA · 把老师傅编译成系统</title>
+<meta name="description" content="FTA 招年轻工程师：用 LangGraph、DSPy、闭环工程，把 30 年质量工程判断编译成可运行的系统。">
+<style>
+:root{--bg:#0a0a0a;--fg:#f2f2ef;--mute:#9a9a95;--line:#1f1f1f;--card:#101010;
+--or:#ff8a3d;--or-l:#ffbd8a;--or-d:#a84a15;--gr:#34d399;--gr-l:#86efac;--gr-d:#176b4c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:56px}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.7;font-size:17px;-webkit-text-size-adjust:100%}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px}
+code,.mono{font-family:"SF Mono",Menlo,Consolas,monospace}
+nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.94);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 20px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:none;color:#cfcfca;text-decoration:none;font-size:13px;border:1px solid #333;border-radius:999px;padding:4px 12px}
+section{padding:72px 0;border-top:1px solid var(--line)}
+.hero{border-top:none;padding:60px 0 64px}
+.kicker{font-size:12px;letter-spacing:.28em;color:var(--gr);margin-bottom:12px}
+h1{font-size:38px;line-height:1.25;font-weight:900}
+h2{font-size:26px;line-height:1.35;font-weight:800;margin-bottom:20px}
+h3{font-size:18px;margin-bottom:6px}
+.or{color:var(--or)}.gr{color:var(--gr)}
+.lead{font-size:18px;color:#d6d6d1;margin-top:18px}
+.mute{color:var(--mute);font-size:15px}
+p+p{margin-top:12px}
+.term{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:13px;border:1px solid var(--gr-d);color:var(--gr-l);border-radius:6px;padding:2px 8px;margin:4px 6px 0 0}
+.prompt{font-family:"SF Mono",Menlo,monospace;font-size:14px;color:var(--gr);margin-top:26px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#0d0d0d}
+.prompt span{color:var(--mute)}
+.blink{display:inline-block;width:8px;height:16px;background:var(--gr);vertical-align:-2px;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+/* graph */
+.graph{border:1px solid var(--line);border-radius:18px;padding:18px 14px;background:var(--card)}
+.node{border:1px solid #333;border-radius:10px;padding:8px 12px;font-size:14px;background:#141414;position:relative}
+.node small{display:block;color:var(--mute);font-size:12px}
+.node.llm{border-color:var(--or-d)}
+.node.llm b{color:var(--or)}
+.node.gate{border-color:var(--gr-d)}
+.node.gate b{color:var(--gr)}
+.arrow{text-align:center;color:#555;font-size:14px;line-height:1.4}
+.loop{margin-top:10px;border:1px dashed var(--or-d);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--or-l)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--mute)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* problems */
+.prob{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);margin-bottom:14px}
+.prob .no{font-size:12px;color:var(--or);letter-spacing:.12em}
+.prob p{color:#c9c9c4;font-size:15.5px}
+.prob .q{margin-top:10px;font-size:14px;color:var(--gr-l)}
+/* rubric */
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{border-bottom:1px solid var(--line);padding:10px 4px;vertical-align:top}
+td:last-child{text-align:right;white-space:nowrap;color:var(--or);font-family:"SF Mono",Menlo,monospace}
+/* video */
+.eps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vid{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+.ph{display:block;width:100%;aspect-ratio:16/9;background:#111 center/cover no-repeat;border:0;position:relative;cursor:pointer}
+.ph:after{content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,138,61,.92);color:#0a0a0a;font-size:14px;display:flex;align-items:center;justify-content:center;padding-left:3px}
+.vid video{width:100%;display:block}
+.cap{padding:8px 10px;background:var(--card)}
+.cap b{display:block;font-size:13px}.cap span{font-size:11px;color:var(--mute)}
+ul.dots{list-style:none}
+ul.dots li{position:relative;padding:0 0 10px 20px;font-size:16px;color:#d6d6d1}
+ul.dots li:before{content:"";position:absolute;left:2px;top:11px;width:8px;height:8px;border-radius:50%;background:var(--gr)}
+ul.dots.o li:before{background:var(--or)}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:800;font-size:17px;border-radius:14px;padding:16px;margin-top:14px;background:var(--gr);color:#0a0a0a}
+.contact{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .k{color:var(--mute);font-size:13px}.row .v{font-size:18px;font-weight:800}
+.copy{background:none;border:1px solid var(--gr);color:var(--gr);border-radius:10px;padding:6px 12px;font-size:14px}
+footer{padding:40px 0 100px;text-align:center;color:#555;font-size:12px;border-top:1px solid var(--line)}
+#top{position:fixed;right:16px;bottom:20px;width:48px;height:48px;border-radius:50%;background:#161616;border:1px solid #444;color:var(--fg);font-size:13px;line-height:1.1;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:60}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--gr);color:#0a0a0a;font-weight:700;padding:8px 18px;border-radius:999px;font-size:14px;display:none;z-index:70}
+html,body{overflow-x:hidden;overscroll-behavior-x:none}
+body{width:100%;position:relative;touch-action:pan-y}
+#app{position:relative;width:100%;max-width:100vw;overflow:hidden}
+.wrap>section{overflow-x:clip}
+img,video,button,table{max-width:100%}
+.prob,.node,.card2,td{min-width:0;overflow-wrap:anywhere}
+.city{display:flex;gap:8px;margin:22px 0 4px}
+.city div{flex:1;border:1px solid #2a2a2a;border-radius:14px;padding:10px 6px;text-align:center;background:#101010;font-size:13px;color:var(--mute)}
+.city div b{display:block;font-size:15px;color:var(--fg)}
+.city div.now{border-color:var(--or-d);background:rgba(255,138,61,.08)}
+.city div.now b{color:var(--or)}
+.card2{border:1px solid var(--gr-d);border-radius:16px;padding:16px;margin:12px 0;background:rgba(52,211,153,.05)}
+.card2 b{color:var(--gr-l);display:block;font-size:17px}
+.card2 span{font-size:14px;color:#c9c9c4}
+.gates{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:22px 0 10px}
+.gate{aspect-ratio:1/2.2;border-radius:12px;border:1px solid #2a2a2a;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:8px 2px;font-size:12px;color:var(--mute);text-align:center;position:relative;overflow:hidden}
+.gate:before{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--h);background:linear-gradient(0deg,rgba(255,138,61,.35),rgba(255,138,61,.05))}
+.gate.on{border-color:var(--gr-d);color:var(--gr-l)}
+.gate.on:before{background:linear-gradient(0deg,rgba(52,211,153,.5),rgba(52,211,153,.08))}
+.gate i{font-style:normal;position:relative;font-weight:700;font-size:13px}
+.gate em{font-style:normal;position:relative;font-size:10px;margin-top:2px}
+.eps{display:grid;gap:14px}
+
+html.lock body>*:not(#gate){display:none!important}
+#gate{display:none}
+html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+#gate input{margin-top:22px;width:200px;font-size:28px;letter-spacing:.5em;text-align:center;background:#111;border:1px solid #333;border-radius:14px;color:var(--fg);padding:12px}
+#gate button{margin-top:16px;width:200px;background:var(--or);color:#0a0a0a;border:0;border-radius:14px;padding:14px;font-size:17px;font-weight:800}
+#gate .err{color:var(--or-l);font-size:14px;margin-top:12px;min-height:20px}
+</style>
+<script>try{if(sessionStorage.getItem('fta_tal')!=='1')document.documentElement.classList.add('lock')}catch(e){document.documentElement.classList.add('lock')}</script>
+</head>
+<body id="page-top">
+<div id="gate"><div class="kicker">FTA · SAI BUILDER</div><h2 style="margin:0">请输入打开密码</h2><input id="pw" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><button onclick="unlock()">进入</button><div class="err" id="pwerr"></div></div>
+
+<nav><div class="wrap">
+  <a href="#sai">SAI</a><a href="#stack">Tech Stack</a><a href="#field">Field Proof</a><a href="#partner">Partner</a><a href="#join">Join</a>
+</div></nav>
+
+<div id="app">
+<div class="wrap">
+
+<!-- 1 首屏 -->
+<section class="hero">
+  <div class="kicker">FTA · SAI · BUILDER WANTED · 武汉光谷</div>
+  <h1>把 30 年 <span class="or">Supplier Quality</span> 判断，<br><span class="gr">compile</span> 成 SAI Agent</h1>
+  <p class="lead">SAI = Supply Assurance Intelligence（供应链保证智能）。我们只做一件事：让 AI 像老师傅一样审供应商——每个判断 traceable，每条证据有出处。</p>
+  <div style="margin-top:22px"><div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/SAI_Promo_v9_CN_poster.jpg)" data-v="https://fta7ai.com/videos/SAI_Promo_v9_CN.mp4"></button><div class="cap"><b>SAI 平台宣传片</b><span>中文版 · 4 分钟</span></div></div></div>
+</section>
+
+<!-- 2 SAI 五道门 -->
+<section id="sai">
+  <div class="kicker">WHAT IS SAI</div>
+  <h2>五道 Trust Gate，<br>今天打通第一道</h2>
+  <div class="gates">
+    <div class="gate on" style="--h:100%"><i>审核</i><em>Live</em></div>
+    <div class="gate" style="--h:55%"><i>供应</i><em>Next</em></div>
+    <div class="gate" style="--h:40%"><i>设计</i><em>Plan</em></div>
+    <div class="gate" style="--h:30%"><i>合规</i><em>Plan</em></div>
+    <div class="gate" style="--h:20%"><i>信任</i><em>Plan</em></div>
+  </div>
+  <p class="mute">Supplier Audit → Supply → Design → Compliance → Trust。第一道 Supplier Audit Agent 已经在跑真实工厂资料。</p>
+</section>
+
+<!-- 3 Tech Stack 三根柱子 -->
+<section id="stack">
+  <div class="kicker">TECH STACK</div>
+  <h2>三根柱子，<br>撑起一个 SAI Agent</h2>
+
+  <div class="prob"><div class="no">Pillar 1 · LangGraph</div><h3>State graph + 一道道 gate</h3>
+    <p>把审核流程写成状态图（节点 + 连线 + 回环）。每条判据过一道 gate：<b style="color:var(--fg)">LLM 建议，代码裁决</b>。</p></div>
+  <div class="graph">
+    <div class="node"><b>Ingest 读入</b><small>工厂文件 → 片段，每段带出处</small></div>
+    <div class="arrow">↓</div>
+    <div class="node"><b>Criteria 判据匹配</b><small>条款 × 工艺，精确查判据表</small></div>
+    <div class="arrow">↓</div>
+    <div class="node llm"><b>Evaluate · 唯一的 LLM 节点</b><small>读证据、给建议判定 + 引文</small></div>
+    <div class="arrow">↓</div>
+    <div class="node gate"><b>Exit Gate 出口闸</b><small>确定性代码：引文核对、五态判定（含「待现场确认」）</small></div>
+    <div class="arrow">↓</div>
+    <div class="node"><b>Report 报告</b><small>每个字都能追到原文页码</small></div>
+    <div class="loop">↺ Loop：专家改判 → 记一条样本 → 进 eval 集 → 再优化</div>
+  </div>
+
+  <div class="prob"><div class="no">Pillar 2 · Multi-agent · Multi-model</div><h3>高端模型做判断，低成本模型跑批量</h3>
+    <p>Claude 这类 frontier model 负责拆任务、定标准、终审；DeepSeek、通义千问 Qwen 跑大批量、低难度的活。按 cost × difficulty 路由，模型随时可换，调度层是我们自己的。</p></div>
+  <div class="vid" style="margin:14px 0 26px"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EPG01_AITeam_EN_poster.jpg)" data-v="https://fta7ai.com/videos/EPG01_AITeam_EN.mp4"></button><div class="cap"><b>How FTA Runs an AI Team</b><span>English · 由 AI 团队自己制作</span></div></div>
+
+  <div class="prob"><div class="no">Pillar 3 · DSPy</div><h3>让系统自己调 prompt，越用越准</h3>
+    <p>DSPy 把 prompt 当成可训练的参数：给它一个评分函数（eval function）和一批专家改判过的样本，它自动找出更好的写法。老师傅每改一次判断，系统就多一条最值钱的 training data。</p>
+    <div class="q">→ 漏掉真问题重罚；证据不足时老实说「待现场确认」加分。</div></div>
+</section>
+
+<!-- 4 Field Proof -->
+<section id="field">
+  <div class="kicker">FIELD PROOF · 脚踏实地</div>
+  <h2>我们真的在<br><span class="or">工厂一线</span>审过</h2>
+  <p class="mute" style="margin-bottom:16px">写代码之前先懂现场。以下是 30 年 supplier audit 里最常见的坑（白板动画，英文原版）：</p>
+  <div class="eps">
+    <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP3_CAPAFakeClosure_poster.jpg)" data-v="https://fta7ai.com/videos/EP3_CAPAFakeClosure_web_ready.mp4"></button><div class="cap"><b>整改假关闭</b><span>CAPA Fake Closure</span></div></div>
+    <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP4_RemoteAuditBlindSpots_poster.jpg)" data-v="https://fta7ai.com/videos/EP4_RemoteAuditBlindSpots_web_ready.mp4"></button><div class="cap"><b>远程审核盲区</b><span>Remote Audit Blind Spots</span></div></div>
+    <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP7_ThirtyMetersToTheTruth_poster.jpg)" data-v="https://fta7ai.com/videos/EP7_ThirtyMetersToTheTruth_web_ready.mp4"></button><div class="cap"><b>离真相三十米</b><span>Thirty Meters to the Truth</span></div></div>
+  </div>
+</section>
+
+<!-- 5 Partner -->
+<section id="partner">
+  <div class="kicker">PARTNER PROGRAM · 2026 Q4</div>
+  <h2>我们不招 employee，<br>找 <span class="gr">SAI Agent Partner</span></h2>
+  <p>你是 one-person company（一人公司），或两三个人的小 team？你有 skill 和时间，缺 real problem、domain know-how 和客户。这三样，FTA 有。</p>
+  <div class="city">
+    <div class="now"><b>Oct · 10 月</b>武汉光谷</div>
+    <div><b>Nov · 11 月</b>上海周边</div>
+    <div><b>Dec · 12 月</b>深圳周边</div>
+  </div>
+  <p class="mute">这个月先在光谷：线下 coffee chat，面对面过一遍真实 case。</p>
+  <h3 style="margin-top:22px">三个方向，都在 SAI 里面</h3>
+  <div class="card2"><b>来料检验 Agent · Incoming Inspection</b><span>读检验记录 + 图纸要求，自动标出 out-of-spec 和缺失证据。</span></div>
+  <div class="card2"><b>整改验证 Agent · CAPA Verification</b><span>整改报告是真关闭还是 fake closure？给出 evidence chain 和 confidence。</span></div>
+  <div class="card2"><b>供应商评估 Agent · Supplier Survey &amp; Audit</b><span>供应商调查、考核、检验、审核——从问卷到现场 audit 的证据，一条线串起来。</span></div>
+  <h3 style="margin-top:22px">Deal 怎么谈</h3>
+  <ul class="dots o">
+    <li>Equity 或 revenue share，按交付成果谈，不画饼</li>
+    <li>Remote-first · No 996 · 少开会，async 为主</li>
+    <li>30 年老师傅 1-on-1 mentor，脱敏的真实工厂 case</li>
+    <li>Claude / Qwen / DeepSeek 多模型 stack，直接上手</li>
+    <li>欢迎在小红书 Build in Public，作品署你的名</li>
+  </ul>
+</section>
+
+<!-- 6 Join -->
+<section id="join">
+  <div class="kicker">JOIN US</div>
+  <h2>不做被 AI replace 的一代，<br>做 <span class="gr">teach AI 干活</span>的一代</h2>
+  <ul class="dots">
+    <li>工科背景，会 Python，调过至少一个 LLM API</li>
+    <li>对 LangGraph、multi-agent、DSPy 有兴趣——没做过可以学</li>
+    <li>Quality / Manufacturing / Supply Chain 背景是 big plus</li>
+  </ul>
+  <div class="contact" style="margin-top:22px">
+    <div class="row"><div><div class="k">微信（注明「SAI」）</div><div class="v">www81158416</div></div><button class="copy" onclick="cp('www81158416')">复制</button></div>
+  </div>
+  <a class="btn" href="#join" onclick="cp('www81158416');return false;">复制微信号，约 coffee chat</a>
+</section>
+
+</div>
+<footer>FTA LLC · 芝加哥 / 香港</footer>
+</div>
+<a id="top" href="#page-top" aria-label="回到顶部">↑<br>顶部</a>
+<div id="toast">已复制</div>
+<script>
+function unlock(){if(document.getElementById('pw').value==='0000'){try{sessionStorage.setItem('fta_tal','1')}catch(e){}document.documentElement.classList.remove('lock');window.scrollTo(0,0)}else{document.getElementById('pwerr').textContent='密码不对，请再试一次'}}
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock()});
+
+document.querySelectorAll('.ph').forEach(function(b){b.addEventListener('click',function(){var v=document.createElement('video');v.src=b.getAttribute('data-v');v.controls=true;v.autoplay=true;v.setAttribute('playsinline','');b.parentNode.replaceChild(v,b)})});
+function cp(t){var ok=function(){var s=document.getElementById('toast');s.style.display='block';setTimeout(function(){s.style.display='none'},1500)};try{navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()})}catch(e){fb(t);ok()}}
+function fb(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a)}
+</script>
+</body>
+</html>
