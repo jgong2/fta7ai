@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FTA · 让中国制造被世界信任</title>
+<meta name="description" content="FTA：供应链质量智能体。AI 原生公司，让中国制造被世界信任。">
+<style>
+:root{--bg:#0a0a0a;--fg:#f2f2ef;--mute:#9a9a95;--line:#1f1f1f;--card:#101010;
+--or:#ff8a3d;--or-l:#ffbd8a;--or-d:#a84a15;--gr:#34d399;--gr-l:#86efac;--gr-d:#176b4c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.7;font-size:17px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:0 22px}
+section{padding:84px 0;position:relative}
+.kicker{font-size:12px;letter-spacing:.32em;color:var(--or);margin-bottom:14px}
+h1{font-size:46px;line-height:1.15;font-weight:900;letter-spacing:-.01em}
+h2{font-size:30px;line-height:1.3;font-weight:800;margin-bottom:22px}
+.or{color:var(--or)}.gr{color:var(--gr)}
+.lead{font-size:19px;color:#d9d9d4;margin-top:22px}
+.mute{color:var(--mute);font-size:15px}
+/* hero */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding-top:40px}
+.glow{position:absolute;inset:-20% -40% auto auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,61,.28),rgba(255,138,61,0) 65%);filter:blur(10px);pointer-events:none;animation:drift 9s ease-in-out infinite alternate}
+.glow.g2{inset:auto auto -30% -50%;background:radial-gradient(circle,rgba(52,211,153,.18),rgba(52,211,153,0) 65%);animation-duration:12s}
+@keyframes drift{to{transform:translate(-40px,30px) scale(1.08)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chips span{font-size:13px;border:1px solid #333;border-radius:999px;padding:4px 12px;color:#cfcfca}
+.chips span.hot{border-color:var(--or-d);color:var(--or)}
+.scroll{margin-top:56px;font-size:13px;color:var(--mute);letter-spacing:.2em}
+.line{height:2px;background:linear-gradient(90deg,var(--or),var(--gr));margin:0 0 0;opacity:.8}
+/* big number */
+.big{font-size:84px;font-weight:900;line-height:1;background:linear-gradient(90deg,var(--or),var(--or-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.big small{font-size:34px}
+.src{font-size:12px;color:#666;margin-top:14px}
+/* cards */
+.card{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--card);margin-bottom:14px}
+.card b{font-size:18px;display:block;margin-bottom:6px}
+.card p{color:#c9c9c4;font-size:16px}
+/* gates */
+.gates{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:26px 0 10px}
+.gate{aspect-ratio:1/2.2;border-radius:12px;border:1px solid #2a2a2a;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:8px 2px;font-size:12px;color:var(--mute);text-align:center;position:relative;overflow:hidden}
+.gate:before{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--h);background:linear-gradient(0deg,rgba(255,138,61,.35),rgba(255,138,61,.05))}
+.gate.on{border-color:var(--gr-d);color:var(--gr-l)}
+.gate.on:before{background:linear-gradient(0deg,rgba(52,211,153,.5),rgba(52,211,153,.08))}
+.gate i{font-style:normal;position:relative;font-weight:700;font-size:13px}
+.gate em{font-style:normal;position:relative;font-size:10px;margin-top:2px}
+/* team */
+.team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:22px}
+.team div{border:1px solid var(--line);border-radius:14px;padding:14px 6px;text-align:center;background:var(--card)}
+.team b{display:block;font-size:15px}
+.team span{font-size:12px;color:var(--mute)}
+.team .me{grid-column:1/-1;border-color:var(--or-d)}
+.team.ai div{padding:16px 6px;border-color:var(--gr-d)}
+.team.ai b{color:var(--gr-l)}
+.team .me b{color:var(--or)}
+/* video */
+.vid{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#000;margin-bottom:14px}
+.ph{display:block;width:100%;aspect-ratio:16/9;background:#111 center/cover no-repeat;border:0;position:relative;cursor:pointer}
+.ph:after{content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:var(--or);color:#0a0a0a;font-size:22px;display:flex;align-items:center;justify-content:center;padding-left:4px;box-shadow:0 0 30px rgba(255,138,61,.6)}
+.vid video{width:100%;display:block}
+.cap{padding:12px 16px;background:var(--card)}
+.cap b{display:block;font-size:16px}.cap span{font-size:13px;color:var(--mute)}
+/* road */
+.road{border-left:2px solid #2a2a2a;margin-left:8px;padding-left:22px}
+.road div{position:relative;margin-bottom:24px}
+.road div:before{content:"";position:absolute;left:-30px;top:6px;width:14px;height:14px;border-radius:50%;background:#222;border:2px solid var(--or)}
+.road div.on:before{background:var(--gr);border-color:var(--gr)}
+.road b{font-size:18px}
+.road p{color:var(--mute);font-size:15px}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:17px;margin-top:14px;background:var(--or);color:#0a0a0a;box-shadow:0 0 34px rgba(255,138,61,.35)}
+.contact{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--card)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .k{color:var(--mute);font-size:13px}.row .v{font-size:19px;font-weight:800}
+.copy{background:none;border:1px solid var(--or);color:var(--or);border-radius:10px;padding:6px 12px;font-size:14px}
+footer{padding:40px 0 100px;text-align:center;color:#555;font-size:12px}
+#top{position:fixed;right:16px;bottom:20px;width:48px;height:48px;border-radius:50%;background:#161616;border:1px solid #444;color:var(--fg);font-size:13px;line-height:1.1;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:60}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--gr);color:#0a0a0a;font-weight:700;padding:8px 18px;border-radius:999px;font-size:14px;display:none;z-index:70}
+.brain{margin-top:24px;text-align:center}
+.brain b{display:block;font-size:16px}.brain span{font-size:12px;color:var(--mute)}
+.b-hq{border:1px solid var(--or-d);border-radius:16px;padding:14px;background:rgba(255,138,61,.08);box-shadow:0 0 30px rgba(255,138,61,.18)}
+.b-hq b{color:var(--or)}
+.b-wire{height:44px;position:relative}
+.b-wire span{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(var(--or),var(--gr));animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.b-aw{border:1px solid var(--gr-d);border-radius:16px;padding:12px;background:rgba(52,211,153,.07)}
+.b-aw b{color:var(--gr)}
+.b-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.b-w{border:1px solid #2a2a2a;border-radius:12px;padding:10px 4px;background:var(--card)}
+.reveal{opacity:0;transform:translateY(24px);transition:all .8s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body id="page-top">
+
+<div class="wrap">
+
+<!-- 1 首屏：一句话概念 -->
+<section class="hero">
+  <div class="glow"></div><div class="glow g2"></div>
+  <div class="kicker">FTA · 供应链质量智能体</div>
+  <h1>让<span class="or">中国制造</span><br>被世界<span class="gr">信任</span></h1>
+  <p class="lead">我们用 AI 智能体，把 30 年供应商质量经验变成一套会自己判断的系统——帮中国工厂拿到欧美订单，帮欧美买家放心下单。</p>
+  <div class="chips">
+    <span class="hot">AI 原生</span><span class="hot">智能体 Agent</span><span>出海</span><span>新质生产力</span><span>中美双基地</span>
+  </div>
+  <div class="scroll">向下滑 ↓</div>
+</section>
+<div class="line"></div>
+
+<!-- 2 一个数字：痛点有多大 -->
+<section class="reveal">
+  <div class="kicker">一个数字</div>
+  <div class="big">15–20<small>%</small></div>
+  <h2 style="margin-top:18px">制造业最大的隐形成本</h2>
+  <p>返工、退货、召回、停线、丢客户——质量出问题的代价，常常吃掉企业销售额的一大块，而且大部分藏在报表看不见的地方。</p>
+  <p class="src">数据来源：美国质量协会 ASQ（American Society for Quality）对「质量成本」的常用估计</p>
+</section>
+
+<!-- 3 痛点故事：视频 -->
+<section class="reveal">
+  <div class="kicker">真实场景</div>
+  <h2>欧美买家最怕的三件事</h2>
+  <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP1_EyesOnAsia_poster.jpg)" data-v="https://fta7ai.com/videos/EP1_EyesOnAsia_web_ready.mp4"></button><div class="cap"><b>看不见：工厂在万里之外</b><span>白板动画第一集 · 英文原版</span></div></div>
+  <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP3_CAPAFakeClosure_poster.jpg)" data-v="https://fta7ai.com/videos/EP3_CAPAFakeClosure_web_ready.mp4"></button><div class="cap"><b>信不过：整改报告是真是假</b><span>白板动画第三集 · 英文原版</span></div></div>
+  <div class="vid"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EP5_PerfectSampleProductionDisaster_poster.jpg)" data-v="https://fta7ai.com/videos/EP5_PerfectSampleProductionDisaster_web_ready.mp4"></button><div class="cap"><b>赌不起：样品完美，量产翻车</b><span>白板动画第五集 · 英文原版</span></div></div>
+</section>
+
+<!-- 4 答案：SAI 五道门 -->
+<section class="reveal">
+  <div class="kicker">我们的答案</div>
+  <h2>SAI：供应链的<br><span class="or">五道信任之门</span></h2>
+  <p>SAI = Supply Assurance Intelligence（供应链保证智能）。一件产品从设计到交货，要过五道门。今天打通第一道，五道全通就是一个平台。</p>
+  <div class="gates">
+    <div class="gate on" style="--h:100%"><i>审核</i><em>已在跑</em></div>
+    <div class="gate" style="--h:55%"><i>供应</i><em>规划</em></div>
+    <div class="gate" style="--h:40%"><i>设计</i><em>规划</em></div>
+    <div class="gate" style="--h:30%"><i>合规</i><em>规划</em></div>
+    <div class="gate" style="--h:20%"><i>信任</i><em>规划</em></div>
+  </div>
+  <p class="mute">供应商审核 → 供应验证 → 设计验证 → 合规验证 → 信任验证</p>
+  <div class="vid" style="margin-top:26px"><button class="ph" style="background-image:url(https://fta7ai.com/videos/SAI_Promo_v9_CN_poster.jpg)" data-v="https://fta7ai.com/videos/SAI_Promo_v9_CN.mp4"></button><div class="cap"><b>SAI 平台中文宣传片</b><span>4 分钟</span></div></div>
+</section>
+
+<!-- 5 创始团队：人 + AI -->
+<section class="reveal">
+  <div class="kicker">AI 原生公司 · AI-Originated Company</div>
+  <h2>创始团队，<br>一半是人，一半是 <span class="gr">AI</span></h2>
+  <p>在我们眼里，AI 不是工具，是创始团队的一员。人类创始人负责方向、判断和关系；AI 创始人来自全球最先进的几家大模型，负责思考、执行和日夜不停的迭代。</p>
+  <h3 style="font-size:16px;color:var(--or);margin:26px 0 6px;letter-spacing:.1em">人类创始人</h3>
+  <p class="mute" style="margin-bottom:12px">30 年供应商质量工程 · 航空 / 汽车 / 医疗器械 · 中美两地</p>
+  <div class="team">
+    <div><b>首席创始人</b><span>方向与判断</span></div>
+    <div><b>联合创始人</b><span>运营管理 · 虚位以待</span></div>
+    <div><b>联合创始人</b><span>市场与技术攻坚 · 虚位以待</span></div>
+  </div>
+  <h3 style="font-size:16px;color:var(--gr);margin:26px 0 10px;letter-spacing:.1em">AI 创始人</h3>
+  <div class="team ai">
+    <div><b>Claude</b></div>
+    <div><b>OpenAI GPT</b></div>
+    <div><b>DeepSeek</b></div>
+    <div><b>通义千问 Qwen</b></div>
+    <div><b>WorkBuddy</b></div>
+    <div><b>更多模型</b></div>
+  </div>
+  <p class="mute" style="margin-top:14px">宣传片和白板动画，就是这支 AI 团队自己做出来的。</p>
+</section>
+
+<!-- 5b 中美双脑 -->
+<section class="reveal">
+  <div class="kicker">中美双脑</div>
+  <h2>一个大脑，<br><span class="or">多双手</span></h2>
+  <p>各家大模型各有所长：有的擅长思考决策，负责拆任务、定标准、终审；有的擅长具体事务，通过阿里云工作站 AW、WorkBuddy 等平台批量落地执行。哪家好用用哪家，哪家合适用哪家。</p>
+  <div class="brain">
+    <div class="b-hq"><b>决策层</b><span>拆任务 · 定标准 · 终审</span></div>
+    <div class="b-wire"><span></span></div>
+    <div class="b-aw"><b>调度层 · 阿里云工作站 AW · WorkBuddy</b><span>任务分派 · 结果回收</span></div>
+    <div class="b-row">
+      <div class="b-w"><b>DeepSeek</b><span>推理</span></div>
+      <div class="b-w"><b>Qwen 千问</b><span>批量</span></div>
+      <div class="b-w"><b>更多模型</b><span>随时接入</span></div>
+    </div>
+  </div>
+  <div class="vid" style="margin-top:26px"><button class="ph" style="background-image:url(https://fta7ai.com/videos/EPG01_AITeam_CN_poster.jpg)" data-v="https://fta7ai.com/videos/EPG01_AITeam_CN.mp4"></button><div class="cap"><b>白板动画 · FTA 怎么带一支 AI 团队</b><span>不到 2 分钟 · 由 AI 团队自己制作</span></div></div>
+  <p class="mute" style="margin-top:14px">模型是原材料，随时可换；调度和判断标准，是我们自己的。</p>
+</section>
+
+<!-- 6 护城河 -->
+<section class="reveal">
+  <div class="kicker">护城河</div>
+  <h2>模型谁都能买，<br><span class="or">判断买不到</span></h2>
+  <div class="card"><b>30 年的判断，变成系统</b><p>老师傅脑子里「这条记录可不可信」的判断，被一条条拆出来，变成机器能执行的标准。</p></div>
+  <div class="card"><b>每个字都有出处</b><p>AI 给出的每个结论，都能追到原始文件的哪一页、哪一行。</p></div>
+  <div class="card"><b>越用越准</b><p>专家每改一次判断，系统就记一次、学一次。用的人越多，判断越准，别人越追不上。</p></div>
+</section>
+
+<!-- 7 路线 -->
+<section class="reveal">
+  <div class="kicker">路线</div>
+  <h2>从一道门，到一个平台</h2>
+  <div class="road">
+    <div class="on"><b>第一步 · 供应商审核智能体</b><p>打通第一道门，跑真实工厂资料。</p></div>
+    <div><b>第二步 · 五道门全通</b><p>从审核扩到供应、设计、合规、信任验证。</p></div>
+    <div><b>第三步 · 供应链信任平台</b><p>工厂和买家在同一个平台上互相验证，中国制造带着「信任证明」出海。</p></div>
+  </div>
+</section>
+
+<!-- 8 联系 -->
+<section class="reveal" id="contact">
+  <div class="kicker">种子期 · 寻找同行者</div>
+  <h2>一起把这件事做大</h2>
+  <div class="contact">
+    <div class="row"><div><div class="k">微信</div><div class="v">www81158416</div></div><button class="copy" onclick="cp('www81158416')">复制</button></div>
+    <div class="row"><div><div class="k">电话</div><div class="v">132 7705 1950</div></div><a class="copy" href="tel:+8613277051950" style="text-decoration:none">拨打</a></div>
+  </div>
+  <a class="btn" href="#contact" onclick="cp('www81158416');return false;">复制微信号，约一次面谈</a>
+</section>
+
+</div>
+<footer>FTA LLC · 芝加哥 / 香港</footer>
+<a id="top" href="#page-top" aria-label="回到顶部">↑<br>顶部</a>
+<div id="toast">已复制</div>
+<script>
+document.querySelectorAll('.ph').forEach(function(b){b.addEventListener('click',function(){var v=document.createElement('video');v.src=b.getAttribute('data-v');v.controls=true;v.autoplay=true;v.setAttribute('playsinline','');b.parentNode.replaceChild(v,b)})});
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12}):null;
+document.querySelectorAll('.reveal').forEach(function(el){io?io.observe(el):el.classList.add('in')});
+function cp(t){var ok=function(){var s=document.getElementById('toast');s.style.display='block';setTimeout(function(){s.style.display='none'},1500)};try{navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()})}catch(e){fb(t);ok()}}
+function fb(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a)}
+</script>
+</body>
+</html>
