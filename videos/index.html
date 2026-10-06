@@ -58,6 +58,17 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-s
 </style>
 </head>
 <body>
+<div id="ftagate" style="position:fixed;inset:0;z-index:2147483000;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f2f2ef">
+<div style="font-size:12px;letter-spacing:.3em;color:#ff8a3d;margin-bottom:14px">FTA · PRIVATE PREVIEW</div>
+<div style="font-size:22px;font-weight:700;margin-bottom:22px">Please enter access code</div>
+<input id="ftapw" type="password" inputmode="numeric" maxlength="8" autocomplete="off" style="width:200px;font-size:28px;letter-spacing:.5em;text-align:center;background:#111;border:1px solid #333;color:#f2f2ef;border-radius:14px;padding:12px 0 12px .5em;outline:none">
+<button id="ftago" style="margin-top:16px;width:200px;font-size:17px;font-weight:800;border:0;border-radius:14px;padding:13px;background:#ff8a3d;color:#0a0a0a">Enter</button>
+<div id="ftaerr" style="color:#ffbd8a;font-size:14px;height:20px;margin-top:12px"></div></div>
+<script>(function(){var g=document.getElementById('ftagate');try{if(sessionStorage.getItem('fta_cn_ok')==='1'){g.style.display='none';return}}catch(e){}
+document.documentElement.style.overflow='hidden';
+function ok(){var v=document.getElementById('ftapw').value;if(v==='0000'){try{sessionStorage.setItem('fta_cn_ok','1')}catch(e){}g.style.display='none';document.documentElement.style.overflow=''}else{document.getElementById('ftaerr').textContent='Incorrect code'}}
+document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').addEventListener('keydown',function(e){if(e.key==='Enter')ok()});})();</script>
+
 <header>
 <div class="wrap nav">
 <a class="logo" href="/"><div class="mark">F</div> FTA</a>
