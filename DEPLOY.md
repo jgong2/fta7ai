@@ -22,7 +22,7 @@ GitHub Pages 直出：`main` 分支根目录 → `fta7ai.com`。
 2. `git add -A && git commit -m "..."` → `git push origin main`
 3. 等 ~1 分钟，刷新 fta7ai.com 验收
 - 推送凭证 PAT：`~/.github_fta7ai_token`（约 2026-10-11 到期，过期需 Boss 重发）
-- **红线**：发布 = Boss 本人点，AI 只准备/暂存、不代推。
+- **发布口径（Boss 2026-10-16 当面改）**：DJ 可以直接 push 上线，不用再等 Boss 点。Jose 本地 commit → 派 DJ 推 → DJ 线上自测 + 回执。（旧口径「Boss 本人点、AI 不代推」作废）
 
 ## 上线前必做：旧版存档 / Rollback safety
 切换前给当前线上版打 tag：
