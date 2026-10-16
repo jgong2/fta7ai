@@ -177,6 +177,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       <a data-go="home" class="active">Home</a>
       <a data-go="services">What we do</a>
       <a data-go="insights">Insight Series</a>
+      <a data-go="datacenter">Data Center</a>
       <a data-go="contact">Contact</a>
     </nav>
     <a class="cta-btn" data-go="contact">Get in touch</a>
@@ -286,6 +287,65 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
   </div></div>
 </section>
 
+<!-- ====== Data Center 资料中心（Boss 2026-10-16 令加 · 只放 10 月新作 · Jose）====== -->
+<section class="page" id="datacenter">
+  <div class="sec"><div class="wrap">
+    <div id="dcgate" style="max-width:360px;margin:60px auto;text-align:center">
+      <span class="eyebrow">Data Center</span>
+      <p style="color:var(--ink-2);margin:14px 0 18px">Enter access code</p>
+      <input id="dcpw" type="password" maxlength="8" autocomplete="off" style="width:200px;font-size:24px;letter-spacing:.4em;text-align:center;border:1px solid #ccc;border-radius:12px;padding:10px 0 10px .4em">
+      <div><button class="btn-primary" id="dcgo" style="margin-top:14px;width:200px">Enter</button></div>
+      <div id="dcerr" style="color:#c2410c;font-size:13px;height:18px;margin-top:10px"></div>
+    </div>
+    <div id="dcbody" style="display:none">
+    <div class="sec-head">
+      <span class="eyebrow">Data Center</span>
+      <h2>New from FTA · October 2026</h2>
+      <p>Our latest films, made this month by FTA&rsquo;s AI team. Tap any card to play.</p>
+    </div>
+
+    <div class="cover feat-cover" style="background-image:url('videos/SAA_Promo_202610_EN_poster.jpg')" data-v="videos/SAA_Promo_202610_EN.mp4">
+      <div class="ep">FEATURED · SAA · 6:41</div>
+      <div class="pbtn"></div>
+      <div class="cap"><b>SAA — Supplier Audit Agent</b><span class="sub">The full October film: how FTA&rsquo;s Supplier Audit Agent reads supplier quality documents.</span></div>
+    </div>
+
+    <div class="sq-grid">
+      <div class="cover sq" style="background-image:url('videos/EP01_EyesOnTheGround_202610_EN_poster.jpg')" data-v="videos/EP01_EyesOnTheGround_202610_EN.mp4"><div class="ep">EPISODE 1</div><div class="pbtn"></div><div class="cap"><b>Eyes on the Ground</b><span class="sub">Who is really watching your suppliers on the other side of the world.</span></div></div>
+      <div class="cover sq" style="background-image:url('videos/EP03_CAPA_202610_artist_voiceover_poster.jpg')" data-v="videos/EP03_CAPA_202610_artist_voiceover.mp4"><div class="ep">EPISODE 3</div><div class="pbtn"></div><div class="cap"><b>The 8D Looked Perfect</b><span class="sub">Telling a real corrective action from a paperwork closure.</span></div></div>
+    </div>
+
+    <div class="saa-link"><a data-go="saa">SAA ↗</a></div>
+
+    <div style="margin-top:120px;text-align:center"><a id="mvpopen" style="font-size:12px;color:#9aa0a6;letter-spacing:.08em;cursor:pointer">· MVP ·</a></div>
+    <div id="mvpgate" style="display:none;max-width:320px;margin:16px auto;text-align:center">
+      <input id="mvppw" type="password" maxlength="8" autocomplete="off" style="width:180px;font-size:20px;letter-spacing:.4em;text-align:center;border:1px solid #ccc;border-radius:10px;padding:8px 0 8px .4em">
+      <div><button class="btn-primary" id="mvpgo" style="margin-top:10px;width:180px">Unlock</button></div>
+      <div id="mvperr" style="color:#c2410c;font-size:13px;height:18px;margin-top:8px"></div>
+    </div>
+    <div id="mvpbox" style="display:none">
+<div class="engine" style="margin-top:18px">
+      <div class="disclaimer"><b>Early preview</b> &mdash; live demo of FTA&rsquo;s ASTM knowledge base. Answers are citations only (standard, section, page, short excerpt) &mdash; never full text. For a real demonstration, contact us directly &rarr; <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a></div>
+      <div class="erow"><span class="edot"></span><span class="etag">ENGINE STATUS: LIVE DEMO &mdash; ASTM knowledge base, citation-only</span></div>
+      <p class="ehint">Ask the engine a question to see the retrieval flow run end-to-end.</p>
+      <div class="ask">
+        <input id="q" type="text" placeholder="e.g. A106 Grade B carbon and manganese limits" />
+        <button class="btn-primary" onclick="ask()">Ask</button>
+      </div>
+      <div class="answer" id="ans">Awaiting your question&hellip;</div>
+      <div class="pipeline">
+        <span class="pill">1 &middot; <b>Query</b></span>
+        <span class="pill">2 &middot; <b>Embed</b> (vector)</span>
+        <span class="pill">3 &middot; <b>Retrieve</b> chunks</span>
+        <span class="pill">4 &middot; <b>LLM</b> synthesize</span>
+        <span class="pill">5 &middot; <b>Answer</b> + sources</span>
+      </div>
+    </div>
+    </div>
+    </div><!-- /dcbody -->
+  </div></div>
+</section>
+
 <!-- ====== SAA 二级页（FTA 的次要产品线；主线仍是 FTA）====== -->
 <section class="page" id="saa">
   <div class="sec"><div class="wrap">
@@ -303,23 +363,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       <p style="text-align:center;color:var(--ink-2);font-size:14px;margin-top:14px">See SAA in 90 seconds &mdash; product demo.</p>
     </div>
 
-    <div class="engine" style="margin-top:58px">
-      <div class="disclaimer"><b>Early preview</b> &mdash; the retrieval skeleton is live, but the model is not yet connected. Responses are placeholders. For a real demonstration, contact us directly &rarr; <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a></div>
-      <div class="erow"><span class="edot"></span><span class="etag">ENGINE STATUS: SKELETON MODE &mdash; model not yet connected</span></div>
-      <p class="ehint">Ask the engine a question to see the retrieval flow run end-to-end (placeholder response).</p>
-      <div class="ask">
-        <input id="q" type="text" placeholder="e.g. What is FTA&rsquo;s approach to supplier quality?" />
-        <button class="btn-primary" onclick="ask()">Ask</button>
-      </div>
-      <div class="answer" id="ans">Awaiting your question&hellip;</div>
-      <div class="pipeline">
-        <span class="pill">1 &middot; <b>Query</b></span>
-        <span class="pill">2 &middot; <b>Embed</b> (vector)</span>
-        <span class="pill">3 &middot; <b>Retrieve</b> chunks</span>
-        <span class="pill">4 &middot; <b>LLM</b> synthesize</span>
-        <span class="pill">5 &middot; <b>Answer</b> + sources</span>
-      </div>
-    </div>
+    
 
     <div class="saa-link" style="margin-top:52px"><a data-go="home">&larr; Back to FTA home</a></div>
   </div></div>
@@ -354,7 +398,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
     <div class="brand"><span class="mark">FTA</span></div>
     <span style="color:#9fa891;font-size:14px">Consulting Quality · Chicago HQ · Hong Kong base · Since 1992</span>
   </div>
-  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a data-go="saa">SAA</a></div>
+  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a data-go="datacenter">Data Center</a> · <a data-go="saa">SAA</a></div>
 </div></footer>
 
 <script>
@@ -372,21 +416,43 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       c.style.cursor='default';
     });
   });
+  var MVP_API="https://affects-passive-prefer-measured.trycloudflare.com";
+  function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
   function ask(){
     var q=document.getElementById('q').value.trim();
     var ans=document.getElementById('ans');
     if(!q){ans.textContent='Type a question first.';return;}
-    ans.innerHTML='<span style="color:var(--accent-dark)">\u258d running pipeline\u2026</span>';
-    var steps=['Query received','Embedding query \u2192 vector','Retrieving top-k chunks from knowledge base','LLM synthesizing answer'];
-    var i=0;
-    var t=setInterval(function(){
-      if(i<steps.length){ans.innerHTML=steps.slice(0,i+1).map(function(x){return '\u00b7 '+x;}).join('<br>');i++;}
-      else{clearInterval(t);
-        ans.innerHTML='<b style="color:var(--ink)">Skeleton response</b><br>The retrieval pipeline ran for: <i>"'+q.replace(/</g,'&lt;')+'"</i>.<br><br>Placeholder answer \u2014 connect an LLM + embedding model to return real, sourced answers from FTA\'s knowledge base.';
-      }
-    },420);
+    var code=(document.getElementById('mvppw')||{}).value||'MMMM';
+    ans.innerHTML='<span style="color:var(--accent-dark)">▍ searching ASTM knowledge base…</span>';
+    fetch(MVP_API+'/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,tier:'fast',access_code:code})})
+    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+    .then(function(x){
+      if(x.s!==200||!x.j.ok){ans.innerHTML='Service replied '+x.s+'. '+esc((x.j&&x.j.error)||'');return;}
+      var h='<b style="color:var(--ink)">'+esc(x.j.conclusion)+'</b><br><br>';
+      (x.j.citations||[]).forEach(function(c){h+='<div style="margin:0 0 10px">· <b>ASTM '+esc(c.std_no)+'</b> §'+esc(c.section_no)+' '+esc(c.section_title)+' · p.'+esc(c.page)+(c.edition_yr?' · '+esc(c.edition_yr):'')+'<br><span style="color:var(--ink-2)">“'+esc(c.excerpt)+'”</span></div>';});
+      h+='<div style="font-size:12px;color:var(--ink-2)">'+esc(x.j.gate&&x.j.gate.notice)+' · '+esc(x.j.took_ms)+' ms</div>';
+      ans.innerHTML=h;
+    })
+    .catch(function(){ans.innerHTML='Could not reach the search service right now (the demo server may be offline). Contact <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a>.';});
   }
   var _q=document.getElementById('q'); if(_q){_q.addEventListener('keydown',function(e){if(e.key==='Enter')ask();});}
+
+  (function(){
+    function unlock(gid,bid,pid,eid,code,key){
+      var g=document.getElementById(gid),b=document.getElementById(bid);
+      function show(){g.style.display='none';b.style.display='block';}
+      try{if(sessionStorage.getItem(key)==='1'){show();}}catch(e){}
+      function ok(){if(document.getElementById(pid).value===code){try{sessionStorage.setItem(key,'1')}catch(e){}show();}else{document.getElementById(eid).textContent='Incorrect code';}}
+      return ok;
+    }
+    var dcok=unlock('dcgate','dcbody','dcpw','dcerr','DDDD','fta_dc_ok');
+    document.getElementById('dcgo').addEventListener('click',dcok);
+    document.getElementById('dcpw').addEventListener('keydown',function(e){if(e.key==='Enter')dcok();});
+    var mok=unlock('mvpgate','mvpbox','mvppw','mvperr','MMMM','fta_mvp_ok');
+    document.getElementById('mvpopen').addEventListener('click',function(){var b=document.getElementById('mvpbox');if(b.style.display!=='block'){document.getElementById('mvpgate').style.display='block';}});
+    document.getElementById('mvpgo').addEventListener('click',mok);
+    document.getElementById('mvppw').addEventListener('keydown',function(e){if(e.key==='Enter')mok();});
+  })();
 </script>
 </body>
 </html>
