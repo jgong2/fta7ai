@@ -422,7 +422,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
     var q=document.getElementById('q').value.trim();
     var ans=document.getElementById('ans');
     if(!q){ans.textContent='Type a question first.';return;}
-    var code=(document.getElementById('mvppw')||{}).value||'MMMM';
+    var code=(document.getElementById('mvppw')||{}).value||'0000';
     ans.innerHTML='<span style="color:var(--accent-dark)">▍ searching ASTM knowledge base…</span>';
     fetch(MVP_API+'/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,tier:'fast',access_code:code})})
     .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
@@ -445,10 +445,10 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       function ok(){if(document.getElementById(pid).value===code){try{sessionStorage.setItem(key,'1')}catch(e){}show();}else{document.getElementById(eid).textContent='Incorrect code';}}
       return ok;
     }
-    var dcok=unlock('dcgate','dcbody','dcpw','dcerr','DDDD','fta_dc_ok');
+    var dcok=unlock('dcgate','dcbody','dcpw','dcerr','0000','fta_dc_ok');
     document.getElementById('dcgo').addEventListener('click',dcok);
     document.getElementById('dcpw').addEventListener('keydown',function(e){if(e.key==='Enter')dcok();});
-    var mok=unlock('mvpgate','mvpbox','mvppw','mvperr','MMMM','fta_mvp_ok');
+    var mok=unlock('mvpgate','mvpbox','mvppw','mvperr','0000','fta_mvp_ok');
     document.getElementById('mvpopen').addEventListener('click',function(){var b=document.getElementById('mvpbox');if(b.style.display!=='block'){document.getElementById('mvpgate').style.display='block';}});
     document.getElementById('mvpgo').addEventListener('click',mok);
     document.getElementById('mvppw').addEventListener('keydown',function(e){if(e.key==='Enter')mok();});
