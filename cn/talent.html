@@ -38,8 +38,8 @@ p+p{margin-top:12px}
 .node small{display:block;color:var(--mute);font-size:12px}
 .node.llm{border-color:var(--or-d)}
 .node.llm b{color:var(--or)}
-.node.gate{border-color:var(--gr-d)}
-.node.gate b{color:var(--gr)}
+.node.exit{border-color:var(--gr-d)}
+.node.exit b{color:var(--gr)}
 .arrow{text-align:center;color:#555;font-size:14px;line-height:1.4}
 .loop{margin-top:10px;border:1px dashed var(--or-d);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--or-l)}
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--mute)}
@@ -110,7 +110,7 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 <div id="gate"><div class="kicker">FTA · SAI</div><h2 style="margin:0">请输入打开密码</h2><input id="pw" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><button onclick="unlock()">进入</button><div class="err" id="pwerr"></div></div>
 
 <nav><div class="wrap">
-<a href="#about">关于 FTA</a><a href="#videos">视频</a><a href="#stack">技术</a><a href="#work">合作方式</a><a href="#contact">联系</a>
+<a href="#about">关于 FTA</a><a href="#videos">视频</a><a href="#stack">架构</a><a href="#work">合作方式</a><a href="#contact">联系</a>
 </div></nav>
 
 <div id="app">
@@ -161,11 +161,12 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 
 <!-- 4 技术 -->
 <section id="stack">
-<div class="kicker">TECH STACK</div>
-<h2>用到的三项技术</h2>
+<div class="kicker">ARCHITECTURE · 架构设计</div>
+<h2>我们的架构设计</h2>
+<p class="mute" style="margin-bottom:18px">以下是 Supplier Audit Agent 的设计。标 <span class="gr">已建</span> 的部分已经写成代码并在测试；标 <span class="or">计划中</span> 的部分还没有做，欢迎合作伙伴一起完成。</p>
 
-<div class="prob"><div class="no">LangGraph · 流程状态图</div><h3>把审核流程写成状态图</h3>
-<p>流程由节点、连线和回环组成。只有一个节点调用大模型（LLM）给出建议，其余节点由确定性代码检查引文、给出判定。原则是：<b style="color:var(--fg)">LLM 建议，代码裁决</b>。</p></div>
+<div class="prob"><div class="no">审核流程 · <span class="gr">主体已建</span></div><h3>把审核流程拆成固定步骤</h3>
+<p>审核按固定步骤进行。只有一步交给大模型（LLM）给出建议，其余步骤由程序核对引文、给出判定。原则是：<b style="color:var(--fg)">AI 提建议，程序做裁决</b>。已建：判据规则（12 条）、报告生成器、标准资料接入层。</p></div>
 <div class="graph">
 <div class="node"><b>Ingest 读入</b><small>工厂文件切成片段，每段记录出处</small></div>
 <div class="arrow">↓</div>
@@ -173,17 +174,17 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 <div class="arrow">↓</div>
 <div class="node llm"><b>Evaluate · 唯一的 LLM 节点</b><small>阅读证据，给出建议判定和引文</small></div>
 <div class="arrow">↓</div>
-<div class="node gate"><b>Exit Gate 出口闸</b><small>代码核对引文；证据不足时判为「待现场确认」</small></div>
+<div class="node exit"><b>Exit Gate 出口闸</b><small>代码核对引文；证据不足时判为「待现场确认」</small></div>
 <div class="arrow">↓</div>
 <div class="node"><b>Report 报告</b><small>每条结论可追溯到原文页码</small></div>
-<div class="loop">↺ 专家修改判定 → 存为样本 → 进入评估集 → 继续优化</div>
+<div class="loop">↺ 计划中：专家修改判定 → 存为样本 → 进入评估集 → 继续优化</div>
 </div>
 
-<div class="prob" style="margin-top:14px"><div class="no">Multi-agent · 多模型</div><h3>按难度和成本分配模型</h3>
+<div class="prob" style="margin-top:14px"><div class="no">多模型分工 · <span class="gr">已在使用</span></div><h3>按难度和成本分配模型</h3>
 <p>难度高的判断交给 Claude 等前沿模型；批量、低难度的工作交给通义千问 Qwen、DeepSeek 等模型。模型可以替换，调度层自己维护。</p></div>
 
-<div class="prob"><div class="no">DSPy · 提示词优化</div><h3>用专家样本持续优化</h3>
-<p>DSPy 把提示词（prompt）当作可优化的参数：给定评分函数和一批专家改过的样本，自动寻找效果更好的写法。评分规则重罚漏掉真实问题，鼓励在证据不足时如实标注「待现场确认」。</p></div>
+<div class="prob"><div class="no">DSPy 提示词优化 · <span class="or">计划中</span></div><h3>用专家样本持续优化</h3>
+<p>计划用 DSPy 把提示词（prompt）当作可优化的参数：给定评分函数和一批专家改过的样本，自动寻找效果更好的写法。评分规则重罚漏掉真实问题，鼓励在证据不足时如实标注「待现场确认」。</p></div>
 </section>
 
 <!-- 5 合作方式 -->
