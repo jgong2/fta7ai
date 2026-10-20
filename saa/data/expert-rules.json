@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "status": "coming_soon",
+  "description": "FTA expert knowledge base (rules & experience) for SAA. Intentionally empty. Each entry in `rules` is one auditable line item. A future backend (for example a Cloudflare Worker) can serve the same shape from an endpoint; see SAA.loadExpertRules() in saa/index.html.",
+  "fields": {
+    "id": "string. Unique id, e.g. \"iso9001-8.4.2-001\"",
+    "standard": "string. \"ISO 9001:2015\" | \"IATF 16949:2016\" | \"ISO 13485:2016\"",
+    "clause": "string. Sub-clause number, e.g. \"8.4.2\" (ISO 13485 purchasing is 7.4)",
+    "requirement": "string. The requirement, written in FTA's own words (never copied standard text)",
+    "audit_question": "string. Open question the auditor asks",
+    "evidence": "string[]. Objective evidence to request and review",
+    "sampling": "string. How many / which records, people and time periods to sample",
+    "examples": {
+      "major": "string. Example situation that would be graded Major NC",
+      "minor": "string. Example situation that would be graded Minor NC",
+      "ofi": "string. Example situation that would be an OFI"
+    },
+    "common_findings": "string[]. Typical findings seen in the field",
+    "source": "string. \"standard\" | \"customer_requirement\" | \"experience\"",
+    "reviewer": {
+      "name": "string. Who reviewed and signed off",
+      "signed_off": "boolean",
+      "date": "string. ISO date, e.g. \"2026-10-20\""
+    }
+  },
+  "rules": []
+}

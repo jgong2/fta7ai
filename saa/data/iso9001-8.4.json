@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.1",
+  "module": {
+    "id": "iso9001-8.4",
+    "standard": "ISO 9001",
+    "edition": "ISO 9001:2015",
+    "clause": "8.4",
+    "title": "Control of externally provided processes, products and services",
+    "status": "active",
+    "note": "Framework stage. Questions and evidence below are reproduced verbatim from the source. Sub-clause mapping is an FTA draft for review. FTA expert content is not yet added."
+  },
+  "source": {
+    "name": "Quality-Engineering-Skills",
+    "author": "Ricardo Braga (@RBraga01)",
+    "url": "https://github.com/RBraga01/Quality-Engineering-Skills",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2026 Ricardo Romão Marques Braga",
+    "commit": "70df27cbd6a5ad6808499e934d2c72be4f8bef1e",
+    "files": [
+      "skills/audit/iso-9001-internal-audit/SKILL.md",
+      "skills/audit/iso-9001-internal-audit/references/clause-questions.md"
+    ]
+  },
+  "source_verbatim": [
+    {
+      "file": "references/clause-questions.md",
+      "heading": "§8.4 — Control of externally provided processes, products and services",
+      "questions": [
+        "Are approved supplier lists maintained and updated?",
+        "How are suppliers evaluated and re-evaluated?",
+        "How are supplier performance issues escalated and managed?"
+      ],
+      "evidence": "approved supplier list, supplier evaluation records, supplier corrective action records"
+    },
+    {
+      "file": "SKILL.md",
+      "heading": "§8.4 — Control of externally provided processes/products/services",
+      "questions": [
+        "Is there an approved supplier list?",
+        "Are supplier evaluation criteria defined?",
+        "Are suppliers monitored (performance data, audits)?",
+        "Are purchasing controls appropriate to the risk?"
+      ],
+      "evidence": "approved supplier list, supplier evaluation records, supplier KPIs"
+    }
+  ],
+  "skill": {
+    "goal": "Plan, conduct, and document an ISO 9001:2015 internal audit using objective evidence, correct finding classification, and clear audit reporting.",
+    "when_to_use": [
+      "Planning an internal audit programme",
+      "Conducting an internal audit (process-based or clause-based approach)",
+      "Preparing for a third-party surveillance or recertification audit",
+      "Training an internal auditor"
+    ],
+    "scope_8_4": "Applied here to §8.4 only: the purchasing / supplier management process (selection, evaluation, monitoring, re-evaluation and control of external providers).",
+    "workflow": [
+      {
+        "step": "Scope",
+        "text": "Define audit scope, criteria, and objectives before starting"
+      },
+      {
+        "step": "Independence",
+        "text": "Verify auditor competence and independence (not auditing own work)"
+      },
+      {
+        "step": "Process first",
+        "text": "Audit the process flow first — map evidence to ISO clauses afterwards"
+      },
+      {
+        "step": "Open questions",
+        "text": "Use open questions throughout — no leading questions, no yes/no questions"
+      },
+      {
+        "step": "Objective evidence",
+        "text": "Verify every answer with objective evidence (\"show me\", \"let me see\")"
+      },
+      {
+        "step": "Sampling",
+        "text": "Use sampling: interview multiple people, review multiple records, different time periods"
+      },
+      {
+        "step": "Classify",
+        "text": "Classify findings correctly (Major / Minor / OFI) — do not downgrade under pressure"
+      },
+      {
+        "step": "Record",
+        "text": "Record objective evidence clearly and traceably for every finding"
+      },
+      {
+        "step": "Prior actions",
+        "text": "Check effectiveness of previous corrective actions from prior audit cycles"
+      },
+      {
+        "step": "KPIs",
+        "text": "Confirm process performance against KPIs"
+      },
+      {
+        "step": "Report",
+        "text": "Issue a balanced audit report (findings + strengths)"
+      },
+      {
+        "step": "Follow up",
+        "text": "Track all Major and Minor NCs to closure with owner, due date, and effectiveness verification"
+      }
+    ],
+    "grading": [
+      {
+        "grade": "Major non-conformance",
+        "definition": "Complete absence of a required element; systemic failure of a process; direct failure to achieve the intended result of the QMS"
+      },
+      {
+        "grade": "Minor non-conformance",
+        "definition": "Isolated or single occurrence of a requirement not being met; partial implementation; one piece of objective evidence missing"
+      },
+      {
+        "grade": "OFI (Observation / Opportunity for Improvement)",
+        "definition": "Technically conforming, but auditor sees risk or a better approach — no immediate action required"
+      }
+    ],
+    "grading_note": "Repeated minor non-conformances in the same process may constitute a major non-conformance due to systemic failure — treat patterns as systemic, not isolated.",
+    "finding_must_include": [
+      "Requirement (the ISO clause or procedure that was not met)",
+      "Objective evidence (what was observed, measured, or reviewed)",
+      "Statement of non-conformity (what the gap is)"
+    ],
+    "output_format": {
+      "options": [
+        "A — Structured Markdown (formatted tables and sections, ready to copy)",
+        "B — Plain tables (simplified structure for Excel or Word)",
+        "C — Narrative report (flowing text for a formal document or email)"
+      ],
+      "default": "A",
+      "report_template": "INTERNAL AUDIT REPORT\nStandard: ISO 9001:2015\nAudit criteria: ISO 9001:2015 clauses, internal procedures, customer-specific requirements (if applicable)\nScope: §8.4 Control of externally provided processes, products and services\nDate: [Audit date]\nAuditor: [Name, qualification]\nAuditee: [Department/process owner]\n\nFINDINGS SUMMARY:\nMajor NC: [count]\nMinor NC: [count]\nOFI: [count]\n\nFINDINGS:\nFinding 1 — [MAJOR NC / MINOR NC / OFI]\nClause: §8.4.[x]\nRequirement: [...]\nEvidence: [...]\nFinding: [...]\n\nSTRENGTHS:\n[Positive observations — balanced audit report]\n\nREQUIRED ACTIONS:\n[List major and minor findings requiring CAPA with target dates]"
+    }
+  },
+  "subclauses": [
+    {
+      "id": "8.4.1",
+      "title": "General",
+      "mapping_status": "draft",
+      "questions": [
+        {
+          "text": "Are approved supplier lists maintained and updated?",
+          "from": "clause-questions.md"
+        },
+        {
+          "text": "Is there an approved supplier list?",
+          "from": "SKILL.md"
+        },
+        {
+          "text": "Are supplier evaluation criteria defined?",
+          "from": "SKILL.md"
+        },
+        {
+          "text": "How are suppliers evaluated and re-evaluated?",
+          "from": "clause-questions.md"
+        },
+        {
+          "text": "Are suppliers monitored (performance data, audits)?",
+          "from": "SKILL.md"
+        },
+        {
+          "text": "How are supplier performance issues escalated and managed?",
+          "from": "clause-questions.md"
+        }
+      ],
+      "evidence": [
+        "approved supplier list",
+        "supplier evaluation records",
+        "supplier KPIs",
+        "supplier corrective action records"
+      ],
+      "fta_todo": [
+        "Outsourced processes: how they are identified and brought under QMS control",
+        "Sampling method, Major / Minor / OFI examples and common findings for this sub-clause"
+      ]
+    },
+    {
+      "id": "8.4.2",
+      "title": "Type and extent of control",
+      "mapping_status": "draft",
+      "questions": [
+        {
+          "text": "Are purchasing controls appropriate to the risk?",
+          "from": "SKILL.md"
+        }
+      ],
+      "evidence": [],
+      "fta_todo": [
+        "Type and extent of control (risk-based): audit questions and evidence",
+        "Sampling method, Major / Minor / OFI examples and common findings for this sub-clause"
+      ]
+    },
+    {
+      "id": "8.4.3",
+      "title": "Information for external providers",
+      "mapping_status": "draft",
+      "questions": [],
+      "evidence": [],
+      "fta_todo": [
+        "Information for external providers: audit questions and evidence",
+        "Sampling method, Major / Minor / OFI examples and common findings for this sub-clause"
+      ]
+    }
+  ]
+}
