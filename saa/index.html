@@ -101,6 +101,42 @@
   .fields span{background:var(--band);border:1px solid var(--line);border-radius:20px;padding:4px 11px;font-size:12.5px;color:var(--ink)}
   .ifmeta{font-size:12.5px;color:var(--ink-2);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
 
+  /* Ask SAA chat panel */
+  .ask{padding:8px 0 48px}
+  .askbox{border:1.5px solid var(--accent);border-radius:16px;background:var(--white);box-shadow:0 0 0 4px var(--accent-soft),0 24px 60px -36px rgba(30,40,55,.35);overflow:hidden}
+  .askhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid var(--line);background:#FFFaf5}
+  .askhead h2{font-size:21px;margin:0}
+  .mode{font-size:12px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;white-space:nowrap}
+  .mode.off{background:#EDF0E7;color:var(--ink-2);border:1px solid #c9cfbd}
+  .mode.ai{background:var(--green);color:var(--gd-text)}
+  .convo{height:460px;overflow-y:auto;padding:18px 22px;background:var(--band);display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:82%;padding:11px 15px;border-radius:14px;font-size:14.5px;line-height:1.55;word-wrap:break-word;overflow-wrap:anywhere}
+  .msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px;white-space:pre-wrap}
+  .msg.saa{align-self:flex-start;background:var(--white);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .msg.saa .who{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent-dark);margin-bottom:4px}
+  .msg.saa h5{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin:10px 0 3px}
+  .msg.saa ul{padding-left:18px;margin:2px 0}
+  .msg.saa li{margin:2px 0}
+  .msg.saa .cltag{display:inline-block;background:var(--accent-soft);color:#7A4A1F;font-weight:700;font-size:12.5px;border-radius:6px;padding:1px 8px;margin:0 6px 4px 0}
+  .msg.saa .hint{margin-top:10px;border-left:3px solid var(--accent);background:#FFFaf5;padding:8px 10px;border-radius:0 8px 8px 0;font-size:14px}
+  .msg.saa .hint b{color:var(--accent-dark)}
+  .msg.saa .tiny{font-size:12px;color:var(--ink-2);margin-top:8px}
+  .askform{display:flex;gap:10px;padding:14px 22px;border-top:1px solid var(--line);align-items:flex-end}
+  .askform textarea{flex:1;min-height:58px;max-height:180px;resize:vertical;font:inherit;font-size:15px;padding:10px 12px;border:1px solid #cfd6c4;border-radius:10px;outline:none;color:var(--ink)}
+  .askform textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .askform button{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-weight:700;font-size:15px;cursor:pointer}
+  .askform button:hover{background:var(--accent-dark)}
+  .askform button:disabled{opacity:.6;cursor:default}
+  .asknote{font-size:13px;color:var(--ink-2);padding:0 22px 14px}
+  @media(max-width:600px){
+    .convo{height:420px;padding:14px}
+    .msg{max-width:94%}
+    .askform{flex-direction:column;align-items:stretch;padding:12px 14px}
+    .askhead{padding:14px}
+    .askhead h2{font-size:18px}
+    .asknote{padding:0 14px 12px}
+  }
+
   footer{background:#2b3222;color:#cdd4c1;padding:48px 0 28px;margin-top:40px}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   footer .brand .mark{color:#fff;font-size:30px}
@@ -159,6 +195,22 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       <a class="mod" href="#m-iso13485"><span class="std">ISO 13485:2016 · §7.4</span><b>Purchasing (medical devices)</b><span class="chip soon">Coming soon</span></a>
     </div>
   </div></div>
+
+  <!-- ====== Ask SAA (chat panel; offline matching today, AI endpoint later) ====== -->
+  <section class="ask" id="ask-saa"><div class="wrap">
+    <div class="askbox">
+      <div class="askhead">
+        <h2>Ask SAA — §8.4 audit assistant (preview)</h2>
+        <span class="mode off" id="ask-mode">Offline mode — local matching</span>
+      </div>
+      <div class="convo" id="ask-convo" aria-live="polite"></div>
+      <form class="askform" id="ask-form" autocomplete="off">
+        <textarea id="ask-input" rows="2" placeholder='Describe what you observed at the supplier, e.g. "No evaluation records for 3 of 10 approved suppliers"'></textarea>
+        <button type="submit" id="ask-send">Send</button>
+      </form>
+      <p class="asknote">Preview: answers come from the framework's question bank, not AI yet.</p>
+    </div>
+  </div></section>
 
   <!-- ====== Module 1: ISO 9001 §8.4 (rendered from data/iso9001-8.4.json) ====== -->
   <section class="sec band" id="m-iso9001"><div class="wrap">
@@ -322,6 +374,254 @@ var SAA = window.SAA = {
   }
 };
 SAA.init();
+</script>
+<script>
+/* ====== Ask SAA — chat panel ======
+   AI hook: set aiEndpoint to plug in a future backend (e.g. a Cloudflare Worker URL such as
+   'https://saa.<account>.workers.dev/ask'). The page will POST JSON
+   {message, history, clause:'ISO9001-8.4'} and expects JSON {reply: "..."} back.
+   Leave it '' to use offline mode (local keyword matching, no AI).
+   Never put API keys in this file: the site is public; keys belong in the Worker. */
+var SAA_CONFIG = { aiEndpoint: '' };
+
+(function(){
+  var convo=document.getElementById('ask-convo'), form=document.getElementById('ask-form'),
+      input=document.getElementById('ask-input'), send=document.getElementById('ask-send'),
+      badge=document.getElementById('ask-mode');
+  var history=[], moduleData=null, expertRules=[];
+
+  function aiOn(){return !!(SAA_CONFIG.aiEndpoint&&String(SAA_CONFIG.aiEndpoint).trim());}
+  function setBadge(){
+    if(aiOn()){badge.textContent='AI mode';badge.className='mode ai';}
+    else{badge.textContent='Offline mode — local matching';badge.className='mode off';}
+  }
+  setBadge();
+
+  /* Load data (same files the page renders). Expert rules are consulted first once populated. */
+  var ready=Promise.all([
+    SAA.getJSON(SAA.config.moduleUrl).then(function(d){moduleData=d;}).catch(function(){}),
+    SAA.getJSON(SAA.config.rulesUrl).then(function(r){expertRules=(r&&r.rules)||[];}).catch(function(){})
+  ]);
+
+  /* ---------- DOM helpers (all text goes in via textContent; no raw innerHTML) ---------- */
+  function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n;}
+  function list(items){var u=el('ul');items.forEach(function(t){u.appendChild(el('li',null,t));});return u;}
+  function scroll(){convo.scrollTop=convo.scrollHeight;}
+  function addUser(text){convo.appendChild(el('div','msg user',text));scroll();}
+  function addSaa(build){var b=el('div','msg saa');b.appendChild(el('div','who','SAA'));build(b);convo.appendChild(b);scroll();return b;}
+
+  /* ---------- Offline matching ---------- */
+  var STOP={the:1,a:1,an:1,of:1,for:1,to:1,and:1,or:1,is:1,are:1,was:1,were:1,be:1,with:1,in:1,on:1,at:1,by:1,it:1,this:1,that:1,has:1,have:1,had:1,how:1,there:1,from:1,we:1,they:1,their:1,its:1,as:1,do:1,does:1,did:1};
+  function stem(w){
+    if(w.length>5&&/ing$/.test(w))return w.slice(0,-3);
+    if(w.length>4&&/ed$/.test(w))return w.slice(0,-2);
+    if(w.length>4&&/ies$/.test(w))return w.slice(0,-3)+'y';
+    if(w.length>3&&/s$/.test(w)&&!/ss$/.test(w))return w.slice(0,-1);
+    return w;
+  }
+  function norm(t){return ' '+String(t).toLowerCase().replace(/re-eval/g,'reeval').replace(/[^a-z0-9%\/]+/g,' ').replace(/\s+/g,' ').trim()+' ';}
+  function tokens(t){return norm(t).trim().split(' ').filter(function(w){return w&&!STOP[w];}).map(stem);}
+
+  /* Keyword map: topic -> sub-clause(s), trigger keywords (matched on stemmed tokens or
+     phrases), and patterns selecting the related source questions / evidence from the JSON. */
+  var TOPICS=[
+    {id:'list',label:'Approved supplier list',clauses:['8.4.1'],
+     kw:['approved','approval','asl','avl','list','register','vendor list','approved supplier','supplier list'],
+     q:/approved supplier list/i,ev:/approved supplier list/i},
+    {id:'eval',label:'Supplier evaluation / re-evaluation',clauses:['8.4.1'],
+     kw:['evaluation','evaluate','reevaluation','reevaluate','selection','select','criteria','assessment','assess','qualification','qualify','onboard'],
+     q:/evaluat/i,ev:/evaluation/i},
+    {id:'monitor',label:'Supplier monitoring / performance',clauses:['8.4.1'],
+     kw:['monitor','monitoring','kpi','performance','scorecard','score','rating','delivery','otd','ppm','review'],
+     q:/monitor|performance/i,ev:/kpi/i},
+    {id:'escal',label:'Escalation / supplier corrective action',clauses:['8.4.1'],
+     kw:['escalation','escalate','scar','corrective','capa','8d','complaint','nonconformance','nonconformity','ncr','reject','rejection','defect'],
+     q:/escalat/i,ev:/corrective/i},
+    {id:'risk',label:'Risk-based type and extent of control',clauses:['8.4.2'],
+     kw:['risk','control','controlled','uncontrolled','incoming','inspection','inspect','receiving','iqc','verification','verify','coc','certificate','test report','sampling'],
+     q:/risk/i,ev:null},
+    {id:'outs',label:'Outsourced processes',clauses:['8.4.1','8.4.2'],
+     kw:['outsourced','outsource','outsourcing','subcontract','subcontractor','subcontracted','heat treatment','heat treat','plating','coating','painting','galvaniz','external process','externally provided'],
+     q:/risk/i,ev:null},
+    {id:'info',label:'Information for external providers',clauses:['8.4.3'],
+     kw:['information','requirement','purchase order','po','drawing','revision','rev','specification','spec','communicate','communication','contract','competence','release','approval of product'],
+     q:null,ev:null}
+  ];
+  TOPICS.forEach(function(t){
+    t.single={};t.phrases=[];
+    t.kw.forEach(function(k){var n=norm(k).trim();if(n.indexOf(' ')>=0)t.phrases.push(n);else t.single[stem(n)]=1;});
+  });
+
+  function matchTopics(text){
+    var nt=norm(text), tk=tokens(text), hits=[];
+    TOPICS.forEach(function(t){
+      var score=0, words=[];
+      t.phrases.forEach(function(p){if(nt.indexOf(' '+p+' ')>=0){score+=2;words.push(p);}});
+      tk.forEach(function(w){if(t.single[w]&&words.indexOf(w)<0){score+=1;words.push(w);}});
+      if(score)hits.push({topic:t,score:score,words:words});
+    });
+    hits.sort(function(a,b){return b.score-a.score;});
+    return hits;
+  }
+
+  /* Token overlap with the source questions (catches wording the keyword map misses). */
+  function overlapQuestions(tk){
+    var out=[];if(!moduleData)return out;
+    var set={};tk.forEach(function(w){if(w.length>2&&w!=='supplier')set[w]=1;});
+    moduleData.subclauses.forEach(function(c){
+      c.questions.forEach(function(q){
+        var n=tokens(q.text).filter(function(w){return set[w];}).length;
+        if(n)out.push({clause:c.id,text:q.text,n:n});
+      });
+    });
+    return out;
+  }
+
+  /* Expert rules (data/expert-rules.json). Empty today; once FTA adds rules they are shown first. */
+  function matchRules(tk){
+    var set={};tk.forEach(function(w){if(w.length>2)set[w]=1;});
+    return expertRules.map(function(r){
+      var hay=[r.clause,r.requirement,r.audit_question,(r.evidence||[]).join(' '),(r.common_findings||[]).join(' ')].join(' ');
+      var n=tokens(hay).filter(function(w){return set[w];}).length;
+      return {rule:r,n:n};
+    }).filter(function(x){return x.n>=2;}).sort(function(a,b){return b.n-a.n;}).slice(0,3);
+  }
+
+  /* Suggested grading hint, based only on the framework's general Major / Minor / OFI rules. */
+  function gradeHint(text){
+    var t=norm(text);
+    var ofi=/ (could|should consider|consider|suggest|recommend|improve|improvement|better|opportunity|ofi|nice to have) /.test(t);
+    var ratio=t.match(/ (\d+) (of|out of|\/) ?(\d+) /)||t.match(/ (\d+)\/(\d+) /);
+    var absTotal=/ (none|never|all|any|entire|whole|systemic|systematic|no system|no procedure|no process|no list|no control|not controlled|uncontrolled|not defined|not exist|does not exist|absent|completely|at all) /.test(t);
+    var neg=/ (no|not|missing|without|lack|lacking|lacks|absent|expired|overdue|failed|incomplete|outdated|wrong|never) /.test(t);
+    var isolated=/ (one|single|isolated|1|a few|once|occasional) /.test(t);
+    if(ofi&&!neg)return {g:'OFI',why:'Reads as an improvement idea on something that conforms: "technically conforming, but auditor sees risk or a better approach".'};
+    if(ratio){
+      var n=+(ratio[1]),m=+(ratio[ratio.length-1]);
+      if(m&&n>=m)return {g:'Major NC',why:'Missing in every sampled case ('+n+' of '+m+'), which suggests a systemic failure / complete absence.'};
+      if(n<=1)return {g:'Minor NC',why:'A single occurrence in the sample: "isolated or single occurrence of a requirement not being met".'};
+      return {g:'Minor NC — check for a pattern',why:n+' of '+m+' is more than one case. Partial implementation suggests Minor, but per the framework "repeated minor non-conformances in the same process may constitute a major" — widen the sample before deciding.'};
+    }
+    if(absTotal)return {g:'Major NC',why:'Describes a total absence or uncontrolled process: "complete absence of a required element; systemic failure of a process".'};
+    if(neg&&isolated)return {g:'Minor NC',why:'One case, not the whole process: "isolated or single occurrence".'};
+    if(neg)return {g:'Minor NC (Major if systemic)',why:'A requirement looks unmet, but the extent is not stated. One supplier / one record suggests Minor; if it applies across suppliers or there is no process at all, it suggests Major. Sample more records to decide.'};
+    return {g:'Not enough to grade',why:'No gap is described. State what was missing or wrong, and how many of how many were sampled.'};
+  }
+
+  function offlineReply(text,b){
+    var tk=tokens(text), hits=matchTopics(text), rules=matchRules(tk), ov=overlapQuestions(tk);
+    var sublist=moduleData?moduleData.subclauses:[];
+    var byId={};sublist.forEach(function(c){byId[c.id]=c;});
+
+    if(rules.length){
+      b.appendChild(el('h5',null,'FTA expert rules'));
+      rules.forEach(function(x){
+        var r=x.rule,box=el('div');
+        box.appendChild(el('span','cltag','§'+(r.clause||'?')));
+        box.appendChild(document.createTextNode(r.requirement||''));
+        var items=[];
+        if(r.audit_question)items.push('Ask: '+r.audit_question);
+        if(r.evidence&&r.evidence.length)items.push('Evidence: '+r.evidence.join('; '));
+        if(r.sampling)items.push('Sampling: '+r.sampling);
+        if(r.examples){if(r.examples.major)items.push('Major e.g.: '+r.examples.major);if(r.examples.minor)items.push('Minor e.g.: '+r.examples.minor);if(r.examples.ofi)items.push('OFI e.g.: '+r.examples.ofi);}
+        box.appendChild(list(items));b.appendChild(box);
+      });
+    }
+
+    if(!hits.length&&!ov.length&&!rules.length){
+      b.appendChild(el('p',null,'I couldn\'t match this to §8.4 in the question bank. Try rephrasing with the supplier-control topic, e.g. approved supplier list, evaluation / re-evaluation, monitoring / KPIs, escalation / SCAR, incoming inspection / risk-based control, outsourced process, or purchase order / drawing / requirements.'));
+      b.appendChild(el('div','tiny','Offline mode — local keyword matching, not AI.'));
+      return 'no-match';
+    }
+
+    /* Collect sub-clauses in order of first appearance */
+    var clauses=[];
+    hits.forEach(function(h){h.topic.clauses.forEach(function(c){if(clauses.indexOf(c)<0)clauses.push(c);});});
+    ov.forEach(function(o){if(clauses.indexOf(o.clause)<0)clauses.push(o.clause);});
+
+    b.appendChild(el('p',null,'Matched topic'+(hits.length>1?'s':'')+': '+(hits.length?hits.map(function(h){return h.topic.label;}).join(' · '):'(question wording)')));
+
+    clauses.forEach(function(cid){
+      var c=byId[cid], box=el('div');
+      box.appendChild(el('h5',null,''));
+      box.lastChild.appendChild(el('span','cltag','§'+cid));
+      box.lastChild.appendChild(document.createTextNode(c?c.title:''));
+      if(!c){b.appendChild(box);return;}
+      var tops=hits.filter(function(h){return h.topic.clauses.indexOf(cid)>=0;}).map(function(h){return h.topic;});
+      var qs=[],evs=[];
+      c.questions.forEach(function(q){
+        var rel=tops.some(function(t){return t.q&&t.q.test(q.text);})||ov.some(function(o){return o.clause===cid&&o.text===q.text;});
+        if(rel&&qs.indexOf(q.text)<0)qs.push(q.text);
+      });
+      c.evidence.forEach(function(e){if(tops.some(function(t){return t.ev&&t.ev.test(e);})&&evs.indexOf(e)<0)evs.push(e);});
+      if(qs.length){box.appendChild(el('div',null,'Questions to ask:'));box.appendChild(list(qs));}
+      else box.appendChild(el('div','tiny',c.questions.length?'No source question covers this topic specifically yet.':'No source questions for this sub-clause yet.'));
+      if(evs.length){box.appendChild(el('div',null,'Evidence to check:'));box.appendChild(list(evs));}
+      else box.appendChild(el('div','tiny','No source evidence listed for this topic yet.'));
+      if(!qs.length||!evs.length){
+        var todo=(c.fta_todo||[]).filter(function(x){return !/^Sampling method/.test(x);});
+        if(tops.some(function(t){return t.id==='outs';}))todo=todo.filter(function(x){return /outsourc/i.test(x);}).concat(todo.filter(function(x){return !/outsourc/i.test(x);}));
+        if(todo.length)box.appendChild(el('div','tiny','FTA to complete: '+todo[0]));
+      }
+      b.appendChild(box);
+    });
+
+    var g=gradeHint(text), h=el('div','hint');
+    h.appendChild(el('b',null,'Suggested — auditor must confirm: '+g.g));
+    h.appendChild(el('div',null,g.why));
+    b.appendChild(h);
+    b.appendChild(el('div','tiny','Offline mode — local keyword matching against the framework question bank'+(expertRules.length?' and FTA expert rules':'; FTA expert rules: 0 loaded')+'. Not AI.'));
+    return 'ok';
+  }
+
+  /* ---------- AI mode ---------- */
+  function aiReply(text){
+    return fetch(SAA_CONFIG.aiEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:text,history:history.slice(-20),clause:'ISO9001-8.4'})})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(function(j){if(!j||typeof j.reply!=='string')throw new Error('bad response');return j.reply;});
+  }
+
+  function handle(text){
+    addUser(text);
+    history.push({role:'user',content:text});
+    send.disabled=true;
+    var done=function(){send.disabled=false;input.focus();};
+    if(aiOn()){
+      var thinking=addSaa(function(b){b.appendChild(el('div','tiny','Thinking…'));});
+      aiReply(text).then(function(reply){
+        convo.removeChild(thinking);
+        addSaa(function(b){var p=el('div',null,reply);p.style.whiteSpace='pre-wrap';b.appendChild(p);});
+        history.push({role:'assistant',content:reply});done();
+      }).catch(function(err){
+        convo.removeChild(thinking);
+        ready.then(function(){
+          addSaa(function(b){b.appendChild(el('div','tiny','AI endpoint unavailable ('+err.message+'); answered in offline mode.'));offlineReply(text,b);});
+          history.push({role:'assistant',content:'[offline]'});done();
+        });
+      });
+    }else{
+      ready.then(function(){
+        addSaa(function(b){offlineReply(text,b);});
+        history.push({role:'assistant',content:'[offline]'});done();
+      });
+    }
+  }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var text=input.value.trim();if(!text||send.disabled)return;
+    input.value='';handle(text);
+  });
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();form.requestSubmit?form.requestSubmit():send.click();}
+  });
+
+  addSaa(function(b){
+    b.appendChild(el('div',null,'Describe a supplier observation and I\'ll point you to the §8.4 sub-clause, the questions and evidence to check, and a suggested grade. Press Enter to send (Shift+Enter for a new line).'));
+  });
+  SAA.ask=handle; /* for testing / future use */
+})();
 </script>
 </body>
 </html>
