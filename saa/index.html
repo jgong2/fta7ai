@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FTA — SAA · Supplier Audit Agent</title>
+<meta name="description" content="SAA — Supplier Audit Agent. An audit framework for ISO 9001 §8.4, being refined by FTA.">
+<style>
+  :root{
+    --accent:#D07C3E; --accent-dark:#A85A28; --accent-soft:#FBEEE1;
+    --green:#8AAE2A; --green-dark:#5F7A16; --green-pale:#E7F1C9; --gd-text:#2C3A10;
+    --ink:#20261C; --ink-2:#5B6353; --line:#E7EAE0; --band:#F7F9F1; --white:#ffffff;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+
+  /* Header — same as the main site */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;height:92px;gap:36px}
+  .brand{display:flex;flex-direction:column;justify-content:center;line-height:1.02;gap:4px}
+  .brand .mark{font-size:44px;font-weight:800;letter-spacing:3px;color:var(--ink)}
+  .brand .tag-line{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+  nav.menu{display:flex;gap:6px;margin-left:auto}
+  nav.menu a{padding:9px 4px;margin:0 11px;color:var(--ink-2);font-size:15px;font-weight:500;transition:.15s;border-bottom:2px solid transparent}
+  nav.menu a:hover{color:var(--ink)}
+  nav.menu a.active{color:var(--ink);font-weight:700;border-bottom-color:var(--ink)}
+  .cta-btn{background:var(--accent);color:#fff !important;padding:10px 20px;border-radius:8px;font-weight:600;font-size:15px;transition:.15s;white-space:nowrap}
+  .cta-btn:hover{background:var(--accent-dark)}
+
+  .eyebrow{display:inline-block;color:var(--ink-2);font-weight:700;font-size:13.5px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:46px;line-height:1.14;font-weight:800;letter-spacing:-.8px;margin-bottom:18px}
+  h2{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+  h3{font-size:19px;font-weight:700;margin-bottom:8px}
+  .lead{font-size:18.5px;color:var(--ink-2);max-width:720px}
+  .hero{padding:64px 0 40px}
+  .sec{padding:56px 0}
+  .sec.band{background:var(--band);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .muted{color:var(--ink-2)}
+
+  /* Status chips */
+  .chip{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:4px 10px;border-radius:20px;vertical-align:middle}
+  .chip.live{background:var(--green);color:var(--gd-text)}
+  .chip.soon{background:#EDF0E7;color:var(--ink-2);border:1px dashed #c9cfbd}
+  .chip.draft{background:var(--accent-soft);color:#7A4A1F}
+
+  /* Module tabs (overview of modules) */
+  .modules{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .mod{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;background:var(--white);display:block;transition:.2s}
+  .mod:hover{border-color:#cfd6c4;box-shadow:0 18px 44px -28px rgba(30,40,55,.28)}
+  .mod .std{font-size:12.5px;font-weight:700;letter-spacing:1px;color:var(--ink-2);text-transform:uppercase}
+  .mod b{display:block;font-size:16.5px;margin:6px 0 10px}
+  .mod.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+  /* Module 1 */
+  .mhead{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+  .attrib{background:var(--accent-soft);border:1px solid #E9C9A9;border-radius:12px;padding:15px 18px;margin-bottom:28px;font-size:14px;color:#7A4A1F;line-height:1.6}
+  .attrib a{color:var(--accent-dark);font-weight:700;text-decoration:underline}
+  .attrib details{margin-top:8px}
+  .attrib summary{cursor:pointer;font-weight:600}
+  .attrib pre{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:#fff;border:1px solid #E9C9A9;border-radius:8px;padding:12px;margin-top:8px;color:var(--ink)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px}
+  .panel h3 .n{color:var(--accent-dark);margin-right:6px}
+  .panel ul,.panel ol{padding-left:20px;color:var(--ink-2);font-size:15px}
+  .panel li{margin:4px 0}
+  .panel li b{color:var(--ink)}
+  table.grade{width:100%;border-collapse:collapse;font-size:14.5px}
+  table.grade td{border-top:1px solid var(--line);padding:10px 8px;vertical-align:top;color:var(--ink-2)}
+  table.grade td:first-child{font-weight:700;color:var(--ink);width:34%}
+  .note{font-size:13.5px;color:var(--ink-2);margin-top:10px}
+  pre.tpl{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:var(--band);border:1px solid var(--line);border-radius:10px;padding:14px;color:var(--ink);margin-top:10px;max-height:340px;overflow:auto}
+
+  /* Sub-clause cards */
+  .subs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:8px}
+  .sub{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:12px}
+  .sub .cl{font-size:30px;font-weight:800;letter-spacing:-.5px;color:var(--ink)}
+  .sub .tt{font-weight:700;font-size:16px;margin-top:-6px}
+  .sub h4{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+  .sub ul{padding-left:18px;font-size:14.5px;color:var(--ink)}
+  .sub li{margin:4px 0}
+  .src{display:inline-block;font-size:11px;color:var(--ink-2);background:var(--band);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:4px;white-space:nowrap}
+  .empty{font-size:14px;color:var(--ink-2);font-style:italic}
+  .todo{border:1.5px dashed var(--accent);background:#FFFaf5;border-radius:10px;padding:12px 14px;font-size:14px;color:#7A4A1F}
+  .todo b{display:block;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent-dark);margin-bottom:4px}
+  .todo ul{padding-left:18px;color:#7A4A1F}
+  details.verb{margin-top:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);padding:14px 18px}
+  details.verb summary{cursor:pointer;font-weight:700}
+  details.verb blockquote{border-left:3px solid var(--line);padding:4px 14px;margin:12px 0;color:var(--ink-2);font-size:14.5px}
+  details.verb blockquote b{color:var(--ink)}
+
+  /* Interfaces (placeholders) */
+  .ifaces{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:22px}
+  .iface{background:var(--white);border:1.5px dashed #c9cfbd;border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:10px}
+  .iface p{font-size:14.5px;color:var(--ink-2)}
+  .fields{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .fields span{background:var(--band);border:1px solid var(--line);border-radius:20px;padding:4px 11px;font-size:12.5px;color:var(--ink)}
+  .ifmeta{font-size:12.5px;color:var(--ink-2);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+
+  footer{background:#2b3222;color:#cdd4c1;padding:48px 0 28px;margin-top:40px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .brand .mark{color:#fff;font-size:30px}
+  .foot-bot{border-top:1px solid #444c37;margin-top:32px;padding-top:22px;font-size:13px;color:#97a086;text-align:center}
+  .foot-bot a{color:#97a086}
+  .foot-bot a:hover{color:#fff}
+
+  @media(max-width:900px){
+    .modules,.subs,.ifaces,.grid2{grid-template-columns:1fr}
+    h1{font-size:34px}h2{font-size:26px}
+    .nav{height:auto;padding-top:14px;padding-bottom:10px;flex-wrap:wrap;gap:10px}
+    nav.menu{order:3;width:100%;margin-left:0;overflow-x:auto;white-space:nowrap}
+    nav.menu a{margin:0 14px 0 0}
+    .cta-btn{margin-left:auto}
+    .brand .mark{font-size:34px}
+    .wrap{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+<div id="ftagate" style="position:fixed;inset:0;z-index:2147483000;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f2f2ef">
+<div style="font-size:12px;letter-spacing:.3em;color:#ff8a3d;margin-bottom:14px">FTA · PRIVATE PREVIEW</div>
+<div style="font-size:22px;font-weight:700;margin-bottom:22px">Please enter access code</div>
+<input id="ftapw" type="password" inputmode="numeric" maxlength="8" autocomplete="off" style="width:200px;font-size:28px;letter-spacing:.5em;text-align:center;background:#111;border:1px solid #333;color:#f2f2ef;border-radius:14px;padding:12px 0 12px .5em;outline:none">
+<button id="ftago" style="margin-top:16px;width:200px;font-size:17px;font-weight:800;border:0;border-radius:14px;padding:13px;background:#ff8a3d;color:#0a0a0a">Enter</button>
+<div id="ftaerr" style="color:#ffbd8a;font-size:14px;height:20px;margin-top:12px"></div>
+<div id="ftanote" style="max-width:340px;margin-top:18px;font-size:12px;line-height:1.6;color:#8a8a85">fta7ai.com is password-protected and not yet public. To connect, say hi in my <a href="https://github.com/jgong2/jgong2/discussions/1" target="_blank" rel="noopener" style="color:#ffbd8a;text-decoration:underline">collaboration discussion</a>.</div></div>
+<script>(function(){var g=document.getElementById('ftagate');try{if(sessionStorage.getItem('fta_cn_ok')==='1'){g.style.display='none';return}}catch(e){}
+document.documentElement.style.overflow='hidden';
+function ok(){var v=document.getElementById('ftapw').value;if(v==='0000'){try{sessionStorage.setItem('fta_cn_ok','1')}catch(e){}g.style.display='none';document.documentElement.style.overflow=''}else{document.getElementById('ftaerr').textContent='Incorrect code'}}
+document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').addEventListener('keydown',function(e){if(e.key==='Enter')ok()});})();</script>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="mark">FTA</span><span class="tag-line">Consulting Quality</span></a>
+    <nav class="menu">
+      <a href="/saa/" class="active">SAA</a>
+      <a href="/">Home</a>
+      <a href="/videos/">Insight Series</a>
+      <a href="mailto:jg@fta7ai.com">Contact</a>
+    </nav>
+    <a class="cta-btn" href="mailto:jg@fta7ai.com">Get in touch</a>
+  </div>
+</header>
+
+<main>
+  <!-- ====== Header / intro ====== -->
+  <div class="hero"><div class="wrap">
+    <span class="eyebrow">An FTA venture</span>
+    <h1>SAA — Supplier Audit Agent</h1>
+    <p class="lead">An audit framework FTA is refining clause by clause, starting with supplier control (§8.4). The expert knowledge base is in progress.</p>
+
+    <div class="modules">
+      <a class="mod on" href="#m-iso9001"><span class="std">ISO 9001:2015 · §8.4</span><b>Control of externally provided processes, products and services</b><span class="chip live">Active · framework</span></a>
+      <a class="mod" href="#m-iatf"><span class="std">IATF 16949 · §8.4</span><b>Automotive supplier control</b><span class="chip soon">Coming soon</span></a>
+      <a class="mod" href="#m-iso13485"><span class="std">ISO 13485:2016 · §7.4</span><b>Purchasing (medical devices)</b><span class="chip soon">Coming soon</span></a>
+    </div>
+  </div></div>
+
+  <!-- ====== Module 1: ISO 9001 §8.4 (rendered from data/iso9001-8.4.json) ====== -->
+  <section class="sec band" id="m-iso9001"><div class="wrap">
+    <div class="mhead">
+      <div>
+        <span class="eyebrow">Module 1 · ISO 9001:2015</span>
+        <h2>§8.4 Control of externally provided processes, products and services</h2>
+        <p class="muted" id="m1-note">Loading module…</p>
+      </div>
+      <span class="chip live">Active</span>
+    </div>
+
+    <div class="attrib">
+      <b>Framework adapted from <a href="https://github.com/RBraga01/Quality-Engineering-Skills" target="_blank" rel="noopener">Quality-Engineering-Skills</a> by Ricardo Braga (MIT License).</b>
+      Questions, evidence, workflow and grading below are taken from his <code>iso-9001-internal-audit</code> skill. FTA content will be added on top.
+      <details>
+        <summary>MIT License notice</summary>
+<pre>MIT License
+
+Copyright (c) 2026 Ricardo Romão Marques Braga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </details>
+    </div>
+
+    <!-- Skill structure -->
+    <div class="grid2">
+      <div class="panel"><h3><span class="n">1</span>When to use</h3><ul id="m1-when"></ul><p class="note" id="m1-scope"></p></div>
+      <div class="panel"><h3><span class="n">2</span>Workflow</h3><ol id="m1-workflow"></ol></div>
+      <div class="panel"><h3><span class="n">3</span>Grading: Major / Minor / OFI</h3><table class="grade"><tbody id="m1-grading"></tbody></table><p class="note" id="m1-gnote"></p><p class="note"><b>Each finding must include:</b></p><ol id="m1-finding" style="font-size:14px"></ol></div>
+      <div class="panel"><h3><span class="n">4</span>Output format</h3><ul id="m1-output"></ul><pre class="tpl" id="m1-template"></pre></div>
+    </div>
+
+    <!-- Sub-clause cards -->
+    <h3 style="margin:40px 0 6px">Sub-clauses <span class="chip draft">Mapping: FTA draft</span></h3>
+    <p class="muted" style="font-size:14.5px;margin-bottom:16px">Source questions grouped by sub-clause. Gaps are marked for FTA to complete; nothing below is invented.</p>
+    <div class="subs" id="m1-subs"></div>
+
+    <details class="verb">
+      <summary>Source text (verbatim, both files)</summary>
+      <div id="m1-verbatim"></div>
+    </details>
+  </div></section>
+
+  <!-- ====== Interfaces (placeholders for future modules / backend) ====== -->
+  <section class="sec" id="interfaces"><div class="wrap">
+    <span class="eyebrow">Interfaces</span>
+    <h2>What plugs in next</h2>
+    <p class="muted" style="margin-bottom:24px">These slots are reserved. Each will be filled from its own data file or a future backend.</p>
+
+    <div class="ifaces">
+      <div class="iface" id="m-expert">
+        <div><span class="chip soon">Coming soon</span></div>
+        <h3>Expert knowledge base (rules &amp; experience)</h3>
+        <p>FTA's own audit rules and field experience, one line per requirement, each reviewed and signed off. Planned fields:</p>
+        <div class="fields">
+          <span>Clause</span><span>Requirement (in our words)</span><span>Audit question</span><span>Evidence</span><span>Sampling</span><span>Major / Minor / OFI examples</span><span>Common findings</span><span>Source: standard / customer requirement / experience</span><span>Reviewer sign-off</span>
+        </div>
+        <p id="expert-status" style="font-size:13.5px">Rules loaded: —</p>
+        <div class="ifmeta">data/expert-rules.json · SAA.loadExpertRules()</div>
+      </div>
+      <div class="iface" id="m-iatf">
+        <div><span class="chip soon">Coming soon</span></div>
+        <h3>IATF 16949 §8.4 (automotive)</h3>
+        <p>Automotive supplier control on top of ISO 9001 §8.4.</p>
+        <div class="ifmeta">data/iatf16949-8.4.json (planned)</div>
+      </div>
+      <div class="iface" id="m-iso13485">
+        <div><span class="chip soon">Coming soon</span></div>
+        <h3>ISO 13485:2016 §7.4 Purchasing (medical devices)</h3>
+        <p>Note: in ISO 13485 the purchasing clause is <b>§7.4</b>, not §8.4.</p>
+        <div class="ifmeta">data/iso13485-7.4.json (planned)</div>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot">
+    <div class="brand"><span class="mark">FTA</span></div>
+    <span style="color:#9fa891;font-size:14px">Consulting Quality · Chicago HQ · Hong Kong base · Since 1992</span>
+  </div>
+  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a href="/">Home</a> · <a href="/saa/">SAA</a> · Framework portions © 2026 Ricardo Romão Marques Braga (MIT)</div>
+</div></footer>
+
+<script>
+/* SAA page — plain JS, no dependencies. Module data lives in ./data/*.json. */
+var SAA = window.SAA = {
+  config: {
+    moduleUrl: 'data/iso9001-8.4.json',
+    /* Expert rules: static file today. A future backend (e.g. a Cloudflare Worker)
+       can replace this with its endpoint, e.g. 'https://<worker>.workers.dev/rules?clause=8.4',
+       as long as it returns the same shape as data/expert-rules.json. Never put API keys here. */
+    rulesUrl: 'data/expert-rules.json'
+  },
+  esc: function(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');},
+  getJSON: function(url){return fetch(url,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();});},
+
+  renderModule: function(d){
+    var e=SAA.esc, $=function(id){return document.getElementById(id);};
+    var li=function(a){return a.map(function(x){return '<li>'+e(x)+'</li>';}).join('');};
+    var s=d.skill;
+    $('m1-note').textContent=d.module.note;
+    $('m1-when').innerHTML=li(s.when_to_use);
+    $('m1-scope').textContent=s.scope_8_4;
+    $('m1-workflow').innerHTML=s.workflow.map(function(w){return '<li><b>'+e(w.step)+'</b> — '+e(w.text)+'</li>';}).join('');
+    $('m1-grading').innerHTML=s.grading.map(function(g){return '<tr><td>'+e(g.grade)+'</td><td>'+e(g.definition)+'</td></tr>';}).join('');
+    $('m1-gnote').textContent=s.grading_note;
+    $('m1-finding').innerHTML=li(s.finding_must_include);
+    $('m1-output').innerHTML=li(s.output_format.options)+'<li>Default: '+e(s.output_format.default)+'</li>';
+    $('m1-template').textContent=s.output_format.report_template;
+
+    $('m1-subs').innerHTML=d.subclauses.map(function(c){
+      var q=c.questions.length?'<ul>'+c.questions.map(function(x){return '<li>'+e(x.text)+'<span class="src">'+e(x.from)+'</span></li>';}).join('')+'</ul>':'<p class="empty">No source questions for this sub-clause.</p>';
+      var ev=c.evidence.length?'<ul>'+li(c.evidence)+'</ul>':'<p class="empty">No source evidence listed.</p>';
+      return '<div class="sub"><div class="cl">§'+e(c.id)+'</div><div class="tt">'+e(c.title)+'</div>'+
+        '<div><h4>Audit questions (source)</h4>'+q+'</div>'+
+        '<div><h4>Evidence (source)</h4>'+ev+'</div>'+
+        '<div class="todo"><b>To be completed by FTA</b><ul>'+li(c.fta_todo)+'</ul></div></div>';
+    }).join('');
+
+    $('m1-verbatim').innerHTML=d.source_verbatim.map(function(v){
+      return '<blockquote><b>'+e(v.file)+'</b> — '+e(v.heading)+'<ul style="padding-left:18px;margin:6px 0">'+li(v.questions)+'</ul><i>Evidence: '+e(v.evidence)+'</i></blockquote>';
+    }).join('')+'<p class="note">Source commit '+e(d.source.commit.slice(0,7))+' · '+e(d.source.copyright)+' · '+e(d.source.license)+'</p>';
+  },
+
+  /* Hook for the expert knowledge base. Today it reads the empty static file and only
+     shows a count. When rules exist, render them into the sub-clause cards here
+     (match rule.clause to card id) instead of the "To be completed by FTA" boxes. */
+  loadExpertRules: function(){
+    return SAA.getJSON(SAA.config.rulesUrl).then(function(r){
+      var n=(r.rules||[]).length;
+      document.getElementById('expert-status').textContent='Rules loaded: '+n+(n?'':' (knowledge base not yet populated)');
+      return r;
+    }).catch(function(){
+      document.getElementById('expert-status').textContent='Rules loaded: — (not available)';
+    });
+  },
+
+  init: function(){
+    SAA.getJSON(SAA.config.moduleUrl).then(SAA.renderModule).catch(function(err){
+      document.getElementById('m1-note').textContent='Could not load module data ('+err.message+'). Open this page via a web server, not as a local file.';
+    });
+    SAA.loadExpertRules();
+  }
+};
+SAA.init();
+</script>
+</body>
+</html>
