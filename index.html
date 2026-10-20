@@ -119,19 +119,17 @@
   .cta-band .btn-primary{background:var(--accent);color:#fff}
   .cta-band .btn-primary:hover{background:var(--accent-dark)}
 
-  /* ===== FTA-added block (2026-10-20): SAA hero row — black background, white text; same 2-column grid as .hero ===== */
-  .saa-hero{background:#000;color:#fff;padding:78px 0 72px}
-  .saa-hero .eyebrow{color:#bdbdbd}
-  .saa-hero h2{font-size:42px;line-height:1.14;font-weight:800;letter-spacing:-.8px;margin-bottom:22px;color:#fff}
-  .saa-hero .lead{color:#d6d6d6}
-  .saa-hero .btn-ghost{border-color:#555;color:#fff}
-  .saa-hero .btn-ghost:hover{border-color:var(--accent);color:#F0A86E}
-  .video-ph{position:relative;border-radius:16px;aspect-ratio:16/10;background:#141414;border:1.5px dashed #3a3a3a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#cfcfcf;box-shadow:0 24px 60px -30px rgba(0,0,0,.8)}
-  .video-ph .ring{width:64px;height:64px;border-radius:50%;border:2px solid #8a8a8a;display:flex;align-items:center;justify-content:center}
-  .video-ph .ring:after{content:"";border-left:18px solid #8a8a8a;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
-  .video-ph b{font-size:15px;font-weight:700;letter-spacing:.3px;color:#e6e6e6}
-  .video-ph .ep{position:absolute;top:16px;left:16px;background:#262626;color:#cfcfcf;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:5px 11px;border-radius:20px}
-  @media(max-width:900px){.saa-hero{padding:56px 0 52px}.saa-hero h2{font-size:32px}}
+  /* ===== FTA-added block (2026-10-20): SAA hero row, styled exactly like the hero above ===== */
+  .saa-hero{padding:78px 0 64px;border-bottom:1px solid var(--line)}
+  .saa-hero h2{font-size:46px;line-height:1.14;font-weight:800;letter-spacing:-.8px;margin-bottom:22px}
+  .video-ph{position:relative;overflow:hidden;border-radius:16px;aspect-ratio:16/10;background:#F4F2EC;border:1px solid var(--line);box-shadow:0 24px 60px -30px rgba(30,40,55,.55)}
+  .video-ph .ttl{position:absolute;left:0;right:0;top:30%;text-align:center;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:22px;color:#20261C;line-height:1.3}
+  .video-ph .pbtn{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:auto;width:64px;height:64px;border-radius:50%;background:var(--accent);opacity:.55;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+  .video-ph .pbtn:after{content:"";position:absolute;left:24px;top:20px;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent}
+  .video-ph .ep{position:absolute;top:16px;left:16px;background:var(--green);color:var(--gd-text);font-size:11px;font-weight:700;letter-spacing:1.5px;padding:5px 11px;border-radius:20px}
+  .video-ph .cap{position:absolute;bottom:0;left:0;right:0;padding:20px 18px 16px;color:#fff;background:linear-gradient(transparent,rgba(12,16,22,.9))}
+  .video-ph .cap b{font-size:16px;font-weight:700}
+  @media(max-width:900px){.saa-hero{padding:56px 0 52px}.saa-hero h2{font-size:34px}}
 
   .saa-link{text-align:center;margin-top:44px}
   .saa-link a{font-size:13.5px;color:var(--ink-2);letter-spacing:.5px}
@@ -226,7 +224,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
     <span>SQE-led · Since <b>1992</b></span>
   </div></div>
 
-  <!-- ====== FTA-added 2026-10-20: SAA hero row (same layout as the hero above; black bg / white text) ====== -->
+  <!-- ====== FTA-added 2026-10-20: SAA hero row (same layout and style as the hero above) ====== -->
   <div class="saa-hero" id="saa-hero"><div class="wrap hero-grid">
     <div>
       <span class="eyebrow">AI Supplier Audit Agent</span>
@@ -243,9 +241,10 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
          </div>
          (same card as the hero video; the existing click-to-play script picks it up automatically) -->
     <div class="video-ph" role="img" aria-label="SAA video coming soon">
-      <div class="ep">SAA · VIDEO</div>
-      <div class="ring"></div>
-      <b>Video coming soon</b>
+      <div class="ep">SAA · ALPHA</div>
+      <div class="ttl">Supplier Audit Agent</div>
+      <div class="pbtn"></div>
+      <div class="cap"><b>Video coming soon</b></div>
     </div>
   </div></div>
 
