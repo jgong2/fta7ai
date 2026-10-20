@@ -163,6 +163,36 @@
   .iface .ifmeta{color:#aaa;border-top-color:#333}
   .iface #expert-status{color:#ddd}
 
+  /* AI reply markdown (rendered by mdToHtml) */
+  .msg.saa .md p{margin:0 0 8px}
+  .msg.saa .md p:last-child{margin-bottom:0}
+  .msg.saa .md ul,.msg.saa .md ol{padding-left:20px;margin:2px 0 10px}
+  .msg.saa .md li{margin:3px 0}
+  .msg.saa .md li::marker{color:#F0A86E}
+  .msg.saa .md b,.msg.saa .md strong{color:#fff;font-weight:700}
+  .msg.saa .md .mdh{margin:10px 0 4px;font-weight:700;color:#FFD9B8}
+  .msg.saa .md .mdh:first-child{margin-top:0}
+  .msg.saa .md .lbl{color:#FFD9B8;font-weight:700}
+  .msg.saa .md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#262626;border-radius:4px;padding:0 4px}
+
+  /* Internal area (2026-10-20): collapsed behind a low-key bar + passcode */
+  .ibar-sec{padding:8px 0 40px}
+  .ibar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;background:var(--band);padding:14px 20px}
+  .ibar .t{font-size:14px;font-weight:600;color:var(--ink-2);letter-spacing:.3px}
+  .ibar .t small{font-weight:400;color:#8b927f;margin-left:8px}
+  .ibar button{font:inherit;font-size:13px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid #cfd6c4;border-radius:8px;padding:6px 14px;cursor:pointer}
+  .ibar button:hover{border-color:var(--ink-2);color:var(--ink)}
+  .ibar form{display:none;align-items:center;gap:8px;flex-wrap:wrap}
+  .ibar.asking form{display:flex}
+  .ibar.asking #int-show{display:none}
+  .ibar input{width:110px;font:inherit;font-size:15px;letter-spacing:.3em;text-align:center;padding:6px 8px;border:1px solid #cfd6c4;border-radius:8px;outline:none;color:var(--ink);background:#fff}
+  .ibar input:focus{border-color:var(--accent)}
+  .ibar .err{font-size:12.5px;color:#a3532a;min-width:0}
+  .internal.locked .internal-body{display:none}
+  .internal.locked #int-hide{display:none}
+  .internal:not(.locked) #int-show,.internal:not(.locked) .ibar form{display:none}
+  .internal:not(.locked) .ibar-sec{padding-bottom:24px}
+
   footer{background:#2b3222;color:#cdd4c1;padding:48px 0 28px;margin-top:40px}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   footer .brand .mark{color:#fff;font-size:30px}
@@ -237,6 +267,24 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       <p class="asknote" id="ask-note">Preview: AI answers (free model, beta). Grades are suggestions; the auditor must confirm with objective evidence.</p>
     </div>
   </div></section>
+
+  <!-- ====== Internal area (2026-10-20): everything below is collapsed until the passcode is entered.
+       Content still renders while hidden (display:none via .locked), so SAA.init() works as before. ====== -->
+  <div class="internal locked" id="internal">
+  <section class="ibar-sec" id="internal-bar"><div class="wrap">
+    <div class="ibar" id="ibar">
+      <span class="t">Area for internal use<small id="int-hint">Modules, framework and interfaces</small></span>
+      <button type="button" id="int-show">Show</button>
+      <button type="button" id="int-hide">Hide</button>
+      <form id="int-form" autocomplete="off">
+        <input id="int-pw" type="password" inputmode="numeric" maxlength="8" placeholder="Code" aria-label="Passcode">
+        <button type="submit">Open</button>
+        <button type="button" id="int-cancel">Cancel</button>
+        <span class="err" id="int-err" aria-live="polite"></span>
+      </form>
+    </div>
+  </div></section>
+  <div class="internal-body" id="internal-body">
 
   <!-- ====== Module 1: ISO 9001 §8.4 (rendered from data/iso9001-8.4.json) ====== -->
   <section class="sec band" id="m-iso9001"><div class="wrap">
@@ -328,6 +376,8 @@ SOFTWARE.</pre>
       </div>
     </div>
   </div></section>
+  </div><!-- /internal-body -->
+  </div><!-- /internal -->
 </main>
 
 <footer><div class="wrap">
@@ -400,6 +450,82 @@ var SAA = window.SAA = {
   }
 };
 SAA.init();
+
+/* Small safe markdown renderer for AI replies. Escapes ALL HTML first, then adds only
+   our own tags: <p>, <ul>/<ol>/<li>, <b>, <code>, header lines. No external libraries. */
+SAA.mdToHtml=function(src){
+  var e=SAA.esc;
+  function inline(t){
+    t=e(t);
+    t=t.replace(/`([^`]+)`/g,'<code>$1</code>');
+    t=t.replace(/\*\*([^*]+?)\*\*/g,'<b>$1</b>').replace(/__([^_]+?)__/g,'<b>$1</b>');
+    return t;
+  }
+  function label(t){ /* "Label: value" -> bold label (only short labels, no bold already) */
+    var m=t.match(/^([A-Za-z][A-Za-z0-9 \/&()§.,'-]{1,40}?):\s+(.+)$/);
+    if(m&&!/\*\*/.test(m[1])&&!/https?$/i.test(m[1]))return '<span class="lbl">'+inline(m[1])+':</span> '+inline(m[2]);
+    return inline(t);
+  }
+  var lines=String(src==null?'':src).replace(/\r\n?/g,'\n').split('\n'), out=[], list=null, para=[];
+  function flushPara(){if(para.length){out.push('<p>'+para.join('<br>')+'</p>');para=[];}}
+  function closeList(){if(list){out.push('</'+list+'>');list=null;}}
+  lines.forEach(function(raw){
+    var line=raw.replace(/\s+$/,''), t=line.trim(), m;
+    if(!t){flushPara();closeList();return;}
+    if((m=t.match(/^[*\-\u2022]\s+(.*)$/))){flushPara();if(list!=='ul'){closeList();out.push('<ul>');list='ul';}out.push('<li>'+label(m[1])+'</li>');return;}
+    if((m=t.match(/^(\d{1,2})[.)]\s+(.*)$/))){flushPara();if(list!=='ol'){closeList();out.push('<ol start="'+(+m[1])+'">');list='ol';}out.push('<li>'+label(m[2])+'</li>');return;}
+    closeList();
+    if((m=t.match(/^#{1,6}\s+(.*)$/))){flushPara();out.push('<div class="mdh">'+inline(m[1].replace(/\*\*/g,''))+'</div>');return;}
+    if(/:$/.test(t)&&t.length<=80){flushPara();out.push('<div class="mdh">'+inline(t.replace(/\*\*/g,''))+'</div>');return;}
+    if((m=t.match(/^\*\*([^*]{1,60}?):?\*\*:?\s*(.*)$/))&&m[2]){flushPara();out.push('<p><span class="lbl">'+e(m[1].replace(/:$/,''))+':</span> '+inline(m[2])+'</p>');return;}
+    para.push(label(t));
+  });
+  flushPara();closeList();
+  return out.join('');
+};
+
+/* Internal area: passcode gate (remembered in sessionStorage for this tab). */
+(function(){
+  var KEY='fta_saa_internal_ok', CODE='0000';
+  var box=document.getElementById('internal'), bar=document.getElementById('ibar'),
+      show=document.getElementById('int-show'), form=document.getElementById('int-form'),
+      pw=document.getElementById('int-pw'), err=document.getElementById('int-err'),
+      cancel=document.getElementById('int-cancel'), pending=null;
+  function unlocked(){return !box.classList.contains('locked');}
+  function go(id){var t=id&&document.getElementById(id);if(t)setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},30);}
+  function open(target){
+    box.classList.remove('locked');bar.classList.remove('asking');
+    try{sessionStorage.setItem(KEY,'1');}catch(e){}
+    go(target);
+  }
+  function ask(target){
+    pending=target||null;bar.classList.add('asking');err.textContent='';pw.value='';
+    document.getElementById('internal-bar').scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(function(){pw.focus({preventScroll:true});},250);
+  }
+  show.addEventListener('click',function(){ask(null);});
+  document.getElementById('int-hide').addEventListener('click',function(){box.classList.add('locked');try{sessionStorage.removeItem(KEY);}catch(e){}});
+  cancel.addEventListener('click',function(){bar.classList.remove('asking');err.textContent='';});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(pw.value===CODE){open(pending);pending=null;}
+    else{err.textContent='Incorrect code';pw.select();}
+  });
+  var remembered=false;try{remembered=sessionStorage.getItem(KEY)==='1';}catch(e){}
+  if(remembered)box.classList.remove('locked');
+  /* Hero module tiles (#m-iso9001 / #m-iatf / #m-iso13485) and any other in-page link into the internal area */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    var id=a.getAttribute('href').slice(1), t=id&&document.getElementById(id);
+    if(!t||!box.contains(t))return;
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      if(unlocked()){go(id);history.replaceState(null,'','#'+id);}else ask(id);
+    });
+  });
+  /* Arriving with such a hash in the URL */
+  var h=location.hash.slice(1), ht=h&&document.getElementById(h);
+  if(ht&&box.contains(ht)){if(unlocked())go(h);else ask(h);}
+})();
 </script>
 <script>
 /* ====== Ask SAA — chat panel ======
@@ -617,7 +743,7 @@ var SAA_CONFIG = { aiEndpoint: 'https://saa-ask-20261020.jinsonggong.workers.dev
       var thinking=addSaa(function(b){b.appendChild(el('div','tiny','Thinking…'));});
       aiReply(text).then(function(reply){
         convo.removeChild(thinking);
-        addSaa(function(b){var p=el('div',null,reply);p.style.whiteSpace='pre-wrap';b.appendChild(p);});
+        addSaa(function(b){var p=el('div','md');p.innerHTML=SAA.mdToHtml(reply);b.appendChild(p);});
         history.push({role:'assistant',content:reply});done();
       }).catch(function(err){
         convo.removeChild(thinking);
