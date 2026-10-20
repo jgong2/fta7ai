@@ -208,7 +208,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
         <textarea id="ask-input" rows="2" placeholder='Describe what you observed at the supplier, e.g. "No evaluation records for 3 of 10 approved suppliers"'></textarea>
         <button type="submit" id="ask-send">Send</button>
       </form>
-      <p class="asknote">Preview: answers come from the framework's question bank, not AI yet.</p>
+      <p class="asknote" id="ask-note">Preview: AI answers (free model, beta). Grades are suggestions; the auditor must confirm with objective evidence.</p>
     </div>
   </div></section>
 
@@ -382,7 +382,7 @@ SAA.init();
    {message, history, clause:'ISO9001-8.4'} and expects JSON {reply: "..."} back.
    Leave it '' to use offline mode (local keyword matching, no AI).
    Never put API keys in this file: the site is public; keys belong in the Worker. */
-var SAA_CONFIG = { aiEndpoint: '' };
+var SAA_CONFIG = { aiEndpoint: 'https://saa-ask-20261020.jinsonggong.workers.dev/ask' };
 
 (function(){
   var convo=document.getElementById('ask-convo'), form=document.getElementById('ask-form'),
