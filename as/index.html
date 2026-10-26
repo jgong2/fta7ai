@@ -41,7 +41,7 @@ body.incase .back{display:none}
 .back a{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 8px;font-size:17px;color:var(--or)}
 .back a .ic{width:22px;height:22px}
 .draft{display:inline-block;border:1px solid rgba(255,162,58,.6);color:var(--or);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.8px;margin-right:8px}
-.nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+.nav{position:sticky;top:0;z-index:90;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   border-bottom:.5px solid rgba(84,84,84,.55);padding:calc(var(--sat) + 2px) 8px 8px;margin:0 -0px}
 .nav .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px}
 .nav .bk{white-space:nowrap;justify-self:start;display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 6px 0 2px;background:none;border:0;color:var(--or);font-size:17px;cursor:pointer;transition:opacity .15s}
@@ -189,7 +189,6 @@ a.btn{text-decoration:none}
 .ctl .btn .zh{font-size:12px}
 .ctl .btn.hold{background:var(--g2);color:var(--lab)}
 .ctl .btn.resume{background:#f2f2f2;color:#000}
-.ctl .btn.fin{background:var(--gr);color:#000}
 .ctl .btn[disabled]{background:var(--g1);color:var(--lab3);opacity:.7}
 
 /* ---- review ---- */
@@ -228,7 +227,7 @@ a.btn{text-decoration:none}
 
 /* ---- sheets ---- */
 .sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:80;display:flex;align-items:flex-end;justify-content:center;animation:fadein .22s ease both}
-.sheet{background:rgba(28,28,28,.96);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:22px 22px 0 0;padding:8px 20px calc(var(--sab) + 20px);width:100%;max-width:720px;max-height:90vh;overflow:auto;animation:slideup .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
+.sheet{background:rgba(28,28,28,.96);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:22px 22px 0 0;padding:8px 20px calc(var(--sab) + 20px);width:100%;max-width:720px;max-height:calc(100vh - 118px);max-height:calc(100dvh - 118px);overflow:auto;animation:slideup .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
 .sheet .grab{width:38px;height:5px;border-radius:3px;background:var(--g3);margin:4px auto 14px}
 .sheet h2{font-size:21px;font-weight:700;margin:0 0 6px;letter-spacing:-.2px}
 .sheet p{margin:0 0 14px;color:var(--lab2);font-size:15px;line-height:1.45}
@@ -275,7 +274,7 @@ a.btn{text-decoration:none}
 body.isrec .nav .bk,body.isrec .draft{color:var(--lab2);border-color:var(--g3)}
 body.isrec .cpill{box-shadow:inset 0 0 0 .5px var(--g3)}
 body.isrec .cpill::before{background:var(--lab3)}
-body.isrec .ctl .btn.fin{background:#f2f2f2;color:#000}
+body.isrec .finp{background:#f2f2f2;color:#000}
 body.isrec .ctl .btn.hold{background:var(--g2);color:var(--lab)}
 body.isrec .statebar.rec{color:var(--rd)}
 body.isrec .toast .ic{color:var(--lab)}
@@ -393,6 +392,29 @@ body.isrec .cpill{box-shadow:inset 0 0 0 .5px var(--g3)}body.isrec .cpill::befor
 .capzone .clpick{position:absolute;top:100%;left:0;right:0;margin:30px auto 0;width:max-content;max-width:100%}
 .cwrap .srow{margin-top:60px}
 @media (max-height:700px){.hz .clpick{margin-top:16px}.hz .cap{margin-top:36px}.home .othwrap{padding-top:10px}.capzone .clpick{margin-top:20px}.cwrap .srow{margin-top:44px}}
+
+/* finish pill (top-right of every case screen) */
+.finp{justify-self:end;display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:0 11px;margin-right:2px;border:0;border-radius:99px;background:var(--gr);color:#000;font:inherit;font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer;transition:transform .12s ease,opacity .12s}
+.finp:active{transform:scale(.96)}.finp .ic{width:17px;height:17px}.finp .zh{font-size:11px;font-weight:600;opacity:1;color:inherit}
+.finp[disabled]{background:var(--gr-t);color:var(--gr);cursor:default;opacity:1}
+.draft.sm{font-size:9px;padding:0 5px;margin:0 6px 0 0;border-radius:4px;letter-spacing:.6px;vertical-align:1px}
+/* finish confirm dialog */
+.dlg-bg{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadein .18s ease both}
+.dlg{width:100%;max-width:340px;background:#1c1c1c;border-radius:20px;padding:22px 20px 16px;box-shadow:0 20px 60px rgba(0,0,0,.7);text-align:center;max-height:calc(100dvh - 40px);overflow:auto}
+.dlg h3{margin:0;font-size:18px;line-height:1.3;font-weight:650;color:var(--lab)}
+.dlg .zh{display:block;margin:6px 0 0;font-size:12.5px;color:var(--lab2);font-weight:400}
+.dlg .dlgcase{margin:10px 0 0;font-size:13px;color:var(--lab2)}
+.dlgnote{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:var(--g2);font-size:13px;line-height:1.35;color:var(--lab);text-align:left}
+.dlgnote .zh{margin:3px 0 0;font-size:11.5px}
+.dlgnote .textlink{margin:8px 0 0;min-height:36px;padding:0 14px;font-size:13.5px}
+.dlgrow{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.dlgrow .btn{width:100%;flex-direction:row;gap:6px}.dlgrow .btn .zh{display:inline;margin:0;font-size:12px;font-weight:500;color:inherit;opacity:.75}
+.dlgrow .btn.plain{background:transparent;color:var(--lab2);min-height:40px}
+/* snack after Finish without code */
+.snack{position:fixed;left:12px;right:12px;bottom:calc(var(--sab) + 84px);margin:0 auto;max-width:440px;z-index:110;display:flex;align-items:center;gap:10px;background:#2c2c2c;border-radius:16px;padding:10px 38px 10px 14px;font-size:13px;line-height:1.3;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:fadein .2s ease both}
+.snack .sn{flex:1;min-width:0}.snack .sn .zh{font-size:11px;color:var(--lab2);margin-top:2px}
+.snack .btn.sm{min-height:36px;padding:0 12px;font-size:13px;flex:none}
+.snack .sx{position:absolute;top:2px;right:4px;width:32px;height:32px;border:0;background:none;color:var(--lab2);font-size:20px;cursor:pointer}
 </style>
 </head><body>
 <div class="back"><a href="https://fta7ai.com/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-7 7 7 7"/></svg>F2 Output&nbsp;<span class="zh">返回输出页</span></a><span class="draft">DRAFT</span></div>
@@ -723,7 +745,7 @@ function backupBanner(){
   return '<div class="fine" id="lastbk" style="margin:6px 16px 0">Last backed up 上次备份: '+last+'</div>';
 }
 /* ---------- views ---------- */
-var META='Author: F2 · 2026-10-26 15:38 HKT · rev03 · DRAFT';
+var META='Author: F2 · 2026-10-26 17:52 HKT · rev03 · DRAFT';
 function fitCap(){var w=document.querySelector('.cwrap');if(!w)return;var cb=document.querySelector('.ctlbar');var top=w.getBoundingClientRect().top+window.pageYOffset;var h=window.innerHeight-top-(cb?cb.offsetHeight:100);w.style.height=Math.max(h,380)+'px';document.body.style.paddingBottom=(cb?cb.offsetHeight:100)+'px'}
 window.addEventListener('resize',function(){fitCap()});
 function render(){
@@ -786,8 +808,8 @@ function otherHtml(nag){
 }
 function caseHead(c,t){
   return '<div class="nav"><div class="bar"><button class="bk" data-act="home">'+ic('chevL')+'<span>Cases <span class="zh">案卷</span></span></button>'+
-    '<div class="ttl"><b>'+esc(c.client)+'</b><span>'+esc(c.date)+'<span id="ind">'+esc(saveInfo)+'</span></span></div>'+
-    '<div class="rt"><span class="draft" style="margin:0">DRAFT</span></div></div>'+tabs(t)+'</div>';
+    '<div class="ttl"><b>'+esc(c.client)+'</b><span><span class="draft sm">DRAFT</span>'+esc(c.date)+'<span id="ind">'+esc(saveInfo)+'</span></span></div>'+
+    '<div class="rt"><button class="finp" data-act="finish"'+(c.capState==='finished'?' disabled':'')+'>'+finInner(c.capState==='finished')+'</button></div></div>'+tabs(t)+'</div>';
 }
 function tabs(t){
   function b(k,l,z){return '<button class="btn sm'+(t===k?' on':'')+'" data-act="tab" data-t="'+k+'">'+l+' <span class="zh">'+z+'</span></button>'}
@@ -815,7 +837,7 @@ function vCapture(){
   h+='<div class="ctlbar"><div class="ctl">'+
     '<button class="btn hold" data-act="hold"'+(act?'':' disabled')+'>'+ic('pause')+'<span>Hold <span class="zh">暂停</span></span></button>'+
     '<button class="btn resume" data-act="resume"'+(act?' disabled':'')+'>'+ic('play')+'<span>Resume <span class="zh">继续</span></span></button>'+
-    '<button class="btn fin" data-act="finish"'+(fin?' disabled':'')+'>'+ic('check')+'<span>Finish <span class="zh">完成</span></span></button></div></div>';
+    '</div></div>';
   return h;
 }
 function entContent(c,e,big){
@@ -1253,8 +1275,65 @@ function openCase(id){
 }
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-act]');if(!b||b.tagName==='INPUT'||b.tagName==='SELECT'||b.tagName==='TEXTAREA')return;
+  if(b.dataset.act==='dlgx'&&e.target!==b)return;
+  handleAct(b,false);
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#dlg')&&$('#dlg').innerHTML)closeDlg()});
+/* ---------- finish guard: confirm before leaving / exporting an unfinished case ---------- */
+var DLG=null,snz={};
+var GX_OUT={sendmail:1,copy:1,dltxt:1,dlhtml:1,dlmedia:1,dljson:1,backupall:1},GX_LEAVE={home:1};
+function unfinished(c){return !!(c&&c.capState!=='finished'&&c.entries&&c.entries.length)}
+function guardTargets(a,c){
+  if(a==='backupall')return db.cases.filter(function(x){return unfinished(x)&&snz[x.id]!==x.entries.length});
+  if(GX_OUT[a])return view==='case'&&unfinished(c)&&snz[c.id]!==c.entries.length?[c]:[];
+  if(GX_LEAVE[a])return view==='case'&&unfinished(c)?[c]:[];
+  return [];
+}
+function bumpCase(c){c.v=cV(c)+1;c.upd=new Date().toISOString()}
+function finishCase(c){
+  if(R&&cur()===c)stopRec(true);
+  setCap(c,'finished');bumpCase(c);putCase(c);flush();changed();
+  syncFinBtn();
+}
+function finInner(done){return done?ic('check')+'<span>Finished <span class="zh">已完成</span></span>':ic('check')+'<span>Finish <span class="zh">完成</span></span>'}
+function syncFinBtn(){var p=document.querySelector('.finp');var c=cur();if(!p||!c)return;var d=c.capState==='finished';p.disabled=d;p.innerHTML=finInner(d)}
+function codeNoteHtml(){
+  return '<div class="dlgnote"><div>Not uploaded yet — enter your trial code in Other Information → Upload</div><div class="zh">尚未上传 — 请在“其他信息 → 上传”输入试用口令</div>'+
+    '<button class="textlink" data-act="dlgcode">Enter code 输入口令</button></div>';
+}
+function closeDlg(){var d=$('#dlg');if(d)d.innerHTML='';DLG=null}
+function askFinish(targets,fn,snooze){
+  var d=$('#dlg');if(!d){d=document.createElement('div');d.id='dlg';document.body.appendChild(d)}
+  DLG={targets:targets,fn:fn,snooze:!!snooze};
+  var nm=targets.length===1?esc(targets[0].client||'(no name)')+' · '+targets[0].entries.length+' item'+(targets[0].entries.length===1?'':'s'):targets.length+' unfinished cases 个未完成案卷';
+  d.innerHTML='<div class="dlg-bg" data-act="dlgx"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgT">'+
+    '<h3 id="dlgT">You haven\'t finished '+(targets.length===1?'this case':'these cases')+'. Finish and save now?</h3>'+
+    '<p class="zh">还没点完成，现在完成并保存吗？</p><p class="dlgcase">'+nm+'</p>'+(hasCode()?'':codeNoteHtml())+
+    '<div class="dlgrow"><button class="btn pri" data-act="dlgfin">Finish &amp; save <span class="zh">完成并保存</span></button>'+
+    '<button class="btn plain" data-act="dlgno">Not yet <span class="zh">暂不</span></button></div></div></div>';
+  var f=d.querySelector('[data-act=dlgfin]');if(f)try{f.focus()}catch(e){}
+}
+function snack(html){
+  var s=$('#snack');if(!s){s=document.createElement('div');s.id='snack';document.body.appendChild(s)}
+  s.innerHTML='<div class="snack">'+html+'<button class="sx" data-act="snackx" aria-label="Close 关闭">×</button></div>';
+  clearTimeout(snack.t);snack.t=setTimeout(function(){s.innerHTML=''},12000);
+}
+function leaveSheets(c,then){
+  var tt=$('#tt'),txt=(tt?tt.value:'').trim(),used=!!(voice&&voice.used);
+  stopDictation();
+  if(txt&&c&&c.capState==='active'){closeSheet();addEntry(c,'text',{text:txt,via:used?'dictated':'typed'}).then(function(){then()});return true}
+  closeSheet();return false;
+}
+function handleAct(b,skip){
   if(b.disabled)return;
   var a=b.dataset.act,id=b.dataset.id,c=cur();
+  if(a==='dlgfin'){var f=DLG;closeDlg();if(!f)return;f.targets.forEach(finishCase);if(view==='case'&&tab==='capture')render();f.fn();return}
+  if(a==='dlgno'){var f2=DLG;closeDlg();if(!f2)return;if(f2.snooze)f2.targets.forEach(function(x){snz[x.id]=x.entries.length});f2.fn();return}
+  if(a==='dlgx'){closeDlg();return}
+  if(a==='dlgcode'){closeDlg();closeSheet();if(R)stopRec(true);flush();otherOpen=true;goto('upload');if(hasCode())checkConn();return}
+  if(a==='snackx'){var sn=$('#snack');if(sn)sn.innerHTML='';return}
+  if(view==='case'&&(a==='home'||a==='tab'||a==='finish')&&$('#overlay').innerHTML&&!skip){if(leaveSheets(c,function(){handleAct(b,false)}))return}
+  if(!skip){var gt=guardTargets(a,c);if(gt.length){askFinish(gt,function(){handleAct(b,true)},!!GX_OUT[a]);return}}
   if(view==='home'&&(a==='photo'||a==='rec'||a==='text'||a==='photolib')){c=startCaseFromHome();if(!c)return}
   if(a==='other'){otherOpen=!otherOpen;var ob=$('.othbtn'),op=$('#oth');if(ob){ob.classList.toggle('open',otherOpen);ob.setAttribute('aria-expanded',otherOpen)}if(op){op.hidden=!otherOpen;if(otherOpen)setTimeout(function(){try{ob.scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}},30)}return}
   if(a==='demo')loadDemo();
@@ -1293,8 +1372,8 @@ document.addEventListener('click',function(e){
   else if(a==='hold'){if(R)stopRec(true);setCap(c,'held');render()}
   else if(a==='resume'){setCap(c,'active');render()}
   else if(a==='finish'){
-    var go=function(){setCap(c,'finished');flush();goto('case','review')};
-    if(R)stopRec(true);go();
+    finishCase(c);goto('case','review');
+    if(!hasCode())snack('<div class="sn"><div>Not uploaded yet — enter your trial code in Other Information → Upload</div><div class="zh">尚未上传 — 请在“其他信息 → 上传”输入试用口令</div></div><button class="btn pri sm" data-act="dlgcode">Enter code 输入口令</button>');
   }
   /* review */
   else if(a==='etoggle'){openE[id]=!openE[id];render()}
@@ -1326,7 +1405,7 @@ document.addEventListener('click',function(e){
       goto('home');changed();
     }
   }
-});
+}
 document.addEventListener('input',function(e){
   var t=e.target;
   if(t.id==='nc'||t.id==='nd'||t.id==='na'){var d=draft();if(t.id==='nc')d.client=t.value;else if(t.id==='na')d.auditor=t.value;else{d.date=t.value;d.dateSet=true}saveDraftMeta();return}
