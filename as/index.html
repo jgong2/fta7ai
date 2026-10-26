@@ -16,7 +16,7 @@
   --bg:#000;--g1:#1c1c1c;--g2:#2c2c2c;--g3:#3a3a3a;--sep:#383838;
   --lab:#f2f2f2;--lab2:#a1a1a1;--lab3:#6e6e6e;
   /* PALETTE: neutrals (black/white/greys) + orange + green; red ONLY for recording state (+ press-feedback on delete) */
-  --or:#ff8a3d;--or-t:rgba(255,138,61,.16);
+  --or:#ffa23a;--or-t:rgba(255,162,58,.16);
   --gr:#34d399;--gr-t:rgba(52,211,153,.16);
   --rd:#ff453a;--rd-t:rgba(255,69,58,.16);
   --blur:saturate(180%) blur(22px);
@@ -40,7 +40,7 @@ button,input,select,textarea{font-family:inherit}
 body.incase .back{display:none}
 .back a{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 8px;font-size:17px;color:var(--or)}
 .back a .ic{width:22px;height:22px}
-.draft{display:inline-block;border:1px solid rgba(255,138,61,.6);color:var(--or);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.8px;margin-right:8px}
+.draft{display:inline-block;border:1px solid rgba(255,162,58,.6);color:var(--or);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.8px;margin-right:8px}
 .nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   border-bottom:.5px solid rgba(84,84,84,.55);padding:calc(var(--sat) + 2px) 8px 8px;margin:0 -0px}
 .nav .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px}
@@ -76,7 +76,7 @@ body.incase .back{display:none}
 .grp{background:var(--g1);border-radius:14px;margin:0 0 4px;overflow:hidden}
 .grp>.r{padding:12px 16px;position:relative}
 .grp>.r+.r{border-top:.5px solid var(--sep)}
-.grp.pri{background:linear-gradient(180deg,rgba(255,138,61,.14),rgba(255,138,61,.04)),var(--g1);box-shadow:inset 0 0 0 1px rgba(255,138,61,.35)}
+.grp.pri{background:linear-gradient(180deg,rgba(255,162,58,.14),rgba(255,162,58,.04)),var(--g1);box-shadow:inset 0 0 0 1px rgba(255,162,58,.35)}
 .grp.dng{box-shadow:inset 0 0 0 1px var(--g3)}
 .grp h2,.r h2{font-size:17px;font-weight:600;margin:0 0 2px;line-height:1.3}
 .grp .rowl{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
@@ -96,7 +96,7 @@ body.incase .back{display:none}
 label{display:block;font-size:12.5px;color:var(--lab2);margin:10px 0 4px}
 input,select,textarea{width:100%;background:var(--g2);color:var(--lab);border:0;border-radius:10px;padding:10px 12px;font:inherit;font-size:17px;min-height:44px;outline:none;-webkit-appearance:none;appearance:none;transition:box-shadow .15s}
 .field input,.field select{background:none;padding:2px 0;min-height:28px;border-radius:0}
-input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(255,138,61,.7)}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(255,162,58,.7)}
 .field input:focus,.field select:focus{box-shadow:none}
 input::placeholder,textarea::placeholder{color:var(--lab3)}
 textarea{min-height:92px;resize:vertical;line-height:1.4}
@@ -142,7 +142,7 @@ a.btn{text-decoration:none}
 .cwrap{text-align:center;position:relative;overflow:hidden}
 .ctz{font-size:13px;margin-top:-1px}
 .cnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-.cpill{display:inline-flex;align-items:center;gap:6px;background:var(--g1);border-radius:99px;padding:4px 11px 4px 9px;font-size:13px;font-weight:600;color:var(--lab2);box-shadow:inset 0 0 0 .5px rgba(255,138,61,.28);transition:color .3s}
+.cpill{display:inline-flex;align-items:center;gap:6px;background:var(--g1);border-radius:99px;padding:4px 11px 4px 9px;font-size:13px;font-weight:600;color:var(--lab2);box-shadow:inset 0 0 0 .5px rgba(255,162,58,.28);transition:color .3s}
 .cpill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or);opacity:.6}
 .cpill.held{color:var(--lab3);box-shadow:inset 0 0 0 .5px var(--g3)}.cpill.held::before{background:var(--lab3)}
 .cpill.fin::before{background:var(--gr)}
@@ -168,8 +168,8 @@ a.btn{text-decoration:none}
 .capbtn .disc{width:132px;height:132px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;transition:transform .14s cubic-bezier(.3,.7,.4,1),box-shadow .2s,background .2s}
 .capbtn .disc .ic{width:54px;height:54px}
 .capbtn:active .disc{transform:scale(.93)}
-.capbtn.photo .disc{background:var(--or);color:#000;box-shadow:0 10px 30px -8px rgba(255,138,61,.55),inset 0 1px 0 rgba(255,255,255,.35)}
-.capbtn.voice .disc{background:var(--g1);color:var(--or);box-shadow:inset 0 0 0 2px rgba(255,138,61,.55)}
+.capbtn.photo .disc{background:var(--or);color:#000;box-shadow:0 10px 30px -8px rgba(255,162,58,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+.capbtn.voice .disc{background:var(--g1);color:var(--or);box-shadow:inset 0 0 0 2px rgba(255,162,58,.55)}
 .capbtn.recording .disc{background:var(--rd);color:#fff;box-shadow:0 0 0 0 rgba(255,69,58,.55);animation:ring 1.5s ease-out infinite}
 .capbtn.recording .disc .ic{width:40px;height:40px}
 .capbtn .t{font-size:17px;font-weight:700;line-height:1.1}
@@ -281,7 +281,7 @@ body.isrec .statebar.rec{color:var(--rd)}
 body.isrec .toast .ic{color:var(--lab)}
 
 /* ---- rev03 v4: clause picker, sound toggle, library link ---- */
-.clpick{display:inline-flex;flex-direction:column;align-items:center;max-width:100%;margin:10px 0 0;padding:6px 12px 6px 14px;border:0;border-radius:16px;background:var(--g1);color:var(--lab);font:inherit;cursor:pointer;box-shadow:inset 0 0 0 .5px rgba(255,138,61,.35);transition:transform .12s,opacity .12s;-webkit-user-select:none;user-select:none}
+.clpick{display:inline-flex;flex-direction:column;align-items:center;max-width:100%;margin:10px 0 0;padding:6px 12px 6px 14px;border:0;border-radius:16px;background:var(--g1);color:var(--lab);font:inherit;cursor:pointer;box-shadow:inset 0 0 0 .5px rgba(255,162,58,.35);transition:transform .12s,opacity .12s;-webkit-user-select:none;user-select:none}
 .clpick:active{transform:scale(.97);opacity:.8}
 .clpick[disabled]{opacity:.5;cursor:default}
 .clpick .ctitle{display:inline-flex;align-items:center;gap:4px;margin:0;font-size:18px;font-weight:700;line-height:1.2;white-space:nowrap}
@@ -331,9 +331,71 @@ body.isrec .sdot.ok,body.isrec .sdot.pend{background:var(--lab3)}
 .btn:disabled{opacity:.4}
 .grp .row.nw{flex-wrap:nowrap}.grp .row.nw .btn{flex:1;white-space:nowrap;padding-left:8px;padding-right:8px;font-size:15px;justify-content:center}
 .grp .row.nw .btn{gap:4px;min-width:0;overflow:hidden}.grp .row.nw .btn svg{display:none}
+
+/* ---- rev03c: minimalist home (3 fields on top, functions right below, everything else at the bottom) ---- */
+.home{padding-top:6px}
+.ht{font-size:22px;line-height:1.2;font-weight:700;letter-spacing:-.3px;margin:12px 2px 12px}
+.ht .as{color:var(--or);font-weight:800}
+.ht .zh{font-size:15px;font-weight:400;margin-left:2px}
+.fields{margin:0}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:0 16px;margin:0;color:var(--lab);font-size:inherit}
+.frow+.frow{border-top:.5px solid var(--sep)}
+.frow .fl{flex:none;font-size:19px;font-weight:700;letter-spacing:-.2px;color:var(--lab)}
+.frow .fl .zh{font-size:13px;font-weight:400;margin-left:3px}
+.frow input{flex:1;min-width:0;width:auto;background:none;border-radius:0;padding:4px 0;min-height:36px;text-align:right;font-size:15px;font-weight:400;color:var(--lab2)}
+.frow input:focus{box-shadow:none;color:var(--lab)}
+.frow:focus-within{background:var(--g2)}
+.frow input::placeholder{color:var(--lab3)}
+.frow input[type=date]{-webkit-appearance:none;appearance:none;text-align:right;min-height:36px;display:block}
+.frow input[type=date]::-webkit-date-and-time-value{text-align:right}
+.frow input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.7);margin-left:6px}
+.hz{display:flex;flex-direction:column;align-items:center;margin-top:18px}
+.hz .clpick{margin:0 0 18px}
+.hz .cap{margin:0 0 4px}
+.hz .trow{margin-top:6px}
+.hz .capbtn.voice .disc{color:var(--or)}
+.othwrap{margin-top:34px}
+.othbtn{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:50px;padding:0 16px;background:none;border:0;border-top:.5px solid var(--sep);border-radius:0;color:var(--lab2);font:inherit;font-size:16px;font-weight:600;cursor:pointer;text-align:left}
+.othbtn .zh{font-weight:400;font-size:13px}
+.othbtn .due{color:var(--or);font-weight:600;font-size:13px}
+.othbtn .cd{width:15px;height:15px;color:var(--lab3);transition:transform .2s}
+.othbtn.open .cd{transform:rotate(180deg)}
+.othbtn:active{opacity:.6}
+.oth{padding-bottom:6px}
+.oth[hidden]{display:none}
+.home .foot{text-align:center;margin:26px 0 22px}
+@media (max-height:700px){.hz{margin-top:12px}.hz .clpick{margin-bottom:10px}.ht{margin:8px 2px 8px}.frow{min-height:48px}.othwrap{margin-top:22px}.home .foot{margin:18px 0 14px}}
+.home{display:flex;flex-direction:column;min-height:calc(100vh - 58px)}
+.home .othwrap{margin-top:auto;padding-top:34px}
+.frow input{color:#d6d6d6}
+@media (max-height:700px){.home .othwrap{padding-top:18px}}
+.othbtn{scroll-margin-top:72px}
+
+/* ---- rev03c-2: green as second accent; clause picker moved below the round buttons ---- */
+.hz .clpick{margin:30px 0 0}
+.hz .cap{margin-top:66px}
+.capbtn.voice .disc,.hz .capbtn.voice .disc{background:var(--gr);color:#04140d;box-shadow:0 10px 30px -8px rgba(52,211,153,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+.capbtn.recording .disc,.hz .capbtn.recording .disc{background:var(--rd);color:#fff}
+.capbtn[disabled] .disc,.hz .capbtn[disabled] .disc{background:var(--g2);color:var(--lab3);box-shadow:none}
+.capbtn.voice:not(.recording) .t{color:var(--lab)}
+.clpick{box-shadow:inset 0 0 0 .5px rgba(52,211,153,.4)}
+.clpick .cln{color:var(--gr)}
+.clpick[disabled]{box-shadow:none}.clpick[disabled] .cln{color:var(--lab)}
+.frow #nd{color:var(--gr);font-weight:600}
+.frow #nd::-webkit-calendar-picker-indicator{filter:invert(78%) sepia(40%) saturate(560%) hue-rotate(104deg) brightness(95%)}
+.statebar{color:var(--gr)}
+.statebar.held{color:var(--lab2)}.statebar.fin{color:var(--gr)}.statebar.rec{color:var(--rd)}
+.cpill::before{background:var(--gr);opacity:.85}
+.cpill{box-shadow:inset 0 0 0 .5px rgba(52,211,153,.3)}
+.cpill.held::before{background:var(--lab3)}.cpill.fin::before{background:var(--gr)}
+body.isrec .cpill{box-shadow:inset 0 0 0 .5px var(--g3)}body.isrec .cpill::before{background:var(--lab3)}
+/* capture: picker hangs below the Photo/Voice block without moving it */
+.capzone .clpick{position:absolute;top:100%;left:0;right:0;margin:30px auto 0;width:max-content;max-width:100%}
+.cwrap .srow{margin-top:60px}
+@media (max-height:700px){.hz .clpick{margin-top:16px}.hz .cap{margin-top:36px}.home .othwrap{padding-top:10px}.capzone .clpick{margin-top:20px}.cwrap .srow{margin-top:44px}}
 </style>
 </head><body>
-<div class="back"><a href="https://fta7ai.com/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-7 7 7 7"/></svg>FTA&nbsp;<span class="zh">返回 FTA 网站</span></a><span class="draft">DRAFT</span></div>
+<div class="back"><a href="https://fta7ai.com/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-7 7 7 7"/></svg>F2 Output&nbsp;<span class="zh">返回输出页</span></a><span class="draft">DRAFT</span></div>
 <div id="app"><div class="pg fine">Loading… 加载中…</div></div>
 <input type="file" id="photoIn" accept="image/*" capture="environment" hidden>
 <input type="file" id="libIn" accept="image/*" multiple hidden>
@@ -639,9 +701,9 @@ function askPersist(){
   if(!(navigator.storage&&navigator.storage.persist)){persistState='unsupported';return noop()}
   return navigator.storage.persist().then(function(ok){persistState=ok?'granted':'denied'},function(){persistState='unsupported'}).then(function(){render()});
 }
+function memBanner(){return memOnly?'<div class="banner warn"><b>Storage unavailable 存储不可用.</b> This browser blocked IndexedDB (private mode?). Data will be lost when you close the page — export a backup before leaving. 此浏览器禁用了本地数据库（隐私模式？），关闭页面数据会丢失，请先导出备份。</div>':''}
 function storageBanner(){
   var h='';
-  if(memOnly)h+='<div class="banner warn"><b>Storage unavailable 存储不可用.</b> This browser blocked IndexedDB (private mode?). Data will be lost when you close the page — export a backup before leaving. 此浏览器禁用了本地数据库（隐私模式？），关闭页面数据会丢失，请先导出备份。</div>';
   if(!isStandalone())h+='<div class="note tip">'+ic('home')+'<div><b>Tip 提示 — Add to Home Screen 添加到主屏幕:</b> in Safari tap <b>Share ⬆︎ → Add to Home Screen</b>. The installed app keeps its data far more reliably than a Safari tab. 在 Safari 点“分享 ⬆︎ → 添加到主屏幕”，主屏幕版本比普通标签页更不容易被清理数据。</div></div>';
   var ps=persistState==='granted'?'granted ✓ 已授予':persistState==='denied'?'not granted 未授予 (add to Home Screen 请添加到主屏幕)':persistState==='unsupported'?'not supported 不支持':'…';
   h+='<div class="fine" id="stor" style="margin:0 16px 4px">Persistent storage 持久存储: '+ps+'</div>';
@@ -661,7 +723,7 @@ function backupBanner(){
   return '<div class="fine" id="lastbk" style="margin:6px 16px 0">Last backed up 上次备份: '+last+'</div>';
 }
 /* ---------- views ---------- */
-var META='Author: F2 · 2026-10-26 13:05 HKT · rev03 · DRAFT';
+var META='Author: F2 · 2026-10-26 15:38 HKT · rev03 · DRAFT';
 function fitCap(){var w=document.querySelector('.cwrap');if(!w)return;var cb=document.querySelector('.ctlbar');var top=w.getBoundingClientRect().top+window.pageYOffset;var h=window.innerHeight-top-(cb?cb.offsetHeight:100);w.style.height=Math.max(h,380)+'px';document.body.style.paddingBottom=(cb?cb.offsetHeight:100)+'px'}
 window.addEventListener('resize',function(){fitCap()});
 function render(){
@@ -673,29 +735,53 @@ function render(){
   else h=vCapture();
   $('#app').innerHTML=h;document.body.classList.toggle('incase',view!=='home');document.body.classList.toggle('incap',view==='case'&&tab==='capture');document.body.classList.toggle('isrec',!!R&&view==='case'&&tab==='capture');if(!(view==='case'&&tab==='capture'))document.body.style.paddingBottom='';fitCap();window.scrollTo(0,y);updSyncUI();
 }
+var D={client:null,date:null,dateSet:false,auditor:null},otherOpen=false,metaT=null;
+function draft(){if(D.client==null)D.client=S.client||'ABC company';if(!D.dateSet)D.date=today();if(D.auditor==null)D.auditor=S.auditor||'';return D}
+function saveDraftMeta(){clearTimeout(metaT);metaT=setTimeout(function(){var d=D;if(d.client&&d.client.trim())setMeta('client',d.client.trim());setMeta('auditor',(d.auditor||'').trim())},350)}
+function startCaseFromHome(){
+  var d=draft(),cl=(d.client||'').trim();
+  if(!cl){toast('Enter a client name 请输入客户名');var f=$('#nc');if(f)f.focus();return null}
+  var n={id:uid(),client:cl,date:d.date||today(),auditor:(d.auditor||'').trim(),items:{},entries:[],capState:'active',capMs:0,created:new Date().toISOString(),v:1,sv:0};n.upd=n.created;
+  db.cases.push(n);loadedBlobs[n.id]=true;putCase(n).then(function(){changed()});
+  clearTimeout(metaT);setMeta('client',cl);setMeta('auditor',n.auditor);
+  S.cur=n.id;setMeta('cur',n.id);openE={};filt='all';lastTick=Date.now();view='case';tab='capture';render();window.scrollTo(0,0);
+  return n;
+}
+function clpickHtml(kd,dis){return '<button class="clpick" data-act="clauses" aria-haspopup="dialog" aria-label="Choose clause 选择条款"'+(dis?' disabled':'')+'><span class="ctitle"><span>Clause <b class="cln">'+esc(kd.id)+'</b> — Evidence capture</span>'+ic('chevD','cd')+'</span><span class="zh ctz">证据采集 · '+esc(kd.zh)+'</span></button>'}
 function vHome(){
-  var h='<div class="pg"><h1 class="lt"><span class="as">AS</span> · Auditing Secretary</h1><div class="lts">审核秘书</div><div class="meta">'+esc(META)+'</div>'+
-   '<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB). It works fully offline. Only if you enter a tester code under <b>Upload</b> is a copy sent to the AS Collector server (trial). 数据存在本机，可完全离线使用；只有在“上传”里输入试用口令后，才会把副本发送到 AS Collector 服务器（试用）。</div>';
+  var d=draft(),kd=clauseDef(curClause()),nag=nagState();
+  var h='<div class="pg home"><h1 class="ht"><span class="as">AS</span> · Auditing Secretary <span class="zh">审核秘书</span></h1>'+
+   '<div class="grp fields">'+
+   '<label class="frow" for="nc"><span class="fl">Client <span class="zh">客户</span></span><input id="nc" value="'+esc(d.client)+'" placeholder="Client name" autocomplete="off" autocapitalize="words" enterkeyhint="done"></label>'+
+   '<label class="frow" for="nd"><span class="fl">Date <span class="zh">日期</span></span><input id="nd" type="date" value="'+esc(d.date)+'"></label>'+
+   '<label class="frow" for="na"><span class="fl">Auditor <span class="zh">审核员</span></span><input id="na" value="'+esc(d.auditor)+'" placeholder="Your name" autocomplete="name" autocapitalize="words" enterkeyhint="done"></label></div>'+
+   memBanner()+'<div class="hz">'+
+   '<div class="cap">'+
+   '<button class="capbtn photo" data-act="photo"><span class="disc">'+ic('camera')+'</span><span class="t">Photo</span><span class="z">拍照</span></button>'+
+   '<button class="capbtn voice" data-act="rec"><span class="disc">'+ic('mic')+'</span><span class="t">Voice</span><span class="z">语音</span></button></div>'+
+   '<div class="trow"><button class="textlink" data-act="text">'+ic('text')+'Text 文字</button><button class="textlink lib" data-act="photolib">'+ic('image')+'Library 相册</button></div>'+clpickHtml(kd,false)+'</div>'+
+   '<div class="othwrap"><button class="othbtn'+(otherOpen?' open':'')+'" data-act="other" aria-expanded="'+otherOpen+'" aria-controls="oth"><span>Other Information <span class="zh">其他信息</span>'+(nag&&nag.late?'<span class="due"> · Backup due 需备份</span>':'')+'</span>'+ic('chevD','cd')+'</button>'+
+   '<div id="oth" class="oth"'+(otherOpen?'':' hidden')+'>'+otherHtml(nag)+'</div></div>'+
+   '<div class="meta foot">'+esc(META)+'</div></div>';
+  return h;
+}
+function otherHtml(nag){
+  var h='<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB). It works fully offline. Only if you enter a tester code under <b>Upload</b> is a copy sent to the AS Collector server (trial). 数据存在本机，可完全离线使用；只有在“上传”里输入试用口令后，才会把副本发送到 AS Collector 服务器（试用）。</div>';
   h+=storageBanner()+backupBanner();
-  h+='<div class="sh">New case file <span class="zh">新建案卷</span></div><div class="grp">'+
-   '<div class="field"><label for="nc">Client 客户</label><input id="nc" placeholder="e.g. DEMO Co. (demo)"></div>'+
-   '<div class="field"><label for="nd">Audit date 审核日期</label><input id="nd" type="date" value="'+today()+'"></div>'+
-   '<div class="field"><label for="na">Auditor 审核员 (optional)</label><input id="na" placeholder="Initials or name"></div></div>'+
-   '<div style="margin:14px 0 8px"><button class="btn pri big" data-act="newcase">'+ic('plus')+'Create &amp; start 创建并开始</button></div>'+
-   '<div class="grp"><button class="lnk or" data-act="demo"><span class="l">'+ic('demo')+'Load demo case 加载演示</span>'+ic('chevR','ch')+'</button></div>';
-  h+='<div class="sh">Upload <span class="zh">上传</span></div><div class="grp"><button class="lnk" data-act="upload"><span class="l">'+ic('cloud')+'<span><b>Upload 上传</b><span class="fine" style="display:block"><i class="sdot '+(hasCode()&&connLine().ok?'ok':'off')+'" id="uplRowD"></i><span id="uplRowT">'+esc(rowText())+'</span></span></span></span>'+ic('chevR','ch')+'</button></div>';
   h+='<div class="sh">Case files on this device <span class="zh">本机案卷</span></div><div class="grp">';
   if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
   db.cases.slice().reverse().forEach(function(c){
     var st=c.capState==='finished'?'finished 已完成':'on hold 暂停';
     h+='<div class="listrow"><div class="tx" style="min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+esc(c.date)+' · '+c.entries.length+' entries 条 · '+st+' · '+sdot(c,'l')+'</div></div><button class="btn sm" data-act="opencase" data-id="'+c.id+'">Open 打开</button></div>';
   });
-  h+='</div><div class="sh">Backup &amp; restore <span class="zh">备份与恢复</span></div><div class="grp">'+
+  h+='</div><div class="sh">Upload <span class="zh">上传</span></div><div class="grp"><button class="lnk" data-act="upload"><span class="l">'+ic('cloud')+'<span><b>Upload 上传</b><span class="fine" style="display:block"><i class="sdot '+(hasCode()&&connLine().ok?'ok':'off')+'" id="uplRowD"></i><span id="uplRowT">'+esc(rowText())+'</span></span></span></span>'+ic('chevR','ch')+'</button></div>';
+  h+='<div class="sh">Backup &amp; restore <span class="zh">备份与恢复</span></div><div class="grp">'+
    '<button class="lnk" data-act="backupall"'+(db.cases.length?'':' disabled')+'><span class="l">'+ic('save')+'Backup all 备份全部 (.json)</span>'+ic('chevR','ch')+'</button>'+
    '<div style="border-top:.5px solid var(--sep)"></div>'+
    '<button class="lnk" data-act="import"><span class="l">'+ic('restore')+'Restore 导入恢复</span>'+ic('chevR','ch')+'</button></div>'+
-   '<div class="sf">A backup .json includes photos and recordings. Save it to Files / iCloud. 备份文件含照片和录音，请存到“文件”/iCloud。</div>';
-  h+='<div class="note warn" style="margin-top:18px"><b>Why back up 为什么要备份:</b> browsers may clear local data if the page is unused for a long time (esp. iPhone Safari), or if the phone is lost. 浏览器可能清理长期不用的本地数据（尤其是 iPhone Safari），手机丢失也会丢数据。</div></div>';
+   '<div class="sf">A backup .json includes photos and recordings. Save it to Files / iCloud. 备份文件含照片和录音，请存到“文件”/iCloud。</div>'+
+   '<div class="sh">Try it <span class="zh">试用</span></div><div class="grp"><button class="lnk" data-act="demo"><span class="l">'+ic('demo')+'Load demo case 加载演示</span>'+ic('chevR','ch')+'</button></div>'+
+   '<div class="note warn" style="margin-top:18px"><b>Why back up 为什么要备份:</b> browsers may clear local data if the page is unused for a long time (esp. iPhone Safari), or if the phone is lost. 浏览器可能清理长期不用的本地数据（尤其是 iPhone Safari），手机丢失也会丢数据。</div>';
   return h;
 }
 function caseHead(c,t){
@@ -714,7 +800,6 @@ function vCapture(){
   var n=nextN(c),saved=c.entries.length;
   var h=caseHead(c,'capture')+'<div class="pg cwrap">';
   var kd=clauseDef(curClause());
-  h+='<button class="clpick" data-act="clauses" aria-haspopup="dialog" aria-label="Choose clause 选择条款"'+(rec?' disabled':'')+'><span class="ctitle"><span>Clause <b class="cln">'+esc(kd.id)+'</b> — Evidence capture</span>'+ic('chevD','cd')+'</span><span class="zh ctz">证据采集 · '+esc(kd.zh)+'</span></button>';
   h+='<div class="srow"><div class="statebar'+(act?(rec?' rec':''):held?' held':' fin')+'" id="sbar"><i class="dot"></i><span>'+(act?(rec?'Recording 录音中':'Capturing 采集中'):held?'On hold 已暂停 — tap Resume 点“继续”':'Finished 已完成 — tap Resume to add more 点“继续”可补充')+'</span></div>'+
     '<button class="sndbtn'+(S.sound===false?' off':'')+'" data-act="snd" role="switch" aria-checked="'+(S.sound!==false)+'" aria-label="Click sound 点击音效 '+(S.sound===false?'off':'on')+'">'+ic(S.sound===false?'sndoff':'sndon')+'</button></div>';
   h+='<div class="capzone"><div class="cap">'+
@@ -723,7 +808,7 @@ function vCapture(){
         :'<button class="capbtn voice" data-act="rec"'+(act?'':' disabled')+'><span class="disc">'+ic('mic')+'</span><span class="t">Voice</span><span class="z">语音</span></button>')+
     '</div>'+
     '<div class="trow"><button class="textlink" data-act="text"'+(act&&!rec?'':' disabled')+'>'+ic('text')+'Text 文字</button>'+
-    '<button class="textlink lib" data-act="photolib"'+(act&&!rec?'':' disabled')+'>'+ic('image')+'Library 相册</button></div></div>';
+    '<button class="textlink lib" data-act="photolib"'+(act&&!rec?'':' disabled')+'>'+ic('image')+'Library 相册</button></div>'+clpickHtml(kd,rec)+'</div>';
   h+='<div class="capfoot"><div class="crow"><span class="cpill'+(act?'':fin?' fin':' held')+'" title="Entry 条目"><span class="cnum" id="cnum">#'+n+'</span></span>'+
      '<span class="spill mono"><span>Saved 已存 <b id="csaved">'+saved+'</b></span><i class="sep"></i><span>'+ic('clock')+' <span id="ct">'+clock(elapsed(c))+'</span></span><i class="sep"></i><span class="sy" title="Upload status 上传状态">'+sdot(c,'s')+'</span></span></div>'+
      '<div class="meta">'+esc(META)+'</div></div></div>';
@@ -1170,12 +1255,9 @@ document.addEventListener('click',function(e){
   var b=e.target.closest('[data-act]');if(!b||b.tagName==='INPUT'||b.tagName==='SELECT'||b.tagName==='TEXTAREA')return;
   if(b.disabled)return;
   var a=b.dataset.act,id=b.dataset.id,c=cur();
-  if(a==='newcase'){
-    var cl=$('#nc').value.trim();if(!cl){toast('Enter a client name 请输入客户名');return}
-    var n={id:uid(),client:cl,date:$('#nd').value||today(),auditor:$('#na').value.trim(),items:{},entries:[],capState:'active',capMs:0,created:new Date().toISOString(),v:1,sv:0};n.upd=n.created;
-    db.cases.push(n);loadedBlobs[n.id]=true;putCase(n).then(function(){openCase(n.id);changed()});
-  }
-  else if(a==='demo')loadDemo();
+  if(view==='home'&&(a==='photo'||a==='rec'||a==='text'||a==='photolib')){c=startCaseFromHome();if(!c)return}
+  if(a==='other'){otherOpen=!otherOpen;var ob=$('.othbtn'),op=$('#oth');if(ob){ob.classList.toggle('open',otherOpen);ob.setAttribute('aria-expanded',otherOpen)}if(op){op.hidden=!otherOpen;if(otherOpen)setTimeout(function(){try{ob.scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}},30)}return}
+  if(a==='demo')loadDemo();
   else if(a==='upload'){goto('upload');if(hasCode())checkConn()}
   else if(a==='tcpaste')pasteCode();
   else if(a==='tcsave'){var tv=savedCodeFromField();if(!tv.trim()){toast('Type or paste a code first 请先输入或粘贴口令');return}setCode(tv)}
@@ -1246,7 +1328,9 @@ document.addEventListener('click',function(e){
   }
 });
 document.addEventListener('input',function(e){
-  var t=e.target,a=t.dataset&&t.dataset.act;if(!a)return;
+  var t=e.target;
+  if(t.id==='nc'||t.id==='nd'||t.id==='na'){var d=draft();if(t.id==='nc')d.client=t.value;else if(t.id==='na')d.auditor=t.value;else{d.date=t.value;d.dateSet=true}saveDraftMeta();return}
+  var a=t.dataset&&t.dataset.act;if(!a)return;
   if(a==='email'){clearTimeout(input.te);input.te=setTimeout(function(){setMeta('email',t.value.trim())},300);return}
   var c=cur();if(!c)return;
   if(a==='etext'||a==='enote'){var en=entById(c,t.dataset.id);if(!en)return;if(a==='etext')en.text=t.value;else en.note=t.value;markEnt(en)}
@@ -1254,8 +1338,10 @@ document.addEventListener('input',function(e){
   else if(a==='stmt'){item(c,t.dataset.id).stmt=t.value;markItem(c,t.dataset.id)}
 });
 function input(){}
+document.addEventListener('focusin',function(e){var t=e.target;if(t.id==='nc'){setTimeout(function(){try{t.select();t.setSelectionRange(0,t.value.length)}catch(_){}},0)}});
+document.addEventListener('keydown',function(e){var t=e.target;if(e.key==='Enter'&&(t.id==='nc'||t.id==='na'))t.blur()});
 document.addEventListener('change',function(e){
-  var t=e.target,a=t.dataset&&t.dataset.act;if(!a)return;
+  var t=e.target,a=t.dataset&&t.dataset.act;if(t.id==='nd'){var d=draft();d.date=t.value||today();d.dateSet=!!t.value&&t.value!==today();return}if(!a)return;
   if(a==='tc')return;
   var c=cur();if(!c&&a!=='email')return;
   if(a==='tag'){var en=entById(c,t.dataset.id);en.tag=t.value;markEnt(en);render()}
