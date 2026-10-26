@@ -5,113 +5,275 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AS Secretary">
 <meta name="theme-color" content="#000000">
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAOC0lEQVR42u2dbUxT1xvAb1tKYVjkZSAIbIVNBjLAYZkM0G6ZDihDnFUpVIZojNlcMhP5sJi5ZEtc2Axb5gxb+CA6F+YmKuqUARsuWsrL4iYgDGVD5G0VCBQIra20/X8g4b9MrOf2nnt62z6/Dybguece7/n5POece++5FAUAAAAAAAAAAAAAAOAa8AifL36/Gi46EzrL0l1KDhDCSUXhgRNgCTk5wAmXsYQPZrgSeK8/D7SAEMKuHOhmkBxsu3lsYH6peQTaCkI4UBQmF5/HauNACy4oYncv8FhqE2jBKUXs6w4e9qaAFtxUxI5+4YMZbjJJsWM6ycNlBmjhFCGEVjfxwQy3CiG04gefvXYAnE0x+OVYVDoww+n8QA8efDAD/GAxrQCuCpIcEDbcM3jwwQzwA9IKwOZsBcKGu81s+XbkFMBlsN2/fAICAk4aPGDMAdglx8MxB8KG6wUPG5kFIgcAaQUAOQAScsCAA4YdEDkASCsAyAGAHADIAYAcAMgBgBwAyAGAHADIAQAgBwByACAHAHIAIAcAcgAgB+DseMAlwEtoaGhqampcXFxsbGx4ePiyZcsCAwO9vLxEIpHFYjEYDHq93mAwGAyGycnJ4X8xMDDQ3d2t0+lADlssX758cHCQz6cd1SwWi0QiGRwcJN9mqVSqVCo3bty4YsWKR5URCARCodDX19dGPcPDw11dXV1dXTdv3mxra+vq6rJarSDH/yksLLTDDIqi+Hx+YWHhxx9/TC4r8/l5eXn79+9fvXo1lgrDwsLCwsJee+21+R+npqZaWlo0Go1Go2lqajIYDO4+5igqKnLIsXRZs2ZNW1tbVVUVLjMeZunSpRkZGR9++GFDQ0N2dra7D0iTk5NjY2PtPjw6OjolJYXtRvJ4vAMHDjQ1NbGnBcxWFmHHjh0ODDxImdjD4+TJk4cOHRIIBDCVJYenp6dSqWRYiVKpFIlE7MWMb7/9VqVSwToHaXJycgICAhhW4ufnl5uby1ILDx48mJeX5ybTcm7JgSsjsJRZVq9e/cEHH1BuA4fkCA4OzsrKwlJVRkZGSEgI9haWl5e7/DiDo3KoVCoPDzzrLgKBAPuwICMj48UXX6TcCQ4tguHNBUVFRWVlZRgrfPvtt+keotPpGhsbr1y5cvv27b6+vsnJSb1ebzQavb29fXx8QkJCli9f/txzz8XHxyclJSUkJHAtLHFFjsTExMTERIwVxsfHv/DCC3/88QeW2vz9/TMzM9HLT0xMHDx4sLKyctE1zdnZ2dnZ2dHR0Y6Ojp9++mn+l2KxODU1NSsrSy6X21iDd8e0wsYQEmOdMpnM09MTsXBvb29SUlJ5eTmt1e6ZmZm6urp9+/ZFR0cnJiZ+8sknAwMDIAfl4eFRUFCAvdqCggKhUIilqrS0NMSSZrN569atd+/eZXK6jo6O9957LzIyMicn5/Lly46698YJObKyspYtW4ZYuLa2FrFkUFCQXC7H0kL0Ff2Ghob29nYsJ7VYLD/++GN2dvbKlSsrKyuNRqM7yoEe/41G486dO6enpwlnlsjISMSSV65cwX59enp6du7cefHiRbeTIyAgICcnBz1saLXampoaxPLZ2dmBgYHMG4leiVarhXUObCiVSvSxXlVV1cKfKHh6eubn5zNvpI+PD2JJ28/ygBz0QL8NOzMzMx9af/nll9HRUZKZhcdD/cZqeno6yIGH2NjY5ORkxMLnzp27f/8+RVFzc3OnT59GPEoqla5cuZJhO9EnpZs3b37++edBDtJLEf/OJt999x0bwelRoAcqoVB4+fLl+Ph4kIPZufn87du3o3fPzz//vPCjRqNBX0vYvn07w5Xpvr4+9MIRERHXr18/evQoRxY6nVKO9evXh4WFIRb+4YcfzGbzwo9Wq/XUqVOIx4aGhm7YsIFJU+kuwwuFwr17996+fbutre3AgQMpKSm4luPcRQ5a0f7hGQr6nIX5sPTXX3+178Dk5ORDhw41NzfrdLpr1659/vnnKpUqJiYGfYTrQB7ZRLb3Pvf19dVqtd7e3iiF79y5ExUV9fDvb968GRcXh1LD/fv3Q0JCpqam7Guth4eHVqvFsmSyMPP6/ffff/vtt9bW1paWlqGhIZK9jti5Dosc27ZtQzTDxvATfVjq5eW1bds2u1s7Nzd3/PhxjP98sVgsk8lKSkpOnz49ODjY19dXUVGhUCieeOIJSCv2z1Psk4N5Zvnss8/0ej1LVyMyMnL37t3V1dXj4+PV1dVyuZwLz3Y4Ro5nnnkGfbGoo6Ojq6vrUZOI1tZWxHrS0tKYTB9GRkYIvEvn7e2tUCguXbr0119/vfPOO+w9Rs9dObCEDTuCx5tvvsmk2aWlpVevXiVziSQSyZdfftnT06NQKNxIDh6PV1hYiFjYarXa7v7vv//+31Nc2xQWFjKZJpjN5jfeeKO7u5vYtZJIJNXV1VVVVUuWLHELOWQymUQiQSzc1NRk+4EorVaLPs98+umnX375ZSaNn5iYkMlk6LkMC/n5+deuXQsODnZ9OTDmFPILHhRFjY+Pr1u37siRIyQf0Fq1alVdXZ1YLHZlOXx8fLZs2YI+gUS5wXb27Fn0p6S2bNmCfv/9UZhMpnfffTc9Pf369esk/fj6669dWQ6FQoGePuvr68fHxx9bTKfToT87SMtO22g0GqlUumnTpqamJjJXr6CgYGHrDheUA3tOIb/g8R/Onz+fnp6+atWqsrIyAgudJLemIbp8/tRTT/X39yPOF/R6fXBw8OzsLOLywL179xBTstVqjYyMZPiAuI3gn5mZKZPJUlNTWXoq7KWXXmppaWFSAxeXz2nNJC9cuIBoBkVRBoPh/PnzbMyl6XLjxo3S0tKsrCx/f/+EhIQ9e/YcP3781q1bGEevuNIit9IKrTUoWnMQ8nOWx2KxWDo7OysqKoqLi2NiYp588sns7OzS0tLm5uYHDx4wqZnh4wdcTCupqanEBm4opKWlaTQah5za19dXLpdv3bo1NzfXjnsoZrNZLBYz2TyOc2mF5FZuHG/P9PT0qVOnFApFVFTUiRMn6B4uEAjQVxGdIK0wvGPOBnl5eV5eXo5tw8DAwI4dO3bt2kV3RIL+BJ0TyJGbm+vn58cpOZYuXbpp0yYutOTYsWOVlZW0DiFzq4WQHMyf/3btTHfkyBFa5XHtcuN4OZg/38sSGzZsCA0N5UJL2tvbaQ0wyWxlTEIO5m8GsIRAIEB/N4JtaG2Jj74CxHU5uDZPsaNtu3btOnz4MBub0C1oGhQUhF5+eHjYFeSQSqWID4g7hLi4OJQtqsVicUlJyZ07d8rLy2NiYrA345VXXkEfRlitVjKb/vDdOWzQHSx7eXm99dZbf/75Z0NDw+bNm9E3B3hs2Hj//ffRy9+6dYvMRi7syiEUCrHsgMAq+fn5dLt5/fr1Z86cGRkZOXr0aFpamn0fAFm4RF999ZVMJkM/pLm5mcyVYVeO119/Hf1FIKPR6Ovry8OBSCRCf38pMDDQvq9VBAYG7t27V61Wa7XaY8eOFRQUhIeH06rh1VdfVavVu3fvpnVUfX09GTnYnS7Tyin19fUzMzNYzmsymS5duoS+CV1RUdG5c+fsPl1QUFBxcXFxcTFFUf39/Tdu3Ojs7Ozp6RkaGhoaGtLpdHq93mQyzW8/Gh4eHh0dvWbNGrlcHh0dTfdcBoOB2P5PLMpBd7+2M2fOYDz72bNn0eWQy+VBQUFjY2PMzyuRSCQSCXtrr9988w2ZeSy7aYXWTo8PHjy4cOECxrPX1taiv6DmFGMjiqLm5uY+/fRTYqdjUQ5aOaWxsXFychLj2fV6fV1dnSvNqiiKOnz4MK2dQjgqx/zu0o7KKQuZBb1wUlISx7fjaW9v/+ijj0iekc+FsGE2m9F3j0Tn4sWLJpPJNYKHVqvNycmZ3xLNueWg+0WLq1evYhkM/oepqanGxkb08iqVipv3gO7evbtu3Try38tlRY7MzExatyHYyCl2ZJaQkJCMjIxF/2pyctJRG5DX19enpKT09vaSPzUrctCKz1arlVYX0qKmpgb9NWsbLT9x4kR4ePi+ffvUajWtCplw7969PXv2ZGZmOmpXZPxy+Pn5bdy4Eb28RqP5559/WPrnjY2NqdVq9PI2nlgbGRn54osv1q5dGxwcrFKpTp48yV6c//vvv0tKSp599tmKigqX+lw53S93spdTFupHv3MhEomUSqXtV1InJiaqqqrm34SIiopau3ZtcnKyVCpNSEhA38hq0Qja09NTW1tbU1OjVqsd6MQCDtswzvXg8/kSiSQmJmbFihURERERERGhoaEBAQH+/v5LliwRiUTzS4Imk8loNE5PT4+NjY2Ojvb39/f29nZ3d7e2tuJd6bG10IDWuR7QqbiwWCx9fX0kF6mcdZ0DADkAkAMAOQAA5ABADgDkAEAOAOQAQA4A5ABADgDkAEAOAAA5AJADADkAkAMAOQCQAwA5AJADADkAkAMAORbl4VegHn5NCnBG0N9lhMgBQFoBQA6AkBww7HDnAQdEDgBrWoHg4Uphg5EcsGGLa2O7f/kEBAScMWzAmANgJseikQeChwuEjceOGZAiB/jhhmZAWgFwyAHBw93CBr3IAX64lRl40gr44TJzV0ZyPEo68MNZzKC1qsnDqySsqHI5YNDtHXvSio1zQAhxGTPsjBwoHkAI4dQIw77u4LHXIFCEIwNPu3uBx3bLQBHHzkeYXHwesVaCKE53qXnkGw0QAMt/Qp6jvAa4rIX9U1nIGu5gBv7IAVHEBZwgIQdY4qROEJUDRIHEDQAAAAAAAAAAAAAk+B/rvXo7NAtj4gAAAABJRU5ErkJggg==">
 <title>AS · Auditing Secretary / 审核秘书 — DRAFT prototype rev03</title>
 <style>
+:root{
+  --bg:#000;--g1:#1c1c1e;--g2:#2c2c2e;--g3:#3a3a3c;--sep:#38383a;
+  --lab:#f2f2ef;--lab2:#a1a19c;--lab3:#6c6c68;
+  --or:#ff8a3d;--or-d:#c2410c;--or-t:rgba(255,138,61,.16);
+  --gr:#34d399;--gr-t:rgba(52,211,153,.16);
+  --rd:#ff453a;--rd-t:rgba(255,69,58,.16);
+  --blur:saturate(180%) blur(22px);
+  --sat:env(safe-area-inset-top);--sab:env(safe-area-inset-bottom);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#000;color:#e8e8e8;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
-body{padding-bottom:env(safe-area-inset-bottom);max-width:720px;margin:0 auto}
-a{color:#7cc4ff}
-.back{position:sticky;top:0;z-index:50;background:#000;border-bottom:1px solid #2a2a2a;padding:calc(env(safe-area-inset-top) + 4px) 12px 4px}
-.back a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:600}
-.wrap{padding:12px}
-h1{font-size:21px;margin:6px 0 2px}
-.zh{color:#9aa;font-size:.88em;font-weight:400}
-.meta{color:#999;font-size:13px}
-.draft{display:inline-block;border:1px solid #f5a623;color:#f5a623;border-radius:4px;padding:0 6px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-left:6px}
-.note{background:#0c0c0c;border:1px solid #262626;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#bbb}
-.note b{color:#ddd}
-.warn{border-color:#6b4a10;background:#150f02;color:#f0c57a}
-.card{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:12px;padding:12px;margin:10px 0}
-.card h2{font-size:16px;margin:0 0 4px}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.btn{min-height:48px;min-width:48px;padding:8px 14px;border-radius:10px;border:1px solid #3a3a3a;background:#161616;color:#eee;font:inherit;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-align:center}
-.btn:active{background:#262626}
-.btn.pri{background:#1b4f8a;border-color:#2d73c4;color:#fff}
-.btn.dan{border-color:#7a2323;color:#ff8d8d}
-.btn.sm{min-height:44px;padding:6px 10px;font-size:14px}
-.btn[disabled]{opacity:.4;cursor:not-allowed}
-.st{flex:1;min-width:0;flex-direction:column;gap:0;line-height:1.2;white-space:nowrap;padding:6px 4px;font-size:15px}
-.st.on-seen{background:#12381f;border-color:#2e9a52;color:#8ff0ac}
-.st.on-not{background:#3a1414;border-color:#b53b3b;color:#ff9c9c}
-.st.on-na{background:#262626;border-color:#777;color:#ddd}
-input,select,textarea{width:100%;background:#050505;color:#eee;border:1px solid #3a3a3a;border-radius:8px;padding:10px;font:inherit;font-size:16px;min-height:44px}
-textarea{min-height:84px;resize:vertical}
-label{display:block;font-size:13px;color:#aaa;margin:8px 0 3px}
-.chip{font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid #444;color:#bbb;white-space:nowrap}
-.chip.seen{border-color:#2e9a52;color:#8ff0ac}.chip.not{border-color:#b53b3b;color:#ff9c9c}.chip.na{border-color:#888;color:#ddd}
-.item{border-top:1px solid #1f1f1f;padding:10px 0}
-.item:first-child{border-top:0}
-.it-h{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
-.it-h .p{font-weight:600}
-.tabs{display:flex;gap:6px;margin:10px 0}
-.tabs .btn{flex:1}
-.tabs .btn.on{background:#fff;color:#000;border-color:#fff}
-.hint{background:#07121c;border:1px solid #17405f;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px;color:#b9dcf5}
-.hint b{color:#e3f3ff}
-.hint ul{margin:6px 0 0;padding-left:18px}
-.q{font-size:20px;font-weight:600;line-height:1.3;margin:6px 0}
-.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.thumb{position:relative}
-.thumb img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid #333;display:block}
-.thumb button{position:absolute;top:-8px;right:-8px;width:32px;height:32px;border-radius:99px;border:1px solid #555;background:#000;color:#fff;font-size:16px}
-.fine{font-size:12px;color:#888}
-.toast{pointer-events:none;position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 14px);background:#222;border:1px solid #555;border-radius:10px;padding:12px;z-index:99;text-align:center}
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:80;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:#111;border:1px solid #444;border-radius:16px 16px 0 0;padding:16px;width:100%;max-width:720px}
-.pre{white-space:pre-wrap;font-size:14px}
-.sumblk{border-left:3px solid #333;padding-left:10px;margin:8px 0}
-.k{color:#8ab4d8;font-weight:600}
-.prog{height:6px;background:#1c1c1c;border-radius:4px;overflow:hidden;margin:6px 0}
-.prog i{display:block;height:100%;background:#2d73c4}
-.listrow{display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #1f1f1f;padding:10px 0}
-.listrow:first-child{border-top:0}
-.rec{color:#ff6b6b;font-weight:700}
+html{-webkit-text-size-adjust:100%;background:#000}
+html,body{margin:0;background:#000;color:var(--lab);font:17px/1.4 var(--font);-webkit-font-smoothing:antialiased}
+body{max-width:720px;margin:0 auto;padding-bottom:calc(var(--sab) + 24px);overflow-x:hidden}
+body.incap{padding-bottom:calc(var(--sab) + 112px)}
+a{color:var(--or);text-decoration:none}
+.zh{color:var(--lab2);font-size:.88em;font-weight:400}
+.ic{width:1em;height:1em;flex:none;display:inline-block;vertical-align:-.14em}
+button,input,select,textarea{font-family:inherit}
 
-.btn.on{background:#fff;color:#000;border-color:#fff}
-.btn.seg{min-height:40px;padding:4px 12px;font-size:14px}
-.btn.big{min-height:60px;font-size:17px;width:100%}
-.banner{border:1px solid #17405f;background:#07121c;color:#b9dcf5;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13.5px}
-.banner.red{border-color:#8a2b2b;background:#1a0707;color:#ffb0b0}
-.banner b{color:#fff}
+/* ---- bars ---- */
+.back{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border-bottom:.5px solid rgba(84,84,88,.55);padding:calc(var(--sat) + 2px) 8px 2px 8px;min-height:calc(var(--sat) + 48px)}
+body.incase .back{display:none}
+.back a{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 8px;font-size:17px;color:var(--or)}
+.back a .ic{width:22px;height:22px}
+.draft{display:inline-block;border:1px solid rgba(255,138,61,.6);color:var(--or);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.8px;margin-right:8px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border-bottom:.5px solid rgba(84,84,88,.55);padding:calc(var(--sat) + 2px) 8px 8px;margin:0 -0px}
+.nav .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px}
+.nav .bk{white-space:nowrap;justify-self:start;display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 6px 0 2px;background:none;border:0;color:var(--or);font-size:17px;cursor:pointer;transition:opacity .15s}
+.nav .bk:active{opacity:.4}
+.nav .bk .ic{width:22px;height:22px}
+.nav .ttl{text-align:center;line-height:1.15;max-width:150px;min-width:0}
+.nav .ttl b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav .ttl>span{display:block;font-size:11px;color:var(--lab2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.nav .rt{justify-self:end}
+.wrap{padding:0 16px}
+.pg{padding:8px 16px 0}
+
+/* ---- titles ---- */
+.lt{font-size:27px;line-height:1.12;font-weight:800;letter-spacing:-.4px;margin:18px 0 2px}
+.lt .as{color:var(--or)}
+.lts{font-size:17px;color:var(--lab2);margin:0 0 4px}
+.meta{color:var(--lab3);font-size:11.5px;margin:2px 0 14px;letter-spacing:.1px}
+.ctitle{font-size:22px;font-weight:700;letter-spacing:-.2px;line-height:1.2;margin:14px 0 2px}
+.fine{font-size:13px;line-height:1.4;color:var(--lab2)}
+
+/* ---- segmented control (tabs / filters) ---- */
+.tabs{display:flex;gap:2px;background:var(--g1);border-radius:9px;padding:2px;margin:8px 0 0}
+.tabs .btn{flex:1;min-height:36px;padding:2px 2px;white-space:nowrap;border:0;border-radius:7px;background:none;color:var(--lab);font-size:13.5px;font-weight:500;box-shadow:none;gap:3px;transition:background .2s,color .2s}
+.tabs .btn.on{background:var(--g3);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.5)}
+.tabs .btn:active{transform:none;opacity:.7}
+.tabs .btn .zh{color:inherit;opacity:.65;font-size:11.5px;white-space:nowrap}
+.tabs.filt{margin:12px 0 14px}
+
+/* ---- grouped lists ---- */
+.sh{font-size:13px;color:var(--lab2);margin:22px 16px 7px;letter-spacing:.2px}
+.sf{font-size:13px;color:var(--lab2);margin:7px 16px 0;line-height:1.4}
+.grp{background:var(--g1);border-radius:14px;margin:0 0 4px;overflow:hidden}
+.grp>.r{padding:12px 16px;position:relative}
+.grp>.r+.r{border-top:.5px solid var(--sep)}
+.grp.pri{background:linear-gradient(180deg,rgba(255,138,61,.14),rgba(255,138,61,.04)),var(--g1);box-shadow:inset 0 0 0 1px rgba(255,138,61,.35)}
+.grp.dng{box-shadow:inset 0 0 0 1px rgba(255,69,58,.3)}
+.grp h2,.r h2{font-size:17px;font-weight:600;margin:0 0 2px;line-height:1.3}
+.grp .rowl{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.rowl .tx{min-width:0}
+.rowl .tx b{font-weight:600}
+.lnk{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:48px;padding:10px 16px;background:none;border:0;border-radius:0;color:var(--lab);font-size:17px;text-align:left;cursor:pointer;transition:background .12s}
+.lnk:active{background:var(--g2)}
+.lnk .ic{width:20px;height:20px;color:var(--or)}
+.lnk .ch{color:var(--lab3);width:14px;height:14px}
+.lnk.or{color:var(--or)}
+.lnk.red{color:var(--rd)}.lnk.red .ic{color:var(--rd)}
+.lnk[disabled]{opacity:.35;cursor:not-allowed}
+.lnk .l{display:flex;align-items:center;gap:12px}
+.field{display:flex;flex-direction:column;gap:2px;padding:8px 16px}
+.field label{font-size:12.5px;color:var(--lab2);margin:0}
+.field+.field{border-top:.5px solid var(--sep)}
+label{display:block;font-size:12.5px;color:var(--lab2);margin:10px 0 4px}
+input,select,textarea{width:100%;background:var(--g2);color:var(--lab);border:0;border-radius:10px;padding:10px 12px;font:inherit;font-size:17px;min-height:44px;outline:none;-webkit-appearance:none;appearance:none;transition:box-shadow .15s}
+.field input,.field select{background:none;padding:2px 0;min-height:28px;border-radius:0}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(255,138,61,.7)}
+.field input:focus,.field select:focus{box-shadow:none}
+input::placeholder,textarea::placeholder{color:var(--lab3)}
+textarea{min-height:92px;resize:vertical;line-height:1.4}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20' fill='none' stroke='%236c6c68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 7l4-4 4 4M2 13l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+input[type=date]{min-height:28px}
+
+/* ---- buttons ---- */
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{min-height:44px;min-width:44px;padding:8px 16px;border-radius:12px;border:0;background:var(--g2);color:var(--lab);font:inherit;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;transition:transform .12s ease,opacity .12s,background .15s;line-height:1.2}
+.btn:active{transform:scale(.97);opacity:.75}
+.btn.pri{background:var(--or);color:#000}
+.btn.dan{background:var(--rd-t);color:var(--rd)}
+.btn.sm{min-height:44px;padding:6px 14px;font-size:15px}
+.btn.big{min-height:56px;font-size:18px;width:100%;border-radius:14px}
+.btn[disabled]{opacity:.32;cursor:not-allowed;transform:none}
+.btn .ic{width:20px;height:20px}
+.btn .zh{color:inherit;opacity:.7}
 a.btn{text-decoration:none}
-.sheet{max-height:88vh;overflow:auto}
-.ctitle{font-size:20px;font-weight:700;margin:10px 0 2px;line-height:1.25}
-.counter{text-align:center;margin:6px 0 4px}
-.cnum{font-size:76px;font-weight:800;line-height:1;letter-spacing:-1px;color:#fff}
-.cnum.held{color:#f5a623}
-.cap{display:flex;flex-direction:column;gap:12px;margin:8px 0}
-.capbtn{width:100%;min-height:17vh;border-radius:22px;border:2px solid #333;background:#111;color:#fff;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
-.capbtn .ic{font-size:46px;line-height:1.1}
-.capbtn .t{font-size:26px;font-weight:800}
-.capbtn .z{font-size:20px;color:#a8c4d8;font-weight:600}
-.capbtn.photo{background:#0b2238;border-color:#2d73c4}
-.capbtn.voice{background:#2a0e0e;border-color:#b53b3b}
-.capbtn.recording{background:#9b1414;border-color:#ff6b6b}
-.capbtn[disabled]{opacity:.28;cursor:not-allowed}
-.ctl{display:flex;gap:8px;margin:6px 0}
-.ctl .btn{flex:1;padding:6px 4px;flex-direction:column;gap:0;line-height:1.2}
-.ctl .btn.fin{border-color:#2e9a52;color:#8ff0ac}
-.ctl .btn.hold{border-color:#b8860b;color:#f5a623}
-.textlink{display:block;text-align:center;margin:10px auto 0;padding:10px 16px;font-size:13px;color:#8a8a8a;background:none;border:0;font-family:inherit;min-height:44px;text-decoration:underline}
+.btn.seg{min-height:36px;padding:2px 12px;font-size:14px;border-radius:9px}
+.btn.on{background:var(--or);color:#000}
+.stl{display:flex;gap:2px;background:var(--g2);border-radius:9px;padding:2px;margin-top:4px}
+.stl .btn{flex:1;flex-direction:column;gap:0;min-height:44px;padding:4px 2px;background:none;border-radius:7px;font-size:14px;font-weight:600;white-space:nowrap;color:var(--lab);transition:background .2s,color .2s}
+.stl .btn .zh{font-size:12px}
+.stl .btn:active{transform:none}
+.stl .btn.on-seen{background:var(--gr);color:#00281a}
+.stl .btn.on-not{background:var(--or);color:#2a1000}
+.stl .btn.on-na{background:var(--lab2);color:#000}
+
+/* ---- chips ---- */
+.chip{font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--g2);color:var(--lab2);white-space:nowrap;display:inline-block;margin:2px 4px 2px 0}
+.chip.seen{background:var(--gr-t);color:var(--gr)}.chip.not{background:var(--or);color:#2a1000}.chip.na{background:var(--g3);color:var(--lab)}
+.chip.tag{background:var(--or-t);color:var(--or)}
+
+/* ---- banners / notes ---- */
+.note,.banner{background:var(--g1);border-radius:14px;padding:12px 16px;margin:12px 0;font-size:14px;line-height:1.45;color:var(--lab2)}
+.note b,.banner b{color:var(--lab)}
+.warn{background:var(--or-t);color:#ffcfa8}
+.warn b{color:var(--or)}
+.banner.red{background:var(--rd-t);color:#ffb4ae}
+.banner.red b{color:var(--rd)}
+.tip{display:flex;gap:12px;align-items:flex-start}
+.tip .ic{width:22px;height:22px;color:var(--or);margin-top:1px}
+
+/* ---- capture screen ---- */
+.cwrap{text-align:center;position:relative;overflow:hidden}
+.ctz{font-size:13px;margin-top:-1px}
+.cnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.cpill{display:inline-flex;align-items:center;gap:6px;background:var(--g1);border-radius:99px;padding:4px 11px 4px 9px;font-size:13px;font-weight:600;color:var(--lab2);box-shadow:inset 0 0 0 .5px rgba(255,138,61,.28);transition:color .3s}
+.cpill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or);opacity:.6}
+.cpill.held{color:var(--lab3)}.cpill.held::before{background:var(--lab3)}
+.cpill.fin::before{background:var(--gr)}
+.spill{display:inline-flex;align-items:center;gap:7px;background:none;border-radius:99px;padding:4px 4px;font-size:12px;color:var(--lab3);font-variant-numeric:tabular-nums}
+.spill b{color:var(--lab2);font-weight:600}
+.spill .sep{width:1px;height:10px;background:var(--g3)}
+.spill .ic{width:12px;height:12px}
+.statebar{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;margin:6px 0 0;color:var(--gr);opacity:.85}
+.statebar.rec{opacity:1}
+.statebar.held{color:var(--or)}
+.statebar.fin{color:var(--gr)}
+.statebar.rec{color:var(--rd)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;flex:none}
+.statebar .dot{animation:blink 1.6s ease-in-out infinite}
+.statebar.held .dot,.statebar.fin .dot{animation:none}
+.statebar.rec .dot{animation:blink .9s ease-in-out infinite}
+.capzone{position:absolute;left:0;right:0;top:max(38%,198px);transform:translateY(-50%);display:flex;flex-direction:column;align-items:center}
+.cap{display:flex;justify-content:center;gap:28px;margin:0 0 6px}
+.capfoot{position:absolute;left:16px;right:16px;bottom:6px}
+.crow{display:flex;align-items:center;justify-content:space-between}
+.capfoot .meta{margin:4px 0 0;text-align:center;font-size:10.5px}
+.capbtn{background:none;border:0;padding:0;color:var(--lab);font:inherit;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;width:152px;-webkit-user-select:none;user-select:none}
+.capbtn .disc{width:132px;height:132px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;transition:transform .14s cubic-bezier(.3,.7,.4,1),box-shadow .2s,background .2s}
+.capbtn .disc .ic{width:54px;height:54px}
+.capbtn:active .disc{transform:scale(.93)}
+.capbtn.photo .disc{background:var(--or);color:#000;box-shadow:0 10px 30px -8px rgba(255,138,61,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+.capbtn.voice .disc{background:var(--g1);color:var(--or);box-shadow:inset 0 0 0 2px rgba(255,138,61,.55)}
+.capbtn.recording .disc{background:var(--rd);color:#fff;box-shadow:0 0 0 0 rgba(255,69,58,.55);animation:ring 1.5s ease-out infinite}
+.capbtn.recording .disc .ic{width:40px;height:40px}
+.capbtn .t{font-size:17px;font-weight:700;line-height:1.1}
+.capbtn .z{font-size:13px;color:var(--lab2);font-weight:400;line-height:1.1;margin-top:-6px}
+.capbtn.recording .t{color:var(--rd)}
+.capbtn[disabled]{opacity:.3;cursor:not-allowed}
+.capbtn[disabled]:active .disc{transform:none}
+.textlink{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:2px auto 0;padding:0 20px;min-height:44px;font-size:16px;font-weight:600;color:var(--or);background:var(--or-t);border:0;border-radius:99px;cursor:pointer;transition:transform .12s,opacity .12s}
+.textlink:active{transform:scale(.96);opacity:.7}
 .textlink[disabled]{opacity:.3}
-.ent .num{font-size:22px;font-weight:800;color:#fff}
-.ent .thumbbig{width:120px;height:120px;object-fit:cover;border-radius:8px;border:1px solid #333;display:block;margin:6px 0}
-.ent audio{width:100%;height:44px;margin:6px 0}
-.ent .txt{white-space:pre-wrap;margin:6px 0}
-.chip.tag{border-color:#2d73c4;color:#9cc9f5}
-.statebar{text-align:center;font-size:14px;color:#aaa}
-.statebar.held{color:#f5a623;font-weight:700}
-.statebar.fin{color:#8ff0ac;font-weight:700}
+.textlink .ic{width:18px;height:18px}
+.ctlbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-top:.5px solid rgba(84,84,88,.55);padding:10px 16px calc(var(--sab) + 10px)}
+.ctl{display:flex;gap:10px;max-width:720px;margin:0 auto}
+.ctl .btn{flex:1;flex-direction:column;gap:2px;min-height:62px;padding:8px 4px;border-radius:16px;font-size:15px;background:var(--g1);color:var(--lab)}
+.ctl .btn .ic{width:24px;height:24px}
+.ctl .btn .zh{font-size:12px}
+.ctl .btn.hold{background:var(--or-t);color:var(--or)}
+.ctl .btn.resume{background:var(--or);color:#000}
+.ctl .btn.fin{background:var(--gr);color:#00281a}
+.ctl .btn[disabled]{background:var(--g1);color:var(--lab3);opacity:.7}
+
+/* ---- review ---- */
+.ent{background:var(--g1);border-radius:14px;margin:0 0 14px;overflow:hidden}
+.ent .eh{display:flex;align-items:center;gap:10px;padding:12px 16px 4px}
+.ent .num{font-size:15px;font-weight:800;background:var(--or);color:#000;border-radius:99px;min-width:36px;padding:2px 10px;text-align:center;font-variant-numeric:tabular-nums}
+.ent .eh .meta2{font-size:13px;color:var(--lab2);flex:1;min-width:0}
+.ent .eb{padding:6px 16px 10px}
+.ent .thumbbig{width:100%;max-width:240px;aspect-ratio:4/3;height:auto;object-fit:cover;border-radius:12px;display:block;margin:4px 0 8px}
+.ent audio{width:100%;height:44px;margin:4px 0 4px;color-scheme:dark}
+.ent .txt{white-space:pre-wrap;margin:2px 0 6px;font-size:16px;line-height:1.45}
+.ent .tg{padding:0 16px 8px}
+.ent .lnk{border-top:.5px solid var(--sep);color:var(--or);font-size:16px;font-weight:500;min-height:46px}
+.ent .ed{padding:0 16px 14px;border-top:.5px solid var(--sep)}
+.ent .ed label:first-child{margin-top:12px}
+.nav-row{display:flex;gap:10px;margin:18px 0 6px}
+.nav-row .btn{flex:1;min-height:50px}
+
+/* ---- summary ---- */
+.sumblk{border-left:3px solid var(--or);padding:2px 0 2px 12px;margin:12px 0;border-radius:1px}
+.sumblk .k{color:var(--or);font-weight:600;font-size:13px;letter-spacing:.2px;display:block;margin-bottom:2px}
+.sumblk .zh{display:block;margin-top:2px}
+.sumhd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.sumhd .nn{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g2);color:var(--or);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.sumhd h2{flex:1}
+.k{color:var(--or);font-weight:600}
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.exp .btn{width:100%}
+
+/* ---- list rows on home ---- */
+.listrow{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:6px 16px 6px;min-height:60px}
+.grp>.listrow+.listrow{border-top:.5px solid var(--sep)}
+.listrow .btn{background:var(--or-t);color:var(--or)}
+.empty{padding:20px 16px;text-align:center;color:var(--lab2);font-size:15px}
+.prog{height:6px;background:var(--g2);border-radius:4px;overflow:hidden}
+
+/* ---- sheets ---- */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:80;display:flex;align-items:flex-end;justify-content:center;animation:fadein .22s ease both}
+.sheet{background:rgba(28,28,30,.96);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:22px 22px 0 0;padding:8px 20px calc(var(--sab) + 20px);width:100%;max-width:720px;max-height:90vh;overflow:auto;animation:slideup .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
+.sheet .grab{width:38px;height:5px;border-radius:3px;background:var(--g3);margin:4px auto 14px}
+.sheet h2{font-size:21px;font-weight:700;margin:0 0 6px;letter-spacing:-.2px}
+.sheet p{margin:0 0 14px;color:var(--lab2);font-size:15px;line-height:1.45}
+.sheet .btn.big{margin-bottom:8px}
+.sheet .btn.plain{background:var(--g2)}
+.sheet .row .btn{flex:1}
+.sicon{width:48px;height:48px;border-radius:14px;background:var(--or-t);color:var(--or);display:flex;align-items:center;justify-content:center;margin:0 0 10px}
+.sicon .ic{width:26px;height:26px}
+.pre{white-space:pre-wrap;font-size:14px}
+
+/* ---- toast ---- */
+.toast{pointer-events:none;position:fixed;left:16px;right:16px;margin:0 auto;max-width:420px;top:calc(var(--sat) + 10px);z-index:99;display:flex;gap:10px;align-items:flex-start;background:rgba(44,44,46,.92);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:16px;padding:12px 16px;font-size:14.5px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:toastin .3s cubic-bezier(.2,.9,.25,1) both}
+.toast .ic{width:22px;height:22px;color:var(--gr);margin-top:0}
+
+
+.rec{color:var(--rd);font-weight:700}
 .mono{font-variant-numeric:tabular-nums}
+#ind{font-variant-numeric:tabular-nums}
+
+@keyframes blink{50%{opacity:.3}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,69,58,.55)}100%{box-shadow:0 0 0 30px rgba(255,69,58,0)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:none}}
+@keyframes toastin{from{opacity:0;transform:translateY(-12px) scale(.97)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-height:700px){.capbtn .disc{width:108px;height:108px}.capbtn{width:128px}.capbtn .disc .ic{width:46px;height:46px}.cap{gap:18px}.ctitle{margin-top:8px;font-size:20px}}
+
+.sthumb{width:56px;height:56px;object-fit:cover;border-radius:10px;vertical-align:middle}
+.se{margin:8px 0;font-size:15px;line-height:1.4}
+.se .sn{color:var(--or);font-variant-numeric:tabular-nums}
+.ic.sm{width:16px;height:16px;color:var(--or)}
+.toast .ic.w{color:var(--or)}
+.row .btn.plain,.btn.plain{background:var(--g2)}
+.cwrap .meta{text-align:center}
+
+#ind:not(:empty)::before{content:" · "}
+
+.sheet .row.nw .btn{white-space:nowrap;font-size:15px;padding-left:10px;padding-right:10px}
+.sheet .stack{display:flex;flex-direction:column;gap:8px}.sheet .stack .btn{width:100%;justify-content:flex-start;min-height:48px;padding:0 16px;font-size:16px}
+.sthumbrow{display:flex;align-items:center;gap:10px;margin-top:6px}
+.statebar{max-width:94%;line-height:1.3}.statebar span{text-align:center}
 </style>
 </head><body>
-<div class="back"><a href="https://fta7ai.com/">‹ FTA &nbsp;<span class="zh">返回 FTA 网站</span></a></div>
-<div class="wrap"><div id="app"><div class="fine">Loading… 加载中…</div></div></div>
+<div class="back"><a href="https://fta7ai.com/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-7 7 7 7"/></svg>FTA&nbsp;<span class="zh">返回 FTA 网站</span></a><span class="draft">DRAFT</span></div>
+<div id="app"><div class="pg fine">Loading… 加载中…</div></div>
 <input type="file" id="photoIn" accept="image/*" capture="environment" hidden>
 <input type="file" id="libIn" accept="image/*" multiple hidden>
 <input type="file" id="impIn" accept="application/json,.json" hidden>
@@ -161,6 +323,34 @@ var idb=null, memOnly=false, persistState='unknown';
 var voice=null, R=null, audioConsent=false, saveInfo='';
 var dirty={}, flushT=null, lastTick=Date.now(), tickN=0;
 
+
+var IC={
+ camera:'<path d="M3.8 9a2.6 2.6 0 0 1 2.6-2.6h1.1l1-1.5a1.6 1.6 0 0 1 1.3-.7h4.4a1.6 1.6 0 0 1 1.3.7l1 1.5h1.1A2.6 2.6 0 0 1 20.2 9v8a2.6 2.6 0 0 1-2.6 2.6H6.4A2.6 2.6 0 0 1 3.8 17z"/><circle cx="12" cy="12.8" r="3.7"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/>',
+ stop:'<rect x="6.5" y="6.5" width="11" height="11" rx="2.6" fill="currentColor" stroke="none"/>',
+ pause:'<rect x="7" y="5" width="3.5" height="14" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.5" y="5" width="3.5" height="14" rx="1.2" fill="currentColor" stroke="none"/>',
+ play:'<path d="M8 5.6v12.8a.8.8 0 0 0 1.2.7l10-6.4a.8.8 0 0 0 0-1.4l-10-6.4A.8.8 0 0 0 8 5.6z" fill="currentColor" stroke="none"/>',
+ check:'<path d="M5 12.6l4.6 4.6L19 7.6"/>',
+ checkc:'<circle cx="12" cy="12" r="9.2"/><path d="M7.9 12.4l2.7 2.7 5.5-5.8"/>',
+ info:'<circle cx="12" cy="12" r="9.2"/><path d="M12 11v5.2M12 7.7v.1"/>',
+ chevL:'<path d="M14.5 5l-7 7 7 7" stroke-width="2.4"/>',
+ chevR:'<path d="M9 5l7 7-7 7" stroke-width="2.4"/>',
+ chevD:'<path d="M5 9l7 7 7-7" stroke-width="2.4"/>',
+ chevU:'<path d="M5 15l7-7 7 7" stroke-width="2.4"/>',
+ text:'<path d="M5 6.5V5h14v1.5M12 5v14M9 19h6"/>',
+ trash:'<path d="M4.5 7h15M9.5 7V4.8h5V7M6.5 7l.8 12.2h9.4L17.5 7M10 10.5v5.5M14 10.5v5.5"/>',
+ mail:'<rect x="3.2" y="5.5" width="17.6" height="13" rx="2.6"/><path d="M4 7.5l8 6 8-6"/>',
+ image:'<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5.3l3.3 2"/>',
+ copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6.8a2.3 2.3 0 0 0-2.3-2.3H6.8a2.3 2.3 0 0 0-2.3 2.3v6.4a2.3 2.3 0 0 0 2.3 2.3h1.7"/>',
+ down:'<path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19.5h14"/>',
+ save:'<path d="M12 3.5v9.5M8 9.5l4 4 4-4M4.5 15v2.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V15"/>',
+ restore:'<path d="M12 15.5V6M8 9.5l4-4 4 4M4.5 15v2.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V15"/>',
+ home:'<path d="M3.5 11l8.5-7 8.5 7M6 9.5V19a1 1 0 0 0 1 1h3.5v-5h3v5H17a1 1 0 0 0 1-1V9.5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ demo:'<path d="M12 3.5l1.9 5 5.1.4-3.9 3.3 1.2 5-4.3-2.7-4.3 2.7 1.2-5L5 8.9l5.1-.4z"/>'
+};
+function ic(n,c){return '<svg class="ic'+(c?' '+c:'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>'}
 function $(s){return document.querySelector(s)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
 function uid(){return 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
@@ -168,7 +358,7 @@ function pad(n){return ('0'+n).slice(-2)}
 function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
 function hhmm(){var d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fmt(ts){var d=new Date(ts);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())}
-function toast(m){var t=$('#toast');t.innerHTML='<div class="toast">'+esc(m)+'</div>';clearTimeout(toast.t);toast.t=setTimeout(function(){t.innerHTML=''},4200)}
+function toast(m){var t=$('#toast');var good=/saved|Saved|Copied|Restored|Shared|Deleted|Upgraded|Migrated|downloading/.test(m);t.innerHTML='<div class="toast">'+(good?ic('checkc'):ic('info','w'))+'<div>'+esc(m)+'</div></div>';clearTimeout(toast.t);toast.t=setTimeout(function(){t.innerHTML=''},4200)}
 function fatal(e,what){try{console.warn(what,e)}catch(_){}
   var n=e&&e.name;
   toast(n==='QuotaExceededError'?'Storage full 存储已满 — export a backup and free space 请导出备份并释放空间':'Could not save 保存失败 ('+(n||'error')+') — export a backup 请导出备份')}
@@ -342,9 +532,9 @@ function askPersist(){
 function storageBanner(){
   var h='';
   if(memOnly)h+='<div class="banner red"><b>Storage unavailable 存储不可用.</b> This browser blocked IndexedDB (private mode?). Data will be lost when you close the page — export a backup before leaving. 此浏览器禁用了本地数据库（隐私模式？），关闭页面数据会丢失，请先导出备份。</div>';
-  if(!isStandalone())h+='<div class="banner"><b>Tip 提示 — Add to Home Screen 添加到主屏幕:</b> in Safari tap <b>Share ⬆︎ → Add to Home Screen</b>. The installed app keeps its data far more reliably than a Safari tab. 在 Safari 点“分享 ⬆︎ → 添加到主屏幕”，主屏幕版本比普通标签页更不容易被清理数据。</div>';
+  if(!isStandalone())h+='<div class="note tip">'+ic('home')+'<div><b>Tip 提示 — Add to Home Screen 添加到主屏幕:</b> in Safari tap <b>Share ⬆︎ → Add to Home Screen</b>. The installed app keeps its data far more reliably than a Safari tab. 在 Safari 点“分享 ⬆︎ → 添加到主屏幕”，主屏幕版本比普通标签页更不容易被清理数据。</div></div>';
   var ps=persistState==='granted'?'granted ✓ 已授予':persistState==='denied'?'not granted 未授予 (add to Home Screen 请添加到主屏幕)':persistState==='unsupported'?'not supported 不支持':'…';
-  h+='<div class="fine" id="stor">Persistent storage 持久存储: '+ps+'</div>';
+  h+='<div class="fine" id="stor" style="margin:0 16px 4px">Persistent storage 持久存储: '+ps+'</div>';
   return h;
 }
 function nagState(){
@@ -357,69 +547,75 @@ function nagState(){
 function backupBanner(){
   var n=nagState();if(!n)return '';
   var last=S.lastBackup?fmt(S.lastBackup):'never 从未';
-  if(n.late)return '<div class="banner red" id="nag"><b>Back up now 请立即备份:</b> '+(n.never?'no backup has been made and your oldest case is over 3 days old.':'last backup was '+n.days+' days ago.')+' 距上次备份已超过 3 天。<div class="row" style="margin-top:8px"><button class="btn sm pri" data-act="backupall">Backup all 备份全部</button></div><div class="fine">Last backed up 上次备份: '+last+'</div></div>';
-  return '<div class="fine" id="lastbk">Last backed up 上次备份: '+last+'</div>';
+  if(n.late)return '<div class="banner red" id="nag"><b>Back up now 请立即备份:</b> '+(n.never?'no backup has been made and your oldest case is over 3 days old.':'last backup was '+n.days+' days ago.')+' 距上次备份已超过 3 天。<div class="row" style="margin-top:10px"><button class="btn sm pri" data-act="backupall">Backup all 备份全部</button></div><div class="fine" style="margin-top:6px">Last backed up 上次备份: '+last+'</div></div>';
+  return '<div class="fine" id="lastbk" style="margin:6px 16px 0">Last backed up 上次备份: '+last+'</div>';
 }
-
 /* ---------- views ---------- */
-var META='Author: F2 · 2026-10-25 20:50 HKT · rev03 · DRAFT';
+var META='Author: F2 · 2026-10-26 08:24 HKT · rev03 · DRAFT';
+function fitCap(){var w=document.querySelector('.cwrap');if(!w)return;var cb=document.querySelector('.ctlbar');var top=w.getBoundingClientRect().top+window.pageYOffset;var h=window.innerHeight-top-(cb?cb.offsetHeight:100);w.style.height=Math.max(h,380)+'px';document.body.style.paddingBottom=(cb?cb.offsetHeight:100)+'px'}
+window.addEventListener('resize',function(){fitCap()});
 function render(){
   var y=window.scrollY,h;
   if(view==='home')h=vHome();
   else if(tab==='summary')h=vSummary();
   else if(tab==='review')h=vReview();
   else h=vCapture();
-  $('#app').innerHTML=h;window.scrollTo(0,y);
+  $('#app').innerHTML=h;document.body.classList.toggle('incase',view!=='home');document.body.classList.toggle('incap',view!=='home'&&tab==='capture');if(!(view!=='home'&&tab==='capture'))document.body.style.paddingBottom='';fitCap();window.scrollTo(0,y);
 }
 function vHome(){
-  var h='<h1>AS · Auditing Secretary <span class="zh">审核秘书</span><span class="draft">DRAFT</span></h1><div class="meta">'+META+'</div>'+
+  var h='<div class="pg"><h1 class="lt"><span class="as">AS</span> · Auditing Secretary</h1><div class="lts">审核秘书</div><div class="meta">'+esc(META)+'</div>'+
    '<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB); the page itself makes no network calls and has no server. 数据只存在本机，页面本身不联网、没有服务器。</div>';
   h+=storageBanner()+backupBanner();
-  h+='<div class="card"><h2>New case file <span class="zh">新建案卷</span></h2>'+
-   '<label>Client 客户</label><input id="nc" placeholder="e.g. DEMO Co. (demo)">'+
-   '<label>Audit date 审核日期</label><input id="nd" type="date" value="'+today()+'">'+
-   '<label>Auditor 审核员 (optional)</label><input id="na" placeholder="Initials or name">'+
-   '<div class="row" style="margin-top:12px"><button class="btn pri" data-act="newcase">Create &amp; start 创建并开始</button>'+
-   '<button class="btn" data-act="demo">Load demo case 加载演示</button></div></div>';
-  h+='<div class="card"><h2>Case files on this device <span class="zh">本机案卷</span></h2>';
-  if(!db.cases.length)h+='<div class="fine">None yet. 暂无案卷。</div>';
+  h+='<div class="sh">New case file <span class="zh">新建案卷</span></div><div class="grp">'+
+   '<div class="field"><label for="nc">Client 客户</label><input id="nc" placeholder="e.g. DEMO Co. (demo)"></div>'+
+   '<div class="field"><label for="nd">Audit date 审核日期</label><input id="nd" type="date" value="'+today()+'"></div>'+
+   '<div class="field"><label for="na">Auditor 审核员 (optional)</label><input id="na" placeholder="Initials or name"></div></div>'+
+   '<div style="margin:14px 0 8px"><button class="btn pri big" data-act="newcase">'+ic('plus')+'Create &amp; start 创建并开始</button></div>'+
+   '<div class="grp"><button class="lnk or" data-act="demo"><span class="l">'+ic('demo')+'Load demo case 加载演示</span>'+ic('chevR','ch')+'</button></div>';
+  h+='<div class="sh">Case files on this device <span class="zh">本机案卷</span></div><div class="grp">';
+  if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
   db.cases.slice().reverse().forEach(function(c){
     var st=c.capState==='finished'?'finished 已完成':'on hold 暂停';
-    h+='<div class="listrow"><div><b>'+esc(c.client)+'</b><div class="fine">'+esc(c.date)+' · '+c.entries.length+' entries 条 · '+st+'</div></div><button class="btn sm" data-act="opencase" data-id="'+c.id+'">Open 打开</button></div>';
+    h+='<div class="listrow"><div class="tx" style="min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+esc(c.date)+' · '+c.entries.length+' entries 条 · '+st+'</div></div><button class="btn sm" data-act="opencase" data-id="'+c.id+'">Open 打开</button></div>';
   });
-  h+='</div><div class="card"><h2>Backup &amp; restore <span class="zh">备份与恢复</span></h2>'+
-   '<div class="fine">A backup .json includes photos and recordings. Save it to Files / iCloud. 备份文件含照片和录音，请存到“文件”/iCloud。</div>'+
-   '<div class="row" style="margin-top:8px"><button class="btn" data-act="backupall"'+(db.cases.length?'':' disabled')+'>Backup all 备份全部 (.json)</button><button class="btn" data-act="import">Restore 导入恢复</button></div></div>';
-  h+='<div class="note warn"><b>Why back up 为什么要备份:</b> browsers may clear local data if the page is unused for a long time (esp. iPhone Safari), or if the phone is lost. 浏览器可能清理长期不用的本地数据（尤其是 iPhone Safari），手机丢失也会丢数据。</div>';
+  h+='</div><div class="sh">Backup &amp; restore <span class="zh">备份与恢复</span></div><div class="grp">'+
+   '<button class="lnk" data-act="backupall"'+(db.cases.length?'':' disabled')+'><span class="l">'+ic('save')+'Backup all 备份全部 (.json)</span>'+ic('chevR','ch')+'</button>'+
+   '<div style="border-top:.5px solid var(--sep)"></div>'+
+   '<button class="lnk" data-act="import"><span class="l">'+ic('restore')+'Restore 导入恢复</span>'+ic('chevR','ch')+'</button></div>'+
+   '<div class="sf">A backup .json includes photos and recordings. Save it to Files / iCloud. 备份文件含照片和录音，请存到“文件”/iCloud。</div>';
+  h+='<div class="note warn" style="margin-top:18px"><b>Why back up 为什么要备份:</b> browsers may clear local data if the page is unused for a long time (esp. iPhone Safari), or if the phone is lost. 浏览器可能清理长期不用的本地数据（尤其是 iPhone Safari），手机丢失也会丢数据。</div></div>';
   return h;
 }
-function caseHead(c){
-  return '<div class="row" style="justify-content:space-between;align-items:center"><button class="btn sm" data-act="home">‹ Cases 案卷</button><div class="fine" style="text-align:right"><b style="color:#ddd">'+esc(c.client)+'</b> · '+esc(c.date)+'<br><span id="ind">'+esc(saveInfo)+'</span></div></div>';
+function caseHead(c,t){
+  return '<div class="nav"><div class="bar"><button class="bk" data-act="home">'+ic('chevL')+'<span>Cases <span class="zh">案卷</span></span></button>'+
+    '<div class="ttl"><b>'+esc(c.client)+'</b><span>'+esc(c.date)+'<span id="ind">'+esc(saveInfo)+'</span></span></div>'+
+    '<div class="rt"><span class="draft" style="margin:0">DRAFT</span></div></div>'+tabs(t)+'</div>';
 }
 function tabs(t){
-  function b(k,l){return '<button class="btn sm'+(t===k?' on':'')+'" style="flex:1" data-act="tab" data-t="'+k+'">'+l+'</button>'}
-  return '<div class="tabs" style="margin:8px 0">'+b('capture','Capture 采集')+b('review','Review 审核')+b('summary','Summary 总结')+'</div>';
+  function b(k,l,z){return '<button class="btn sm'+(t===k?' on':'')+'" data-act="tab" data-t="'+k+'">'+l+' <span class="zh">'+z+'</span></button>'}
+  return '<div class="tabs">'+b('capture','Capture','采集')+b('review','Review','审核')+b('summary','Summary','总结')+'</div>';
 }
 function elapsed(c){return c.capMs||0}
 function vCapture(){
   var c=cur();if(!c){view='home';return vHome()}
   var st=c.capState,act=st==='active',held=st==='held',fin=st==='finished',rec=!!R;
   var n=nextN(c),saved=c.entries.length;
-  var h=caseHead(c)+tabs('capture');
-  h+='<div class="ctitle">Clause 8.4 — Evidence capture <span class="zh">证据采集</span></div><div class="fine">'+esc(META)+'</div>';
-  h+='<div class="counter"><div class="fine" style="margin:0">Entry 条目</div><div class="cnum'+(act?'':' held')+'" id="cnum">#'+n+'</div>'+
-     '<div class="fine mono">Saved 已存 <b id="csaved" style="color:#ddd">'+saved+'</b> · ⏱ <span id="ct">'+clock(elapsed(c))+'</span></div>'+
-     '<div class="statebar'+(held?' held':fin?' fin':'')+'" id="sbar">'+(act?(rec?'● Recording 录音中':'Capturing 采集中'):held?'⏸ On hold 已暂停 — tap Resume 点“继续”':'✓ Finished 已完成 — tap Resume to add more 点“继续”可补充')+'</div></div>';
-  h+='<div class="cap">'+
-    '<button class="capbtn photo" data-act="photo"'+(act&&!rec?'':' disabled')+'><span class="ic">📷</span><span class="t">Photo</span><span class="z">拍照</span></button>'+
-    (rec?'<button class="capbtn voice recording" data-act="recstop"><span class="ic">⏹</span><span class="t">Stop &amp; save <span class="mono" id="rt">'+mmss((Date.now()-R.t0)/1000)+'</span></span><span class="z">停止并保存</span></button>'
-        :'<button class="capbtn voice" data-act="rec"'+(act?'':' disabled')+'><span class="ic">🎤</span><span class="t">Voice</span><span class="z">语音</span></button>')+
-    '</div>';
-  h+='<div class="ctl">'+
-    '<button class="btn fin" data-act="finish"'+(fin?' disabled':'')+'>Finish<span class="zh" style="color:inherit">完成</span></button>'+
-    '<button class="btn hold" data-act="hold"'+(act?'':' disabled')+'>Hold<span class="zh" style="color:inherit">暂停</span></button>'+
-    '<button class="btn pri" data-act="resume"'+(act?' disabled':'')+'>Resume<span class="zh" style="color:inherit">继续</span></button></div>';
-  h+='<button class="textlink" data-act="text"'+(act&&!rec?'':' disabled')+'>Text 文字</button>';
+  var h=caseHead(c,'capture')+'<div class="pg cwrap">';
+  h+='<div class="ctitle">Clause 8.4 — Evidence capture</div><div class="zh ctz">证据采集</div>';
+  h+='<div class="statebar'+(act?(rec?' rec':''):held?' held':' fin')+'" id="sbar"><i class="dot"></i><span>'+(act?(rec?'Recording 录音中':'Capturing 采集中'):held?'On hold 已暂停 — tap Resume 点“继续”':'Finished 已完成 — tap Resume to add more 点“继续”可补充')+'</span></div>';
+  h+='<div class="capzone"><div class="cap">'+
+    '<button class="capbtn photo" data-act="photo"'+(act&&!rec?'':' disabled')+'><span class="disc">'+ic('camera')+'</span><span class="t">Photo</span><span class="z">拍照</span></button>'+
+    (rec?'<button class="capbtn voice recording" data-act="recstop"><span class="disc">'+ic('stop')+'</span><span class="t">Stop &amp; save <span class="mono" id="rt">'+mmss((Date.now()-R.t0)/1000)+'</span></span><span class="z">停止并保存</span></button>'
+        :'<button class="capbtn voice" data-act="rec"'+(act?'':' disabled')+'><span class="disc">'+ic('mic')+'</span><span class="t">Voice</span><span class="z">语音</span></button>')+
+    '</div>'+
+    '<button class="textlink" data-act="text"'+(act&&!rec?'':' disabled')+'>'+ic('text')+'Text 文字</button></div>';
+  h+='<div class="capfoot"><div class="crow"><span class="cpill'+(act?'':fin?' fin':' held')+'" title="Entry 条目"><span class="cnum" id="cnum">#'+n+'</span></span>'+
+     '<span class="spill mono"><span>Saved 已存 <b id="csaved">'+saved+'</b></span><i class="sep"></i><span>'+ic('clock')+' <span id="ct">'+clock(elapsed(c))+'</span></span></span></div>'+
+     '<div class="meta">'+esc(META)+'</div></div></div>';
+  h+='<div class="ctlbar"><div class="ctl">'+
+    '<button class="btn hold" data-act="hold"'+(act?'':' disabled')+'>'+ic('pause')+'<span>Hold <span class="zh">暂停</span></span></button>'+
+    '<button class="btn resume" data-act="resume"'+(act?' disabled':'')+'>'+ic('play')+'<span>Resume <span class="zh">继续</span></span></button>'+
+    '<button class="btn fin" data-act="finish"'+(fin?' disabled':'')+'>'+ic('check')+'<span>Finish <span class="zh">完成</span></span></button></div></div>';
   return h;
 }
 function entContent(c,e,big){
@@ -432,35 +628,34 @@ function tagChip(e){
   return (it?'<span class="chip tag">'+(ITEMS.indexOf(it)+1)+'. '+esc(it.a)+'</span> ':'<span class="chip">untagged 未归类</span> ')+(s?'<span class="chip '+s[0]+'">'+s[1]+' '+s[2]+'</span>':'');
 }
 function entCard(c,e){
-  var o=openE[e.id],h='<div class="card ent" data-eid="'+e.id+'"><div class="row" style="justify-content:space-between;align-items:center"><span><span class="num">#'+e.n+'</span> <span class="fine">'+esc(fmt(e.ts))+' · '+kindEn(e)+' '+kindZh(e)+'</span></span></div>'+
-    entContent(c,e)+(e.note&&e.kind!=='text'?'<div class="txt fine" style="color:#ccc">Note 备注: '+esc(e.note)+'</div>':'')+
-    '<div style="margin:4px 0">'+tagChip(e)+'</div>'+
-    '<button class="btn sm" data-act="etoggle" data-id="'+e.id+'">'+(o?'Close ▴ 收起':'Tag / edit ▾ 归类/编辑')+'</button>';
+  var o=openE[e.id],h='<div class="ent" data-eid="'+e.id+'"><div class="eh"><span class="num">#'+e.n+'</span><span class="meta2">'+esc(fmt(e.ts))+' · '+kindEn(e)+' '+kindZh(e)+'</span></div>'+
+    '<div class="eb">'+entContent(c,e)+(e.note&&e.kind!=='text'?'<div class="txt fine" style="color:var(--lab)">Note 备注: '+esc(e.note)+'</div>':'')+'</div>'+
+    '<div class="tg">'+tagChip(e)+'</div>'+
+    '<button class="lnk" data-act="etoggle" data-id="'+e.id+'"><span>'+(o?'Close 收起':'Tag / edit 归类/编辑')+'</span>'+ic(o?'chevU':'chevD','ch')+'</button>';
   if(o){
-    h+='<div style="margin-top:8px"><label>Tag to 8.4.1 item 归类到 8.4.1 条目 (optional 可选)</label><select data-act="tag" data-id="'+e.id+'"><option value="">— untagged 未归类 —</option>'+
+    h+='<div class="ed"><label>Tag to 8.4.1 item 归类到 8.4.1 条目 (optional 可选)</label><select data-act="tag" data-id="'+e.id+'"><option value="">— untagged 未归类 —</option>'+
       ITEMS.map(function(p,i){return '<option value="'+p.id+'"'+(e.tag===p.id?' selected':'')+'>'+(i+1)+'. '+esc(p.a)+' / '+esc(p.az)+'</option>'}).join('')+'</select>'+
-      '<label>Status 状态</label><div class="row" style="flex-wrap:nowrap">'+STATUS.map(function(s){
-        return '<button class="btn st'+(e.status===s[0]?' on-'+s[0]:'')+'" data-act="status" data-id="'+e.id+'" data-s="'+s[0]+'">'+s[1]+'<span class="zh" style="color:inherit;opacity:.8;font-size:12px">'+s[2]+'</span></button>'}).join('')+'</div>'+
+      '<label>Status 状态</label><div class="stl">'+STATUS.map(function(s){
+        return '<button class="btn st'+(e.status===s[0]?' on-'+s[0]:'')+'" data-act="status" data-id="'+e.id+'" data-s="'+s[0]+'">'+s[1]+'<span class="zh">'+s[2]+'</span></button>'}).join('')+'</div>'+
       (e.kind==='text'?'<label>Text 文字</label><textarea data-act="etext" data-id="'+e.id+'">'+esc(e.text)+'</textarea>'
                       :'<label>Note 备注 (optional 可选)</label><textarea data-act="enote" data-id="'+e.id+'" placeholder="What is this? 这是什么？">'+esc(e.note)+'</textarea>')+
-      '<div class="row" style="margin-top:8px"><button class="btn sm dan" data-act="edel" data-id="'+e.id+'">🗑 Delete 删除</button></div></div>';
+      '<div class="row" style="margin-top:12px"><button class="btn sm dan" data-act="edel" data-id="'+e.id+'">'+ic('trash')+'Delete 删除</button></div></div>';
   }
   return h+'</div>';
 }
 function vReview(){
   var c=cur();if(!c){view='home';return vHome()}
   var un=c.entries.filter(function(e){return !itemOf(e.tag)}).length;
-  var h=caseHead(c)+backupBanner()+tabs('review');
-  h+='<div class="ctitle">Review <span class="zh">审核</span> · '+c.entries.length+' entries 条</div>'+
-    '<div class="fine">Tagging is optional: link an entry to an 8.4.1 item and mark Seen / Not seen / N/A. 归类是可选的。</div>';
-  h+='<div class="tabs" style="margin:8px 0"><button class="btn sm'+(filt==='all'?' on':'')+'" style="flex:1" data-act="filt" data-f="all">All 全部 ('+c.entries.length+')</button><button class="btn sm'+(filt==='untagged'?' on':'')+'" style="flex:1" data-act="filt" data-f="untagged">Untagged 未归类 ('+un+')</button></div>';
+  var h=caseHead(c,'review')+'<div class="pg">';
+  h+='<div class="ctitle" style="font-size:28px;font-weight:800;margin-top:16px">Review <span class="zh" style="font-size:20px">审核</span></div>'+
+    '<div class="fine">'+c.entries.length+' entries 条 · Tagging is optional: link an entry to an 8.4.1 item and mark Seen / Not seen / N/A. 归类是可选的。</div>'+backupBanner();
+  h+='<div class="tabs filt"><button class="btn sm'+(filt==='all'?' on':'')+'" data-act="filt" data-f="all">All 全部 ('+c.entries.length+')</button><button class="btn sm'+(filt==='untagged'?' on':'')+'" data-act="filt" data-f="untagged">Untagged 未归类 ('+un+')</button></div>';
   var list=c.entries.filter(function(e){return filt==='all'||!itemOf(e.tag)});
   if(!list.length)h+='<div class="note">Nothing here. 这里没有条目。</div>';
   list.forEach(function(e){h+=entCard(c,e)});
-  h+='<div class="row" style="margin-top:12px"><button class="btn" style="flex:1" data-act="tab" data-t="capture">‹ Capture 采集</button><button class="btn pri" style="flex:1" data-act="tab" data-t="summary">Summary 总结 ›</button></div>';
+  h+='<div class="nav-row"><button class="btn" data-act="tab" data-t="capture">'+ic('chevL')+'Capture 采集</button><button class="btn pri" data-act="tab" data-t="summary">Summary 总结'+ic('chevR')+'</button></div></div>';
   return h;
 }
-
 /* ---------- summary / composition ---------- */
 function stLabel(s){return({seen:'Seen 看到',not:'Not seen 未看到',na:'N/A 不适用'})[s]||'(no status 未标状态)'}
 function groupOf(c,p){return c.entries.filter(function(e){return e.tag===p.id})}
@@ -528,37 +723,37 @@ function composeHTML(c){
 function sumEntries(es){
   if(!es.length)return '<div class="fine">(no entries 无条目)</div>';
   return es.map(function(e){
-    var body=e.kind==='photo'?(B[e.id]?'<img alt="" src="'+urlFor(e.id)+'" style="width:56px;height:56px;object-fit:cover;border-radius:6px;vertical-align:middle"> ':'')+'<span class="fine">'+fileName(e)+'</span>'
-      :e.kind==='audio'?'🎤 <span class="fine">'+mmss(e.dur)+' · '+fileName(e)+'</span>':esc(e.text);
-    return '<div style="margin:4px 0"><b>#'+e.n+'</b> <span class="fine">'+esc(fmt(e.ts).slice(11))+(e.status?' · '+stLabel(e.status):'')+'</span> '+body+(e.kind!=='text'&&e.note?'<div class="fine">note: '+esc(e.note)+'</div>':'')+'</div>';
+    var body=e.kind==='photo'?'<div class="sthumbrow">'+(B[e.id]?'<img alt="" class="sthumb" src="'+urlFor(e.id)+'">':'')+'<span class="fine">'+fileName(e)+'</span></div>'
+      :e.kind==='audio'?ic('mic','sm')+' <span class="fine">'+mmss(e.dur)+' · '+fileName(e)+'</span>':esc(e.text);
+    return '<div class="se"><b class="sn">#'+e.n+'</b> <span class="fine">'+esc(fmt(e.ts).slice(11))+(e.status?' · '+stLabel(e.status):'')+'</span> '+body+(e.kind!=='text'&&e.note?'<div class="fine">note: '+esc(e.note)+'</div>':'')+'</div>';
   }).join('');
 }
 function mediaCount(c){return c.entries.filter(function(e){return e.kind!=='text'}).length}
 function vSummary(){
   var c=cur();if(!c){view='home';return vHome()}
   var nf=mediaCount(c),u=untagged(c);
-  var h=caseHead(c)+backupBanner()+tabs('summary');
-  h+='<div class="card" style="border-color:#2d73c4"><button class="btn pri big" data-act="sendmail">✉ Send summary to my email<br><span style="font-weight:400;font-size:14px">发送总结到我的邮箱</span></button>'+
-    '<label>My email address 我的邮箱 (stored on this device only 仅存本机)</label><input id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="none" data-act="email" placeholder="you@example.com" value="'+esc(S.email)+'">'+
-    '<div class="fine" style="margin-top:6px">Opens the iPhone share sheet with the summary text + '+nf+' photo/audio file(s) — choose <b>Mail</b>. If your browser cannot share files, a text-only mailto link is offered instead. Nothing is sent to any server by this page. 打开 iPhone 分享面板（含总结文字和 '+nf+' 个照片/录音文件），请选“邮件”。若浏览器不支持分享文件，则改为仅文字的 mailto 链接。本页面不向任何服务器发送数据。</div></div>';
-  h+='<div class="note"><b>Basic draft 基础草稿.</b> Entries grouped by the tag you chose. The finding statement and severity are left blank for you — the tool does not decide nonconformity. 按你选的归类分组；不符合声明与严重程度留空，由你填写，工具不做判断。'+(u.length?'<br><b>'+u.length+' untagged 条未归类</b> — see the Untagged group at the bottom or tag them in Review. 见底部“未归类”，或到“审核”里归类。':'')+'</div>';
+  var h=caseHead(c,'summary')+'<div class="pg">'+backupBanner();
+  h+='<div class="grp pri" style="margin-top:14px"><div class="r"><button class="btn pri big" data-act="sendmail">'+ic('mail')+'<span>Send summary to my email <span class="zh" style="font-size:15px;display:block">发送总结到我的邮箱</span></span></button></div>'+
+    '<div class="field"><label for="em">My email address 我的邮箱 (stored on this device only 仅存本机)</label><input id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="none" data-act="email" placeholder="you@example.com" value="'+esc(S.email)+'"></div></div>'+
+    '<div class="sf">Opens the iPhone share sheet with the summary text + '+nf+' photo/audio file(s) — choose <b>Mail</b>. If your browser cannot share files, a text-only mailto link is offered instead. Nothing is sent to any server by this page. 打开 iPhone 分享面板（含总结文字和 '+nf+' 个照片/录音文件），请选“邮件”。若浏览器不支持分享文件，则改为仅文字的 mailto 链接。本页面不向任何服务器发送数据。</div>';
+  h+='<div class="note" style="margin-top:18px"><b>Basic draft 基础草稿.</b> Entries grouped by the tag you chose. The finding statement and severity are left blank for you — the tool does not decide nonconformity. 按你选的归类分组；不符合声明与严重程度留空，由你填写，工具不做判断。'+(u.length?'<br><b>'+u.length+' untagged 条未归类</b> — see the Untagged group at the bottom or tag them in Review. 见底部“未归类”，或到“审核”里归类。':'')+'</div>';
   ITEMS.forEach(function(p,i){
     var es=groupOf(c,p),it=item(c,p.id),cs=clauseStatus(es);
-    h+='<div class="card"><h2>8.4.1 · '+(i+1)+'. '+esc(p.a)+' <span class="zh">'+esc(p.az)+'</span></h2>'+
-      '<div class="fine">'+esc(csLabel(cs))+' · '+es.length+' entries 条</div>'+
-      '<div class="sumblk"><span class="k">Requirement 要求</span><div>'+esc(p.req)+'</div><div class="zh">'+esc(p.reqz)+'</div></div>'+
-      '<div class="sumblk"><span class="k">Evidence 证据</span>'+sumEntries(es)+'<label>Sample 抽样 (optional 可选)</label><input data-act="smp" data-id="'+p.id+'" value="'+esc(it.sample)+'" placeholder="e.g. 3 of 20 files"></div>';
+    h+='<div class="sh">8.4.1 · item '+(i+1)+'</div><div class="grp"><div class="r"><div class="sumhd"><span class="nn">'+(i+1)+'</span><h2>'+esc(p.a)+' <span class="zh">'+esc(p.az)+'</span></h2></div>'+
+      '<div style="margin-top:6px"><span class="chip '+(cs==='seen'?'seen':cs==='not'?'not':cs==='na'?'na':'')+'">'+esc(csLabel(cs))+'</span><span class="fine"> '+es.length+' entries 条</span></div>'+
+      '<div class="sumblk"><span class="k">Requirement 要求</span><div>'+esc(p.req)+'</div><div class="zh">'+esc(p.reqz)+'</div></div></div>'+
+      '<div class="r"><div class="sumblk"><span class="k">Evidence 证据</span>'+sumEntries(es)+'</div><label>Sample 抽样 (optional 可选)</label><input data-act="smp" data-id="'+p.id+'" value="'+esc(it.sample)+'" placeholder="e.g. 3 of 20 files"></div>';
     if(needFinding(es))
-      h+='<div class="sumblk"><span class="k">Finding draft 发现草稿</span><div class="fine">1 Evidence = above · 2 Requirement = above · 3 Statement of nonconformity = yours 你来写</div>'+
+      h+='<div class="r"><div class="sumblk"><span class="k">Finding draft 发现草稿</span><div class="fine">1 Evidence = above · 2 Requirement = above · 3 Statement of nonconformity = yours 你来写</div></div>'+
         '<label>Statement of nonconformity 不符合声明（你填写）</label><textarea data-act="stmt" data-id="'+p.id+'" placeholder="Leave blank if no finding 无发现则留空">'+esc(it.stmt)+'</textarea>'+
         '<label>Severity 严重程度（你填写）</label><select data-act="sev" data-id="'+p.id+'"><option value="">— blank 空白 —</option><option value="Major"'+(it.sev==='Major'?' selected':'')+'>Major 主要</option><option value="Minor"'+(it.sev==='Minor'?' selected':'')+'>Minor 次要</option><option value="OFI"'+(it.sev==='OFI'?' selected':'')+'>Observation / OFI 观察/改进机会</option></select></div>';
-    else h+='<div class="fine">No finding draft needed for this status. 此状态无需发现草稿。</div>';
+    else h+='<div class="r"><div class="fine">No finding draft needed for this status. 此状态无需发现草稿。</div></div>';
     h+='</div>';
   });
-  h+='<div class="card" id="untaggedgrp"><h2>Untagged <span class="zh">未归类</span> ('+u.length+')</h2>'+sumEntries(u)+'</div>';
-  h+='<div class="card"><h2>Export &amp; backup 导出与备份</h2><div class="row"><button class="btn pri" data-act="copy">Copy 复制</button><button class="btn" data-act="dltxt">.txt</button><button class="btn" data-act="dlhtml">.html</button><button class="btn" data-act="dljson">Backup 备份 .json</button></div>'+
-    '<div class="fine" style="margin-top:6px">Backup .json includes photos and recordings (base64). 备份 .json 含照片和录音。 Records can later be handed to SAA. 记录以后可交给 SAA。</div></div>';
-  h+='<div class="card" style="border-color:#5a1b1b"><h2>Danger zone 危险操作</h2><button class="btn dan" data-act="delcase">Delete this case file 删除此案卷</button></div>';
+  h+='<div class="sh">Untagged <span class="zh">未归类</span> ('+u.length+')</div><div class="grp" id="untaggedgrp"><div class="r">'+sumEntries(u)+'</div></div>';
+  h+='<div class="sh">Export &amp; backup <span class="zh">导出与备份</span></div><div class="grp"><div class="r"><div class="exp"><button class="btn pri" data-act="copy">'+ic('copy')+'Copy 复制</button><button class="btn" data-act="dltxt">'+ic('down')+'.txt</button><button class="btn" data-act="dlhtml">'+ic('down')+'.html</button><button class="btn" data-act="dljson">'+ic('save')+'Backup 备份 .json</button></div></div></div>'+
+    '<div class="sf">Backup .json includes photos and recordings (base64). 备份 .json 含照片和录音。 Records can later be handed to SAA. 记录以后可交给 SAA。</div>';
+  h+='<div class="sh">Danger zone <span class="zh">危险操作</span></div><div class="grp dng"><button class="lnk red" data-act="delcase"><span class="l">'+ic('trash')+'Delete this case file 删除此案卷</span></button></div></div>';
   return h;
 }
 function download(name,mime,data){
@@ -608,13 +803,13 @@ function mailtoUrl(c,to){
 }
 function mailFallback(c,to,why){
   var m=mailtoUrl(c,to),nf=mediaCount(c);
-  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><h2 style="margin:0 0 6px">Email (text only) 邮件（仅文字）</h2>'+
-   '<div class="note warn"><b>'+esc(why)+'.</b> Photos and recordings <b>cannot be attached</b> with a mailto link. 用 mailto 链接<b>无法附带照片和录音</b>。'+(m.truncated?'<br>The text was shortened to fit; use Copy or the .txt for the full summary. 文字已截断，完整内容请用“复制”或 .txt。':'')+'</div>'+
-   '<a class="btn pri big" id="mailA" href="'+esc(m.url)+'">✉ Open Mail app 打开邮件</a>'+
-   '<div class="fine" style="margin:6px 0">To 收件人: '+(validEmail(to)?esc(to):'(blank — type it in Mail 留空，在邮件里填写)')+'</div>'+
-   '<div class="row"><button class="btn sm" data-act="copy">Copy full text 复制全文</button><button class="btn sm" data-act="dltxt">.txt</button><button class="btn sm" data-act="dlhtml">.html (with photos 含照片)</button>'+
-   (nf?'<button class="btn sm" data-act="dlmedia">Download '+nf+' photo/audio file(s) 下载照片/录音</button>':'')+'</div>'+
-   '<div class="row" style="margin-top:12px"><button class="btn" style="flex:1" data-act="closesheet">Close 关闭</button></div></div></div>';
+  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><div class="grab"></div><div class="sicon">'+ic('mail')+'</div><h2>Email (text only) 邮件（仅文字）</h2>'+
+   '<div class="note warn" style="margin-top:8px"><b>'+esc(why)+'.</b> Photos and recordings <b>cannot be attached</b> with a mailto link. 用 mailto 链接<b>无法附带照片和录音</b>。'+(m.truncated?'<br>The text was shortened to fit; use Copy or the .txt for the full summary. 文字已截断，完整内容请用“复制”或 .txt。':'')+'</div>'+
+   '<a class="btn pri big" id="mailA" href="'+esc(m.url)+'">'+ic('mail')+'Open Mail app 打开邮件</a>'+
+   '<div class="fine" style="margin:4px 0 12px">To 收件人: '+(validEmail(to)?esc(to):'(blank — type it in Mail 留空，在邮件里填写)')+'</div>'+
+   '<div class="stack"><button class="btn plain" data-act="copy">'+ic('copy')+'Copy full text 复制全文</button><button class="btn plain" data-act="dltxt">'+ic('down')+'Download .txt 下载文本</button><button class="btn plain" data-act="dlhtml">'+ic('down')+'Download .html (with photos 含照片)</button>'+
+   (nf?'<button class="btn plain" data-act="dlmedia">'+ic('down')+'Download '+nf+' photo/audio file(s) 下载照片/录音</button>':'')+'</div>'+
+   '<div class="row" style="margin-top:12px"><button class="btn big plain" data-act="closesheet">Close 关闭</button></div></div></div>';
 }
 function downloadMedia(c){
   var fs=buildFiles(c).slice(1);
@@ -693,26 +888,25 @@ function restoreFile(file){
 /* ---------- sheets: consent, text ---------- */
 function consentSheet(kind){
   var photo=kind==='photo';
-  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><h2 style="margin:0 0 6px">Consent first 先征得同意</h2>'+
+  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><div class="grab"></div><div class="sicon">'+ic(photo?'camera':'mic')+'</div><h2>Consent first 先征得同意</h2>'+
    '<p>'+(photo?'Before photographing documents or screens':'Before recording a person’s voice')+', ask the client for permission. Avoid personal data and anything marked confidential. <br><span class="zh">'+(photo?'拍摄文件或屏幕前':'录制他人声音前')+'先征得客户同意。避开个人信息和保密内容。</span></p>'+
-   (photo?'<div class="row"><button class="btn pri" style="flex:1" data-act="consentok" data-k="photo">📷 I have permission — take photo 已获同意，拍照</button></div>'+
-          '<div class="row" style="margin-top:8px"><button class="btn" style="flex:1" data-act="consentlib">🖼 …or choose from library 从相册选</button><button class="btn" style="flex:1" data-act="consentno">Cancel 取消</button></div>'
-         :'<div class="row"><button class="btn pri" style="flex:1" data-act="consentok" data-k="audio">I have permission 已获同意</button><button class="btn" style="flex:1" data-act="consentno">Cancel 取消</button></div>')+
+   (photo?'<button class="btn pri big" data-act="consentok" data-k="photo">'+ic('camera')+'<span>I have permission — take photo <span class="zh" style="font-size:14px">已获同意，拍照</span></span></button>'+
+          '<div class="row nw"><button class="btn plain" data-act="consentlib">'+ic('image')+'From library 从相册选</button><button class="btn plain" data-act="consentno">Cancel 取消</button></div>'
+         :'<button class="btn pri big" data-act="consentok" data-k="audio">'+ic('mic')+'I have permission 已获同意</button><button class="btn plain big" data-act="consentno" style="min-height:50px">Cancel 取消</button>')+
    '</div></div>';
 }
 function closeSheet(){$('#overlay').innerHTML=''}
 function stopDictation(){if(voice&&voice.rec){try{voice.rec.onend=null;voice.rec.onresult=null;voice.rec.stop()}catch(e){}}voice=null}
 function textSheet(){
   var canDict=!!(window.SpeechRecognition||window.webkitSpeechRecognition);
-  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><h2 style="margin:0 0 6px">Text note <span class="zh">文字</span> → entry #'+nextN(cur())+'</h2>'+
+  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><div class="grab"></div><h2>Text note <span class="zh">文字</span> → entry #'+nextN(cur())+'</h2>'+
    '<textarea id="tt" placeholder="Type, or tap Dictate 输入，或点“听写”"></textarea>'+
-   '<div class="row" style="margin-top:8px;align-items:center"><button class="btn sm" data-act="dict" id="dictb">🎤 Dictate 听写</button>'+
-   '<span class="fine">Language 语言</span><button class="btn seg'+(S.lang==='en-US'?' on':'')+'" data-act="lang" data-l="en-US">English</button><button class="btn seg'+(S.lang==='zh-CN'?' on':'')+'" data-act="lang" data-l="zh-CN">中文</button></div>'+
-   '<div class="fine" style="margin-top:6px">Dictation = speech-to-text; check and edit before saving — nothing is saved until you tap Save. On iPhone it may use the vendor’s online speech service. 听写在 iPhone 上可能使用厂商（苹果/谷歌）的在线语音服务；保存前请核对修改。'+(canDict?'':' <b>Dictation is not available in this browser 此浏览器不支持听写.</b>')+'</div>'+
-   '<div class="row" style="margin-top:12px"><button class="btn pri" style="flex:1" data-act="textsave">Save 保存</button><button class="btn" style="flex:1" data-act="textcancel">Cancel 取消</button></div></div></div>';
+   '<div class="row nw" style="margin-top:10px;align-items:center;flex-wrap:nowrap"><button class="btn sm" style="flex:none" data-act="dict" id="dictb">'+ic('mic')+'Dictate 听写</button>'+
+   '<span style="flex:1"></span><div class="tabs" style="margin:0"><button class="btn seg'+(S.lang==='en-US'?' on':'')+'" data-act="lang" data-l="en-US">English</button><button class="btn seg'+(S.lang==='zh-CN'?' on':'')+'" data-act="lang" data-l="zh-CN">中文</button></div></div>'+
+   '<div class="fine" style="margin-top:10px">Dictation = speech-to-text; check and edit before saving — nothing is saved until you tap Save. On iPhone it may use the vendor’s online speech service. 听写在 iPhone 上可能使用厂商（苹果/谷歌）的在线语音服务；保存前请核对修改。'+(canDict?'':' <b>Dictation is not available in this browser 此浏览器不支持听写.</b>')+'</div>'+
+   '<div class="row nw" style="margin-top:16px"><button class="btn pri big" style="flex:1.5;width:auto" data-act="textsave">Save 保存</button><button class="btn plain big" style="flex:1;width:auto" data-act="textcancel">Cancel 取消</button></div></div></div>';
   setTimeout(function(){var t=$('#tt');if(t&&!('ontouchstart' in window))t.focus()},50);
 }
-
 /* ---------- media: photo ---------- */
 var photoWant=false;
 function addEntry(c,kind,o,blob){
@@ -761,7 +955,7 @@ function startDictation(){
   rec.onend=function(){dictBtn(false)};
   try{rec.start();dictBtn(true)}catch(e){toast('Cannot start dictation 无法启动听写')}
 }
-function dictBtn(on){var b=$('#dictb');if(b){b.textContent=on?'⏹ Stop 停止':'🎤 Dictate 听写';b.dataset.act=on?'dictstop':'dict'}if(voice)voice.on=on}
+function dictBtn(on){var b=$('#dictb');if(b){b.innerHTML=on?ic('stop')+'Stop 停止':ic('mic')+'Dictate 听写';b.dataset.act=on?'dictstop':'dict'}if(voice)voice.on=on}
 
 /* ---------- media: audio recording (MediaRecorder) ---------- */
 function pickMime(){
