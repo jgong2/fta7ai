@@ -745,7 +745,7 @@ function backupBanner(){
   return '<div class="fine" id="lastbk" style="margin:6px 16px 0">Last backed up 上次备份: '+last+'</div>';
 }
 /* ---------- views ---------- */
-var META='Author: F2 · 2026-10-26 17:52 HKT · rev03 · DRAFT';
+var META='Author: F2 · 2026-10-26 19:12 HKT · rev03 · DRAFT';
 function fitCap(){var w=document.querySelector('.cwrap');if(!w)return;var cb=document.querySelector('.ctlbar');var top=w.getBoundingClientRect().top+window.pageYOffset;var h=window.innerHeight-top-(cb?cb.offsetHeight:100);w.style.height=Math.max(h,380)+'px';document.body.style.paddingBottom=(cb?cb.offsetHeight:100)+'px'}
 window.addEventListener('resize',function(){fitCap()});
 function render(){
@@ -788,7 +788,7 @@ function vHome(){
   return h;
 }
 function otherHtml(nag){
-  var h='<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB). It works fully offline. Only if you enter a tester code under <b>Upload</b> is a copy sent to the AS Collector server (trial). 数据存在本机，可完全离线使用；只有在“上传”里输入试用口令后，才会把副本发送到 AS Collector 服务器（试用）。</div>';
+  var h='<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB). It works fully offline. When online, a copy is uploaded automatically to the AS Collector server (trial). 数据存在本机，可完全离线使用；联网时会自动把副本上传到 AS Collector 服务器（试用）。</div>';
   h+=storageBanner()+backupBanner();
   h+='<div class="sh">Case files on this device <span class="zh">本机案卷</span></div><div class="grp">';
   if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
@@ -1297,10 +1297,6 @@ function finishCase(c){
 }
 function finInner(done){return done?ic('check')+'<span>Finished <span class="zh">已完成</span></span>':ic('check')+'<span>Finish <span class="zh">完成</span></span>'}
 function syncFinBtn(){var p=document.querySelector('.finp');var c=cur();if(!p||!c)return;var d=c.capState==='finished';p.disabled=d;p.innerHTML=finInner(d)}
-function codeNoteHtml(){
-  return '<div class="dlgnote"><div>Not uploaded yet — enter your trial code in Other Information → Upload</div><div class="zh">尚未上传 — 请在“其他信息 → 上传”输入试用口令</div>'+
-    '<button class="textlink" data-act="dlgcode">Enter code 输入口令</button></div>';
-}
 function closeDlg(){var d=$('#dlg');if(d)d.innerHTML='';DLG=null}
 function askFinish(targets,fn,snooze){
   var d=$('#dlg');if(!d){d=document.createElement('div');d.id='dlg';document.body.appendChild(d)}
@@ -1308,7 +1304,7 @@ function askFinish(targets,fn,snooze){
   var nm=targets.length===1?esc(targets[0].client||'(no name)')+' · '+targets[0].entries.length+' item'+(targets[0].entries.length===1?'':'s'):targets.length+' unfinished cases 个未完成案卷';
   d.innerHTML='<div class="dlg-bg" data-act="dlgx"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgT">'+
     '<h3 id="dlgT">You haven\'t finished '+(targets.length===1?'this case':'these cases')+'. Finish and save now?</h3>'+
-    '<p class="zh">还没点完成，现在完成并保存吗？</p><p class="dlgcase">'+nm+'</p>'+(hasCode()?'':codeNoteHtml())+
+    '<p class="zh">还没点完成，现在完成并保存吗？</p><p class="dlgcase">'+nm+'</p>'+
     '<div class="dlgrow"><button class="btn pri" data-act="dlgfin">Finish &amp; save <span class="zh">完成并保存</span></button>'+
     '<button class="btn plain" data-act="dlgno">Not yet <span class="zh">暂不</span></button></div></div></div>';
   var f=d.querySelector('[data-act=dlgfin]');if(f)try{f.focus()}catch(e){}
@@ -1324,16 +1320,17 @@ function leaveSheets(c,then){
   if(txt&&c&&c.capState==='active'){closeSheet();addEntry(c,'text',{text:txt,via:used?'dictated':'typed'}).then(function(){then()});return true}
   closeSheet();return false;
 }
+function queueUpload(){clearTimeout(flushT);flush();kick(0)}
 function handleAct(b,skip){
   if(b.disabled)return;
   var a=b.dataset.act,id=b.dataset.id,c=cur();
   if(a==='dlgfin'){var f=DLG;closeDlg();if(!f)return;f.targets.forEach(finishCase);if(view==='case'&&tab==='capture')render();f.fn();return}
   if(a==='dlgno'){var f2=DLG;closeDlg();if(!f2)return;if(f2.snooze)f2.targets.forEach(function(x){snz[x.id]=x.entries.length});f2.fn();return}
   if(a==='dlgx'){closeDlg();return}
-  if(a==='dlgcode'){closeDlg();closeSheet();if(R)stopRec(true);flush();otherOpen=true;goto('upload');if(hasCode())checkConn();return}
   if(a==='snackx'){var sn=$('#snack');if(sn)sn.innerHTML='';return}
   if(view==='case'&&(a==='home'||a==='tab'||a==='finish')&&$('#overlay').innerHTML&&!skip){if(leaveSheets(c,function(){handleAct(b,false)}))return}
   if(!skip){var gt=guardTargets(a,c);if(gt.length){askFinish(gt,function(){handleAct(b,true)},!!GX_OUT[a]);return}}
+  if(GX_OUT[a])queueUpload();   // sharing/exporting: make sure what exists is on its way to the cloud first (persistent queue: survives offline/reload)
   if(view==='home'&&(a==='photo'||a==='rec'||a==='text'||a==='photolib')){c=startCaseFromHome();if(!c)return}
   if(a==='other'){otherOpen=!otherOpen;var ob=$('.othbtn'),op=$('#oth');if(ob){ob.classList.toggle('open',otherOpen);ob.setAttribute('aria-expanded',otherOpen)}if(op){op.hidden=!otherOpen;if(otherOpen)setTimeout(function(){try{ob.scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}},30)}return}
   if(a==='demo')loadDemo();
@@ -1373,7 +1370,6 @@ function handleAct(b,skip){
   else if(a==='resume'){setCap(c,'active');render()}
   else if(a==='finish'){
     finishCase(c);goto('case','review');
-    if(!hasCode())snack('<div class="sn"><div>Not uploaded yet — enter your trial code in Other Information → Upload</div><div class="zh">尚未上传 — 请在“其他信息 → 上传”输入试用口令</div></div><button class="btn pri sm" data-act="dlgcode">Enter code 输入口令</button>');
   }
   /* review */
   else if(a==='etoggle'){openE[id]=!openE[id];render()}
@@ -1462,9 +1458,15 @@ var SY={state:'off',conn:'',fails:0,timer:null,run:false,again:false,force:false
 var TOMB={};
 var MAXMEDIA=25*1024*1024,ID_RE=/^[A-Za-z0-9_-]{1,64}$/;
 function normCode(s){return String(s||'').trim().toUpperCase().replace(/[\s-]+/g,'')}
-function codeOk(n){return /^[A-Z0-9]{12,128}$/.test(n)}
-function hasCode(){return codeOk(normCode(S.testerCode))}
-function maskCode(){var n=normCode(S.testerCode);return n?'•••• •••• •••• •••• •••• '+n.slice(-4):''}
+/* TEMPORARY TRIAL DEFAULT (owner decision, 2026-10-26): while the owner is the only user, uploads use this built-in
+   default code so nothing has to be typed. It is NOT a security gate. Replace it with a real gate (per-tester codes
+   or sign-in) before anyone else gets access. The Upload screen keeps an optional advanced override. */
+var DEFAULT_CODE='0000';
+function codeOk(n){return /^[A-Z0-9]{1,128}$/.test(n)}
+function curCode(){var n=normCode(S.testerCode);return codeOk(n)?n:DEFAULT_CODE}
+function hasOverride(){var n=normCode(S.testerCode);return codeOk(n)&&n!==DEFAULT_CODE}
+function hasCode(){return codeOk(curCode())}
+function maskCode(){var n=normCode(S.testerCode);return hasOverride()?'•••• '+n.slice(-2):''}
 function fpOf(s){var h=2166136261,i;for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h.toString(16)+':'+s.length}
 function isoOf(v,fb){var t=Date.parse(v);return isNaN(t)?(fb||new Date().toISOString()):new Date(t).toISOString()}
 function cV(c){return c.v||1}
@@ -1489,10 +1491,10 @@ function dotCls(c){if(!hasCode())return 'off';return prog(c).synced?'ok':'pend'}
 function syncText(c,short){
   if(!hasCode())return short?'':'local only 仅本机';
   var p=prog(c);
-  if(p.synced)return short?'':'uploaded 已上传';
-  if(p.failed)return short?p.done+'/'+p.tot:p.done+' of '+p.tot+' uploaded 已传 '+p.done+'/'+p.tot+' · '+p.failed+' not sent 未传';
-  if(!p.tot)return short?'':'waiting 等待上传';
-  return short?p.done+'/'+p.tot:p.done+' of '+p.tot+' uploaded 已传 '+p.done+'/'+p.tot;
+  if(p.synced)return short?'':'Saved to cloud 已上传';
+  if(p.failed)return short?p.done+'/'+p.tot:'Waiting to upload 等待上传 · '+p.done+'/'+p.tot+' · '+p.failed+' not sent 未传';
+  if(!p.tot)return short?'':'Waiting to upload 等待上传';
+  return short?p.done+'/'+p.tot:'Waiting to upload 等待上传 · '+p.done+'/'+p.tot;
 }
 function sdot(c,txt){return '<i class="sdot '+dotCls(c)+'" data-sc="'+c.id+'" aria-hidden="true"></i>'+(txt?'<span class="sdt" data-sp="'+c.id+'"'+(txt==='s'?' data-short="1"':'')+'>'+esc(syncText(c,txt==='s'))+'</span>':'')}
 function totals(){
@@ -1531,7 +1533,7 @@ function api(method,path,o){
   o=o||{};
   return new Promise(function(res,rej){
     var ctl=window.AbortController?new AbortController():null,to=setTimeout(function(){if(ctl)ctl.abort();rej({net:true,why:'timeout'})},o.timeout||20000);
-    var h={};if(!o.noCode)h['X-AS-Code']=normCode(S.testerCode);
+    var h={};if(!o.noCode)h['X-AS-Code']=curCode();
     if(o.type)h['Content-Type']=o.type;
     var opt={method:method,headers:h,cache:'no-store',credentials:'omit',mode:'cors'};
     if(o.body!=null)opt.body=o.body;if(ctl)opt.signal=ctl.signal;
@@ -1662,7 +1664,7 @@ function syncRun(){
   function end(k){
     SY.run=false;SY.cur='';
     if(!hasCode()){setSY('off');return}
-    if(k==='badcode'){SY.fails=0;setSY('badcode');toast('Code not accepted 口令无效');return}
+    if(k==='badcode'){SY.fails=0;setSY('badcode');toast('Upload paused 上传已暂停');return}
     if(k==='quota'){SY.fails=0;SY.qUntil=Date.now()+30*60000;setSY('quota');toast('Monthly upload limit reached 本月上传额度已满');return}
     if(k==='retry'||k==='net'){SY.fails++;var ms=backoffMs();SY.conn=navigator.onLine===false?'offline':'down';setSY(navigator.onLine===false?'offline':'retry');kick(ms);return}
     SY.fails=0;
@@ -1673,7 +1675,6 @@ function syncRun(){
   return loop().then(end,function(e){end(e&&e.net?'net':'retry')});
 }
 function uploadNow(){
-  if(!hasCode()){toast('Enter your tester code first 请先输入试用口令');return}
   db.cases.forEach(function(c){var ch=false;if(c.cfail){delete c.cfail;ch=true}
     c.entries.forEach(function(e){if(e.efail||e.mfail){delete e.efail;delete e.mfail;dirty['entries|'+e.id]=['entries',e];ch=true}});
     if(ch)putCase(c)});
@@ -1691,19 +1692,26 @@ function setCode(raw){
   var n=normCode(raw);
   if(!n){return clearCode()}
   if(!codeOk(n)){toast('That does not look like a valid code 这不像有效的口令');return Promise.resolve(false)}
-  var fp=fpOf(n),chg=S.syncFp&&S.syncFp!==fp;
-  return setMeta('testerCode',n).then(function(){return setMeta('syncFp',fp)}).then(function(){
+  var chg=fpOf(n)!==fpOf(curCode());
+  return setMeta('testerCode',n===DEFAULT_CODE?'':n).then(function(){
     if(chg)resetMarkers();
     SY.state='idle';SY.fails=0;SY.conn='';
-    toast('Code saved 口令已保存');
+    toast('Saved 已保存');
     if(view==='upload')render();
     checkConn().then(function(){if(SY.state!=='badcode'){SY.force=true;kick(0)}});
     return true;
   });
 }
 function clearCode(){
-  clearTimeout(SY.timer);SY.timer=null;SY.conn='';SY.usage=null;
-  return setMeta('testerCode','').then(function(){setSY('off');toast('Code cleared 口令已清除 — uploads paused, data on this phone kept 已暂停上传，手机上的数据保留');if(view==='upload')render();return true});
+  var chg=hasOverride();
+  return setMeta('testerCode','').then(function(){
+    if(chg)resetMarkers();
+    SY.state='idle';SY.fails=0;SY.conn='';
+    toast('Back to default 已恢复默认');
+    if(view==='upload')render();
+    checkConn().then(function(){if(SY.state!=='badcode'){SY.force=true;kick(0)}});
+    return true;
+  });
 }
 function savedCodeFromField(){var t=$('#tc');return t?t.value:''}
 function pasteCode(){
@@ -1714,11 +1722,10 @@ function pasteCode(){
 /* ----- UI ----- */
 function fmtMB(b){b=b||0;return b>=1073741824?(b/1073741824).toFixed(1)+' GB':b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
 function connLine(){
-  if(!hasCode())return{ok:false,en:'Not connected',zh:'未连接',sub:'Enter your tester code below to start uploading. Until then everything stays on this phone. 在下方输入试用口令后开始上传，此前所有内容只保存在本机。'};
-  if(SY.state==='badcode'||SY.conn==='badcode')return{ok:false,en:'Not connected',zh:'未连接',sub:'Code not accepted 口令无效 — check it with whoever gave it to you, then paste it again. 请向发口令的人核对后重新粘贴。'};
+  if(SY.state==='badcode'||SY.conn==='badcode')return{ok:false,en:'Not connected',zh:'未连接',sub:'The server did not accept the upload code 服务器未接受上传口令 — if you set an override below, clear it. 如设置过备用口令，请清除。'};
   if(SY.state==='offline'||SY.conn==='offline')return{ok:false,en:'Not connected',zh:'未连接',sub:'Offline 当前离线 — uploads continue automatically when the network is back. 网络恢复后自动继续上传。'};
   if(SY.conn==='down'||SY.state==='retry')return{ok:false,en:'Not connected',zh:'未连接',sub:'The server cannot be reached 无法连接服务器 — will retry automatically (a VPN may be needed). 将自动重试（可能需要 VPN）。'};
-  if(SY.conn==='ok')return{ok:true,en:'Connected',zh:'已连接',sub:'Server reachable, code accepted. 服务器可达，口令有效。'};
+  if(SY.conn==='ok')return{ok:true,en:'Connected',zh:'已连接',sub:'Server reachable. 服务器可达。'};
   return{ok:false,en:'Checking…',zh:'检查中…',sub:''};
 }
 function failMsgs(){
@@ -1733,21 +1740,21 @@ function uplTopHtml(){
     h+='<div class="r"><div class="fine">This month 本月: '+fmtMB(SY.usage.used_bytes)+' of 共 '+fmtMB(SY.usage.quota_bytes)+'</div><div class="prog" style="margin-top:6px"><i style="width:'+pc+'%"></i></div></div>'}
   h+='</div>';
   if(SY.state==='quota')h+='<div class="banner warn"><b>Monthly upload limit reached 本月上传额度已满.</b> Nothing is lost — everything stays on this phone and uploads again when the limit resets or you press Upload now. 数据没有丢失，仍在手机上；额度重置后或点“立即上传”会继续。</div>';
-  if(SY.state==='badcode')h+='<div class="banner warn"><b>Code not accepted 口令无效 (401).</b> Uploads are paused. Paste the correct code below. 上传已暂停，请在下方粘贴正确的口令。</div>';
+  if(SY.state==='badcode')h+='<div class="banner warn"><b>Upload paused 上传已暂停 (401).</b> The server did not accept the upload code. If you set an override below, clear it. 服务器未接受上传口令；如设置过备用口令，请清除。</div>';
   failMsgs().forEach(function(m){h+='<div class="banner warn">'+m+'. Your copy on this phone is untouched. 手机上的副本不受影响。</div>'});
   return h;
 }
 function uplBotHtml(){
   var t=totals(),pend=t.pend,st=SY.state,busy=st==='syncing';
-  var line=!hasCode()?'':busy?'Uploading… 上传中…':pend?pend+' item(s) waiting 项待上传'+(st==='offline'?' · offline 离线':st==='retry'?' · retrying 重试中':''):t.failed?t.failed+' item(s) not sent 项未能上传':'All uploaded 已全部上传'+(SY.lastOk?' · '+fmt(SY.lastOk).slice(11):'');
-  var h='<div style="margin:14px 0 6px"><button class="btn pri big" data-act="uplnow"'+(hasCode()&&!busy?'':' disabled')+'>'+ic('up')+'<span>Upload now <span class="zh" style="font-size:15px">立即上传</span></span></button></div>';
+  var line=busy?'Uploading… 上传中…':pend?pend+' item(s) waiting 项待上传'+(st==='offline'?' · offline 离线':st==='retry'?' · retrying 重试中':''):t.failed?t.failed+' item(s) not sent 项未能上传':'All uploaded 已全部上传'+(SY.lastOk?' · '+fmt(SY.lastOk).slice(11):'');
+  var h='<div style="margin:14px 0 6px"><button class="btn pri big" data-act="uplnow"'+(busy?' disabled':'')+'>'+ic('up')+'<span>Upload now <span class="zh" style="font-size:15px">立即上传</span></span></button></div>';
   if(line)h+='<div class="fine" style="margin:6px 16px 0;text-align:center">'+esc(line)+'</div>';
   h+='<div class="sh">Case files <span class="zh">案卷</span></div><div class="grp">';
   if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
   db.cases.slice().reverse().forEach(function(c){
     var p=prog(c),pc=p.tot?Math.round(100*p.done/p.tot):(p.caseOk?100:0);
     h+='<div class="listrow"><div class="tx" style="flex:1;min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+sdot(c,'l')+'</div>'+
-      (hasCode()?'<div class="prog" style="margin-top:6px"><i class="'+dotCls(c)+'" style="width:'+pc+'%"></i></div>':'')+'</div></div>';
+      '<div class="prog" style="margin-top:6px"><i class="'+dotCls(c)+'" style="width:'+pc+'%"></i></div>'+'</div></div>';
   });
   return h+'</div>';
 }
@@ -1755,15 +1762,14 @@ function vUpload(){
   var h='<div class="nav"><div class="bar"><button class="bk" data-act="home">'+ic('chevL')+'<span>Cases <span class="zh">案卷</span></span></button>'+
     '<div class="ttl"><b>Upload 上传</b><span>AS Collector</span></div><div class="rt"><span class="draft" style="margin:0">DRAFT</span></div></div></div><div class="pg">';
   h+='<div id="uplTop" style="margin-top:14px">'+uplTopHtml()+'</div>';
-  h+='<div class="sh">Tester code <span class="zh">试用口令</span></div><div class="grp"><div class="field"><label for="tc">Code 口令'+(hasCode()?' — saved 已保存':'')+'</label>'+
-    '<input id="tc" class="mask" data-act="tc" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="'+esc(hasCode()?maskCode():'Type or paste your code 输入或粘贴口令')+'"></div>'+
-    '<div class="r"><div class="row nw"><button class="btn sm plain" data-act="tcpaste">'+ic('copy')+'Paste 粘贴</button><button class="btn sm" data-act="tcsave">'+ic('check')+'Save 保存</button><button class="btn sm dan" data-act="tcclear"'+(hasCode()?'':' disabled')+'>'+ic('trash')+'Clear 清除</button></div></div></div>';
+  h+='<div class="sh">Advanced <span class="zh">高级</span></div><div class="grp"><div class="field"><label for="tc">Override 备用设置'+(hasOverride()?' — in use 使用中':' (optional 可选)')+'</label>'+
+    '<input id="tc" class="mask" data-act="tc" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="'+esc(hasOverride()?maskCode():'Leave empty 留空')+'"></div>'+
+    '<div class="r"><div class="row nw"><button class="btn sm plain" data-act="tcpaste">'+ic('copy')+'Paste 粘贴</button><button class="btn sm" data-act="tcsave">'+ic('check')+'Save 保存</button><button class="btn sm dan" data-act="tcclear"'+(hasOverride()?'':' disabled')+'>'+ic('trash')+'Reset 重置</button></div></div></div>';
   h+='<div id="uplBot">'+uplBotHtml()+'</div>';
   h+='<div class="note" style="margin-top:18px"><b>What is uploaded 上传内容.</b> Case details, notes, tags, status, clause, photos and recordings are copied to the AS Collector server for this trial, in the background whenever you are online. Uploading never removes anything from this phone. Entries you delete are marked deleted on the server, not erased. 案卷信息、备注、归类、状态、条款、照片和录音会在联网时自动复制到 AS Collector 服务器（试用）。上传不会删除手机上的任何内容；你删除的条目在服务器上只做删除标记，不会清除。<br>The Summary page fields (finding statement, severity, sample) are not uploaded yet. 总结页的不符合声明、严重程度、抽样暂不上传。</div></div>';
   return h;
 }
 function rowText(){
-  if(!hasCode())return 'Not connected 未连接 · add your tester code 点此输入试用口令';
   var l=connLine(),t=totals();
   return (l.ok?'Connected 已连接':'Not connected 未连接')+' · '+(SY.state==='syncing'?'uploading 上传中':t.pend?t.pend+' item(s) waiting 项待传':t.failed?t.failed+' item(s) not sent 项未能上传':'all uploaded 已全部上传');
 }
