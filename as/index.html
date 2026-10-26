@@ -13,9 +13,10 @@
 <title>AS · Auditing Secretary / 审核秘书 — DRAFT prototype rev03</title>
 <style>
 :root{
-  --bg:#000;--g1:#1c1c1e;--g2:#2c2c2e;--g3:#3a3a3c;--sep:#38383a;
-  --lab:#f2f2ef;--lab2:#a1a19c;--lab3:#6c6c68;
-  --or:#ff8a3d;--or-d:#c2410c;--or-t:rgba(255,138,61,.16);
+  --bg:#000;--g1:#1c1c1c;--g2:#2c2c2c;--g3:#3a3a3a;--sep:#383838;
+  --lab:#f2f2f2;--lab2:#a1a1a1;--lab3:#6e6e6e;
+  /* PALETTE: neutrals (black/white/greys) + orange + green; red ONLY for recording state (+ press-feedback on delete) */
+  --or:#ff8a3d;--or-t:rgba(255,138,61,.16);
   --gr:#34d399;--gr-t:rgba(52,211,153,.16);
   --rd:#ff453a;--rd-t:rgba(255,69,58,.16);
   --blur:saturate(180%) blur(22px);
@@ -35,13 +36,13 @@ button,input,select,textarea{font-family:inherit}
 /* ---- bars ---- */
 .back{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
   background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border-bottom:.5px solid rgba(84,84,88,.55);padding:calc(var(--sat) + 2px) 8px 2px 8px;min-height:calc(var(--sat) + 48px)}
+  border-bottom:.5px solid rgba(84,84,84,.55);padding:calc(var(--sat) + 2px) 8px 2px 8px;min-height:calc(var(--sat) + 48px)}
 body.incase .back{display:none}
 .back a{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 8px;font-size:17px;color:var(--or)}
 .back a .ic{width:22px;height:22px}
 .draft{display:inline-block;border:1px solid rgba(255,138,61,.6);color:var(--or);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.8px;margin-right:8px}
 .nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border-bottom:.5px solid rgba(84,84,88,.55);padding:calc(var(--sat) + 2px) 8px 8px;margin:0 -0px}
+  border-bottom:.5px solid rgba(84,84,84,.55);padding:calc(var(--sat) + 2px) 8px 8px;margin:0 -0px}
 .nav .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px}
 .nav .bk{white-space:nowrap;justify-self:start;display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 6px 0 2px;background:none;border:0;color:var(--or);font-size:17px;cursor:pointer;transition:opacity .15s}
 .nav .bk:active{opacity:.4}
@@ -76,7 +77,7 @@ body.incase .back{display:none}
 .grp>.r{padding:12px 16px;position:relative}
 .grp>.r+.r{border-top:.5px solid var(--sep)}
 .grp.pri{background:linear-gradient(180deg,rgba(255,138,61,.14),rgba(255,138,61,.04)),var(--g1);box-shadow:inset 0 0 0 1px rgba(255,138,61,.35)}
-.grp.dng{box-shadow:inset 0 0 0 1px rgba(255,69,58,.3)}
+.grp.dng{box-shadow:inset 0 0 0 1px var(--g3)}
 .grp h2,.r h2{font-size:17px;font-weight:600;margin:0 0 2px;line-height:1.3}
 .grp .rowl{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
 .rowl .tx{min-width:0}
@@ -86,7 +87,7 @@ body.incase .back{display:none}
 .lnk .ic{width:20px;height:20px;color:var(--or)}
 .lnk .ch{color:var(--lab3);width:14px;height:14px}
 .lnk.or{color:var(--or)}
-.lnk.red{color:var(--rd)}.lnk.red .ic{color:var(--rd)}
+.lnk.red{color:var(--lab)}.lnk.red .ic{color:var(--lab2)}.lnk.red:active,.lnk.red:active .ic{color:var(--rd)}
 .lnk[disabled]{opacity:.35;cursor:not-allowed}
 .lnk .l{display:flex;align-items:center;gap:12px}
 .field{display:flex;flex-direction:column;gap:2px;padding:8px 16px}
@@ -99,7 +100,7 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(255,138,61,.7)
 .field input:focus,.field select:focus{box-shadow:none}
 input::placeholder,textarea::placeholder{color:var(--lab3)}
 textarea{min-height:92px;resize:vertical;line-height:1.4}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20' fill='none' stroke='%236c6c68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 7l4-4 4 4M2 13l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20' fill='none' stroke='%236e6e6e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 7l4-4 4 4M2 13l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
 input[type=date]{min-height:28px}
 
 /* ---- buttons ---- */
@@ -107,7 +108,7 @@ input[type=date]{min-height:28px}
 .btn{min-height:44px;min-width:44px;padding:8px 16px;border-radius:12px;border:0;background:var(--g2);color:var(--lab);font:inherit;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;transition:transform .12s ease,opacity .12s,background .15s;line-height:1.2}
 .btn:active{transform:scale(.97);opacity:.75}
 .btn.pri{background:var(--or);color:#000}
-.btn.dan{background:var(--rd-t);color:var(--rd)}
+.btn.dan{background:var(--g2);color:var(--lab)}.btn.dan .ic{color:var(--lab2)}.btn.dan:active,.btn.dan:active .ic{color:var(--rd)}
 .btn.sm{min-height:44px;padding:6px 14px;font-size:15px}
 .btn.big{min-height:56px;font-size:18px;width:100%;border-radius:14px}
 .btn[disabled]{opacity:.32;cursor:not-allowed;transform:none}
@@ -115,27 +116,25 @@ input[type=date]{min-height:28px}
 .btn .zh{color:inherit;opacity:.7}
 a.btn{text-decoration:none}
 .btn.seg{min-height:36px;padding:2px 12px;font-size:14px;border-radius:9px}
-.btn.on{background:var(--or);color:#000}
+.btn.on{background:var(--g3);color:#fff}
 .stl{display:flex;gap:2px;background:var(--g2);border-radius:9px;padding:2px;margin-top:4px}
 .stl .btn{flex:1;flex-direction:column;gap:0;min-height:44px;padding:4px 2px;background:none;border-radius:7px;font-size:14px;font-weight:600;white-space:nowrap;color:var(--lab);transition:background .2s,color .2s}
 .stl .btn .zh{font-size:12px}
 .stl .btn:active{transform:none}
-.stl .btn.on-seen{background:var(--gr);color:#00281a}
-.stl .btn.on-not{background:var(--or);color:#2a1000}
+.stl .btn.on-seen{background:var(--gr);color:#000}
+.stl .btn.on-not{background:var(--or);color:#000}
 .stl .btn.on-na{background:var(--lab2);color:#000}
 
 /* ---- chips ---- */
 .chip{font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--g2);color:var(--lab2);white-space:nowrap;display:inline-block;margin:2px 4px 2px 0}
-.chip.seen{background:var(--gr-t);color:var(--gr)}.chip.not{background:var(--or);color:#2a1000}.chip.na{background:var(--g3);color:var(--lab)}
-.chip.tag{background:var(--or-t);color:var(--or)}
+.chip.seen{background:var(--gr-t);color:var(--gr)}.chip.not{background:var(--or);color:#000}.chip.na{background:var(--g3);color:var(--lab)}
+.chip.tag{background:var(--g2);color:var(--lab)}
 
 /* ---- banners / notes ---- */
 .note,.banner{background:var(--g1);border-radius:14px;padding:12px 16px;margin:12px 0;font-size:14px;line-height:1.45;color:var(--lab2)}
 .note b,.banner b{color:var(--lab)}
-.warn{background:var(--or-t);color:#ffcfa8}
+.warn{background:var(--or-t);color:var(--lab2)}
 .warn b{color:var(--or)}
-.banner.red{background:var(--rd-t);color:#ffb4ae}
-.banner.red b{color:var(--rd)}
 .tip{display:flex;gap:12px;align-items:flex-start}
 .tip .ic{width:22px;height:22px;color:var(--or);margin-top:1px}
 
@@ -145,22 +144,22 @@ a.btn{text-decoration:none}
 .cnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 .cpill{display:inline-flex;align-items:center;gap:6px;background:var(--g1);border-radius:99px;padding:4px 11px 4px 9px;font-size:13px;font-weight:600;color:var(--lab2);box-shadow:inset 0 0 0 .5px rgba(255,138,61,.28);transition:color .3s}
 .cpill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or);opacity:.6}
-.cpill.held{color:var(--lab3)}.cpill.held::before{background:var(--lab3)}
+.cpill.held{color:var(--lab3);box-shadow:inset 0 0 0 .5px var(--g3)}.cpill.held::before{background:var(--lab3)}
 .cpill.fin::before{background:var(--gr)}
 .spill{display:inline-flex;align-items:center;gap:7px;background:none;border-radius:99px;padding:4px 4px;font-size:12px;color:var(--lab3);font-variant-numeric:tabular-nums}
 .spill b{color:var(--lab2);font-weight:600}
 .spill .sep{width:1px;height:10px;background:var(--g3)}
 .spill .ic{width:12px;height:12px}
-.statebar{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;margin:6px 0 0;color:var(--gr);opacity:.85}
+.statebar{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;margin:6px 0 0;color:var(--or);opacity:.85}
 .statebar.rec{opacity:1}
-.statebar.held{color:var(--or)}
+.statebar.held{color:var(--lab2)}
 .statebar.fin{color:var(--gr)}
 .statebar.rec{color:var(--rd)}
 .dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;flex:none}
 .statebar .dot{animation:blink 1.6s ease-in-out infinite}
 .statebar.held .dot,.statebar.fin .dot{animation:none}
 .statebar.rec .dot{animation:blink .9s ease-in-out infinite}
-.capzone{position:absolute;left:0;right:0;top:max(38%,198px);transform:translateY(-50%);display:flex;flex-direction:column;align-items:center}
+.capzone{position:absolute;left:0;right:0;top:max(40%,222px);transform:translateY(-50%);display:flex;flex-direction:column;align-items:center}
 .cap{display:flex;justify-content:center;gap:28px;margin:0 0 6px}
 .capfoot{position:absolute;left:16px;right:16px;bottom:6px}
 .crow{display:flex;align-items:center;justify-content:space-between}
@@ -176,20 +175,21 @@ a.btn{text-decoration:none}
 .capbtn .t{font-size:17px;font-weight:700;line-height:1.1}
 .capbtn .z{font-size:13px;color:var(--lab2);font-weight:400;line-height:1.1;margin-top:-6px}
 .capbtn.recording .t{color:var(--rd)}
-.capbtn[disabled]{opacity:.3;cursor:not-allowed}
+.capbtn[disabled]{opacity:.45;cursor:not-allowed}
+.capbtn[disabled] .disc{background:var(--g2);color:var(--lab3);box-shadow:none}
 .capbtn[disabled]:active .disc{transform:none}
 .textlink{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:2px auto 0;padding:0 20px;min-height:44px;font-size:16px;font-weight:600;color:var(--or);background:var(--or-t);border:0;border-radius:99px;cursor:pointer;transition:transform .12s,opacity .12s}
 .textlink:active{transform:scale(.96);opacity:.7}
-.textlink[disabled]{opacity:.3}
+.textlink[disabled]{opacity:.6;color:var(--lab3);background:var(--g1)}
 .textlink .ic{width:18px;height:18px}
-.ctlbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-top:.5px solid rgba(84,84,88,.55);padding:10px 16px calc(var(--sab) + 10px)}
+.ctlbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(0,0,0,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-top:.5px solid rgba(84,84,84,.55);padding:10px 16px calc(var(--sab) + 10px)}
 .ctl{display:flex;gap:10px;max-width:720px;margin:0 auto}
 .ctl .btn{flex:1;flex-direction:column;gap:2px;min-height:62px;padding:8px 4px;border-radius:16px;font-size:15px;background:var(--g1);color:var(--lab)}
 .ctl .btn .ic{width:24px;height:24px}
 .ctl .btn .zh{font-size:12px}
-.ctl .btn.hold{background:var(--or-t);color:var(--or)}
-.ctl .btn.resume{background:var(--or);color:#000}
-.ctl .btn.fin{background:var(--gr);color:#00281a}
+.ctl .btn.hold{background:var(--g2);color:var(--lab)}
+.ctl .btn.resume{background:#f2f2f2;color:#000}
+.ctl .btn.fin{background:var(--gr);color:#000}
 .ctl .btn[disabled]{background:var(--g1);color:var(--lab3);opacity:.7}
 
 /* ---- review ---- */
@@ -199,7 +199,7 @@ a.btn{text-decoration:none}
 .ent .eh .meta2{font-size:13px;color:var(--lab2);flex:1;min-width:0}
 .ent .eb{padding:6px 16px 10px}
 .ent .thumbbig{width:100%;max-width:240px;aspect-ratio:4/3;height:auto;object-fit:cover;border-radius:12px;display:block;margin:4px 0 8px}
-.ent audio{width:100%;height:44px;margin:4px 0 4px;color-scheme:dark}
+.ent audio{width:100%;height:44px;margin:4px 0 4px;color-scheme:dark;filter:grayscale(1)}
 .ent .txt{white-space:pre-wrap;margin:2px 0 6px;font-size:16px;line-height:1.45}
 .ent .tg{padding:0 16px 8px}
 .ent .lnk{border-top:.5px solid var(--sep);color:var(--or);font-size:16px;font-weight:500;min-height:46px}
@@ -228,7 +228,7 @@ a.btn{text-decoration:none}
 
 /* ---- sheets ---- */
 .sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:80;display:flex;align-items:flex-end;justify-content:center;animation:fadein .22s ease both}
-.sheet{background:rgba(28,28,30,.96);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:22px 22px 0 0;padding:8px 20px calc(var(--sab) + 20px);width:100%;max-width:720px;max-height:90vh;overflow:auto;animation:slideup .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
+.sheet{background:rgba(28,28,28,.96);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:22px 22px 0 0;padding:8px 20px calc(var(--sab) + 20px);width:100%;max-width:720px;max-height:90vh;overflow:auto;animation:slideup .32s cubic-bezier(.2,.9,.25,1) both;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
 .sheet .grab{width:38px;height:5px;border-radius:3px;background:var(--g3);margin:4px auto 14px}
 .sheet h2{font-size:21px;font-weight:700;margin:0 0 6px;letter-spacing:-.2px}
 .sheet p{margin:0 0 14px;color:var(--lab2);font-size:15px;line-height:1.45}
@@ -240,7 +240,7 @@ a.btn{text-decoration:none}
 .pre{white-space:pre-wrap;font-size:14px}
 
 /* ---- toast ---- */
-.toast{pointer-events:none;position:fixed;left:16px;right:16px;margin:0 auto;max-width:420px;top:calc(var(--sat) + 10px);z-index:99;display:flex;gap:10px;align-items:flex-start;background:rgba(44,44,46,.92);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:16px;padding:12px 16px;font-size:14.5px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:toastin .3s cubic-bezier(.2,.9,.25,1) both}
+.toast{pointer-events:none;position:fixed;left:16px;right:16px;margin:0 auto;max-width:420px;top:calc(var(--sat) + 10px);z-index:99;display:flex;gap:10px;align-items:flex-start;background:rgba(44,44,44,.92);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:16px;padding:12px 16px;font-size:14.5px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:toastin .3s cubic-bezier(.2,.9,.25,1) both}
 .toast .ic{width:22px;height:22px;color:var(--gr);margin-top:0}
 
 
@@ -260,7 +260,7 @@ a.btn{text-decoration:none}
 .se{margin:8px 0;font-size:15px;line-height:1.4}
 .se .sn{color:var(--or);font-variant-numeric:tabular-nums}
 .ic.sm{width:16px;height:16px;color:var(--or)}
-.toast .ic.w{color:var(--or)}
+.toast .ic.w{color:var(--lab)}
 .row .btn.plain,.btn.plain{background:var(--g2)}
 .cwrap .meta{text-align:center}
 
@@ -270,6 +270,67 @@ a.btn{text-decoration:none}
 .sheet .stack{display:flex;flex-direction:column;gap:8px}.sheet .stack .btn{width:100%;justify-content:flex-start;min-height:48px;padding:0 16px;font-size:16px}
 .sthumbrow{display:flex;align-items:center;gap:10px;margin-top:6px}
 .statebar{max-width:94%;line-height:1.3}.statebar span{text-align:center}
+
+/* ---- recording screen: red is the only chromatic hue (everything else greys/white) ---- */
+body.isrec .nav .bk,body.isrec .draft{color:var(--lab2);border-color:var(--g3)}
+body.isrec .cpill{box-shadow:inset 0 0 0 .5px var(--g3)}
+body.isrec .cpill::before{background:var(--lab3)}
+body.isrec .ctl .btn.fin{background:#f2f2f2;color:#000}
+body.isrec .ctl .btn.hold{background:var(--g2);color:var(--lab)}
+body.isrec .statebar.rec{color:var(--rd)}
+body.isrec .toast .ic{color:var(--lab)}
+
+/* ---- rev03 v4: clause picker, sound toggle, library link ---- */
+.clpick{display:inline-flex;flex-direction:column;align-items:center;max-width:100%;margin:10px 0 0;padding:6px 12px 6px 14px;border:0;border-radius:16px;background:var(--g1);color:var(--lab);font:inherit;cursor:pointer;box-shadow:inset 0 0 0 .5px rgba(255,138,61,.35);transition:transform .12s,opacity .12s;-webkit-user-select:none;user-select:none}
+.clpick:active{transform:scale(.97);opacity:.8}
+.clpick[disabled]{opacity:.5;cursor:default}
+.clpick .ctitle{display:inline-flex;align-items:center;gap:4px;margin:0;font-size:18px;font-weight:700;line-height:1.2;white-space:nowrap}
+.clpick .cln{color:var(--or);font-weight:800}
+.clpick .cd{width:15px;height:15px;color:var(--lab2);flex:none;margin-top:1px}
+.clpick .ctz{display:block;margin:1px 0 0;font-size:12.5px;line-height:1.25;white-space:nowrap}
+.srow{position:relative;display:flex;justify-content:center;align-items:center;min-height:36px;margin:2px 0 0}
+.srow .statebar{margin:0;max-width:76%}
+.sndbtn{position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--lab2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sndbtn .ic{width:21px;height:21px}
+.sndbtn.off{color:var(--lab3)}
+.sndbtn:active{background:var(--g1)}
+.trow{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:2px}
+.trow .textlink{margin:2px 0 0;padding:0 16px}
+.textlink.lib{background:var(--g1);color:var(--lab)}
+.textlink.lib .ic{color:var(--lab2)}
+.rads{background:var(--g2);border-radius:14px;overflow:hidden}
+.rad{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:9px 14px;background:none;border:0;border-radius:0;color:var(--lab);font:inherit;text-align:left;cursor:pointer;transition:background .12s}
+.rad+.rad{border-top:.5px solid var(--sep)}
+.rad:active{background:var(--g3)}
+.rad .rn{flex:none;min-width:48px;font-size:16px;font-weight:800;color:var(--or);font-variant-numeric:tabular-nums}
+.rad .rt{flex:1;min-width:0;display:flex;flex-direction:column}
+.rad .rt b{font-size:15px;font-weight:600;line-height:1.25}
+.rad .rt .zh{font-size:13px;margin-top:1px}
+.rad .rd{flex:none;width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--lab3);display:flex;align-items:center;justify-content:center;color:#000;transition:background .15s,box-shadow .15s}
+.rad.on .rd{background:var(--or);box-shadow:none}
+.rad .rd .ic{width:15px;height:15px;stroke-width:3}
+.clhd{display:flex;align-items:center;gap:10px;margin:30px 16px 0;padding-top:14px;border-top:1px solid var(--g3)}
+.clhd .cn{flex:none;background:var(--or);color:#000;font-weight:800;font-size:15px;border-radius:99px;padding:2px 11px}
+.clhd .ct2{font-size:17px;font-weight:700;line-height:1.25}
+.clhd+.sh{margin-top:12px}
+.chip.cl{background:none;box-shadow:inset 0 0 0 1px var(--g3);color:var(--lab)}
+@media (max-height:700px){.clpick{margin-top:6px;padding:4px 10px}.clpick .ctitle{font-size:16.5px}.srow{min-height:32px}.sndbtn{width:40px;height:40px}}
+.clpick[disabled]{box-shadow:none;opacity:.6}
+.clpick[disabled] .cln{color:var(--lab)}
+.textlink.lib[disabled],.textlink.lib[disabled] .ic{color:var(--lab3);opacity:.6}
+
+/* ---- upload / sync indicator (neutral grey, green = synced, orange = pending) ---- */
+.sdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lab3);vertical-align:1px;margin-right:6px;flex:none}
+.sdot.off{background:var(--lab3)}.sdot.ok{background:var(--gr)}.sdot.pend{background:var(--or)}
+.spill .sy{display:inline-flex;align-items:center;white-space:nowrap}.spill .sy .sdot{margin-right:5px}
+.prog i{display:block;height:100%;border-radius:4px;background:var(--lab2);transition:width .3s}
+.prog i.ok{background:var(--gr)}.prog i.pend{background:var(--or)}.prog i.off{background:var(--lab3)}
+input.mask{-webkit-text-security:disc;text-security:disc;letter-spacing:2px}
+body.isrec .sdot.ok,body.isrec .sdot.pend{background:var(--lab3)}
+.grp>.r{padding:12px 16px}.grp>.r+.r{border-top:.5px solid var(--sep)}
+.btn:disabled{opacity:.4}
+.grp .row.nw{flex-wrap:nowrap}.grp .row.nw .btn{flex:1;white-space:nowrap;padding-left:8px;padding-right:8px;font-size:15px;justify-content:center}
+.grp .row.nw .btn{gap:4px;min-width:0;overflow:hidden}.grp .row.nw .btn svg{display:none}
 </style>
 </head><body>
 <div class="back"><a href="https://fta7ai.com/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-7 7 7 7"/></svg>FTA&nbsp;<span class="zh">返回 FTA 网站</span></a><span class="draft">DRAFT</span></div>
@@ -281,7 +342,9 @@ a.btn{text-decoration:none}
 <script>
 (function(){
 'use strict';
-var CLAUSE='ISO 9001:2015 §8.4.1';
+/* ---- constants (change here) ---- */
+var AS_SERVER='https://as-collector.jinsonggong.workers.dev';   // AS Collector (Cloudflare Worker); the only server this page ever talks to
+var SYNC_RETRY_BASE_MS=2000,SYNC_RETRY_MAX_MS=300000;          // retry backoff: 2 s, 4 s, 8 s … up to 5 min
 var OLDKEY='as_proto_v1';
 var NAG_MS=3*24*3600*1000;
 
@@ -312,15 +375,35 @@ var ITEMS=[
   req:'(Auditor housekeeping) The audit sample is stated so findings can be traced and judged.',
   reqz:'（审核员备忘）写明抽样情况，使发现可追溯、可判断。'}
 ];
+ITEMS.forEach(function(p){p.cl='8.4'});
+var CLAUSES=[
+ {id:'8.4',en:'External provider control',zh:'外部供方控制'},
+ {id:'7.1.5',en:'Monitoring and measuring resources (external calibration)',zh:'监视和测量资源'},
+ {id:'8.5.3',en:'Property belonging to customers or external providers',zh:'顾客或外部供方的财产'},
+ {id:'8.6',en:'Release of products and services',zh:'产品和服务放行'},
+ {id:'8.7',en:'Control of nonconforming outputs',zh:'不合格输出控制'},
+ {id:'9.1.3',en:'Analysis and evaluation (supplier performance)',zh:'分析与评价'}
+];
+/* generic prompts for every clause except 8.4 (8.4 keeps its own 8.4.1 list above) */
+var GEN={};
+CLAUSES.forEach(function(k){if(k.id==='8.4')return;
+ GEN[k.id]=[
+  {id:k.id+':proc',cl:k.id,a:'Procedure / criteria in place',az:'有程序 / 准则',req:'Evidence that a defined method or criteria exist for this clause and are applied to external providers.',reqz:'有证据表明本条款有明确的方法或准则，并用于外部供方。'},
+  {id:k.id+':rec',cl:k.id,a:'Records seen',az:'已看记录',req:'Records showing the method was applied (what, when, who, result).',reqz:'显示方法已被执行的记录（什么、何时、谁、结果）。'},
+  {id:k.id+':other',cl:k.id,a:'Other evidence',az:'其他证据',req:'Any other evidence gathered under this clause.',reqz:'在本条款下收集的其他证据。'}];
+});
+function clauseDef(id){for(var i=0;i<CLAUSES.length;i++)if(CLAUSES[i].id===id)return CLAUSES[i];return CLAUSES[0]}
+function itemsOf(cid){return cid==='8.4'?ITEMS:(GEN[cid]||ITEMS)}
+function secTag(cid){return cid==='8.4'?'8.4.1':cid}
 var STATUS=[['seen','Seen','看到'],['not','Not seen','未看到'],['na','N/A','不适用']];
 
 /* ---------- state ---------- */
 var db={cases:[]};
-var S={cur:null,lang:'en-US',email:'',lastBackup:0};
+var S={cur:null,lang:'en-US',email:'',lastBackup:0,clause:'8.4',sound:true};
 var B={}, loadedBlobs={}, urls={};
 var view='home', tab='capture', filt='all', openE={};
 var idb=null, memOnly=false, persistState='unknown';
-var voice=null, R=null, audioConsent=false, saveInfo='';
+var voice=null, R=null, saveInfo='';
 var dirty={}, flushT=null, lastTick=Date.now(), tickN=0;
 
 
@@ -348,6 +431,10 @@ var IC={
  restore:'<path d="M12 15.5V6M8 9.5l4-4 4 4M4.5 15v2.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V15"/>',
  home:'<path d="M3.5 11l8.5-7 8.5 7M6 9.5V19a1 1 0 0 0 1 1h3.5v-5h3v5H17a1 1 0 0 0 1-1V9.5"/>',
  plus:'<path d="M12 5v14M5 12h14"/>',
+ sndon:'<path d="M4 9.5v5h3.6l4.9 3.8V5.7L7.6 9.5z"/><path d="M16 9.2a4 4 0 0 1 0 5.6M18.6 6.8a7.4 7.4 0 0 1 0 10.4"/>',
+ sndoff:'<path d="M4 9.5v5h3.6l4.9 3.8V5.7L7.6 9.5z"/><path d="M16.2 9.6l4.6 4.8M20.8 9.6l-4.6 4.8"/>',
+ cloud:'<path d="M7 18.5h10a4 4 0 0 0 .8-7.9A5.6 5.6 0 0 0 7 9.3a4.6 4.6 0 0 0 0 9.2z"/>',
+ up:'<path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/>',
  demo:'<path d="M12 3.5l1.9 5 5.1.4-3.9 3.3 1.2 5-4.3-2.7-4.3 2.7 1.2-5L5 8.9l5.1-.4z"/>'
 };
 function ic(n,c){return '<svg class="ic'+(c?' '+c:'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>'}
@@ -358,7 +445,7 @@ function pad(n){return ('0'+n).slice(-2)}
 function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
 function hhmm(){var d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fmt(ts){var d=new Date(ts);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())}
-function toast(m){var t=$('#toast');var good=/saved|Saved|Copied|Restored|Shared|Deleted|Upgraded|Migrated|downloading/.test(m);t.innerHTML='<div class="toast">'+(good?ic('checkc'):ic('info','w'))+'<div>'+esc(m)+'</div></div>';clearTimeout(toast.t);toast.t=setTimeout(function(){t.innerHTML=''},4200)}
+function toast(m){var t=$('#toast');var good=/saved|Saved|Copied|Restored|Shared|Deleted|Upgraded|Migrated|downloading|Connected|cleared/.test(m);t.innerHTML='<div class="toast">'+(good?ic('checkc'):ic('info','w'))+'<div>'+esc(m)+'</div></div>';clearTimeout(toast.t);toast.t=setTimeout(function(){t.innerHTML=''},4200)}
 function fatal(e,what){try{console.warn(what,e)}catch(_){}
   var n=e&&e.name;
   toast(n==='QuotaExceededError'?'Storage full 存储已满 — export a backup and free space 请导出备份并释放空间':'Could not save 保存失败 ('+(n||'error')+') — export a backup 请导出备份')}
@@ -376,14 +463,35 @@ function dataUrlToBlob(u){
   return new Blob([a],{type:m[1]||'application/octet-stream'});
 }
 function blobToDataUrl(b){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result)};r.onerror=function(){rej(r.error)};r.readAsDataURL(b)})}
-function itemOf(id){for(var i=0;i<ITEMS.length;i++)if(ITEMS[i].id===id)return ITEMS[i];return null}
+function itemOf(id){
+  var i,k,g;for(i=0;i<ITEMS.length;i++)if(ITEMS[i].id===id)return ITEMS[i];
+  for(k in GEN){g=GEN[k];for(i=0;i<g.length;i++)if(g[i].id===id)return g[i]}
+  return null}
+function ecl(e){if(e.clause&&GEN[e.clause]||e.clause==='8.4')return e.clause;var it=itemOf(e.tag);return it?it.cl:'8.4'}
+function curClause(){var id=S.clause;return clauseDef(id).id}
+function idxOf(it){var l=itemsOf(it.cl);return l.indexOf(it)+1}
+/* soft click: tiny WebAudio tick generated in code (no files) + light vibration */
+var AC=null;
+function clickFx(){
+  try{if(navigator.vibrate)navigator.vibrate(10)}catch(e){}
+  if(S.sound===false)return;
+  try{
+    var A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+    if(!AC)AC=new A();if(AC.state==='suspended'&&AC.resume)AC.resume();
+    var t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();
+    o.type='sine';o.frequency.setValueAtTime(1500,t);o.frequency.exponentialRampToValueAtTime(800,t+.045);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.09,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.055);
+    o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.07);
+  }catch(e){}
+}
 
 /* ---------- data model ----------
  case:  {id,client,date,auditor,created,capState,capMs, items:{clauseId:{stmt,sev,sample}}, entries:[...]}
  entry: {id,caseId,n,kind:'photo'|'audio'|'text',ts,text,note,via,mime,size,w,h,dur,tag,status}   (blob id == entry id) */
 function blankItem(c,id){return{key:c.id+'|'+id,caseId:c.id,itemId:id,stmt:'',sev:'',sample:''}}
 function item(c,id){if(!c.items[id])c.items[id]=blankItem(c,id);return c.items[id]}
-function caseRec(c){return{id:c.id,client:c.client,date:c.date,auditor:c.auditor||'',created:c.created,capState:c.capState||'finished',capMs:c.capMs||0}}
+function caseOut(c){return{id:c.id,client:c.client,date:c.date,auditor:c.auditor||'',created:c.created,capState:c.capState||'finished',capMs:c.capMs||0}}
+function caseRec(c){var o=caseOut(c);o.v=c.v||1;o.sv=c.sv||0;o.upd=c.upd||c.created;if(c.cfail)o.cfail=c.cfail;return o}
 function sortEntries(c){c.entries.sort(function(a,b){return (a.n||0)-(b.n||0)||(a.ts<b.ts?-1:1)})}
 function nextN(c){var m=0;c.entries.forEach(function(e){if(e.n>m)m=e.n});return m+1}
 function entById(c,id){for(var i=0;i<c.entries.length;i++)if(c.entries[i].id===id)return c.entries[i];return null}
@@ -398,13 +506,14 @@ function fileName(e){var nn=(e.n<10?'0':'')+e.n;return 'E'+nn+(e.kind==='photo'?
 /* ---------- IndexedDB ---------- */
 function openDB(){return new Promise(function(res,rej){
   if(!window.indexedDB){rej(new Error('IndexedDB unavailable'));return}
-  var r;try{r=indexedDB.open('as_secretary',2)}catch(e){rej(e);return}
+  var r;try{r=indexedDB.open('as_secretary',3)}catch(e){rej(e);return}
   r.onupgradeneeded=function(){var d=r.result,n=d.objectStoreNames;
     if(!n.contains('cases'))d.createObjectStore('cases',{keyPath:'id'});
     if(!n.contains('items'))d.createObjectStore('items',{keyPath:'key'}).createIndex('caseId','caseId');
     if(!n.contains('blobs'))d.createObjectStore('blobs',{keyPath:'id'}).createIndex('caseId','caseId');
     if(!n.contains('meta'))d.createObjectStore('meta',{keyPath:'k'});
     if(!n.contains('entries'))d.createObjectStore('entries',{keyPath:'id'}).createIndex('caseId','caseId');
+    if(!n.contains('sync'))d.createObjectStore('sync',{keyPath:'k'});
   };
   r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)};r.onblocked=function(){rej(new Error('blocked'))};
 })}
@@ -418,7 +527,7 @@ function setMeta(k,v){S[k]=v;if(!idb)return noop();return tx(['meta'],'readwrite
 function putCase(c){if(!idb)return noop();return tx(['cases'],'readwrite',function(s){s.put(caseRec(c))}).catch(function(e){fatal(e,'case')})}
 function mark(store,obj,key){dirty[store+'|'+key]=[store,obj];clearTimeout(flushT);flushT=setTimeout(flush,250);setInd('saving')}
 function markItem(c,id){mark('items',item(c,id),c.id+'|'+id)}
-function markEnt(e){mark('entries',e,e.id)}
+function markEnt(e){touchE(e);mark('entries',e,e.id);changed()}
 function flush(){
   clearTimeout(flushT);var jobs=Object.keys(dirty).map(function(k){return dirty[k]});dirty={};
   if(!jobs.length||!idb)return noop();
@@ -451,8 +560,9 @@ function delCaseDb(id){
   });
 }
 function loadAll(){
-  return tx(['cases','items','entries','meta'],'readonly',function(cs,is,es,ms){return[cs.getAll(),is.getAll(),es.getAll(),ms.getAll()]}).then(function(rs){
+  return tx(['cases','items','entries','meta','sync'],'readonly',function(cs,is,es,ms,ss){return[cs.getAll(),is.getAll(),es.getAll(),ms.getAll(),ss.getAll()]}).then(function(rs){
     var cases=rs[0].result||[],items=rs[1].result||[],ents=rs[2].result||[],metas=rs[3].result||[];
+    (rs[4].result||[]).forEach(function(t){TOMB[t.k]=t});
     metas.forEach(function(m){S[m.k]=m.v});
     var map={};cases.forEach(function(c){c.items={};c.entries=[];map[c.id]=c;
       if(!c.capState)c.capState='finished';else if(c.capState==='active')c.capState='held';   // a reload cannot keep a live capture running
@@ -473,7 +583,7 @@ function convertLegacy(c){
     if(!has)return;
     changed=true;
     var base=(ph[0]&&ph[0].ts)||(au[0]&&au[0].ts)||c.created||new Date().toISOString(),made=0;
-    function mk(kind,o){var e={id:o.id||'b'+uid(),caseId:c.id,n:0,kind:kind,ts:o.ts||base,text:o.text||'',note:'',via:o.via||'',mime:o.mime||'',size:o.size||0,w:o.w,h:o.h,dur:o.dur,tag:k,status:it.status||''};c.entries.push(e);made++}
+    function mk(kind,o){var e={id:o.id||'b'+uid(),caseId:c.id,n:0,kind:kind,ts:o.ts||base,text:o.text||'',note:'',via:o.via||'',mime:o.mime||'',size:o.size||0,w:o.w,h:o.h,dur:o.dur,tag:k,status:it.status||'',clause:'8.4'};c.entries.push(e);made++}
     ph.forEach(function(m){mk('photo',m)});
     au.forEach(function(m){mk('audio',m)});
     if(it.note)mk('text',{text:it.note,via:'typed'});
@@ -531,7 +641,7 @@ function askPersist(){
 }
 function storageBanner(){
   var h='';
-  if(memOnly)h+='<div class="banner red"><b>Storage unavailable 存储不可用.</b> This browser blocked IndexedDB (private mode?). Data will be lost when you close the page — export a backup before leaving. 此浏览器禁用了本地数据库（隐私模式？），关闭页面数据会丢失，请先导出备份。</div>';
+  if(memOnly)h+='<div class="banner warn"><b>Storage unavailable 存储不可用.</b> This browser blocked IndexedDB (private mode?). Data will be lost when you close the page — export a backup before leaving. 此浏览器禁用了本地数据库（隐私模式？），关闭页面数据会丢失，请先导出备份。</div>';
   if(!isStandalone())h+='<div class="note tip">'+ic('home')+'<div><b>Tip 提示 — Add to Home Screen 添加到主屏幕:</b> in Safari tap <b>Share ⬆︎ → Add to Home Screen</b>. The installed app keeps its data far more reliably than a Safari tab. 在 Safari 点“分享 ⬆︎ → 添加到主屏幕”，主屏幕版本比普通标签页更不容易被清理数据。</div></div>';
   var ps=persistState==='granted'?'granted ✓ 已授予':persistState==='denied'?'not granted 未授予 (add to Home Screen 请添加到主屏幕)':persistState==='unsupported'?'not supported 不支持':'…';
   h+='<div class="fine" id="stor" style="margin:0 16px 4px">Persistent storage 持久存储: '+ps+'</div>';
@@ -547,24 +657,25 @@ function nagState(){
 function backupBanner(){
   var n=nagState();if(!n)return '';
   var last=S.lastBackup?fmt(S.lastBackup):'never 从未';
-  if(n.late)return '<div class="banner red" id="nag"><b>Back up now 请立即备份:</b> '+(n.never?'no backup has been made and your oldest case is over 3 days old.':'last backup was '+n.days+' days ago.')+' 距上次备份已超过 3 天。<div class="row" style="margin-top:10px"><button class="btn sm pri" data-act="backupall">Backup all 备份全部</button></div><div class="fine" style="margin-top:6px">Last backed up 上次备份: '+last+'</div></div>';
+  if(n.late)return '<div class="banner warn" id="nag"><b>Back up now 请立即备份:</b> '+(n.never?'no backup has been made and your oldest case is over 3 days old.':'last backup was '+n.days+' days ago.')+' 距上次备份已超过 3 天。<div class="row" style="margin-top:10px"><button class="btn sm pri" data-act="backupall">Backup all 备份全部</button></div><div class="fine" style="margin-top:6px">Last backed up 上次备份: '+last+'</div></div>';
   return '<div class="fine" id="lastbk" style="margin:6px 16px 0">Last backed up 上次备份: '+last+'</div>';
 }
 /* ---------- views ---------- */
-var META='Author: F2 · 2026-10-26 08:24 HKT · rev03 · DRAFT';
+var META='Author: F2 · 2026-10-26 13:05 HKT · rev03 · DRAFT';
 function fitCap(){var w=document.querySelector('.cwrap');if(!w)return;var cb=document.querySelector('.ctlbar');var top=w.getBoundingClientRect().top+window.pageYOffset;var h=window.innerHeight-top-(cb?cb.offsetHeight:100);w.style.height=Math.max(h,380)+'px';document.body.style.paddingBottom=(cb?cb.offsetHeight:100)+'px'}
 window.addEventListener('resize',function(){fitCap()});
 function render(){
   var y=window.scrollY,h;
   if(view==='home')h=vHome();
+  else if(view==='upload')h=vUpload();
   else if(tab==='summary')h=vSummary();
   else if(tab==='review')h=vReview();
   else h=vCapture();
-  $('#app').innerHTML=h;document.body.classList.toggle('incase',view!=='home');document.body.classList.toggle('incap',view!=='home'&&tab==='capture');if(!(view!=='home'&&tab==='capture'))document.body.style.paddingBottom='';fitCap();window.scrollTo(0,y);
+  $('#app').innerHTML=h;document.body.classList.toggle('incase',view!=='home');document.body.classList.toggle('incap',view==='case'&&tab==='capture');document.body.classList.toggle('isrec',!!R&&view==='case'&&tab==='capture');if(!(view==='case'&&tab==='capture'))document.body.style.paddingBottom='';fitCap();window.scrollTo(0,y);updSyncUI();
 }
 function vHome(){
   var h='<div class="pg"><h1 class="lt"><span class="as">AS</span> · Auditing Secretary</h1><div class="lts">审核秘书</div><div class="meta">'+esc(META)+'</div>'+
-   '<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB); the page itself makes no network calls and has no server. 数据只存在本机，页面本身不联网、没有服务器。</div>';
+   '<div class="note"><b>Field tool, not a document reader.</b> 现场采集工具，不分析大文件。Records collected here can later be handed to <b>SAA</b> for analysis. 采集到的记录以后可交给 SAA 处理。<br><b>Demo data only · 仅演示数据.</b> Everything is stored on this device (IndexedDB). It works fully offline. Only if you enter a tester code under <b>Upload</b> is a copy sent to the AS Collector server (trial). 数据存在本机，可完全离线使用；只有在“上传”里输入试用口令后，才会把副本发送到 AS Collector 服务器（试用）。</div>';
   h+=storageBanner()+backupBanner();
   h+='<div class="sh">New case file <span class="zh">新建案卷</span></div><div class="grp">'+
    '<div class="field"><label for="nc">Client 客户</label><input id="nc" placeholder="e.g. DEMO Co. (demo)"></div>'+
@@ -572,11 +683,12 @@ function vHome(){
    '<div class="field"><label for="na">Auditor 审核员 (optional)</label><input id="na" placeholder="Initials or name"></div></div>'+
    '<div style="margin:14px 0 8px"><button class="btn pri big" data-act="newcase">'+ic('plus')+'Create &amp; start 创建并开始</button></div>'+
    '<div class="grp"><button class="lnk or" data-act="demo"><span class="l">'+ic('demo')+'Load demo case 加载演示</span>'+ic('chevR','ch')+'</button></div>';
+  h+='<div class="sh">Upload <span class="zh">上传</span></div><div class="grp"><button class="lnk" data-act="upload"><span class="l">'+ic('cloud')+'<span><b>Upload 上传</b><span class="fine" style="display:block"><i class="sdot '+(hasCode()&&connLine().ok?'ok':'off')+'" id="uplRowD"></i><span id="uplRowT">'+esc(rowText())+'</span></span></span></span>'+ic('chevR','ch')+'</button></div>';
   h+='<div class="sh">Case files on this device <span class="zh">本机案卷</span></div><div class="grp">';
   if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
   db.cases.slice().reverse().forEach(function(c){
     var st=c.capState==='finished'?'finished 已完成':'on hold 暂停';
-    h+='<div class="listrow"><div class="tx" style="min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+esc(c.date)+' · '+c.entries.length+' entries 条 · '+st+'</div></div><button class="btn sm" data-act="opencase" data-id="'+c.id+'">Open 打开</button></div>';
+    h+='<div class="listrow"><div class="tx" style="min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+esc(c.date)+' · '+c.entries.length+' entries 条 · '+st+' · '+sdot(c,'l')+'</div></div><button class="btn sm" data-act="opencase" data-id="'+c.id+'">Open 打开</button></div>';
   });
   h+='</div><div class="sh">Backup &amp; restore <span class="zh">备份与恢复</span></div><div class="grp">'+
    '<button class="lnk" data-act="backupall"'+(db.cases.length?'':' disabled')+'><span class="l">'+ic('save')+'Backup all 备份全部 (.json)</span>'+ic('chevR','ch')+'</button>'+
@@ -601,16 +713,19 @@ function vCapture(){
   var st=c.capState,act=st==='active',held=st==='held',fin=st==='finished',rec=!!R;
   var n=nextN(c),saved=c.entries.length;
   var h=caseHead(c,'capture')+'<div class="pg cwrap">';
-  h+='<div class="ctitle">Clause 8.4 — Evidence capture</div><div class="zh ctz">证据采集</div>';
-  h+='<div class="statebar'+(act?(rec?' rec':''):held?' held':' fin')+'" id="sbar"><i class="dot"></i><span>'+(act?(rec?'Recording 录音中':'Capturing 采集中'):held?'On hold 已暂停 — tap Resume 点“继续”':'Finished 已完成 — tap Resume to add more 点“继续”可补充')+'</span></div>';
+  var kd=clauseDef(curClause());
+  h+='<button class="clpick" data-act="clauses" aria-haspopup="dialog" aria-label="Choose clause 选择条款"'+(rec?' disabled':'')+'><span class="ctitle"><span>Clause <b class="cln">'+esc(kd.id)+'</b> — Evidence capture</span>'+ic('chevD','cd')+'</span><span class="zh ctz">证据采集 · '+esc(kd.zh)+'</span></button>';
+  h+='<div class="srow"><div class="statebar'+(act?(rec?' rec':''):held?' held':' fin')+'" id="sbar"><i class="dot"></i><span>'+(act?(rec?'Recording 录音中':'Capturing 采集中'):held?'On hold 已暂停 — tap Resume 点“继续”':'Finished 已完成 — tap Resume to add more 点“继续”可补充')+'</span></div>'+
+    '<button class="sndbtn'+(S.sound===false?' off':'')+'" data-act="snd" role="switch" aria-checked="'+(S.sound!==false)+'" aria-label="Click sound 点击音效 '+(S.sound===false?'off':'on')+'">'+ic(S.sound===false?'sndoff':'sndon')+'</button></div>';
   h+='<div class="capzone"><div class="cap">'+
     '<button class="capbtn photo" data-act="photo"'+(act&&!rec?'':' disabled')+'><span class="disc">'+ic('camera')+'</span><span class="t">Photo</span><span class="z">拍照</span></button>'+
     (rec?'<button class="capbtn voice recording" data-act="recstop"><span class="disc">'+ic('stop')+'</span><span class="t">Stop &amp; save <span class="mono" id="rt">'+mmss((Date.now()-R.t0)/1000)+'</span></span><span class="z">停止并保存</span></button>'
         :'<button class="capbtn voice" data-act="rec"'+(act?'':' disabled')+'><span class="disc">'+ic('mic')+'</span><span class="t">Voice</span><span class="z">语音</span></button>')+
     '</div>'+
-    '<button class="textlink" data-act="text"'+(act&&!rec?'':' disabled')+'>'+ic('text')+'Text 文字</button></div>';
+    '<div class="trow"><button class="textlink" data-act="text"'+(act&&!rec?'':' disabled')+'>'+ic('text')+'Text 文字</button>'+
+    '<button class="textlink lib" data-act="photolib"'+(act&&!rec?'':' disabled')+'>'+ic('image')+'Library 相册</button></div></div>';
   h+='<div class="capfoot"><div class="crow"><span class="cpill'+(act?'':fin?' fin':' held')+'" title="Entry 条目"><span class="cnum" id="cnum">#'+n+'</span></span>'+
-     '<span class="spill mono"><span>Saved 已存 <b id="csaved">'+saved+'</b></span><i class="sep"></i><span>'+ic('clock')+' <span id="ct">'+clock(elapsed(c))+'</span></span></span></div>'+
+     '<span class="spill mono"><span>Saved 已存 <b id="csaved">'+saved+'</b></span><i class="sep"></i><span>'+ic('clock')+' <span id="ct">'+clock(elapsed(c))+'</span></span><i class="sep"></i><span class="sy" title="Upload status 上传状态">'+sdot(c,'s')+'</span></span></div>'+
      '<div class="meta">'+esc(META)+'</div></div></div>';
   h+='<div class="ctlbar"><div class="ctl">'+
     '<button class="btn hold" data-act="hold"'+(act?'':' disabled')+'>'+ic('pause')+'<span>Hold <span class="zh">暂停</span></span></button>'+
@@ -625,7 +740,7 @@ function entContent(c,e,big){
 }
 function tagChip(e){
   var it=itemOf(e.tag),s=STATUS.filter(function(x){return x[0]===e.status})[0];
-  return (it?'<span class="chip tag">'+(ITEMS.indexOf(it)+1)+'. '+esc(it.a)+'</span> ':'<span class="chip">untagged 未归类</span> ')+(s?'<span class="chip '+s[0]+'">'+s[1]+' '+s[2]+'</span>':'');
+  return ('<span class="chip cl">'+esc(ecl(e))+'</span> ')+(it?'<span class="chip tag">'+idxOf(it)+'. '+esc(it.a)+'</span> ':'<span class="chip">untagged 未归类</span> ')+(s?'<span class="chip '+s[0]+'">'+s[1]+' '+s[2]+'</span>':'');
 }
 function entCard(c,e){
   var o=openE[e.id],h='<div class="ent" data-eid="'+e.id+'"><div class="eh"><span class="num">#'+e.n+'</span><span class="meta2">'+esc(fmt(e.ts))+' · '+kindEn(e)+' '+kindZh(e)+'</span></div>'+
@@ -633,8 +748,9 @@ function entCard(c,e){
     '<div class="tg">'+tagChip(e)+'</div>'+
     '<button class="lnk" data-act="etoggle" data-id="'+e.id+'"><span>'+(o?'Close 收起':'Tag / edit 归类/编辑')+'</span>'+ic(o?'chevU':'chevD','ch')+'</button>';
   if(o){
-    h+='<div class="ed"><label>Tag to 8.4.1 item 归类到 8.4.1 条目 (optional 可选)</label><select data-act="tag" data-id="'+e.id+'"><option value="">— untagged 未归类 —</option>'+
-      ITEMS.map(function(p,i){return '<option value="'+p.id+'"'+(e.tag===p.id?' selected':'')+'>'+(i+1)+'. '+esc(p.a)+' / '+esc(p.az)+'</option>'}).join('')+'</select>'+
+    h+='<div class="ed"><label>Clause 条款</label><select data-act="eclause" data-id="'+e.id+'">'+CLAUSES.map(function(k){return '<option value="'+k.id+'"'+(ecl(e)===k.id?' selected':'')+'>'+k.id+' '+esc(k.en)+' / '+esc(k.zh)+'</option>'}).join('')+'</select>'+
+      '<label>Tag to '+(ecl(e)==='8.4'?'8.4.1':ecl(e))+' item 归类到条目 (optional 可选)</label><select data-act="tag" data-id="'+e.id+'"><option value="">— untagged 未归类 —</option>'+
+      itemsOf(ecl(e)).map(function(p,i){return '<option value="'+p.id+'"'+(e.tag===p.id?' selected':'')+'>'+(i+1)+'. '+esc(p.a)+' / '+esc(p.az)+'</option>'}).join('')+'</select>'+
       '<label>Status 状态</label><div class="stl">'+STATUS.map(function(s){
         return '<button class="btn st'+(e.status===s[0]?' on-'+s[0]:'')+'" data-act="status" data-id="'+e.id+'" data-s="'+s[0]+'">'+s[1]+'<span class="zh">'+s[2]+'</span></button>'}).join('')+'</div>'+
       (e.kind==='text'?'<label>Text 文字</label><textarea data-act="etext" data-id="'+e.id+'">'+esc(e.text)+'</textarea>'
@@ -648,7 +764,7 @@ function vReview(){
   var un=c.entries.filter(function(e){return !itemOf(e.tag)}).length;
   var h=caseHead(c,'review')+'<div class="pg">';
   h+='<div class="ctitle" style="font-size:28px;font-weight:800;margin-top:16px">Review <span class="zh" style="font-size:20px">审核</span></div>'+
-    '<div class="fine">'+c.entries.length+' entries 条 · Tagging is optional: link an entry to an 8.4.1 item and mark Seen / Not seen / N/A. 归类是可选的。</div>'+backupBanner();
+    '<div class="fine">'+c.entries.length+' entries 条 · Tagging is optional: link an entry to a clause item and mark Seen / Not seen / N/A. 归类是可选的。</div>'+backupBanner();
   h+='<div class="tabs filt"><button class="btn sm'+(filt==='all'?' on':'')+'" data-act="filt" data-f="all">All 全部 ('+c.entries.length+')</button><button class="btn sm'+(filt==='untagged'?' on':'')+'" data-act="filt" data-f="untagged">Untagged 未归类 ('+un+')</button></div>';
   var list=c.entries.filter(function(e){return filt==='all'||!itemOf(e.tag)});
   if(!list.length)h+='<div class="note">Nothing here. 这里没有条目。</div>';
@@ -658,6 +774,7 @@ function vReview(){
 }
 /* ---------- summary / composition ---------- */
 function stLabel(s){return({seen:'Seen 看到',not:'Not seen 未看到',na:'N/A 不适用'})[s]||'(no status 未标状态)'}
+function shownClauses(c){var r=CLAUSES.filter(function(k){return c.entries.some(function(e){return ecl(e)===k.id})});return r.length?r:[CLAUSES[0]]}
 function groupOf(c,p){return c.entries.filter(function(e){return e.tag===p.id})}
 function untagged(c){return c.entries.filter(function(e){return !itemOf(e.tag)})}
 function clauseStatus(es){
@@ -667,65 +784,74 @@ function clauseStatus(es){
 }
 function needFinding(es){var s=clauseStatus(es);return s==='not'||s==='none'||s==='open'}
 function csLabel(s){return({seen:'Seen 看到',not:'Not seen 未看到',na:'N/A 不适用',open:'Tagged, no status 已归类未标状态',none:'No entries 无条目'})[s]}
-function entLine(e){
-  var t='#'+e.n+' ['+fmt(e.ts).slice(11)+'] '+kindEn(e)+(e.status?' · '+stLabel(e.status):'');
+function entLine(e,withCl){
+  var t='#'+e.n+' ['+fmt(e.ts).slice(11)+'] '+(withCl?'[clause '+ecl(e)+'] ':'')+kindEn(e)+(e.status?' · '+stLabel(e.status):'');
   if(e.kind==='photo')t+=' — '+fileName(e);
   else if(e.kind==='audio')t+=' ('+mmss(e.dur)+') — '+fileName(e);
   else t+=': '+e.text;
   if(e.kind!=='text'&&e.note)t+='\n    note: '+e.note;
   return t;
 }
-function evText(es){return es.length?es.map(entLine).join('\n'):'(no entries 无条目)'}
+function evText(es,wc){return es.length?es.map(function(e){return entLine(e,wc)}).join('\n'):'(no entries 无条目)'}
 function summaryHead(c){
-  return 'AS · Auditing Secretary — DRAFT case summary\nClause: '+CLAUSE+'\nClient: '+c.client+'\nAudit date: '+c.date+(c.auditor?'\nAuditor: '+c.auditor:'')+'\nEntries: '+c.entries.length+' · capture time '+clock(c.capMs)+'\nGenerated: '+fmt(Date.now())+' (device time)\n'+
+  return 'AS · Auditing Secretary — DRAFT case summary\nClauses (ISO 9001:2015): '+shownClauses(c).map(function(k){return k.id+' '+k.en}).join('; ')+'\nClient: '+c.client+'\nAudit date: '+c.date+(c.auditor?'\nAuditor: '+c.auditor:'')+'\nEntries: '+c.entries.length+' · capture time '+clock(c.capMs)+'\nGenerated: '+fmt(Date.now())+' (device time)\n'+
    'Note: draft prepared from auditor field notes; findings and severity are the auditor’s decision.\n\n';
 }
 function composeText(c){
   var t=summaryHead(c);
-  ITEMS.forEach(function(p,i){
-    var es=groupOf(c,p),it=item(c,p.id);
-    t+='== 8.4.1 · '+(i+1)+'. '+p.a+' / '+p.az+' ==\nRequirement: '+p.req+'\nEvidence ('+csLabel(clauseStatus(es))+'):\n'+evText(es).replace(/^/gm,'  ')+'\n'+(it.sample?'Sample: '+it.sample+'\n':'');
-    if(needFinding(es))t+='Finding draft:\n  1. Evidence: (see above)\n  2. Requirement: (see above)\n  3. Statement of nonconformity: '+(it.stmt||'[auditor to complete]')+'\n  Severity: '+(it.sev||'[auditor to complete]')+'\n';
-    t+='\n';
+  shownClauses(c).forEach(function(k){
+    t+='######## Clause '+k.id+' — '+k.en+' / '+k.zh+' ########\n\n';
+    itemsOf(k.id).forEach(function(p,i){
+      var es=groupOf(c,p),it=item(c,p.id);
+      t+='== '+secTag(k.id)+' · '+(i+1)+'. '+p.a+' / '+p.az+' ==\nRequirement: '+p.req+'\nEvidence ('+csLabel(clauseStatus(es))+'):\n'+evText(es).replace(/^/gm,'  ')+'\n'+(it.sample?'Sample: '+it.sample+'\n':'');
+      if(needFinding(es))t+='Finding draft:\n  1. Evidence: (see above)\n  2. Requirement: (see above)\n  3. Statement of nonconformity: '+(it.stmt||'[auditor to complete]')+'\n  Severity: '+(it.sev||'[auditor to complete]')+'\n';
+      t+='\n';
+    });
   });
   var u=untagged(c);
-  t+='== Untagged 未归类 ('+u.length+') ==\n'+evText(u).replace(/^/gm,'  ')+'\n';
+  t+='== Untagged 未归类 ('+u.length+') ==\n'+evText(u,true).replace(/^/gm,'  ')+'\n';
   return t;
 }
 function composeCompact(c){
   var t=summaryHead(c);
-  ITEMS.forEach(function(p,i){
-    var es=groupOf(c,p),it=item(c,p.id);
-    t+=(i+1)+'. '+p.a+' — '+csLabel(clauseStatus(es))+' | entries '+es.length+'\n';
-    es.forEach(function(e){if(e.kind==='text')t+='   #'+e.n+' '+e.text+'\n'});
-    if(needFinding(es)&&(it.stmt||it.sev))t+='   Statement: '+(it.stmt||'[auditor]')+' | Severity: '+(it.sev||'[auditor]')+'\n';
+  shownClauses(c).forEach(function(k){
+    t+='[Clause '+k.id+' '+k.en+']\n';
+    itemsOf(k.id).forEach(function(p,i){
+      var es=groupOf(c,p),it=item(c,p.id);
+      t+=(i+1)+'. '+p.a+' — '+csLabel(clauseStatus(es))+' | entries '+es.length+'\n';
+      es.forEach(function(e){if(e.kind==='text')t+='   #'+e.n+' '+e.text+'\n'});
+      if(needFinding(es)&&(it.stmt||it.sev))t+='   Statement: '+(it.stmt||'[auditor]')+' | Severity: '+(it.sev||'[auditor]')+'\n';
+    });
   });
   var u=untagged(c);
-  t+='Untagged: '+u.length+'\n';u.forEach(function(e){if(e.kind==='text')t+='   #'+e.n+' '+e.text+'\n'});
+  t+='Untagged: '+u.length+'\n';u.forEach(function(e){if(e.kind==='text')t+='   #'+e.n+' [clause '+ecl(e)+'] '+e.text+'\n'});
   return t;
 }
 function composeHTML(c){
   var jobs=[];
   c.entries.forEach(function(e){if(e.kind==='photo'&&B[e.id])jobs.push(blobToDataUrl(B[e.id].blob).then(function(u){e._u=u}))});
   return Promise.all(jobs).then(function(){
-    function blk(es){return es.length?es.map(function(e){var s='<p>'+esc(entLine(e)).replace(/\n/g,'<br>')+'</p>';if(e._u)s+='<img src="'+e._u+'" width="160">';return s}).join(''):'<p>(no entries)</p>'}
-    var b='<h1>AS · Auditing Secretary — DRAFT case summary</h1><p>Clause '+CLAUSE+'<br>Client: '+esc(c.client)+'<br>Audit date: '+esc(c.date)+(c.auditor?'<br>Auditor: '+esc(c.auditor):'')+'<br>Entries: '+c.entries.length+'<br>Generated: '+esc(fmt(Date.now()))+' (device time)</p><p><i>Draft from auditor field notes; findings and severity are the auditor’s decision.</i></p>';
-    ITEMS.forEach(function(p,i){
-      var es=groupOf(c,p),it=item(c,p.id);
-      b+='<h2>'+(i+1)+'. '+esc(p.a)+' / '+esc(p.az)+'</h2><p><b>Requirement:</b> '+esc(p.req)+'</p><p><b>Evidence — '+esc(csLabel(clauseStatus(es)))+':</b></p>'+blk(es);
-      if(needFinding(es))b+='<p><b>Finding draft:</b><br>1 Evidence: see above<br>2 Requirement: see above<br>3 Statement of nonconformity: '+(esc(it.stmt)||'[auditor to complete]')+'<br>Severity: '+(esc(it.sev)||'[auditor to complete]')+'</p>';
+    function blk(es,wc){return es.length?es.map(function(e){var s='<p>'+esc(entLine(e,wc)).replace(/\n/g,'<br>')+'</p>';if(e._u)s+='<img src="'+e._u+'" width="160">';return s}).join(''):'<p>(no entries)</p>'}
+    var b='<h1>AS · Auditing Secretary — DRAFT case summary</h1><p>Clauses (ISO 9001:2015): '+esc(shownClauses(c).map(function(k){return k.id+' '+k.en}).join('; '))+'<br>Client: '+esc(c.client)+'<br>Audit date: '+esc(c.date)+(c.auditor?'<br>Auditor: '+esc(c.auditor):'')+'<br>Entries: '+c.entries.length+'<br>Generated: '+esc(fmt(Date.now()))+' (device time)</p><p><i>Draft from auditor field notes; findings and severity are the auditor’s decision.</i></p>';
+    shownClauses(c).forEach(function(k){
+      b+='<h1 style="font-size:20px;border-top:2px solid #333;margin-top:28px">Clause '+esc(k.id)+' — '+esc(k.en)+' / '+esc(k.zh)+'</h1>';
+      itemsOf(k.id).forEach(function(p,i){
+        var es=groupOf(c,p),it=item(c,p.id);
+        b+='<h2>'+secTag(k.id)+' · '+(i+1)+'. '+esc(p.a)+' / '+esc(p.az)+'</h2><p><b>Requirement:</b> '+esc(p.req)+'</p><p><b>Evidence — '+esc(csLabel(clauseStatus(es)))+':</b></p>'+blk(es);
+        if(needFinding(es))b+='<p><b>Finding draft:</b><br>1 Evidence: see above<br>2 Requirement: see above<br>3 Statement of nonconformity: '+(esc(it.stmt)||'[auditor to complete]')+'<br>Severity: '+(esc(it.sev)||'[auditor to complete]')+'</p>';
+      });
     });
-    b+='<h2>Untagged</h2>'+blk(untagged(c));
+    b+='<h2>Untagged</h2>'+blk(untagged(c),true);
     c.entries.forEach(function(e){delete e._u});
     return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Case summary</title><style>body{font:15px/1.5 sans-serif;max-width:760px;margin:20px auto;padding:0 12px}</style></head><body>'+b+'</body></html>';
   });
 }
-function sumEntries(es){
+function sumEntries(es,wc){
   if(!es.length)return '<div class="fine">(no entries 无条目)</div>';
   return es.map(function(e){
     var body=e.kind==='photo'?'<div class="sthumbrow">'+(B[e.id]?'<img alt="" class="sthumb" src="'+urlFor(e.id)+'">':'')+'<span class="fine">'+fileName(e)+'</span></div>'
       :e.kind==='audio'?ic('mic','sm')+' <span class="fine">'+mmss(e.dur)+' · '+fileName(e)+'</span>':esc(e.text);
-    return '<div class="se"><b class="sn">#'+e.n+'</b> <span class="fine">'+esc(fmt(e.ts).slice(11))+(e.status?' · '+stLabel(e.status):'')+'</span> '+body+(e.kind!=='text'&&e.note?'<div class="fine">note: '+esc(e.note)+'</div>':'')+'</div>';
+    return '<div class="se"><b class="sn">#'+e.n+'</b> <span class="fine">'+(wc?'[clause '+esc(ecl(e))+'] ':'')+esc(fmt(e.ts).slice(11))+(e.status?' · '+stLabel(e.status):'')+'</span> '+body+(e.kind!=='text'&&e.note?'<div class="fine">note: '+esc(e.note)+'</div>':'')+'</div>';
   }).join('');
 }
 function mediaCount(c){return c.entries.filter(function(e){return e.kind!=='text'}).length}
@@ -735,11 +861,13 @@ function vSummary(){
   var h=caseHead(c,'summary')+'<div class="pg">'+backupBanner();
   h+='<div class="grp pri" style="margin-top:14px"><div class="r"><button class="btn pri big" data-act="sendmail">'+ic('mail')+'<span>Send summary to my email <span class="zh" style="font-size:15px;display:block">发送总结到我的邮箱</span></span></button></div>'+
     '<div class="field"><label for="em">My email address 我的邮箱 (stored on this device only 仅存本机)</label><input id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="none" data-act="email" placeholder="you@example.com" value="'+esc(S.email)+'"></div></div>'+
-    '<div class="sf">Opens the iPhone share sheet with the summary text + '+nf+' photo/audio file(s) — choose <b>Mail</b>. If your browser cannot share files, a text-only mailto link is offered instead. Nothing is sent to any server by this page. 打开 iPhone 分享面板（含总结文字和 '+nf+' 个照片/录音文件），请选“邮件”。若浏览器不支持分享文件，则改为仅文字的 mailto 链接。本页面不向任何服务器发送数据。</div>';
-  h+='<div class="note" style="margin-top:18px"><b>Basic draft 基础草稿.</b> Entries grouped by the tag you chose. The finding statement and severity are left blank for you — the tool does not decide nonconformity. 按你选的归类分组；不符合声明与严重程度留空，由你填写，工具不做判断。'+(u.length?'<br><b>'+u.length+' untagged 条未归类</b> — see the Untagged group at the bottom or tag them in Review. 见底部“未归类”，或到“审核”里归类。':'')+'</div>';
-  ITEMS.forEach(function(p,i){
+    '<div class="sf">Opens the iPhone share sheet with the summary text + '+nf+' photo/audio file(s) — choose <b>Mail</b>. If your browser cannot share files, a text-only mailto link is offered instead. The email is sent by your Mail app, not by this page. 打开 iPhone 分享面板（含总结文字和 '+nf+' 个照片/录音文件），请选“邮件”。若浏览器不支持分享文件，则改为仅文字的 mailto 链接。邮件由你的邮件 App 发出，不是由本页面发送。</div>';
+  h+='<div class="note" style="margin-top:18px"><b>Basic draft 基础草稿.</b> Entries grouped by clause, then by the item tag you chose. The finding statement and severity are left blank for you — the tool does not decide nonconformity. 按你选的归类分组；不符合声明与严重程度留空，由你填写，工具不做判断。'+(u.length?'<br><b>'+u.length+' untagged 条未归类</b> — see the Untagged group at the bottom or tag them in Review. 见底部“未归类”，或到“审核”里归类。':'')+'</div>';
+  shownClauses(c).forEach(function(k){
+  h+='<div class="clhd"><span class="cn">'+esc(k.id)+'</span><span class="ct2">'+esc(k.en)+' <span class="zh">'+esc(k.zh)+'</span></span></div>';
+  itemsOf(k.id).forEach(function(p,i){
     var es=groupOf(c,p),it=item(c,p.id),cs=clauseStatus(es);
-    h+='<div class="sh">8.4.1 · item '+(i+1)+'</div><div class="grp"><div class="r"><div class="sumhd"><span class="nn">'+(i+1)+'</span><h2>'+esc(p.a)+' <span class="zh">'+esc(p.az)+'</span></h2></div>'+
+    h+='<div class="sh">'+secTag(k.id)+' · item '+(i+1)+'</div><div class="grp"><div class="r"><div class="sumhd"><span class="nn">'+(i+1)+'</span><h2>'+esc(p.a)+' <span class="zh">'+esc(p.az)+'</span></h2></div>'+
       '<div style="margin-top:6px"><span class="chip '+(cs==='seen'?'seen':cs==='not'?'not':cs==='na'?'na':'')+'">'+esc(csLabel(cs))+'</span><span class="fine"> '+es.length+' entries 条</span></div>'+
       '<div class="sumblk"><span class="k">Requirement 要求</span><div>'+esc(p.req)+'</div><div class="zh">'+esc(p.reqz)+'</div></div></div>'+
       '<div class="r"><div class="sumblk"><span class="k">Evidence 证据</span>'+sumEntries(es)+'</div><label>Sample 抽样 (optional 可选)</label><input data-act="smp" data-id="'+p.id+'" value="'+esc(it.sample)+'" placeholder="e.g. 3 of 20 files"></div>';
@@ -750,7 +878,8 @@ function vSummary(){
     else h+='<div class="r"><div class="fine">No finding draft needed for this status. 此状态无需发现草稿。</div></div>';
     h+='</div>';
   });
-  h+='<div class="sh">Untagged <span class="zh">未归类</span> ('+u.length+')</div><div class="grp" id="untaggedgrp"><div class="r">'+sumEntries(u)+'</div></div>';
+  });
+  h+='<div class="sh">Untagged <span class="zh">未归类</span> ('+u.length+')</div><div class="grp" id="untaggedgrp"><div class="r">'+sumEntries(u,true)+'</div></div>';
   h+='<div class="sh">Export &amp; backup <span class="zh">导出与备份</span></div><div class="grp"><div class="r"><div class="exp"><button class="btn pri" data-act="copy">'+ic('copy')+'Copy 复制</button><button class="btn" data-act="dltxt">'+ic('down')+'.txt</button><button class="btn" data-act="dlhtml">'+ic('down')+'.html</button><button class="btn" data-act="dljson">'+ic('save')+'Backup 备份 .json</button></div></div></div>'+
     '<div class="sf">Backup .json includes photos and recordings (base64). 备份 .json 含照片和录音。 Records can later be handed to SAA. 记录以后可交给 SAA。</div>';
   h+='<div class="sh">Danger zone <span class="zh">危险操作</span></div><div class="grp dng"><button class="lnk red" data-act="delcase"><span class="l">'+ic('trash')+'Delete this case file 删除此案卷</span></button></div></div>';
@@ -819,14 +948,14 @@ function downloadMedia(c){
 
 /* ---------- backup / restore ---------- */
 function buildBackup(cases){
-  var out={format:'as-secretary-backup',version:3,app:'AS · Auditing Secretary rev03',exported:new Date().toISOString(),cases:[]};
+  var out={format:'as-secretary-backup',version:4,app:'AS · Auditing Secretary rev03',exported:new Date().toISOString(),cases:[]};
   var chain=Promise.resolve();
   cases.forEach(function(c){
     chain=chain.then(function(){return loadBlobs(c.id)}).then(function(){
-      var e={case:caseRec(c),items:{},entries:[]},jobs=[];
+      var e={case:caseOut(c),items:{},entries:[]},jobs=[];
       Object.keys(c.items).forEach(function(k){var it=c.items[k];if(it.stmt||it.sev||it.sample)e.items[k]={stmt:it.stmt||'',sev:it.sev||'',sample:it.sample||''}});
       c.entries.forEach(function(x){
-        var o={id:x.id,n:x.n,kind:x.kind,ts:x.ts,text:x.text||'',note:x.note||'',via:x.via||'',mime:x.mime||'',size:x.size||0,w:x.w,h:x.h,dur:x.dur,tag:x.tag||'',status:x.status||''};
+        var o={id:x.id,n:x.n,kind:x.kind,ts:x.ts,text:x.text||'',note:x.note||'',via:x.via||'',mime:x.mime||'',size:x.size||0,w:x.w,h:x.h,dur:x.dur,tag:x.tag||'',status:x.status||'',clause:ecl(x)};
         if(x.kind!=='text'&&B[x.id])jobs.push(blobToDataUrl(B[x.id].blob).then(function(u){o.data=u}));
         e.entries.push(o);
       });
@@ -870,30 +999,31 @@ function restoreFile(file){
         });
         (e.entries||[]).forEach(function(o){
           var id=o.id&&!B[o.id]&&!entById(c,o.id)?o.id:'b'+uid();
-          var x={id:id,caseId:c.id,n:o.n||0,kind:o.kind,ts:o.ts,text:o.text||'',note:o.note||'',via:o.via||'',mime:o.mime||'',size:o.size||0,w:o.w,h:o.h,dur:o.dur,tag:o.tag||'',status:o.status||''};
+          var x={id:id,caseId:c.id,n:o.n||0,kind:o.kind,ts:o.ts,text:o.text||'',note:o.note||'',via:o.via||'',mime:o.mime||'',size:o.size||0,w:o.w,h:o.h,dur:o.dur,tag:o.tag||'',status:o.status||''};x.clause=ecl({clause:o.clause,tag:x.tag});
           if(x.kind!=='text'){if(!o.data)return;var b=dataUrlToBlob(o.data);x.mime=b.type||o.mime;x.size=b.size;B[id]={id:id,caseId:c.id,kind:x.kind,mime:x.mime,blob:b,ts:x.ts}}
           c.entries.push(x);
         });
-        convertLegacy(c);dirty={};assignNumbers(c);
+        convertLegacy(c);dirty={};assignNumbers(c);c.upd=new Date().toISOString();c.entries.forEach(function(x){x.upd=c.upd});
       }catch(err){toast('Backup file is damaged 备份文件已损坏');return}
       loadedBlobs[c.id]=true;
       chain=chain.then(function(){return persistFullCase(c)}).then(function(){db.cases.push(c);db.cases.sort(function(a,b){return (a.created||'')<(b.created||'')?-1:1});added++});
     });
-    chain.then(function(){toast('Restored 已恢复 '+added+' · skipped 跳过 '+skipped+' (already here 已存在)');render()},function(e){fatal(e,'restore')});
+    chain.then(function(){toast('Restored 已恢复 '+added+' · skipped 跳过 '+skipped+' (already here 已存在)');render();changed()},function(e){fatal(e,'restore')});
   };
   r.onerror=function(){toast('Could not read file 无法读取文件')};
   r.readAsText(file);
 }
 
-/* ---------- sheets: consent, text ---------- */
-function consentSheet(kind){
-  var photo=kind==='photo';
-  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet"><div class="grab"></div><div class="sicon">'+ic(photo?'camera':'mic')+'</div><h2>Consent first 先征得同意</h2>'+
-   '<p>'+(photo?'Before photographing documents or screens':'Before recording a person’s voice')+', ask the client for permission. Avoid personal data and anything marked confidential. <br><span class="zh">'+(photo?'拍摄文件或屏幕前':'录制他人声音前')+'先征得客户同意。避开个人信息和保密内容。</span></p>'+
-   (photo?'<button class="btn pri big" data-act="consentok" data-k="photo">'+ic('camera')+'<span>I have permission — take photo <span class="zh" style="font-size:14px">已获同意，拍照</span></span></button>'+
-          '<div class="row nw"><button class="btn plain" data-act="consentlib">'+ic('image')+'From library 从相册选</button><button class="btn plain" data-act="consentno">Cancel 取消</button></div>'
-         :'<button class="btn pri big" data-act="consentok" data-k="audio">'+ic('mic')+'I have permission 已获同意</button><button class="btn plain big" data-act="consentno" style="min-height:50px">Cancel 取消</button>')+
-   '</div></div>';
+/* ---------- sheets: clause picker, text ---------- */
+function clauseSheet(){
+  var cc=curClause();
+  $('#overlay').innerHTML='<div class="sheet-bg"><div class="sheet" role="dialog" aria-label="Clause 条款"><div class="grab"></div><h2>Clause <span class="zh">条款</span></h2>'+
+   '<p class="fine" style="margin:0 0 10px">New entries are tagged with the clause you pick. Earlier entries keep theirs. 新条目会标记为所选条款，之前的条目保持原条款。</p>'+
+   '<div class="rads" role="radiogroup" aria-label="ISO 9001:2015 clause">'+CLAUSES.map(function(k){
+     var on=k.id===cc;
+     return '<button class="rad'+(on?' on':'')+'" role="radio" aria-checked="'+on+'" data-act="pickcl" data-cl="'+k.id+'"><span class="rn">'+k.id+'</span><span class="rt"><b>'+esc(k.en)+'</b><span class="zh">'+esc(k.zh)+'</span></span><span class="rd">'+(on?ic('check'):'')+'</span></button>';
+   }).join('')+'</div>'+
+   '<div class="row" style="margin-top:14px"><button class="btn big plain" data-act="closesheet">Done 完成</button></div></div></div>';
 }
 function closeSheet(){$('#overlay').innerHTML=''}
 function stopDictation(){if(voice&&voice.rec){try{voice.rec.onend=null;voice.rec.onresult=null;voice.rec.stop()}catch(e){}}voice=null}
@@ -908,13 +1038,13 @@ function textSheet(){
   setTimeout(function(){var t=$('#tt');if(t&&!('ontouchstart' in window))t.focus()},50);
 }
 /* ---------- media: photo ---------- */
-var photoWant=false;
+var photoWant=false,pickT=null;
 function addEntry(c,kind,o,blob){
-  var e={id:blob?'b'+uid():'t'+uid(),caseId:c.id,n:nextN(c),kind:kind,ts:new Date().toISOString(),text:o.text||'',note:'',via:o.via||'',mime:blob?blob.type:'',size:blob?blob.size:0,w:o.w,h:o.h,dur:o.dur,tag:'',status:''};
+  var e={id:blob?'b'+uid():'t'+uid(),caseId:c.id,n:nextN(c),kind:kind,ts:new Date().toISOString(),text:o.text||'',note:'',via:o.via||'',mime:blob?blob.type:'',size:blob?blob.size:0,w:o.w,h:o.h,dur:o.dur,tag:'',status:'',clause:curClause(),v:1,sv:0};e.upd=e.ts;
   var rec=blob?{id:e.id,caseId:c.id,kind:kind,mime:blob.type,blob:blob,ts:e.ts}:null;
   c.entries.push(e);if(rec)B[e.id]=rec;
-  if(!idb)return Promise.resolve(e);
-  return tx(['blobs','entries'],'readwrite',function(bs,es){if(rec)bs.put(rec);es.put(e)}).then(function(){return e},function(err){
+  if(!idb){changed();return Promise.resolve(e)}
+  return tx(['blobs','entries'],'readwrite',function(bs,es){if(rec)bs.put(rec);es.put(e)}).then(function(){changed();return e},function(err){
     c.entries.splice(c.entries.indexOf(e),1);delete B[e.id];fatal(err,'entry');render();return null;
   });
 }
@@ -968,7 +1098,7 @@ function startRec(){
   var c=cur();if(!c||c.capState!=='active')return;
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast('Recording not supported here 此浏览器不支持录音 (needs https and a modern browser 需要 https)');return}
   if(R){toast('Already recording 正在录音');return}
-  if(audioConsent)doStartRec();else consentSheet('audio');
+  doStartRec();
 }
 function doStartRec(){
   var c=cur();if(!c)return;
@@ -1042,20 +1172,29 @@ document.addEventListener('click',function(e){
   var a=b.dataset.act,id=b.dataset.id,c=cur();
   if(a==='newcase'){
     var cl=$('#nc').value.trim();if(!cl){toast('Enter a client name 请输入客户名');return}
-    var n={id:uid(),client:cl,date:$('#nd').value||today(),auditor:$('#na').value.trim(),items:{},entries:[],capState:'active',capMs:0,created:new Date().toISOString()};
-    db.cases.push(n);loadedBlobs[n.id]=true;putCase(n).then(function(){openCase(n.id)});
+    var n={id:uid(),client:cl,date:$('#nd').value||today(),auditor:$('#na').value.trim(),items:{},entries:[],capState:'active',capMs:0,created:new Date().toISOString(),v:1,sv:0};n.upd=n.created;
+    db.cases.push(n);loadedBlobs[n.id]=true;putCase(n).then(function(){openCase(n.id);changed()});
   }
   else if(a==='demo')loadDemo();
+  else if(a==='upload'){goto('upload');if(hasCode())checkConn()}
+  else if(a==='tcpaste')pasteCode();
+  else if(a==='tcsave'){var tv=savedCodeFromField();if(!tv.trim()){toast('Type or paste a code first 请先输入或粘贴口令');return}setCode(tv)}
+  else if(a==='tcclear'){var tf=$('#tc');if(tf)tf.value='';clearCode()}
+  else if(a==='uplnow')uploadNow();
   else if(a==='opencase')openCase(id);
   else if(a==='home'){if(R)stopRec(true);flush();if(c)putCase(c);goto('home')}
   else if(a==='tab'){goto('case',b.dataset.t)}
   else if(a==='filt'){filt=b.dataset.f;render()}
   else if(a==='lang'){setMeta('lang',b.dataset.l);if(voice&&voice.rec){stopDictation()}var t=$('#tt'),v=t?t.value:'';if($('#overlay').innerHTML){textSheet();var t2=$('#tt');if(t2)t2.value=v}else render()}
   /* capture controls */
-  else if(a==='photo'){if(c.capState==='active'&&!R)consentSheet('photo')}
-  else if(a==='consentok'){closeSheet();if(b.dataset.k==='audio'){audioConsent=true;doStartRec()}else $('#photoIn').click()}
-  else if(a==='consentlib'){closeSheet();$('#libIn').click()}
-  else if(a==='consentno')closeSheet();
+  else if(a==='photo'){if(c.capState==='active'&&!R)$('#photoIn').click()}
+  else if(a==='photolib'){if(c.capState==='active'&&!R)$('#libIn').click()}
+  else if(a==='clauses'){if(!R)clauseSheet()}
+  else if(a==='pickcl'){
+    S.clause=b.dataset.cl;setMeta('clause',S.clause);clickFx();clauseSheet();
+    clearTimeout(pickT);pickT=setTimeout(function(){closeSheet();render()},230);
+  }
+  else if(a==='snd'){S.sound=(S.sound===false);setMeta('sound',S.sound);if(S.sound)clickFx();render()}
   else if(a==='rec')startRec();
   else if(a==='recstop')stopRec(true);
   else if(a==='text'){if(c.capState==='active'&&!R)textSheet()}
@@ -1080,10 +1219,10 @@ document.addEventListener('click',function(e){
   else if(a==='status'){var en2=entById(c,id);en2.status=(en2.status===b.dataset.s)?'':b.dataset.s;markEnt(en2);render()}
   else if(a==='edel'){
     if(confirm('Delete this entry? 删除此条目？')){
-      var en3=entById(c,id);c.entries.splice(c.entries.indexOf(en3),1);
+      var en3=entById(c,id);tombEntry(c,en3);c.entries.splice(c.entries.indexOf(en3),1);delete dirty['entries|'+id];
       delete B[id];if(urls[id]){URL.revokeObjectURL(urls[id]);delete urls[id]}
       if(idb)tx(['blobs','entries'],'readwrite',function(bs,es){bs.delete(id);es.delete(id)}).catch(function(err){fatal(err,'del')});
-      render();
+      render();changed();
     }
   }
   /* summary / export */
@@ -1098,11 +1237,11 @@ document.addEventListener('click',function(e){
   else if(a==='import')$('#impIn').click();
   else if(a==='delcase'){
     if(confirm('Delete this case file and all its entries, photos and recordings from this device? This cannot be undone.\n删除此案卷及全部条目、照片和录音？无法恢复。')){
-      var did=c.id;
+      var did=c.id;tombCase(c);
       Object.keys(B).forEach(function(k){if(B[k].caseId===did){if(urls[k]){URL.revokeObjectURL(urls[k]);delete urls[k]}delete B[k]}});
       db.cases=db.cases.filter(function(x){return x.id!==did});S.cur=null;setMeta('cur',null);
       delCaseDb(did).then(function(){toast('Deleted 已删除')},function(e){fatal(e,'delete')});
-      goto('home');
+      goto('home');changed();
     }
   }
 });
@@ -1117,8 +1256,10 @@ document.addEventListener('input',function(e){
 function input(){}
 document.addEventListener('change',function(e){
   var t=e.target,a=t.dataset&&t.dataset.act;if(!a)return;
+  if(a==='tc')return;
   var c=cur();if(!c&&a!=='email')return;
   if(a==='tag'){var en=entById(c,t.dataset.id);en.tag=t.value;markEnt(en);render()}
+  else if(a==='eclause'){var en4=entById(c,t.dataset.id);en4.clause=t.value;var it4=itemOf(en4.tag);if(it4&&it4.cl!==t.value)en4.tag='';markEnt(en4);render()}
   else if(a==='sev'){item(c,t.dataset.id).sev=t.value;markItem(c,t.dataset.id)}
   else if(a==='email')setMeta('email',t.value.trim());
 });
@@ -1133,7 +1274,7 @@ function demoPhoto(){return new Promise(function(res){
 function loadDemo(){
   var n={id:uid(),client:'DEMO Co. (demo data 演示)',date:today(),auditor:'F2 demo',created:new Date().toISOString(),items:{},entries:[],capState:'finished',capMs:754000};
   var t0=Date.now()-30*60000,k=0;
-  function txt(text,tag,status,via){n.entries.push({id:'t'+uid(),caseId:n.id,n:++k,kind:'text',ts:new Date(t0+k*4*60000).toISOString(),text:text,note:'',via:via||'typed',mime:'',size:0,tag:tag||'',status:status||''})}
+  function txt(text,tag,status,via){n.entries.push({id:'t'+uid(),caseId:n.id,n:++k,kind:'text',ts:new Date(t0+k*4*60000).toISOString(),text:text,note:'',via:via||'typed',mime:'',size:0,tag:tag||'',status:status||'',clause:'8.4'})}
   txt('Approved supplier list rev 7, owner QA manager.','list','seen');
   var photoSlot=k+1;k++;   // entry #2 is the photo
   txt('Procedure SP-04 states criteria; two files checked.','crit','seen');
@@ -1142,10 +1283,344 @@ function loadDemo(){
   txt('Goods-in area: pallets labelled by supplier.','','');
   demoPhoto().then(function(b){
     var id='b'+uid();B[id]={id:id,caseId:n.id,kind:'photo',mime:'image/jpeg',blob:b,ts:new Date(t0+photoSlot*4*60000).toISOString()};
-    n.entries.push({id:id,caseId:n.id,n:photoSlot,kind:'photo',ts:B[id].ts,text:'',note:'Supplier list page 1, rev 7',via:'',mime:'image/jpeg',size:b.size,w:800,h:560,tag:'list',status:'seen'});
+    n.entries.push({id:id,caseId:n.id,n:photoSlot,kind:'photo',ts:B[id].ts,text:'',note:'Supplier list page 1, rev 7',via:'',mime:'image/jpeg',size:b.size,w:800,h:560,tag:'list',status:'seen',clause:'8.4'});
     sortEntries(n);loadedBlobs[n.id]=true;db.cases.push(n);
     return persistFullCase(n);
-  }).then(function(){S.cur=n.id;setMeta('cur',n.id);openE={};filt='all';goto('case','review')},function(e){fatal(e,'demo')});
+  }).then(function(){S.cur=n.id;setMeta('cur',n.id);openE={};filt='all';goto('case','review');changed()},function(e){fatal(e,'demo')});
+}
+
+/* ---------- Upload: copy cases, entries, photos and recordings to AS Collector (only when a tester code is set) ----------
+ Local data is the master copy and is never deleted by uploading. Each case/entry carries a version (v) and the
+ last version the server confirmed (sv); media carries mok. Anything with sv!==v (or no mok) is "pending".
+ Deletes become tombstones (kept in IndexedDB store "sync") that are sent to the server as deleted:true. */
+var SY={state:'off',conn:'',fails:0,timer:null,run:false,again:false,force:false,cur:'',usage:null,qUntil:0,lastOk:0,errCode:'',recase:{},msg:''};
+var TOMB={};
+var MAXMEDIA=25*1024*1024,ID_RE=/^[A-Za-z0-9_-]{1,64}$/;
+function normCode(s){return String(s||'').trim().toUpperCase().replace(/[\s-]+/g,'')}
+function codeOk(n){return /^[A-Z0-9]{12,128}$/.test(n)}
+function hasCode(){return codeOk(normCode(S.testerCode))}
+function maskCode(){var n=normCode(S.testerCode);return n?'•••• •••• •••• •••• •••• '+n.slice(-4):''}
+function fpOf(s){var h=2166136261,i;for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h.toString(16)+':'+s.length}
+function isoOf(v,fb){var t=Date.parse(v);return isNaN(t)?(fb||new Date().toISOString()):new Date(t).toISOString()}
+function cV(c){return c.v||1}
+function cSV(c){return c.sv||0}
+function eV(e){return e.v||1}
+function eSV(e){return e.sv||0}
+function touchE(e){e.v=eV(e)+1;e.upd=new Date().toISOString();delete e.efail}
+function caseBody(c,deleted){return{id:c.id,client:String(c.client||'').slice(0,500),audit_date:String(c.date||'').slice(0,40),auditor:String(c.auditor||'').slice(0,200),created_at:isoOf(c.created),updated_at:isoOf(c.upd||c.created),deleted:!!deleted}}
+function entryBody(c,e,deleted){
+  var txt=e.kind==='text'?(e.text||''):(e.note||'');
+  return{case_id:c.id,id:e.id,kind:e.kind==='audio'?'voice':e.kind,seq:e.n||0,clause:String(ecl(e)).slice(0,100),item:String(e.tag||'').slice(0,500),status:String(e.status||'').slice(0,100),note:txt.slice(0,20000),created_at:isoOf(e.ts),updated_at:isoOf(e.upd||e.ts),deleted:!!deleted}
+}
+function liveEntries(c){return c.entries}
+function tombsOf(caseId){return Object.keys(TOMB).filter(function(k){return TOMB[k].kind==='e'&&TOMB[k].caseId===caseId})}
+function prog(c){
+  var tot=c.entries.length,done=0,failed=0;
+  c.entries.forEach(function(e){if(e.efail||e.mfail)failed++;else if(eSV(e)===eV(e)&&(e.kind==='text'||e.mok))done++});
+  var tomb=tombsOf(c.id).length,caseOk=cSV(c)===cV(c)&&!c.cfail;
+  return{tot:tot,done:done,failed:failed,tomb:tomb,caseOk:caseOk,synced:caseOk&&done===tot&&!failed&&!tomb}
+}
+function dotCls(c){if(!hasCode())return 'off';return prog(c).synced?'ok':'pend'}
+function syncText(c,short){
+  if(!hasCode())return short?'':'local only 仅本机';
+  var p=prog(c);
+  if(p.synced)return short?'':'uploaded 已上传';
+  if(p.failed)return short?p.done+'/'+p.tot:p.done+' of '+p.tot+' uploaded 已传 '+p.done+'/'+p.tot+' · '+p.failed+' not sent 未传';
+  if(!p.tot)return short?'':'waiting 等待上传';
+  return short?p.done+'/'+p.tot:p.done+' of '+p.tot+' uploaded 已传 '+p.done+'/'+p.tot;
+}
+function sdot(c,txt){return '<i class="sdot '+dotCls(c)+'" data-sc="'+c.id+'" aria-hidden="true"></i>'+(txt?'<span class="sdt" data-sp="'+c.id+'"'+(txt==='s'?' data-short="1"':'')+'>'+esc(syncText(c,txt==='s'))+'</span>':'')}
+function totals(){
+  var o={items:0,done:0,failed:0,pend:0};
+  db.cases.forEach(function(c){var p=prog(c);o.items+=p.tot;o.done+=p.done;o.failed+=p.failed;o.pend+=(p.tot-p.done-p.failed)+(p.caseOk||c.cfail?0:1)});
+  o.pend+=Object.keys(TOMB).length;
+  return o;
+}
+function failCounts(){
+  var f={};
+  db.cases.forEach(function(c){
+    if(c.cfail)f[c.cfail]=(f[c.cfail]||0)+1;
+    c.entries.forEach(function(e){var k=e.mfail||(e.efail&&e.efail.code);if(k)f[k]=(f[k]||0)+1});
+  });
+  return f;
+}
+/* ----- tombstones ----- */
+function putTomb(t){TOMB[t.k]=t;if(!idb)return noop();return tx(['sync'],'readwrite',function(s){s.put(t)}).catch(function(e){fatal(e,'tomb')})}
+function dropTomb(k){delete TOMB[k];if(!idb)return noop();return tx(['sync'],'readwrite',function(s){s.delete(k)}).catch(function(e){fatal(e,'tomb')})}
+function dropTombs(pred){var ks=Object.keys(TOMB).filter(function(k){return pred(TOMB[k])});ks.forEach(function(k){delete TOMB[k]});
+  if(!idb||!ks.length)return noop();return tx(['sync'],'readwrite',function(s){ks.forEach(function(k){s.delete(k)})}).catch(function(e){fatal(e,'tomb')})}
+function tombEntry(c,e){
+  if(!(eSV(e)>0||SY.cur===e.id))return;           // the server never saw it: nothing to mark
+  var b=entryBody(c,e,true);b.updated_at=new Date().toISOString();
+  putTomb({k:'e:'+e.id,kind:'e',caseId:c.id,id:e.id,body:b});
+}
+function tombCase(c){
+  var known=cSV(c)>0||SY.cur===c.id;
+  dropTombs(function(t){return t.kind==='e'&&t.caseId===c.id});
+  if(!known)return;
+  var b=caseBody(c,true);b.updated_at=new Date().toISOString();
+  putTomb({k:'c:'+c.id,kind:'c',caseId:c.id,id:c.id,body:b});
+}
+/* ----- network ----- */
+function api(method,path,o){
+  o=o||{};
+  return new Promise(function(res,rej){
+    var ctl=window.AbortController?new AbortController():null,to=setTimeout(function(){if(ctl)ctl.abort();rej({net:true,why:'timeout'})},o.timeout||20000);
+    var h={};if(!o.noCode)h['X-AS-Code']=normCode(S.testerCode);
+    if(o.type)h['Content-Type']=o.type;
+    var opt={method:method,headers:h,cache:'no-store',credentials:'omit',mode:'cors'};
+    if(o.body!=null)opt.body=o.body;if(ctl)opt.signal=ctl.signal;
+    fetch(AS_SERVER+path,opt).then(function(r){
+      return r.text().then(function(t){clearTimeout(to);var j=null;try{j=JSON.parse(t)}catch(e){}res({status:r.status,j:j})})
+    },function(e){clearTimeout(to);rej({net:true,why:String(e&&e.message||e)})});
+  });
+}
+function errOf(r){return(r.j&&r.j.error)||('http_'+r.status)}
+function setSY(state,msg){SY.state=state;SY.msg=msg||'';updSyncUI()}
+function checkConn(){
+  if(!hasCode()){SY.conn='';setSY('off');return Promise.resolve()}
+  if(navigator.onLine===false){SY.conn='offline';setSY('offline');return Promise.resolve()}
+  SY.conn='check';updSyncUI();
+  return api('GET','/health',{noCode:true,timeout:10000}).then(function(r){
+    if(!(r.status===200&&r.j&&r.j.ok)){SY.conn='down';if(SY.state!=='syncing')setSY('retry');return}
+    return api('GET','/v1/usage',{timeout:10000}).then(function(u){
+      if(u.status===200&&u.j){SY.conn='ok';SY.usage=u.j;if(SY.state==='badcode'||SY.state==='offline'||SY.state==='retry'||SY.state==='off')setSY('idle');else updSyncUI()}
+      else if(u.status===401){SY.conn='badcode';setSY('badcode')}
+      else{SY.conn='down';setSY('retry')}
+    });
+  },function(){SY.conn=navigator.onLine===false?'offline':'down';if(SY.state!=='syncing')setSY(navigator.onLine===false?'offline':'retry')});
+}
+/* ----- queue ----- */
+function sortedCases(){return db.cases.slice().sort(function(a,b){return (b.id===S.cur)-(a.id===S.cur)||((b.created||'')<(a.created||'')?-1:1)})}
+function nextJob(){
+  var cs=sortedCases(),i,j,c,e,ks;
+  for(i=0;i<cs.length;i++){                               // phase 1: small JSON (case, entries, entry deletes)
+    c=cs[i];if(c.cfail)continue;
+    if(cSV(c)!==cV(c))return{t:'case',c:c};
+    for(j=0;j<c.entries.length;j++){e=c.entries[j];if(!e.efail&&!e.mfail&&eSV(e)!==eV(e))return{t:'entry',c:c,e:e}}
+    ks=tombsOf(c.id);if(ks.length)return{t:'tombe',c:c,k:ks[0]};
+  }
+  ks=Object.keys(TOMB);for(i=0;i<ks.length;i++)if(TOMB[ks[i]].kind==='c')return{t:'tombc',k:ks[i]};
+  for(i=0;i<cs.length;i++){                               // phase 2: photos and recordings
+    c=cs[i];if(c.cfail)continue;
+    for(j=0;j<c.entries.length;j++){e=c.entries[j];if(e.kind!=='text'&&!e.mok&&!e.mfail&&!e.efail)return{t:'media',c:c,e:e}}
+  }
+  return null;
+}
+function pendingAny(){return !!nextJob()}
+function getBlob(id){
+  if(B[id])return Promise.resolve(B[id]);
+  if(!idb)return Promise.resolve(null);
+  return tx(['blobs'],'readonly',function(s){return s.get(id)}).then(function(r){return r.result||null});
+}
+function saveEnt(c,e){if(c.entries.indexOf(e)>-1){dirty['entries|'+e.id]=['entries',e];clearTimeout(flushT);flushT=setTimeout(flush,250)}}
+function saveCase(c){if(caseById(c.id)===c)putCase(c)}
+/* result of one job: 'ok' | 'skip' (this item failed for good) | 'stop' (global problem, stop the run) | 'retry' (transient) */
+function classify(r,what){
+  if(r.status>=200&&r.status<300)return 'ok';
+  var er=errOf(r);
+  if(r.status===401){SY.conn='badcode';return 'badcode'}
+  if(r.status===413&&er==='quota_exceeded')return 'quota';
+  if(r.status===404&&er==='case_not_found')return 'recase';
+  if(r.status===408||r.status===429||r.status>=500)return 'retry';
+  return 'fail:'+er;
+}
+function doJob(j){
+  var v,body,c=j.c,e=j.e;
+  if(j.t==='case'){
+    v=cV(c);SY.cur=c.id;
+    return api('POST','/v1/case',{type:'application/json',body:JSON.stringify(caseBody(c,false))}).then(function(r){
+      var k=classify(r);
+      if(k==='ok'){c.sv=v;saveCase(c)}else if(k.slice(0,5)==='fail:'){c.cfail=k.slice(5)||'rejected';saveCase(c)}
+      return k;
+    });
+  }
+  if(j.t==='entry'){
+    v=eV(e);SY.cur=e.id;
+    if(!ID_RE.test(e.id)||!ID_RE.test(c.id)){e.efail={code:'bad_id'};saveEnt(c,e);return Promise.resolve('skip')}
+    return api('PUT','/v1/entry',{type:'application/json',body:JSON.stringify(entryBody(c,e,false))}).then(function(r){
+      var k=classify(r);
+      if(k==='ok'){e.sv=v;saveEnt(c,e)}else if(k.slice(0,5)==='fail:'){e.efail={code:k.slice(5)};saveEnt(c,e)}
+      else if(k==='recase'){SY.recase[c.id]=(SY.recase[c.id]||0)+1;if(SY.recase[c.id]>3){c.cfail='case_not_found';saveCase(c)}else{c.sv=0;saveCase(c)}}
+      return k;
+    });
+  }
+  if(j.t==='tombe'||j.t==='tombc'){
+    var t=TOMB[j.k];if(!t)return Promise.resolve('ok');
+    SY.cur='';
+    return api(t.kind==='c'?'POST':'PUT',t.kind==='c'?'/v1/case':'/v1/entry',{type:'application/json',body:JSON.stringify(t.body)}).then(function(r){
+      var k=classify(r);
+      if(k==='ok'||k.slice(0,5)==='fail:'||k==='recase')return dropTomb(j.k).then(function(){return k==='recase'?'ok':k});
+      return k;
+    });
+  }
+  /* media */
+  SY.cur=e.id;
+  return getBlob(e.id).then(function(rec){
+    if(!rec||!rec.blob){e.mfail='missing';saveEnt(c,e);return 'skip'}
+    var bl=rec.blob,mt=baseMime(bl.type||e.mime||'').toLowerCase()||'application/octet-stream';
+    if(e.kind==='photo'&&mt.indexOf('image/')!==0)mt='image/jpeg';
+    if(bl.size<=0){e.mfail='empty';saveEnt(c,e);return 'skip'}
+    if(bl.size>MAXMEDIA){e.mfail='too_large';saveEnt(c,e);return 'skip'}
+    return api('PUT','/v1/media/'+encodeURIComponent(c.id)+'/'+encodeURIComponent(e.id),{type:mt,body:bl,timeout:60000+Math.round(bl.size/20)}).then(function(r){
+      var k=classify(r);
+      if(k==='ok'){e.mok=true;saveEnt(c,e)}
+      else if(k.slice(0,5)==='fail:'){e.mfail=k.slice(5);saveEnt(c,e)}
+      else if(k==='recase'){e.sv=0;SY.recase[c.id]=(SY.recase[c.id]||0)+1;if(SY.recase[c.id]>3){e.mfail='case_not_found'}else{c.sv=0;saveCase(c)}saveEnt(c,e)}
+      return k;
+    });
+  });
+}
+function backoffMs(){return Math.min(SYNC_RETRY_MAX_MS,SYNC_RETRY_BASE_MS*Math.pow(2,Math.max(0,SY.fails-1)))*(0.75+Math.random()*0.5)}
+function kick(ms){
+  if(!hasCode())return;
+  clearTimeout(SY.timer);SY.timer=setTimeout(function(){SY.timer=null;syncRun()},ms==null?1500:ms);
+}
+function syncRun(){
+  if(!hasCode()){setSY('off');return}
+  if(SY.run){SY.again=true;return}
+  if(navigator.onLine===false){SY.conn='offline';setSY('offline');return}
+  if(SY.state==='badcode'&&!SY.force)return;
+  if(SY.state==='quota'&&Date.now()<SY.qUntil&&!SY.force)return;
+  SY.run=true;SY.again=false;SY.force=false;SY.recase={};
+  var n=0,did=0;
+  setSY('syncing');
+  function loop(){
+    var j=nextJob();
+    if(!j||++n>20000)return Promise.resolve('done');
+    return doJob(j).then(function(k){
+      if(k==='ok'){did++;SY.fails=0;SY.conn='ok';SY.lastOk=Date.now();updSyncUI();return loop()}
+      if(k==='skip'||k.slice(0,5)==='fail:'||k==='recase'){updSyncUI();return loop()}
+      return k;
+    });
+  }
+  function end(k){
+    SY.run=false;SY.cur='';
+    if(!hasCode()){setSY('off');return}
+    if(k==='badcode'){SY.fails=0;setSY('badcode');toast('Code not accepted 口令无效');return}
+    if(k==='quota'){SY.fails=0;SY.qUntil=Date.now()+30*60000;setSY('quota');toast('Monthly upload limit reached 本月上传额度已满');return}
+    if(k==='retry'||k==='net'){SY.fails++;var ms=backoffMs();SY.conn=navigator.onLine===false?'offline':'down';setSY(navigator.onLine===false?'offline':'retry');kick(ms);return}
+    SY.fails=0;
+    if(SY.again||pendingAny()){kick(300);setSY('idle');return}
+    setSY('idle');
+    if(did){api('GET','/v1/usage',{timeout:10000}).then(function(u){if(u.status===200&&u.j){SY.usage=u.j;updSyncUI()}},function(){})}
+  }
+  return loop().then(end,function(e){end(e&&e.net?'net':'retry')});
+}
+function uploadNow(){
+  if(!hasCode()){toast('Enter your tester code first 请先输入试用口令');return}
+  db.cases.forEach(function(c){var ch=false;if(c.cfail){delete c.cfail;ch=true}
+    c.entries.forEach(function(e){if(e.efail||e.mfail){delete e.efail;delete e.mfail;dirty['entries|'+e.id]=['entries',e];ch=true}});
+    if(ch)putCase(c)});
+  clearTimeout(flushT);flush();
+  SY.force=true;SY.fails=0;
+  checkConn().then(function(){if(SY.state!=='badcode'){SY.force=true;kick(0)}});
+}
+function resetMarkers(){
+  db.cases.forEach(function(c){c.sv=0;delete c.cfail;putCase(c);
+    c.entries.forEach(function(e){e.sv=0;e.mok=false;delete e.mfail;delete e.efail;dirty['entries|'+e.id]=['entries',e]})});
+  dropTombs(function(){return true});
+  clearTimeout(flushT);flush();
+}
+function setCode(raw){
+  var n=normCode(raw);
+  if(!n){return clearCode()}
+  if(!codeOk(n)){toast('That does not look like a valid code 这不像有效的口令');return Promise.resolve(false)}
+  var fp=fpOf(n),chg=S.syncFp&&S.syncFp!==fp;
+  return setMeta('testerCode',n).then(function(){return setMeta('syncFp',fp)}).then(function(){
+    if(chg)resetMarkers();
+    SY.state='idle';SY.fails=0;SY.conn='';
+    toast('Code saved 口令已保存');
+    if(view==='upload')render();
+    checkConn().then(function(){if(SY.state!=='badcode'){SY.force=true;kick(0)}});
+    return true;
+  });
+}
+function clearCode(){
+  clearTimeout(SY.timer);SY.timer=null;SY.conn='';SY.usage=null;
+  return setMeta('testerCode','').then(function(){setSY('off');toast('Code cleared 口令已清除 — uploads paused, data on this phone kept 已暂停上传，手机上的数据保留');if(view==='upload')render();return true});
+}
+function savedCodeFromField(){var t=$('#tc');return t?t.value:''}
+function pasteCode(){
+  var t=$('#tc');
+  if(!(navigator.clipboard&&navigator.clipboard.readText)){toast('Long-press the field and choose Paste 请长按输入框，选“粘贴”');if(t)t.focus();return}
+  navigator.clipboard.readText().then(function(s){if(t)t.value=s;return setCode(s)},function(){toast('Could not read the clipboard 无法读取剪贴板 — long-press the field and choose Paste 请长按输入框选“粘贴”');if(t)t.focus()});
+}
+/* ----- UI ----- */
+function fmtMB(b){b=b||0;return b>=1073741824?(b/1073741824).toFixed(1)+' GB':b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
+function connLine(){
+  if(!hasCode())return{ok:false,en:'Not connected',zh:'未连接',sub:'Enter your tester code below to start uploading. Until then everything stays on this phone. 在下方输入试用口令后开始上传，此前所有内容只保存在本机。'};
+  if(SY.state==='badcode'||SY.conn==='badcode')return{ok:false,en:'Not connected',zh:'未连接',sub:'Code not accepted 口令无效 — check it with whoever gave it to you, then paste it again. 请向发口令的人核对后重新粘贴。'};
+  if(SY.state==='offline'||SY.conn==='offline')return{ok:false,en:'Not connected',zh:'未连接',sub:'Offline 当前离线 — uploads continue automatically when the network is back. 网络恢复后自动继续上传。'};
+  if(SY.conn==='down'||SY.state==='retry')return{ok:false,en:'Not connected',zh:'未连接',sub:'The server cannot be reached 无法连接服务器 — will retry automatically (a VPN may be needed). 将自动重试（可能需要 VPN）。'};
+  if(SY.conn==='ok')return{ok:true,en:'Connected',zh:'已连接',sub:'Server reachable, code accepted. 服务器可达，口令有效。'};
+  return{ok:false,en:'Checking…',zh:'检查中…',sub:''};
+}
+function failMsgs(){
+  var f=failCounts(),m=[],k,T={too_large:['over the 25 MB limit and not uploaded 超过 25 MB，未上传'],unsupported_type:['in a format the server does not accept (415) 格式不被接受（415），未上传'],empty:['empty 内容为空，未上传'],missing:['missing on this phone 手机上找不到，未上传'],bad_id:['have an invalid ID 编号无效，未上传'],field_too_long:['too long for the server (413) 内容过长（413），未上传']};
+  for(k in f){m.push('<b>'+f[k]+' item(s) 项</b> '+(T[k]?T[k][0]:'were rejected by the server 被服务器拒绝 ('+esc(k)+')'))}
+  return m;
+}
+function uplTopHtml(){
+  var l=connLine(),h='';
+  h+='<div class="grp"><div class="r"><div class="rowl"><div class="tx"><b style="font-size:19px"><i class="sdot '+(l.ok?'ok':'off')+'"></i> '+esc(l.en)+' <span class="zh">'+esc(l.zh)+'</span></b>'+(l.sub?'<div class="fine" style="margin-top:3px">'+esc(l.sub)+'</div>':'')+'</div></div></div>';
+  if(l.ok&&SY.usage&&SY.usage.quota_bytes){var pc=Math.min(100,Math.round(100*SY.usage.used_bytes/SY.usage.quota_bytes));
+    h+='<div class="r"><div class="fine">This month 本月: '+fmtMB(SY.usage.used_bytes)+' of 共 '+fmtMB(SY.usage.quota_bytes)+'</div><div class="prog" style="margin-top:6px"><i style="width:'+pc+'%"></i></div></div>'}
+  h+='</div>';
+  if(SY.state==='quota')h+='<div class="banner warn"><b>Monthly upload limit reached 本月上传额度已满.</b> Nothing is lost — everything stays on this phone and uploads again when the limit resets or you press Upload now. 数据没有丢失，仍在手机上；额度重置后或点“立即上传”会继续。</div>';
+  if(SY.state==='badcode')h+='<div class="banner warn"><b>Code not accepted 口令无效 (401).</b> Uploads are paused. Paste the correct code below. 上传已暂停，请在下方粘贴正确的口令。</div>';
+  failMsgs().forEach(function(m){h+='<div class="banner warn">'+m+'. Your copy on this phone is untouched. 手机上的副本不受影响。</div>'});
+  return h;
+}
+function uplBotHtml(){
+  var t=totals(),pend=t.pend,st=SY.state,busy=st==='syncing';
+  var line=!hasCode()?'':busy?'Uploading… 上传中…':pend?pend+' item(s) waiting 项待上传'+(st==='offline'?' · offline 离线':st==='retry'?' · retrying 重试中':''):t.failed?t.failed+' item(s) not sent 项未能上传':'All uploaded 已全部上传'+(SY.lastOk?' · '+fmt(SY.lastOk).slice(11):'');
+  var h='<div style="margin:14px 0 6px"><button class="btn pri big" data-act="uplnow"'+(hasCode()&&!busy?'':' disabled')+'>'+ic('up')+'<span>Upload now <span class="zh" style="font-size:15px">立即上传</span></span></button></div>';
+  if(line)h+='<div class="fine" style="margin:6px 16px 0;text-align:center">'+esc(line)+'</div>';
+  h+='<div class="sh">Case files <span class="zh">案卷</span></div><div class="grp">';
+  if(!db.cases.length)h+='<div class="empty">None yet. 暂无案卷。</div>';
+  db.cases.slice().reverse().forEach(function(c){
+    var p=prog(c),pc=p.tot?Math.round(100*p.done/p.tot):(p.caseOk?100:0);
+    h+='<div class="listrow"><div class="tx" style="flex:1;min-width:0"><b>'+esc(c.client)+'</b><div class="fine">'+sdot(c,'l')+'</div>'+
+      (hasCode()?'<div class="prog" style="margin-top:6px"><i class="'+dotCls(c)+'" style="width:'+pc+'%"></i></div>':'')+'</div></div>';
+  });
+  return h+'</div>';
+}
+function vUpload(){
+  var h='<div class="nav"><div class="bar"><button class="bk" data-act="home">'+ic('chevL')+'<span>Cases <span class="zh">案卷</span></span></button>'+
+    '<div class="ttl"><b>Upload 上传</b><span>AS Collector</span></div><div class="rt"><span class="draft" style="margin:0">DRAFT</span></div></div></div><div class="pg">';
+  h+='<div id="uplTop" style="margin-top:14px">'+uplTopHtml()+'</div>';
+  h+='<div class="sh">Tester code <span class="zh">试用口令</span></div><div class="grp"><div class="field"><label for="tc">Code 口令'+(hasCode()?' — saved 已保存':'')+'</label>'+
+    '<input id="tc" class="mask" data-act="tc" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="'+esc(hasCode()?maskCode():'Type or paste your code 输入或粘贴口令')+'"></div>'+
+    '<div class="r"><div class="row nw"><button class="btn sm plain" data-act="tcpaste">'+ic('copy')+'Paste 粘贴</button><button class="btn sm" data-act="tcsave">'+ic('check')+'Save 保存</button><button class="btn sm dan" data-act="tcclear"'+(hasCode()?'':' disabled')+'>'+ic('trash')+'Clear 清除</button></div></div></div>';
+  h+='<div id="uplBot">'+uplBotHtml()+'</div>';
+  h+='<div class="note" style="margin-top:18px"><b>What is uploaded 上传内容.</b> Case details, notes, tags, status, clause, photos and recordings are copied to the AS Collector server for this trial, in the background whenever you are online. Uploading never removes anything from this phone. Entries you delete are marked deleted on the server, not erased. 案卷信息、备注、归类、状态、条款、照片和录音会在联网时自动复制到 AS Collector 服务器（试用）。上传不会删除手机上的任何内容；你删除的条目在服务器上只做删除标记，不会清除。<br>The Summary page fields (finding statement, severity, sample) are not uploaded yet. 总结页的不符合声明、严重程度、抽样暂不上传。</div></div>';
+  return h;
+}
+function rowText(){
+  if(!hasCode())return 'Not connected 未连接 · add your tester code 点此输入试用口令';
+  var l=connLine(),t=totals();
+  return (l.ok?'Connected 已连接':'Not connected 未连接')+' · '+(SY.state==='syncing'?'uploading 上传中':t.pend?t.pend+' item(s) waiting 项待传':t.failed?t.failed+' item(s) not sent 项未能上传':'all uploaded 已全部上传');
+}
+function updSyncUI(){
+  var els,i,c;
+  els=document.querySelectorAll('[data-sc]');
+  for(i=0;i<els.length;i++){c=caseById(els[i].getAttribute('data-sc'));if(c)els[i].className='sdot '+dotCls(c)}
+  els=document.querySelectorAll('[data-sp]');
+  for(i=0;i<els.length;i++){c=caseById(els[i].getAttribute('data-sp'));if(c)els[i].textContent=syncText(c,els[i].hasAttribute('data-short'))}
+  if(view==='upload'){var a=$('#uplTop'),b=$('#uplBot');if(a)a.innerHTML=uplTopHtml();if(b)b.innerHTML=uplBotHtml()}
+  var r=$('#uplRowT');if(r)r.textContent=rowText();
+  var ud=$('#uplRowD');if(ud)ud.className='sdot '+(hasCode()&&connLine().ok?'ok':'off');
+}
+function changed(){updSyncUI();if(hasCode())kick()}
+window.addEventListener('online',function(){if(hasCode()){SY.fails=0;checkConn().then(function(){kick(0)})}});
+window.addEventListener('offline',function(){if(hasCode()){SY.conn='offline';setSY('offline')}});
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&hasCode()&&!SY.run)kick(800)});
+setInterval(function(){if(hasCode()&&!SY.run&&!SY.timer&&SY.state!=='badcode'&&pendingAny())kick(0)},30000);
+function bootSync(){
+  if(!hasCode()){SY.state='off';return}
+  SY.state='idle';
+  checkConn().then(function(){if(SY.state!=='badcode')kick(300)});
 }
 
 /* ---------- boot ---------- */
@@ -1155,7 +1630,7 @@ openDB().then(function(d){idb=d;idb.onversionchange=function(){idb.close();idb=n
 .then(function(){return idb?migrateRev02():noop()})
 .then(function(){
   if(S.cur&&!caseById(S.cur))S.cur=null;
-  render();askPersist();
+  render();askPersist();bootSync();
   window.__asReady=true;
 }).catch(function(e){console.warn(e);render();window.__asReady=true});
 })();
