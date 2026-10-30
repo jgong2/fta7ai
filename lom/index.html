@@ -112,7 +112,7 @@ footer img{width:44px;height:44px;border-radius:50%;opacity:.9;margin-bottom:8px
     <h1 class="gold">LOM FUND</h1>
     <p>预览版 · 请输入访问密码<br><span class="en">Preview · enter access password</span></p>
     <form id="gform" autocomplete="off">
-      <input id="gpw" type="password" inputmode="text" placeholder="密码 Password" aria-label="Password" autofocus>
+      <input id="gpw" type="password" inputmode="text" placeholder="密码 Password" aria-label="Password">
       <button class="btn" type="submit">进入 Enter</button>
     </form>
     <div id="gerr" aria-live="polite"></div>
@@ -233,7 +233,7 @@ function start(){if(started)return;started=true;
 v.addEventListener('ended',toEnd);
 skip.addEventListener('click',toEnd);
 function unlock(){root.classList.remove('locked');start()}
-try{if(sessionStorage.getItem('lom_ok')===H)unlock()}catch(e){}
+unlock(); // FTA /lom: no password (JG 2026-10-30)
 document.getElementById('gform').addEventListener('submit',function(e){e.preventDefault();
  var pw=document.getElementById('gpw').value.trim();
  if(sha256(pw)===H){try{sessionStorage.setItem('lom_ok',H)}catch(e){}unlock()}
