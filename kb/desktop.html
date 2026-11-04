@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<meta name="author" content="Author: F2 · 2026-11-04 12:14 HKT · rev01 · DRAFT">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M9 8v16M9 16l9-8M9 16l9 8' stroke='%23ffa23a' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>FTA · KB 知识库采集</title>
+<style>
+:root{--bg:#000;--g1:#141414;--g2:#212121;--g3:#333;--sep:#2c2c2c;--lab:#f4f4f4;--lab2:#a9a9a9;--lab3:#7a7a7a;--or:#ffa23a;--or-t:rgba(255,162,58,.13);--gr:#34d399;--gr-t:rgba(52,211,153,.13);--rd:#ff453a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:76px;scroll-padding-bottom:110px}
+html,body{margin:0;background:var(--bg);color:var(--lab);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh}body.sh{overflow:hidden}
+button,input,textarea{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+:focus{outline:none}:focus-visible{outline:2px solid var(--or);outline-offset:2px;border-radius:10px}
+h1,h2,h3,p{margin:0}svg{display:block;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px}
+.wrap{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+.wrap.wide{max-width:780px}
+.top{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:minmax(44px,auto) 1fr minmax(44px,auto);align-items:center;gap:6px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:rgba(0,0,0,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--sep)}
+.tt{text-align:center;font-weight:600;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tr{display:flex;justify-content:flex-end}
+.ib{min-width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--lab2)}
+.ib:hover{background:var(--g1);color:var(--lab)}.ib.who{padding:0 6px;font-size:14px;color:var(--lab)}.ib.who svg{color:var(--or)}
+.ib.sm{min-width:40px;height:40px}
+.mn{flex:1;padding:16px 16px 28px;display:flex;flex-direction:column;gap:14px}
+.bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--sep)}
+.bar .btn{flex:1}.cntr{color:var(--lab2);font-size:14px;min-width:54px;text-align:center}
+.btn{min-height:48px;padding:0 18px;border-radius:14px;background:var(--g2);color:var(--lab);font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;width:100%;text-align:center}
+.btn:hover{background:var(--g3)}.btn.pri{background:var(--or);color:#000}.btn.pri:hover{background:#ffb056}
+.btn:disabled{opacity:.4;cursor:default}.btn.sm{min-height:40px;font-size:14px;margin-top:8px}
+.bar .btn:not(.pri){flex:0 0 auto;width:auto}
+.chip{min-height:40px;padding:0 14px;border-radius:20px;background:var(--g2);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;position:relative;white-space:nowrap}
+.chip.pri{background:var(--or);color:#000}
+.dot{font-style:normal;min-width:20px;height:20px;border-radius:10px;background:#000;color:var(--or);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.btn.pri .dot{background:#000;color:var(--or)}
+.lnk{color:var(--or);text-decoration:underline;text-underline-offset:3px;font-size:inherit}
+.card{background:var(--g1);border-radius:18px;padding:16px}
+.card.flush{padding:0;overflow:hidden}
+.card h2{font-size:18px;font-weight:650;letter-spacing:-.01em}
+.mh{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:6px}
+.hint{font-size:14px;color:var(--lab2)}.hint.ctr{text-align:center}
+.fine{font-size:12.5px;color:var(--lab3);line-height:1.5}
+.fine code{font:12px ui-monospace,Menlo,monospace;color:var(--lab2)}
+p.fine{margin-top:6px}
+.note{background:var(--or-t);border-radius:14px;padding:12px 14px;font-size:14px}.note b{color:var(--or)}
+.err{color:var(--or);font-size:14px;min-height:0}.err:empty{display:none}
+.empty{color:var(--lab3);text-align:center;padding:40px 16px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:650;color:var(--or);border:1px solid var(--or);border-radius:7px;padding:2px 7px;white-space:nowrap}
+.tag.mute{color:var(--lab2);border-color:var(--g3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.row{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 14px;border-top:1px solid var(--sep);color:var(--lab)}
+.row:first-of-type{border-top:0}.card .row:first-of-type{border-top:0}
+.row:hover{background:var(--g2)}.row>svg{color:var(--lab3)}
+.card>.row:first-of-type{margin-top:6px;border-top:1px solid var(--sep)}
+.rt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.rt b{font-weight:600;font-size:16px}.rt small{font-size:13px;color:var(--lab2)}
+.rt small.or{color:var(--or)}
+.clip{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:500!important;font-size:15px!important}
+.clip2{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
+.rc{display:flex;align-items:center;gap:8px;flex:none}
+.cnt{font-size:15px;color:var(--lab2);font-variant-numeric:tabular-nums}.cnt.full{color:var(--gr)}
+.st{width:30px;height:30px;border-radius:50%;background:var(--g2);color:var(--lab2);font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;font-weight:600}
+.st.ok{background:var(--gr-t);color:var(--gr)}
+.sec{font-size:13px;color:var(--lab2);font-weight:600;margin:10px 4px 0;letter-spacing:.01em}
+.big{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}.big small{font-size:20px;color:var(--lab3);font-weight:500}
+.bar1{height:6px;border-radius:3px;background:var(--g2);overflow:hidden;margin:10px 0 4px}.bar1 i{display:block;height:100%;background:var(--or);border-radius:3px;transition:width .3s}
+.prog p.hint{margin-top:6px}
+/* start screen */
+.entry{padding:calc(20px + env(safe-area-inset-top)) 22px 30px;gap:16px}
+.lg2{align-self:flex-end;width:132px}
+.hero{text-align:center;padding:18px 0 4px}.hero h1{font-size:32px;letter-spacing:-.03em;margin-top:14px}.hero .sub{color:var(--lab2);margin-top:8px;font-size:15px}
+.logo{width:68px;height:68px;border-radius:20px;background:var(--g1);color:var(--or);display:flex;align-items:center;justify-content:center;margin:0 auto}
+#lf{display:flex;flex-direction:column;gap:12px}
+.brand{font-size:13px;font-weight:650;letter-spacing:.04em;color:var(--or);margin-top:14px}
+.fld{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--lab2)}
+input[type=text],textarea{width:100%;min-height:50px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--g3);background:var(--g1);font-size:16px;color:var(--lab)}
+textarea{resize:vertical;line-height:1.45;min-height:96px}
+input:focus,textarea:focus{border-color:var(--or)}
+::placeholder{color:var(--lab3)}
+/* question */
+.sc{font-size:12.5px;color:var(--lab3);letter-spacing:.01em}
+.q{font-size:21px;line-height:1.35;letter-spacing:-.015em;font-weight:650;margin:2px 0 4px}
+.opts{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.opts .hint{margin-bottom:2px}
+.opt{position:relative;display:flex;align-items:flex-start;gap:12px;padding:14px;min-height:56px;border-radius:16px;background:var(--g1);border:1.5px solid transparent;cursor:pointer}
+.opt:hover{background:var(--g2)}
+.opt input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}
+.opt .rd{width:24px;height:24px;border-radius:50%;border:2px solid var(--lab3);flex:none;margin-top:1px;position:relative}
+.opt.on{border-color:var(--or);background:var(--or-t)}
+.opt.on .rd{border-color:var(--or)}.opt.on .rd:after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--or)}
+.opt:focus-within{outline:2px solid var(--or);outline-offset:2px}
+.ot{flex:1;font-size:16px;line-height:1.4}.ot b{display:inline-block;min-width:22px;color:var(--or);margin-right:4px}
+.opt.soft .ot{color:var(--lab2)}
+.more{background:var(--g1);border-radius:14px;padding:0 14px}
+.more summary,.src summary{min-height:48px;display:flex;align-items:center;color:var(--lab2);font-size:14px;cursor:pointer;list-style:none}
+.more summary::-webkit-details-marker,.src summary::-webkit-details-marker{display:none}
+.more[open] summary,.src[open] summary{color:var(--lab)}.more .fld{padding-bottom:14px}
+.src{background:var(--g1);border-radius:14px;padding:0 14px 12px}
+blockquote{margin:8px 0 0;padding:10px 12px;border-left:3px solid var(--or);background:var(--g2);border-radius:0 10px 10px 0;font-size:14px;color:var(--lab);word-break:break-word}
+.sv{font-size:13px;color:var(--lab3);min-height:20px;text-align:center}.sv.bad{color:var(--or)}
+.media{display:flex;flex-direction:column;gap:10px}.mrow{display:flex;gap:10px;flex-wrap:wrap}
+.mitem{display:flex;align-items:center;gap:8px}.mitem audio{flex:1;min-width:0;height:40px}
+.thumb{width:88px;height:88px;object-fit:cover;border-radius:12px;background:var(--g2)}
+.rec{display:flex;align-items:center;gap:10px;color:var(--rd);font-weight:650}.rec .chip{background:var(--rd);color:#fff}
+.rdot{width:12px;height:12px;border-radius:50%;background:var(--rd);animation:bl 1s infinite}@keyframes bl{50%{opacity:.25}}
+/* segmented, switch */
+.seg{display:flex;background:var(--g1);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;min-height:40px;border-radius:9px;font-size:14px;color:var(--lab2);font-weight:600;text-align:center}
+.seg button.on{background:var(--g3);color:var(--lab)}
+.seg.tabs{position:sticky;top:61px;z-index:4}
+.sw-row{display:flex;align-items:center;justify-content:space-between;min-height:48px;width:100%;color:var(--lab2)}
+.sw{width:46px;height:28px;border-radius:14px;background:var(--g3);position:relative;flex:none;transition:background .2s}
+.sw:after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw.on{background:var(--gr)}.sw.on:after{transform:translateX(18px)}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;max-height:88vh;max-height:88dvh;overflow:auto;background:#1b1b1b;border-radius:24px 24px 0 0;padding:10px 20px calc(22px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .26s cubic-bezier(.2,.8,.2,1);z-index:21;display:flex;flex-direction:column;gap:12px;visibility:hidden}
+.sheet.on{transform:none;visibility:visible}
+.grab{width:40px;height:5px;border-radius:3px;background:var(--g3);margin:0 auto 4px}
+.sheet h3{font-size:20px;font-weight:650;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.sheet h3 svg{color:var(--gr)}
+.sheet p{font-size:15px;color:var(--lab2)}
+.ul{margin:0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--lab2)}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.toast{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translate(-50%,-20px);background:#2a2a2a;color:var(--lab);padding:12px 18px;border-radius:14px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:30;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* desk */
+.ans{font-size:15px;margin-top:4px}.ans b{color:var(--or);margin-right:4px}
+.txt{margin-top:6px;padding:10px 12px;background:var(--g2);border-radius:12px;font-size:15px;white-space:pre-wrap;word-break:break-word}
+.key{font-size:13px;margin-top:6px;font-weight:600;color:var(--lab2)}.key.match{color:var(--gr)}.key.differs{color:var(--or)}
+.card audio{width:100%;margin-top:8px;height:40px}.card .thumb{margin-top:8px;width:120px;height:120px}
+.rv{margin-top:10px;display:flex;flex-direction:column;gap:8px}.rc2{min-height:44px!important}
+.bd{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr 28px;align-items:center;gap:8px;font-size:13px;color:var(--lab2);margin-top:4px}.bd .bar1{margin:0}.bd b{text-align:right;color:var(--lab)}.bd span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (min-width:700px){.mn{padding:22px 24px 40px}.q{font-size:23px}.sheet{border-radius:24px;bottom:24px}.top{border-radius:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.ib.bk{padding:0 10px 0 4px;gap:2px;font-size:15px;color:var(--or)}.ib.bk svg{color:var(--or)}
+.ib.bk:hover{color:var(--or)}
+p.fine.lh{margin:-6px 0 10px 2px}
+.row#homeOut b{font-weight:600}
+/* ===== desktop (computer) layout ===== */
+body.dk .dkw{display:grid;grid-template-columns:330px minmax(0,1fr);min-height:100vh}
+body.dk .side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:var(--g1);border-right:1px solid var(--sep);padding:14px 10px 12px;gap:4px}
+body.dk .sh1{display:flex;align-items:center;gap:10px;padding:4px 8px 12px}.sh1 b{font-size:17px;flex:1}
+body.dk .logo.sm{width:34px;height:34px;border-radius:10px;margin:0;background:var(--g2)}
+body.dk .nav{flex:1;overflow:auto;display:flex;flex-direction:column;gap:2px;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent}
+body.dk .nm{font-size:12px;color:var(--lab3);font-weight:650;padding:14px 8px 4px;letter-spacing:.02em}
+body.dk .nk{display:flex;justify-content:space-between;align-items:center;min-height:38px;padding:0 10px;border-radius:10px;font-weight:600;font-size:14.5px;color:var(--lab)}
+body.dk .nk:hover,body.dk .nv:hover{background:var(--g2)}
+body.dk .nk.on{background:var(--g3)}
+body.dk .ns{font-size:11.5px;color:var(--lab3);padding:8px 10px 2px}
+body.dk .nv{display:flex;align-items:center;gap:9px;min-height:40px;padding:5px 8px;border-radius:10px;font-size:13.5px;color:var(--lab2);border-left:3px solid transparent}
+body.dk .nv.on{background:var(--g2);color:var(--lab);border-left-color:var(--or)}
+body.dk .nv .st{width:24px;height:24px;font-size:11.5px}
+body.dk .nt{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3}
+body.dk .ud{width:8px;height:8px;border-radius:50%;background:var(--or);flex:none}
+body.dk .sfoot{border-top:1px solid var(--sep);padding-top:10px;display:flex;flex-direction:column;gap:8px}
+body.dk .srow{display:flex;justify-content:space-between}
+body.dk .ib.so{padding:0 10px;font-size:14px;color:var(--lab2)}
+body.dk .dmain{min-width:0;display:flex;flex-direction:column;min-height:100vh}
+body.dk .dmain .top{padding:10px 28px}
+body.dk .dmain .mn{width:100%;max-width:860px;margin:0 auto;padding:28px 36px 40px}
+body.dk .dmain .bar{padding:12px 28px}
+body.dk .dmain .bar>*{max-width:860px}
+body.dk .dmain .bar{justify-content:center}
+body.dk .dmain .bar .btn.pri{max-width:360px}
+body.dk .q{font-size:24px}
+body.dk .opts{display:grid;grid-template-columns:1fr;gap:10px}
+body.dk .kh{text-align:center;margin-top:8px}
+body.dk .wrap.wide{max-width:1180px}
+body.dk .sheet{max-width:560px;bottom:50%;transform:translateY(calc(50% + 40px));opacity:0;border-radius:22px;transition:transform .2s,opacity .2s}
+body.dk .sheet.on{transform:translateY(50%);opacity:1}
+body.dk .grab{display:none}
+@media (max-width:900px){body.dk .dkw{grid-template-columns:240px minmax(0,1fr)}body.dk .dmain .mn{padding:20px}body.dk .q{font-size:21px}}
+</style></head><body>
+<noscript><div style="padding:40px;max-width:640px;margin:0 auto;font-family:-apple-system,sans-serif"><h2>FTA · KB 知识库采集</h2><p>This page needs JavaScript. Please open it in Chrome or Safari (not in a file preview). 这个页面需要 JavaScript，请用 Chrome 或 Safari 打开（不要用文件预览）。</p></div></noscript>
+<div id="app"></div>
+<input id="photoIn" class="sr" type="file" accept="image/*" tabindex="-1" aria-hidden="true">
+<div id="scrim" class="scrim"></div><div id="sheet" class="sheet" role="dialog" aria-modal="true"></div><div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+var KB=(function(){
+
+const KB1_LETTERS = ['A', 'B', 'C', 'D', 'E'];            // E = "Not sure"
+const TO_WHOM = 'SQE0';
+const KB2_OPTIONS = {
+  question: [
+    { id: 'always', en: 'Always ask it', zh: '一定要问' },
+    { id: 'risk', en: 'Ask only for risky or critical suppliers', zh: '只问高风险或关键供应商' },
+    { id: 'problem', en: 'Ask only after a problem', zh: '出了问题才问' },
+    { id: 'no', en: 'Not worth asking', zh: '不值得问' },
+    { id: 'unsure', en: 'Not sure', zh: '不确定' }
+  ],
+  evidence: [
+    { id: 'must', en: 'Must have', zh: '必须有' },
+    { id: 'good', en: 'Good to have', zh: '最好有' },
+    { id: 'risk', en: 'Only for risky suppliers', zh: '只对高风险供应商' },
+    { id: 'no', en: 'Not needed', zh: '不需要' },
+    { id: 'unsure', en: 'Not sure', zh: '不确定' }
+  ]
+};
+const KB2_PROMPT = {
+  question: { en: 'Or write it in your own words: what does a good answer look like, and what is a warning sign?', zh: '或用你自己的话写：什么样的回答算好？什么是危险信号？' },
+  evidence: { en: 'Or write it in your own words: how do you check it is real and current?', zh: '或用你自己的话写：你怎么确认它是真的、是最新的？' }
+};
+const KB1_PROMPT = { en: 'Optional: tell us why in your own words.', zh: '可选：用你自己的话说说理由。' };
+
+function normText(s) { return String(s == null ? '' : s).toLowerCase().replace(/\s+/g, ' ').trim(); }
+function textLen(s) { return String(s || '').replace(/\s+/g, '').length; }
+function djb(s) { let h = 5381; s = String(s); for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); }
+const SPECIAL_USERS = ['SQE000040'];
+function normUser(u) { const s = String(u == null ? '' : u).replace(/\s+/g, '').toUpperCase(); if (SPECIAL_USERS.indexOf(s) >= 0) return s; return s.replace(/^SQE0+(?=\d)/, 'SQE'); }
+function validUser(id) { return /^SQE\d{1,3}$/.test(id) || SPECIAL_USERS.indexOf(id) >= 0; }
+
+function scanIdentifiable(text, blocklist) {
+  const t = String(text || ''), hits = [];
+  if (/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(t)) hits.push('email');
+  if (/(?:\+?\d[\d\s().-]{7,}\d)/.test(t) && (t.match(/\d/g) || []).length >= 8) hits.push('phone');
+  if (/(https?:\/\/|www\.)\S+/i.test(t)) hits.push('link');
+  if (/(^|\s)@[A-Za-z0-9_]{3,}/.test(t)) hits.push('handle');
+  const low = normText(t);
+  for (const n of blocklist || []) { const k = normText(n); if (k.length >= 2 && low.includes(k)) { hits.push('name'); break; } }
+  return hits;
+}
+
+const K256 = new Uint32Array([0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2]);
+const H0 = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+const W256 = new Uint32Array(64);
+function compress(st, b, o) {
+  const w = W256;
+  for (let i = 0; i < 16; i++) { const j = o + i * 4; w[i] = (b[j] << 24) | (b[j + 1] << 16) | (b[j + 2] << 8) | b[j + 3]; }
+  for (let i = 16; i < 64; i++) {
+    const a = w[i - 15], c = w[i - 2];
+    const s0 = ((a >>> 7) | (a << 25)) ^ ((a >>> 18) | (a << 14)) ^ (a >>> 3);
+    const s1 = ((c >>> 17) | (c << 15)) ^ ((c >>> 19) | (c << 13)) ^ (c >>> 10);
+    w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+  }
+  let a = st[0], b2 = st[1], c2 = st[2], d = st[3], e = st[4], f = st[5], g = st[6], h = st[7];
+  for (let i = 0; i < 64; i++) {
+    const S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+    const ch = (e & f) ^ (~e & g);
+    const t1 = (h + S1 + ch + K256[i] + w[i]) | 0;
+    const S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+    const mj = (a & b2) ^ (a & c2) ^ (b2 & c2);
+    const t2 = (S0 + mj) | 0;
+    h = g; g = f; f = e; e = (d + t1) | 0; d = c2; c2 = b2; b2 = a; a = (t1 + t2) | 0;
+  }
+  st[0] = (st[0] + a) | 0; st[1] = (st[1] + b2) | 0; st[2] = (st[2] + c2) | 0; st[3] = (st[3] + d) | 0; st[4] = (st[4] + e) | 0; st[5] = (st[5] + f) | 0; st[6] = (st[6] + g) | 0; st[7] = (st[7] + h) | 0;
+}
+function utf8(s) { if (s instanceof Uint8Array) return s; const out = []; s = String(s); for (let i = 0; i < s.length; i++) { let c = s.charCodeAt(i); if (c >= 0xd800 && c < 0xdc00 && i + 1 < s.length) { const d = s.charCodeAt(i + 1); if (d >= 0xdc00 && d < 0xe000) { c = 0x10000 + ((c - 0xd800) << 10) + (d - 0xdc00); i++; } } if (c < 0x80) out.push(c); else if (c < 0x800) out.push(0xc0 | (c >> 6), 0x80 | (c & 63)); else if (c < 0x10000) out.push(0xe0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63)); else out.push(0xf0 | (c >> 18), 0x80 | ((c >> 12) & 63), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63)); } return new Uint8Array(out); }
+function stBytes(st) { const o = new Uint8Array(32); for (let i = 0; i < 8; i++) { o[i * 4] = st[i] >>> 24; o[i * 4 + 1] = st[i] >>> 16; o[i * 4 + 2] = st[i] >>> 8; o[i * 4 + 3] = st[i]; } return o; }
+function sha256(data) {
+  const m = utf8(data), n = m.length, tot = ((n + 9 + 63) >> 6) << 6, b = new Uint8Array(tot);
+  b.set(m); b[n] = 0x80; const bits = n * 8; b[tot - 4] = bits >>> 24; b[tot - 3] = bits >>> 16; b[tot - 2] = bits >>> 8; b[tot - 1] = bits; b[tot - 8] = Math.floor(bits / 4294967296) >>> 24 & 255;
+  const st = new Int32Array(H0); for (let o = 0; o < tot; o += 64) compress(st, b, o); return stBytes(st);
+}
+function toHex(u) { let s = ''; for (let i = 0; i < u.length; i++) s += (u[i] < 16 ? '0' : '') + u[i].toString(16); return s; }
+function fromHex(h) { const o = new Uint8Array(h.length / 2); for (let i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; }
+function sha256Hex(s) { return toHex(sha256(s)); }
+function b64u(u) { let s = ''; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function unb64u(s) { s = String(s).replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; const b = atob(s), o = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) o[i] = b.charCodeAt(i); return o; }
+function gradeKb1(choice, key) { if (!choice || !key) return null; if (choice === 'E') return 'unsure'; return choice === key ? 'match' : 'differs'; }
+
+function patternFlag(seq) { const s = (seq || []).filter((x) => x != null && x !== ''); if (s.length < 4) return ''; if (s.every((x) => x === s[0])) return 'same'; if (s.every((x, i) => x === s[i % 2]) && s[0] !== s[1]) return 'alternating'; return ''; }
+
+function isAnswered(r) { return !!(r && (r.choice || textLen(r.text) > 0 || r.has_voice)); }
+function progressOf(items, resp) {
+  const o = { total: items.length, answered: 0, KB1: { total: 0, answered: 0 }, KB2: { total: 0, answered: 0 } };
+  for (const it of items) { const a = isAnswered(resp && resp[it.id]); o[it.kb].total++; if (a) { o.answered++; o[it.kb].answered++; } }
+  return o;
+}
+function validChoice(item, choice) {
+  if (choice == null || choice === '') return true;
+  if (item.kb === 'KB1') return KB1_LETTERS.indexOf(choice) >= 0;
+  return (KB2_OPTIONS[item.kind] || []).some((o) => o.id === choice);
+}
+function clausePointers(s) { const m = String(s || '').match(/\b\d{1,2}(?:\.\d{1,2}){1,3}\b/g) || []; return Array.from(new Set(m)).join(', '); }
+
+function toYaml(v, ind) {
+  ind = ind || 0; const pad = '  '.repeat(ind);
+  if (Array.isArray(v)) { if (!v.length) return pad + '[]'; return v.map((x) => { if (x && typeof x === 'object') { const y = toYaml(x, ind + 1).split('\n'); return pad + '- ' + y[0].trim() + (y.length > 1 ? '\n' + y.slice(1).join('\n') : ''); } return pad + '- ' + scalar(x); }).join('\n'); }
+  if (v && typeof v === 'object') { const ks = Object.keys(v); if (!ks.length) return pad + '{}'; return ks.map((k) => { const x = v[k]; if (x && typeof x === 'object' && (Array.isArray(x) ? x.length : Object.keys(x).length)) return pad + k + ':\n' + toYaml(x, ind + 1); return pad + k + ': ' + (x && typeof x === 'object' ? (Array.isArray(x) ? '[]' : '{}') : scalar(x)); }).join('\n'); }
+  return pad + scalar(v);
+}
+function scalar(x) { if (x == null) return 'null'; if (typeof x === 'number' || typeof x === 'boolean') return String(x); return JSON.stringify(String(x)); }
+return {KB1_LETTERS,TO_WHOM,KB2_OPTIONS,KB2_PROMPT,KB1_PROMPT,normText,textLen,djb,SPECIAL_USERS,normUser,validUser,scanIdentifiable,utf8,sha256,toHex,fromHex,sha256Hex,b64u,unb64u,gradeKb1,patternFlag,isAnswered,progressOf,validChoice,clausePointers,toYaml};})();
+var KB_SERVER='https://kb-collector.jinsonggong.workers.dev';
+var PACK={"version":"v2-draft","attribution":{"licence":"MIT","copyright":"Copyright (c) 2026 Ricardo Romão Marques Braga","repo":"RBraga01/Quality-Engineering-Skills","commit":"70df27cbd6a5ad6808499e934d2c72be4f8bef1e","inventory_sha256":"7db8155654cc5d7aadf0bcd23f58e4f537baeb3535c56206e9007e4ebf7d579b","note":"Question wording in KB2 is taken verbatim from the RB repo (MIT). It is an AI draft and unverified. Scenario questions in KB1 are written by FTA, not by RB."},"modules":[{"id":"iso9001-84","order":1,"status":"trial","name":{"en":"ISO 9001 · clause 8.4 · External suppliers","zh":"ISO 9001 · 8.4 条款 · 外部供方"},"note":{"en":"Trial module. Supplier quality is much wider than this one clause; more modules are added the same way.","zh":"试验模块。供应商质量远不止这一条款，之后的模块用同样方式加入。"},"marks":{"KB1":"FTA draft, unverified","KB2":"RB-derived, AI draft, unverified"}}],"sections":[{"module":"iso9001-84","id":"8.4.1","ord":1,"title":{"en":"8.4.1 General: approved list, evaluation","zh":"8.4.1 总则：合格名录、评价"},"evidence":false},{"module":"iso9001-84","id":"8.4.2","ord":2,"title":{"en":"8.4.2 Type and extent of control: monitoring, risk, escalation","zh":"8.4.2 管控类型与程度：监控、风险、升级"},"evidence":false},{"module":"iso9001-84","id":"8.4.3","ord":3,"title":{"en":"8.4.3 Information given to suppliers","zh":"8.4.3 提供给供方的信息"},"evidence":false},{"module":"iso9001-84","id":"8.4.E","ord":4,"title":{"en":"8.4 Supporting evidence (RB)","zh":"8.4 支持性证据（RB）"},"evidence":true}],"items":[{"id":"iso9001-84/S01","module":"iso9001-84","section":"8.4.1","kb":"KB1","kind":"scenario","text":"A team needs a part from a supplier that is not on the approved list. They want it in three days. What is the right first move?","options":[{"id":"A","text":"Order now and add the supplier to the list later."},{"id":"B","text":"Ask the supplier for a written promise of quality, then order."},{"id":"C","text":"Do the quick approval check first, record it, then order."},{"id":"D","text":"Order a small first batch and skip the evaluation until later."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3346,3548],"rb":null,"ord":1},{"id":"iso9001-84/S02","module":"iso9001-84","section":"8.4.1","kb":"KB1","kind":"scenario","text":"The approved list was last updated two years ago. Some listed suppliers are no longer used, and some suppliers in use are not listed. What does this show?","options":[{"id":"A","text":"The list is not kept up to date; ask who owns it."},{"id":"B","text":"Normal. Lists are never exact, so there is nothing to raise."},{"id":"C","text":"A paperwork matter only, as long as the parts are fine."},{"id":"D","text":"Nothing, because the buyers know their suppliers well."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3548],"rb":null,"ord":2},{"id":"iso9001-84/S03","module":"iso9001-84","section":"8.4.1","kb":"KB1","kind":"scenario","text":"The only evaluation criterion on file is \"delivers on time\". How do you judge it?","options":[{"id":"A","text":"Enough, because delivery on time is what matters most to the customer."},{"id":"B","text":"Fine, because this supplier is a large and known one."},{"id":"C","text":"No issue, because evaluation criteria are optional."},{"id":"D","text":"Incomplete: criteria must also cover ability to meet requirements."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3347],"rb":null,"ord":3},{"id":"iso9001-84/S04","module":"iso9001-84","section":"8.4.1","kb":"KB1","kind":"scenario","text":"A supplier was evaluated once, four years ago. Since then its late deliveries and complaints have grown. Nobody re-evaluated it. What is the gap?","options":[{"id":"A","text":"None. One evaluation at the start is enough for a long-standing supplier."},{"id":"B","text":"No rule to repeat the evaluation or to trigger it on poor results."},{"id":"C","text":"Re-evaluate only after a customer complaint arrives."},{"id":"D","text":"A yearly self-assessment form from the supplier is sufficient."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3549],"rb":null,"ord":4},{"id":"iso9001-84/S05","module":"iso9001-84","section":"8.4.1","kb":"KB1","kind":"scenario","text":"A supplier was chosen by one person. There is no record of why. What do you ask for?","options":[{"id":"A","text":"Nothing is needed, as long as the supplier's parts work well in use."},{"id":"B","text":"A talk with that person; their word is enough."},{"id":"C","text":"The selection record: the criteria applied and who approved."},{"id":"D","text":"Only the supplier's quality certificate, then close it."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3347,3549],"rb":null,"ord":5},{"id":"iso9001-84/S06","module":"iso9001-84","section":"8.4.2","kb":"KB1","kind":"scenario","text":"Supplier X delivers a part that affects safety. Supplier Y delivers packaging. Both get exactly the same checks. How do you judge it?","options":[{"id":"A","text":"Wrong balance. Checks should follow the risk."},{"id":"B","text":"Right. Treating both suppliers equally is the fair way."},{"id":"C","text":"Check only the packaging supplier more closely."},{"id":"D","text":"Neither needs checks if it holds a quality certificate."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3349],"rb":null,"ord":6},{"id":"iso9001-84/S07","module":"iso9001-84","section":"8.4.2","kb":"KB1","kind":"scenario","text":"Incoming checks for one supplier were reduced \"because they are good\". No data supports it. What do you do?","options":[{"id":"A","text":"Accept it, because the manager has decided."},{"id":"B","text":"Bring back full checks for every supplier at once, whatever the history."},{"id":"C","text":"Accept it if the buyer also agrees with the change."},{"id":"D","text":"Ask for the data that justifies it. No data, no reduction."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3349,3348],"rb":null,"ord":7},{"id":"iso9001-84/S08","module":"iso9001-84","section":"8.4.2","kb":"KB1","kind":"scenario","text":"A supplier's quality results have dropped for three months in a row. Nobody acted. What is missing?","options":[{"id":"A","text":"Nothing. A trend over only three months is too short to act on."},{"id":"B","text":"Defined triggers and steps: who informs the supplier and reviews."},{"id":"C","text":"Remove the supplier from the list at once."},{"id":"D","text":"Wait until a customer complains, then act."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3348,3550],"rb":null,"ord":8},{"id":"iso9001-84/S09","module":"iso9001-84","section":"8.4.2","kb":"KB1","kind":"scenario","text":"A corrective action request went to a supplier five months ago. No reply, no follow-up. What do you check?","options":[{"id":"A","text":"Close it, because five months is far too old to matter now."},{"id":"B","text":"Send the same request again and wait for a reply."},{"id":"C","text":"The follow-up rule: due date, reminder and escalation steps."},{"id":"D","text":"Mark the supplier as approved so the matter ends."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3550],"rb":null,"ord":9},{"id":"iso9001-84/S10","module":"iso9001-84","section":"8.4.2","kb":"KB1","kind":"scenario","text":"An outside company does a service for you and is not on the supplier list, because \"it is only a service\". How do you judge it?","options":[{"id":"A","text":"It belongs on the list; outside services need control too."},{"id":"B","text":"Services are out of scope of supplier control, which covers parts only."},{"id":"C","text":"Only large service providers need to be listed."},{"id":"D","text":"It is fine as long as the service has never failed."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[3346,3349],"rb":null,"ord":10},{"id":"iso9001-84/S11","module":"iso9001-84","section":"8.4.3","kb":"KB1","kind":"scenario","text":"A purchase order states only the item name and the quantity. What is the problem?","options":[{"id":"A","text":"Nothing. The supplier knows what we need by now."},{"id":"B","text":"The order is fine once the supplier replies \"OK\"."},{"id":"C","text":"Only the delivery date is missing from the order."},{"id":"D","text":"Missing: the specification, acceptance rules and checks."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[],"rb":null,"ord":11},{"id":"iso9001-84/S12","module":"iso9001-84","section":"8.4.3","kb":"KB1","kind":"scenario","text":"A specification changed last month. The supplier still works to the old revision. The order said \"latest revision\". Whose gap is it?","options":[{"id":"A","text":"The supplier's fault alone; it ignored the latest revision."},{"id":"B","text":"Ours too: check how changes reach and are confirmed."},{"id":"C","text":"No gap. A verbal reminder to the supplier fixes it."},{"id":"D","text":"Scrap everything made so far and start over."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[],"rb":null,"ord":12},{"id":"iso9001-84/S13","module":"iso9001-84","section":"8.4.3","kb":"KB1","kind":"scenario","text":"We want to verify product at the supplier's site, but the order says nothing about it. What should have been done?","options":[{"id":"A","text":"Nothing. Checks on arrival are always enough."},{"id":"B","text":"Visit without notice; no agreement is needed."},{"id":"C","text":"Agree the site checks in the order before work starts."},{"id":"D","text":"Ask the supplier to inspect itself and send us a signed report."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[],"rb":null,"ord":13},{"id":"iso9001-84/S14","module":"iso9001-84","section":"8.4.3","kb":"KB1","kind":"scenario","text":"A special job at the supplier needs trained staff, but the order does not mention it. What do you expect?","options":[{"id":"A","text":"The skills needed are stated, and the supplier shows proof."},{"id":"B","text":"Nothing. Staff training is the supplier's own business, not ours to ask."},{"id":"C","text":"A call to our own HR department to check them."},{"id":"D","text":"Trust what the supplier's sales contact says."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[],"rb":null,"ord":14},{"id":"iso9001-84/S15","module":"iso9001-84","section":"8.4.3","kb":"KB1","kind":"scenario","text":"Requirements reach suppliers by email, by phone and by hand. Nothing is kept. How do you judge it?","options":[{"id":"A","text":"Flexible and good, since each buyer picks the way that suits them best."},{"id":"B","text":"Phone is fastest, so use only the phone."},{"id":"C","text":"Email only is fine, and no record is needed."},{"id":"D","text":"Define one route, keep records, check the current version."}],"lang":"en","mark":"FTA draft, unverified","rb_ids":[],"rb":null,"ord":15},{"id":"iso9001-84/Q3346","module":"iso9001-84","section":"8.4.1","kb":"KB2","kind":"question","text":"Is there an approved supplier list?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3346],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":263,"text":"- Is there an approved supplier list?"},"ord":16},{"id":"iso9001-84/Q3347","module":"iso9001-84","section":"8.4.1","kb":"KB2","kind":"question","text":"Are supplier evaluation criteria defined?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3347],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":264,"text":"- Are supplier evaluation criteria defined?"},"ord":17},{"id":"iso9001-84/Q3548","module":"iso9001-84","section":"8.4.1","kb":"KB2","kind":"question","text":"Are approved supplier lists maintained and updated?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3548],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":231,"text":"- Are approved supplier lists maintained and updated?"},"ord":18},{"id":"iso9001-84/Q3549","module":"iso9001-84","section":"8.4.1","kb":"KB2","kind":"question","text":"How are suppliers evaluated and re-evaluated?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3549],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":232,"text":"- How are suppliers evaluated and re-evaluated?"},"ord":19},{"id":"iso9001-84/Q3348","module":"iso9001-84","section":"8.4.2","kb":"KB2","kind":"question","text":"Are suppliers monitored (performance data, audits)?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3348],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":265,"text":"- Are suppliers monitored (performance data, audits)?"},"ord":20},{"id":"iso9001-84/Q3349","module":"iso9001-84","section":"8.4.2","kb":"KB2","kind":"question","text":"Are purchasing controls appropriate to the risk?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3349],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":266,"text":"- Are purchasing controls appropriate to the risk?"},"ord":21},{"id":"iso9001-84/Q3550","module":"iso9001-84","section":"8.4.2","kb":"KB2","kind":"question","text":"How are supplier performance issues escalated and managed?","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3550],"rb":{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":233,"text":"- How are supplier performance issues escalated and managed?"},"ord":22},{"id":"iso9001-84/E01","module":"iso9001-84","section":"8.4.E","kb":"KB2","kind":"evidence","text":"Approved supplier list","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3350,3551],"rb":{"lines":[{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":267,"text":"- *Evidence:* approved supplier list, supplier evaluation records, supplier KPIs"},{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":234,"text":"- *Evidence: approved supplier list, supplier evaluation records, supplier corrective action records*"}]},"ord":23},{"id":"iso9001-84/E02","module":"iso9001-84","section":"8.4.E","kb":"KB2","kind":"evidence","text":"Supplier evaluation records","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3350,3551],"rb":{"lines":[{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":267,"text":"- *Evidence:* approved supplier list, supplier evaluation records, supplier KPIs"},{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":234,"text":"- *Evidence: approved supplier list, supplier evaluation records, supplier corrective action records*"}]},"ord":24},{"id":"iso9001-84/E03","module":"iso9001-84","section":"8.4.E","kb":"KB2","kind":"evidence","text":"Supplier KPIs","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3350],"rb":{"lines":[{"source_file":"skills/audit/iso-9001-internal-audit/SKILL.md","line":267,"text":"- *Evidence:* approved supplier list, supplier evaluation records, supplier KPIs"}]},"ord":25},{"id":"iso9001-84/E04","module":"iso9001-84","section":"8.4.E","kb":"KB2","kind":"evidence","text":"Supplier corrective action records","lang":"en","mark":"RB-derived, AI draft, unverified","rb_ids":[3551],"rb":{"lines":[{"source_file":"skills/audit/iso-9001-internal-audit/references/clause-questions.md","line":234,"text":"- *Evidence: approved supplier list, supplier evaluation records, supplier corrective action records*"}]},"ord":26}]};
+var PRACTICE_USERS=["SQE0","SQE1","SQE2","SQE3","SQE4","SQE5","SQE6","SQE7","SQE8","SQE9","SQE10","SQE11","SQE12","SQE13","SQE14","SQE15","SQE16","SQE17","SQE18","SQE19","SQE20","SQE21","SQE22","SQE23","SQE24","SQE25","SQE26","SQE27","SQE28","SQE29","SQE30","SQE31","SQE32","SQE33","SQE34","SQE35","SQE36","SQE37","SQE38","SQE39","SQE40","SQE41","SQE42","SQE43","SQE44","SQE45","SQE46","SQE47","SQE48","SQE49","SQE50","SQE51","SQE52","SQE53","SQE54","SQE55","SQE56","SQE57","SQE58","SQE59","SQE60","SQE61","SQE62","SQE63","SQE64","SQE65","SQE66","SQE67","SQE68","SQE69","SQE70","SQE71","SQE72","SQE73","SQE74","SQE75","SQE76","SQE77","SQE78","SQE79","SQE80","SQE81","SQE82","SQE83","SQE84","SQE85","SQE86","SQE87","SQE88","SQE89","SQE90","SQE91","SQE92","SQE93","SQE94","SQE95","SQE96","SQE97","SQE98","SQE99","SQE000040"];
+/* ===== KB capture page v2: base (helpers, icons, state) ===== */
+var META='Author: F2 · 2026-11-04 12:14 HKT · rev01 · DRAFT';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var S={lang:'zh',sound:true,live:!!KB_SERVER,tok:'',user:null,role:'',weak:false,pack:null,resp:{},me:null,to:KB.TO_WHOM,busy:false,pend:0,rec:null,err:''};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function t(en,zh){return S.lang==='zh'?zh:en}
+function L(o){if(o==null)return '';if(typeof o==='string')return o;return o[S.lang]||o.en||o.zh||''}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function fmtDate(ms){if(!ms)return '';var d=new Date(ms);if(isNaN(d))return '';var p=function(n){return (n<10?'0':'')+n};return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
+function fmtSecs(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
+
+var IC={
+back:'<path d="M15 5l-7 7 7 7"/>',chev:'<path d="M9 5l7 7-7 7"/>',out:'<path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M10 16l-4-4 4-4M6 12h10"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',stop:'<rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/>',
+cam:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',trash:'<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>',
+x:'<path d="M6 6l12 12M18 6L6 18"/>',send:'<path d="M4 12l16-8-6 16-2.5-6.5z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',
+logo:'<path d="M8 5v14M8 12l8-7M8 12l8 7"/>',dl:'<path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/>',flag:'<path d="M6 21V4M6 5h11l-2 4 2 4H6"/>'
+};
+function ic(n,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||22)+'" height="'+(sz||22)+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[n]||'')+'</svg>'}
+
+var AC=null;
+function clickFx(){
+  if(!S.sound)return;
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+    var o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime;o.type='sine';o.frequency.setValueAtTime(1500,n);o.frequency.exponentialRampToValueAtTime(800,n+.04);
+    g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(.1,n+.004);g.gain.exponentialRampToValueAtTime(.0001,n+.06);o.connect(g);g.connect(AC.destination);o.start(n);o.stop(n+.07);window.__fx=(window.__fx||0)+1}catch(e){}
+}
+var TT=0;
+function toast(m){var el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(TT);TT=setTimeout(function(){el.classList.remove('on')},2600)}
+
+/* small settings kept on this device (settings only, never an answer) */
+function cfgSave(){try{localStorage.setItem('kb2.cfg',JSON.stringify({lang:S.lang,sound:S.sound}))}catch(e){}}
+function cfgLoad(){try{S.lang=(navigator.language||'').slice(0,2)==='zh'?'zh':'en';var c=JSON.parse(localStorage.getItem('kb2.cfg')||'{}');if(c.lang)S.lang=c.lang;if(c.sound===false)S.sound=false}catch(e){}}
+function tokSave(){try{if(S.tok)localStorage.setItem('kb2.tok',(S.live?'L:':'P:')+S.tok);else localStorage.removeItem('kb2.tok')}catch(e){}}
+function tokLoad(){try{var v=localStorage.getItem('kb2.tok')||'';if(v.slice(0,2)===(S.live?'L:':'P:'))return v.slice(2)}catch(e){}return ''}
+
+/* IndexedDB (voice and photo of the practice mode; in-memory fallback) */
+var DBH=null,MEM={};
+function idbOpen(){return new Promise(function(res){try{var r=indexedDB.open('kb2-practice',1);r.onupgradeneeded=function(){r.result.createObjectStore('media')};var to=0;r.onsuccess=function(){if(!to)DBH=r.result;res()};r.onerror=function(){res()};r.onblocked=function(){res()};setTimeout(function(){to=1;res()},2500)}catch(e){res()}})}
+function mGet(k){return DBH?new Promise(function(r){try{var q=DBH.transaction('media','readonly').objectStore('media').get(k);q.onsuccess=function(){r(q.result)};q.onerror=function(){r()}}catch(e){r()}}):Promise.resolve(MEM[k])}
+function mSet(k,v){if(!DBH){MEM[k]=v;return Promise.resolve()}return new Promise(function(r){try{var tx=DBH.transaction('media','readwrite');tx.objectStore('media').put(v,k);tx.oncomplete=function(){r()};tx.onerror=function(){r()};tx.onabort=function(){r()}}catch(e){r()}})}
+function mDel(k){if(!DBH){delete MEM[k];return Promise.resolve()}return new Promise(function(r){try{var tx=DBH.transaction('media','readwrite');tx.objectStore('media').delete(k);tx.oncomplete=function(){r()};tx.onerror=function(){r()}}catch(e){r()}})}
+
+/* pack helpers */
+function items(){return S.pack?S.pack.items:[]}
+function itemById(id){return items().filter(function(i){return i.id===id})[0]}
+function secOf(i){return S.pack.sections.filter(function(s){return s.module===i.module&&s.id===i.section})[0]}
+function modOf(id){return S.pack.modules.filter(function(m){return m.id===id})[0]}
+function listFor(mod,kb){return items().filter(function(i){return i.module===mod&&i.kb===kb}).sort(function(a,b){return a.ord-b.ord})}
+function R(id){return S.resp[id]||null}
+function done(id){return KB.isAnswered(R(id))}
+function counts(list){var d=0,u=0;list.forEach(function(i){if(done(i.id))d++;var r=R(i.id);if(r&&r.unsent)u++});return {done:d,total:list.length,unsent:u}}
+function langLabel(l){var m={en:['English original','英文原文'],zh:['Chinese original','中文原文'],de:['German original','德文原文'],es:['Spanish original','西班牙文原文'],pt:['Portuguese original','葡萄牙文原文']};var x=m[l];return x?t(x[0],x[1]):t('Original language: '+l,'原文语言：'+l)}
+function markText(m){return m==='FTA draft, unverified'?t('FTA draft, unverified','FTA 草稿，未核实'):t('RB-derived, AI draft, unverified','RB 来源，AI 草稿，未核实')}
+function kbName(kb){return kb==='KB1'?t('Scenario questions','情景选择题'):t('Open questions','开放问题')}
+function errMsg(e){if(!e)return '';if(e.error==='identifiable')return t('Please remove personal details (email, phone, link, @name) and save again.','请去掉个人信息（邮箱、电话、链接、@名字）后再保存。');if(e.error==='throttled')return t('Too many tries. Wait a few minutes.','尝试次数太多，请等几分钟。');if(e.error==='bad_login')return t('Unknown number. Type your number, e.g. SQE12.','编号不对，请输入你的编号，例如 SQE12。');if(e.status===0)return t('No connection. Your last change was not saved.','没有网络，刚才的修改没有保存。');return e.message||t('Something went wrong','出错了')}
+/* ===== API: the live server, or the same shapes served from this device (practice mode) ===== */
+function E(status,code,msg,extra){var j={ok:false,error:code,message:msg};if(extra)for(var k in extra)j[k]=extra[k];return {ok:false,status:status,j:j}}
+function OK(o){var j={ok:true};if(o)for(var k in o)j[k]=o[k];return {ok:true,status:200,j:j}}
+
+function api(method,path,opt){
+  opt=opt||{};
+  if(!S.live)return Promise.resolve().then(function(){return localApi(method,path,opt)});
+  var h={};if(S.tok)h.Authorization='Bearer '+S.tok;var b;
+  if(opt.raw){b=opt.raw;h['Content-Type']=opt.type||'application/octet-stream'}else if(opt.body!==undefined){b=JSON.stringify(opt.body);h['Content-Type']='application/json'}
+  return fetch(KB_SERVER.replace(/\/$/,'')+path,{method:method,headers:h,body:b}).then(function(x){
+    var ct=x.headers.get('content-type')||'';
+    if(ct.indexOf('json')<0)return x.blob().then(function(bl){return {ok:x.ok,status:x.status,blob:bl,j:{}}});
+    return x.json().then(function(j){return {ok:x.ok&&j.ok!==false,status:x.status,j:j}})
+  }).catch(function(){return E(0,'offline','No connection')});
+}
+
+/* ---------- practice mode: a small local copy of the server, same routes, same checks ---------- */
+var LDB=null;
+function ldbLoad(){if(LDB)return LDB;try{LDB=JSON.parse(localStorage.getItem('kb2.practice')||'null')}catch(e){}if(!LDB)LDB={sess:{},resp:{},rev:{},subs:{},off:{},last:{}};return LDB}
+function ldbSave(){try{localStorage.setItem('kb2.practice',JSON.stringify(LDB))}catch(e){}}
+function rand(n){var a=new Uint8Array(n);(window.crypto||window.msCrypto).getRandomValues(a);return KB.b64u(a)}
+function lAuth(opt,tok){var d=ldbLoad(),u=d.sess[tok||S.tok];if(!u||d.off[u])return null;return {user:u,role:u==='SQE0'?'owner':'contributor'}}
+function lResp(u){var d=ldbLoad();return d.resp[u]||(d.resp[u]={})}
+function lView(r){
+  var same=r.sent&&(r.choice||null)===(r.sent.choice||null)&&(r.text||'')===(r.sent.text||'')&&!!r.voice===!!r.sent.voice&&!!r.photo===!!r.sent.photo;
+  var a=KB.isAnswered({choice:r.choice,text:r.text,has_voice:!!r.voice});
+  return {choice:r.choice||null,text:r.text||'',has_voice:!!r.voice,has_photo:!!r.photo,updated_at:r.upd,sent_at:r.sent?r.sent.at:null,unsent:a&&!same}
+}
+function lViews(u){var o={},rs=lResp(u);for(var id in rs)o[id]=lView(rs[id]);return o}
+function lItem(id){return PACK.items.filter(function(i){return i.id===id})[0]}
+function lFlags(rows,dup){var f=[],k1=rows.filter(function(r){return r.kb==='KB1'&&r.sent.choice}).sort(function(a,b){return a.ord-b.ord});var p=KB.patternFlag(k1.map(function(r){return r.sent.choice}));if(p)f.push('pattern:'+p);var tm=k1.filter(function(r){return r.ms>0});if(tm.length>=4&&tm.filter(function(r){return r.ms<1500}).length/tm.length>=.6)f.push('too_fast');if(dup)f.push('duplicate_text');return f}
+function lSentRows(){var d=ldbLoad(),out=[];for(var u in d.resp)for(var id in d.resp[u]){var r=d.resp[u][id];if(r.sent){var it=lItem(id);if(it)out.push({user:u,item:id,kb:it.kb,ord:it.ord,sent:r.sent,ms:r.ms||0,th:r.th})}}return out}
+function lDup(rows){var c={};rows.forEach(function(r){if(r.th)c[r.th]=(c[r.th]||0)+1});return c}
+
+function localApi(method,path,opt){
+  var q={},qi=path.indexOf('?');if(qi>=0){path.slice(qi+1).split('&').forEach(function(p){var kv=p.split('=');q[kv[0]]=decodeURIComponent(kv[1]||'')});path=path.slice(0,qi)}
+  var d=ldbLoad(),b=opt.body||{};
+  if(path==='/v1/login'&&method==='POST'){
+    var u=KB.normUser(b.user);
+    if(PRACTICE_USERS.indexOf(u)<0||d.off[u])return E(401,'bad_login','Unknown number');
+    var tok=rand(32);d.sess[tok]=u;d.last[u]=Date.now();ldbSave();
+    return OK({token:tok,user:{id:u,role:u==='SQE0'?'owner':'contributor'},expires_at:Date.now()+14*864e5})
+  }
+  var a=lAuth(opt);if(!a)return E(401,'unauthorized','Please enter your number first');
+  if(path==='/v1/logout'&&method==='POST'){delete d.sess[S.tok];ldbSave();return OK()}
+  if(path==='/v1/pack'&&method==='GET')return OK(JSON.parse(JSON.stringify(PACK)));
+  if(path==='/v1/me'&&method==='GET'){
+    var o={user:{id:a.user,role:a.role},to:KB.TO_WHOM};if(a.role==='owner')return OK(o);
+    var pr=KB.progressOf(PACK.items,lViews(a.user)),uns=0,v=lViews(a.user);for(var k in v)if(v[k].unsent)uns++;pr.unsent=uns;
+    var s=d.subs[a.user]||[],ls=s[s.length-1];o.progress=pr;o.last_submit=ls?{at:ls.at,answered:ls.answered,changed:ls.changed}:null;return OK(o)}
+  if(path.indexOf('/v1/admin/')===0)return localAdmin(method,path.slice(10),q,b,a,d);
+  if(a.role==='owner')return E(403,'forbidden','The reviewer has no answers of its own');
+  var rs=lResp(a.user);
+  if(path==='/v1/responses'&&method==='GET')return OK({responses:lViews(a.user)});
+  if(path==='/v1/response'&&method==='PUT'){
+    var it=lItem(b.item);if(!it)return E(404,'no_item','No such question');
+    var ch=b.choice==null||b.choice===''?null:String(b.choice),tx=typeof b.text==='string'?b.text.replace(/\r\n/g,'\n'):'';
+    if(!KB.validChoice(it,ch))return E(422,'bad_choice','That option does not exist');if(tx.length>2000)return E(422,'too_long','Too long (max 2000 characters)');
+    var hits=KB.scanIdentifiable(tx);if(hits.length)return E(422,'identifiable','Please remove personal details',{hits:hits});
+    var r=rs[it.id]||(rs[it.id]={});r.choice=ch;r.text=tx;r.ms=Math.min(3600000,(r.ms||0)+Math.max(0,Math.min(600000,parseInt(b.ms,10)||0)));r.th=KB.textLen(tx)>=20?KB.djb(KB.normText(tx)):null;r.upd=Date.now();ldbSave();
+    return OK({item:it.id,response:lView(r)})}
+  if(path==='/v1/media'){
+    var it2=lItem(q.item),ty=q.type;if(!it2)return E(404,'no_item','No such question');if(ty!=='voice'&&ty!=='photo')return E(400,'bad_type','type must be voice or photo');
+    var mk=a.user+'|'+it2.id+'|'+ty,r2=rs[it2.id];
+    if(method==='PUT'){var bl=opt.raw;if(!bl||!bl.size)return E(400,'empty','Empty file');if(bl.size>5*1024*1024)return E(413,'too_large','File too large (max 5 MB)');
+      return mSet(mk,bl).then(function(){var r3=rs[it2.id]||(rs[it2.id]={text:''});r3[ty]=1;r3.upd=Date.now();ldbSave();return OK({item:it2.id,type:ty,bytes:bl.size})})}
+    if(method==='GET')return mGet(mk).then(function(bl){return bl?{ok:true,status:200,blob:bl,j:{}}:E(404,'no_media','Nothing saved')});
+    if(method==='DELETE')return mDel(mk).then(function(){if(r2){delete r2[ty];r2.upd=Date.now();ldbSave()}return OK()})}
+  if(path==='/v1/submit'&&method==='POST'){
+    var ids=Object.keys(rs).filter(function(id){var r=rs[id];return KB.isAnswered({choice:r.choice,text:r.text,has_voice:!!r.voice})});
+    if(!ids.length)return E(400,'nothing_to_send','Answer at least one question first');
+    var nw2=0,chg=0,tm=Date.now(),jobs=[];
+    ids.forEach(function(id){var r=rs[id],same=r.sent&&(r.choice||null)===(r.sent.choice||null)&&(r.text||'')===(r.sent.text||'')&&!!r.voice===!!r.sent.voice&&!!r.photo===!!r.sent.photo;if(same)return;if(!r.sent)nw2++;else chg++;
+      r.sent={at:tm,choice:r.choice,text:r.text,voice:!!r.voice,photo:!!r.photo};
+      ['voice','photo'].forEach(function(ty){var k=a.user+'|'+id+'|'+ty;if(r[ty])jobs.push(mGet(k).then(function(bl){return bl?mSet('S|'+k,bl):0}))})});
+    if(!nw2&&!chg)return OK({no_change:true,to:KB.TO_WHOM,answered:ids.length,total:PACK.items.length,new:0,changed:0});
+    (d.subs[a.user]=d.subs[a.user]||[]).push({at:tm,answered:ids.length,changed:nw2+chg});
+    return Promise.all(jobs).then(function(){ldbSave();return OK({to:KB.TO_WHOM,answered:ids.length,total:PACK.items.length,new:nw2,changed:chg,at:tm})})}
+  return E(404,'not_found','Not found')
+}
+function localAdmin(method,sub,q,b,a,d){
+  if(a.role!=='owner')return E(403,'forbidden','Reviewer only');
+  var rows=lSentRows(),dm=lDup(rows);
+  if(sub==='users'&&method==='GET'){var by={};rows.forEach(function(r){(by[r.user]=by[r.user]||[]).push(r)});var list=[];
+    for(var n=1;n<=99;n++){var id='SQE'+n,rs=by[id]||[],sb=d.subs[id]||[];list.push({id:id,disabled:!!d.off[id],last_login:d.last[id]||null,sent:rs.length,KB1:rs.filter(function(r){return r.kb==='KB1'}).length,KB2:rs.filter(function(r){return r.kb==='KB2'}).length,last_submit:sb.length?sb[sb.length-1].at:null,submits:sb.length,flags:lFlags(rs,rs.some(function(r){return r.th&&dm[r.th]>1}))})}
+    return OK({totals:{KB1:PACK.items.filter(function(i){return i.kb==='KB1'}).length,KB2:PACK.items.filter(function(i){return i.kb==='KB2'}).length},users:list})}
+  if(sub==='user'&&method==='GET'){var id2=KB.normUser(q.id);if(PRACTICE_USERS.indexOf(id2)<0||id2==='SQE0')return E(404,'no_user','No such user');var urs=lResp(id2),mine=rows.filter(function(r){return r.user===id2});
+    return OK({user:{id:id2,disabled:!!d.off[id2],last_login:d.last[id2]||null},flags:lFlags(mine,mine.some(function(r){return r.th&&dm[r.th]>1})),items:PACK.items.map(function(it){var r=urs[it.id],sent=r&&r.sent,rv=d.rev[id2+'|'+it.id];
+      return {id:it.id,section:it.section,kb:it.kb,kind:it.kind,text:it.text,options:it.options,mark:it.mark,lang:it.lang,rb:it.rb,rb_ids:it.rb_ids,sent:sent?{at:sent.at,choice:sent.choice,text:sent.text,has_voice:sent.voice,has_photo:sent.photo,ms:r.ms||0,dup:!!(r.th&&dm[r.th]>1)}:null,key:null,grade:null,review:rv?{score:rv.score,comment:rv.comment,at:rv.at}:null}})})}
+  if(sub==='review'&&method==='PUT'){var u3=KB.normUser(b.user),sc=parseInt(b.score,10);if(!(sc>=0&&sc<=2))return E(422,'bad_score','Score is 0, 1 or 2');var r4=lResp(u3)[b.item];if(!r4||!r4.sent)return E(404,'not_sent','Nothing was sent for this question');d.rev[u3+'|'+b.item]={score:sc,comment:String(b.comment||'').slice(0,1000),at:Date.now()};ldbSave();return OK()}
+  if(sub==='stats'&&method==='GET'){return OK({users_sent:Object.keys(rows.reduce(function(o,r){o[r.user]=1;return o},{})).length,items:PACK.items.map(function(it){var rs2=rows.filter(function(r){return r.item===it.id}),dist={};rs2.forEach(function(r){if(r.sent.choice)dist[r.sent.choice]=(dist[r.sent.choice]||0)+1});return {id:it.id,kb:it.kb,kind:it.kind,section:it.section,text:it.text,sent:rs2.length,with_text:rs2.filter(function(r){return KB.textLen(r.sent.text)>0}).length,dist:dist,key:null,match:null}})})}
+  if(sub==='export'&&method==='GET'){var doc={note:'Unverified drafts. KB2 wording is RB-derived (MIT); KB1 scenarios are FTA drafts. Practice mode: no key.',attribution:PACK.attribution,answers:rows.map(function(r){var it=lItem(r.item),rv=d.rev[r.user+'|'+r.item];return {user:r.user,item:r.item,kb:it.kb,section:it.section,mark:it.mark,question:it.text,rb_ids:it.rb_ids,choice:r.sent.choice,answer_text:r.sent.text,voice:!!r.sent.voice,photo:!!r.sent.photo,sent_at:r.sent.at,fta_key:null,grade:null,review:rv?{score:rv.score,comment:rv.comment}:null}})};
+    return {ok:true,status:200,j:{ok:true,doc:doc,note:doc.note,attribution:doc.attribution,answers:doc.answers},yaml:KB.toYaml(doc)+'\n'}}
+  if(sub==='media'&&method==='GET'){var k='S|'+KB.normUser(q.user)+'|'+q.item+'|'+q.type;return mGet(k).then(function(bl){return bl?{ok:true,status:200,blob:bl,j:{}}:E(404,'no_media','Nothing was sent')})}
+  if(sub==='disable'&&method==='POST'){var u6=KB.normUser(b.user);if(PRACTICE_USERS.indexOf(u6)<0||u6==='SQE0')return E(400,'bad_user','Bad user');if(b.disabled){d.off[u6]=1;Object.keys(d.sess).forEach(function(k){if(d.sess[k]===u6)delete d.sess[k]})}else delete d.off[u6];ldbSave();return OK()}
+  return E(404,'not_found','Not found')
+}
+
+/* ---------- session + data loading ---------- */
+function loadAll(){
+  return api('GET','/v1/me').then(function(m){
+    if(!m.ok)return m;S.me=m.j;S.user=m.j.user.id;S.role=m.j.user.role;
+    return api('GET','/v1/pack').then(function(p){if(!p.ok)return p;S.pack=p.j;S.to=p.j.to||S.to;
+      if(S.role==='owner'){S.resp={};return m}
+      return api('GET','/v1/responses').then(function(r){if(!r.ok)return r;S.resp=r.j.responses||{};return draftMerge().then(function(n){if(n)setTimeout(function(){toast(t(n+' answer(s) from this device were saved','本设备上的 '+n+' 个答案已保存'))},600);return m})})})})
+}
+function refreshMe(){return api('GET','/v1/me').then(function(m){if(m.ok)S.me=m.j;return m})}
+/* ===== Contributor screens (phone first) ===== */
+var CUR={id:null,t0:0,timer:0,saving:null,media:{}};
+function route(){var h=location.hash.replace(/^#\/?/,'').split('/').map(function(x){try{return decodeURIComponent(x)}catch(e){return x}});return h}
+function go(path){var n='#/'+path;if(location.hash===n)render();else location.hash=n}
+function shell(o){
+  /* o: {title, back, right, body, foot, wide} */
+  var bk=o.back?'<button class="ib bk" data-act="back" aria-label="'+t('Back','返回')+'">'+ic('back')+'<span>'+t('Back','返回')+'</span></button>':'<button class="ib who" data-act="acct" aria-label="'+t('Me','我')+'">'+ic('user',20)+'<span>'+esc(S.user||'')+'</span></button>';
+  return '<div class="wrap'+(o.wide?' wide':'')+'"><header class="top">'+bk+'<div class="tt">'+esc(o.title||'')+'</div><div class="tr">'+(o.right||'')+'</div></header><main class="mn">'+(o.banner||'')+o.body+'</main>'+(o.foot?'<footer class="bar">'+o.foot+'</footer>':'')+'</div>'
+}
+function submitChip(){var c=unsentCount();return '<button class="chip pri" data-act="submit">'+ic('send',16)+'<span>'+t('Submit','提交')+'</span>'+(c?'<i class="dot">'+c+'</i>':'')+'</button>'}
+function unsentCount(){var n=0;for(var k in S.resp)if(S.resp[k].unsent)n++;return n}
+function answeredCount(){var n=0;for(var k in S.resp)if(KB.isAnswered(S.resp[k]))n++;return n}
+function banner(){
+  var h='';
+  if(!S.live)h+='<div class="note"><b>'+t('Practice mode','练习模式')+'</b> '+t('Answers stay on this device. Nothing is sent over the internet.','答案只保存在这台设备上，不会通过网络发送。')+'</div>';
+  return h
+}
+
+/* ---------- start screen: type your number ---------- */
+function vStart(){
+  return '<div class="wrap entry"><div class="seg lg2"><button data-act="lang" data-v="zh" class="'+(S.lang==='zh'?'on':'')+'">中文</button><button data-act="lang" data-v="en" class="'+(S.lang==='en'?'on':'')+'">EN</button></div>'+
+  '<div class="hero"><div class="logo">'+ic('logo',34)+'</div><p class="brand">FTA · KB 知识库采集</p><h1>'+t('Type your number to start','输入你的编号开始答题')+'</h1><p class="sub">'+t('Share what you know about supplier quality.','分享你对供应商质量的了解。')+'</p></div>'+
+  (S.live?'':'<div class="note"><b>'+t('Practice mode','练习模式')+'</b> '+t('Answers stay on this device.','答案只保存在这台设备上。')+'</div>')+
+  '<div id="lf" class="startf"><label class="fld"><span>'+t('Your number','你的编号')+'</span><input id="lu" name="code" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="'+t('e.g. SQE12','例如 SQE12')+'"></label><p class="fine lh">'+t('For example SQE12. Capital or small letters both work.','例如 SQE12，大小写都可以。')+'</p>'+
+  
+  '<p class="err" id="le" role="alert">'+esc(S.err)+'</p><button class="btn pri" type="button" data-act="start" id="lb">'+t('Start','开始 Start')+'</button></div>'+
+  '<p class="fine">'+t('Draft. Questions come from a public checklist (RB, MIT licence) and from FTA drafts. Nothing here is verified.','草稿。题目来自公开清单（RB，MIT 许可）和 FTA 草稿，均未核实。')+'</p></div>'
+}
+function doStart(ev){
+  if(ev&&ev.preventDefault)ev.preventDefault();var u=$('#lu').value,b=$('#lb');if(!String(u||'').trim()){$('#le').textContent=t('Type your number first, e.g. SQE12.','请先输入编号，例如 SQE12。');return}if(b.disabled)return;b.disabled=true;b.textContent=t('Opening…','打开中…');$('#le').textContent='';
+  setTimeout(function(){api('POST','/v1/login',{body:{user:u}}).then(function(r){
+    if(!r.ok){b.disabled=false;b.textContent=t('Start','开始 Start');$('#le').textContent=errMsg(r.j);return}
+    S.tok=r.j.token;tokSave();return loadAll().then(function(m){if(m&&m.ok===false){S.tok='';tokSave();S.err=errMsg(m.j);render();return}S.err='';go(S.role==='owner'?'desk':'')})})},30)
+}
+function askLogout(){closeSheet();flush().then(function(){var un=unsentCount();
+  if(!un)return logout();
+  openSheet('<h3>'+t('Switch person / Leave?','换人 / 退出？')+'</h3><p>'+t(un+' answer'+(un>1?'s are':' is')+' saved but not submitted yet. Submit first so '+S.to+' gets '+(un>1?'them':'it')+'.',un+' 个答案已保存，但还没提交。先提交，'+S.to+' 才能收到。')+'</p><p class="fine">'+t('If you leave now, they stay saved under '+S.user+'. Type the same number next time to continue.','现在退出的话，答案仍保存在 '+S.user+' 名下，下次输入同一个编号就能接着做。')+'</p><div class="btns"><button class="btn pri" data-act="sendOut" id="sb">'+ic('send',18)+'<span>'+t('Submit and leave','提交并退出')+'</span></button><button class="btn" data-act="logoutGo">'+t('Leave without submitting','不提交，直接退出')+'</button><button class="btn" data-act="close">'+t('Cancel','取消')+'</button></div><p class="err" id="se"></p>')})}
+function logout(){return api('POST','/v1/logout').then(function(){S.tok='';S.user=null;S.role='';S.resp={};S.pack=null;S.me=null;S.weak=false;tokSave();closeSheet();location.hash='';render()})}
+
+/* ---------- home ---------- */
+function vHome(){
+  var tot=items().length,an=answeredCount(),un=unsentCount(),pc=tot?Math.round(an/tot*100):0;
+  var mods=S.pack.modules.map(function(m){
+    var rows=['KB1','KB2'].map(function(kb){var l=listFor(m.id,kb),c=counts(l);return '<button class="row" data-act="open" data-to="list/'+esc(m.id)+'/'+kb+'"><div class="rt"><b>'+kbName(kb)+'</b><small>'+(kb==='KB1'?t('Pick the best answer, A to D','选出最好的答案，A 到 D'):t('Pick an answer or write your own','选一个答案，或写自己的'))+'</small></div><div class="rc"><span class="cnt'+(c.done===c.total?' full':'')+'">'+c.done+'/'+c.total+'</span>'+ic('chev',18)+'</div></button>'}).join('');
+    return '<section class="card"><div class="mh"><h2>'+esc(L(m.name))+'</h2><span class="tag">'+t('Trial','试用')+'</span></div><p class="hint">'+esc(L(m.note))+'</p>'+rows+'</section>'
+  }).join('');
+  var body='<section class="card prog"><div class="big">'+an+'<small> / '+tot+'</small></div><div class="hint">'+t('questions answered','题已回答')+'</div><div class="bar1"><i style="width:'+pc+'%"></i></div>'+
+    '<p class="hint">'+(un?t(un+' not sent yet. Press Submit when you are ready. You can submit again later.',un+' 题还没提交。准备好后点“提交”，以后可以再次提交。'):(an?t('Everything answered is sent. You can stop at any time.','已回答的都已提交。可以随时停下。'):t('Answer as many as you like, then press Submit. You do not need to finish.','想答多少答多少，然后点“提交”。不需要全部做完。')))+'</p></section>'+mods+
+    '<div class="card flush"><button class="row" data-act="logout" id="homeOut"><div class="rt"><b>'+t('Switch person / Leave','换人 / 退出')+'</b><small>'+t('Current number ','当前编号 ')+esc(S.user||'')+'</small></div>'+ic('out',18)+'</button></div>'+
+    '<p class="fine"><button class="lnk" data-act="about">'+t('About this content and licence','关于内容和许可')+'</button></p>';
+  return shell({title:'FTA · KB 知识库采集',right:submitChip(),banner:banner(),body:body,foot:'<button class="btn pri" data-act="submit">'+ic('send',18)+'<span>'+t('Submit to '+S.to,'提交给 '+S.to)+'</span>'+(un?'<i class="dot">'+un+'</i>':'')+'</button>'})
+}
+
+/* ---------- list ---------- */
+function vList(modId,kb){
+  var m=modOf(modId),l=listFor(modId,kb);if(!m||!l.length){go('');return ''}
+  var secs=S.pack.sections.filter(function(s){return s.module===modId}).sort(function(a,b){return a.ord-b.ord}),c=counts(l),h='';
+  secs.forEach(function(s){var ls=l.filter(function(i){return i.section===s.id});if(!ls.length)return;
+    h+='<h3 class="sec">'+esc(L(s.title))+'</h3><div class="card flush">'+ls.map(function(i){var d=done(i.id),r=R(i.id),n=l.indexOf(i)+1;
+      return '<button class="row" data-act="open" data-to="item/'+encodeURIComponent(i.id)+'"><span class="st'+(d?' ok':'')+'">'+(d?ic('check',16):n)+'</span><div class="rt"><b class="clip">'+esc(i.text)+'</b>'+(r&&r.unsent?'<small class="or">'+t('Not sent yet','未提交')+'</small>':'')+'</div>'+ic('chev',18)+'</button>'}).join('')+'</div>'});
+  return shell({title:kbName(kb),back:true,right:submitChip(),banner:banner(),body:'<p class="hint ctr">'+esc(L(m.name))+' · '+c.done+'/'+c.total+'</p><div class="bar1"><i style="width:'+Math.round(c.done/c.total*100)+'%"></i></div>'+h})
+}
+
+/* ---------- one question ---------- */
+function optHtml(id,val,text,checked,cls){return '<label class="opt'+(checked?' on':'')+(cls?' '+cls:'')+'"><input type="radio" name="o" value="'+esc(val)+'"'+(checked?' checked':'')+' data-in="choice"><span class="rd"></span><span class="ot">'+text+'</span></label>'}
+function vItem(id){
+  var it=itemById(id);if(!it){go('');return ''}
+  var l=listFor(it.module,it.kb),ix=l.indexOf(it),r=R(id)||{choice:null,text:'',has_voice:false,has_photo:false},h='',s=secOf(it);
+  var chips='<div class="chips"><span class="tag">'+esc(markText(it.mark))+'</span><span class="tag mute">'+esc(langLabel(it.lang))+'</span></div>';
+  h+=chips+'<p class="sc">'+esc(L(s.title))+'</p><h2 class="q">'+esc(it.text)+'</h2>';
+  if(it.kb==='KB1'){
+    h+='<fieldset class="opts" role="radiogroup"><legend class="sr">'+esc(it.text)+'</legend>'+it.options.map(function(o){return optHtml(id,o.id,'<b>'+o.id+'</b>'+esc(o.text),r.choice===o.id)}).join('')+optHtml(id,'E',t('I am not sure','我不确定'),r.choice==='E','soft')+'</fieldset>';
+    h+='<details class="more"'+(r.text?' open':'')+'><summary>'+t('Add a note (optional)','加一句说明（可选）')+'</summary><label class="fld"><span class="sr">'+t('Note','说明')+'</span><textarea id="tx" data-in="text" rows="3" maxlength="2000" placeholder="'+esc(L(KB.KB1_PROMPT))+'">'+esc(r.text)+'</textarea></label></details>'
+  }else{
+    h+='<fieldset class="opts" role="radiogroup"><legend class="sr">'+esc(it.text)+'</legend><p class="hint">'+(it.kind==='evidence'?t('How important is this evidence when you check a supplier?','检查供应商时，这份证据有多重要？'):t('How would you use this question?','你会怎么用这个问题？'))+'</p>'+KB.KB2_OPTIONS[it.kind].map(function(o){return optHtml(id,o.id,esc(L(o)),r.choice===o.id)}).join('')+'</fieldset>';
+    h+='<label class="fld"><span>'+esc(L(KB.KB2_PROMPT[it.kind]))+'</span><textarea id="tx" data-in="text" rows="4" maxlength="2000">'+esc(r.text)+'</textarea></label>';
+    h+='<div class="media" id="md"></div>';
+    var lines=it.rb&&it.rb.lines?it.rb.lines:(it.rb?[it.rb]:[]);
+    if(lines.length)h+='<details class="src"><summary>'+t('Where this comes from','来源')+'</summary>'+lines.map(function(x){return '<p class="fine"><code>'+esc(x.source_file)+' : '+x.line+'</code></p><blockquote>'+esc(x.text)+'</blockquote>'}).join('')+'<p class="fine">'+t('Wording copied exactly from RB (MIT licence).','措辞原样取自 RB（MIT 许可）。')+'</p></details>'
+  }
+  h+='<p class="sv" id="sv" role="status" aria-live="polite">'+(r.updated_at?t('Saved','已保存'):'')+'</p>';
+  var foot='<button class="btn" data-act="prev"'+(ix>0?'':' disabled')+'>'+ic('back',18)+'<span>'+t('Back','上一题')+'</span></button><span class="cntr">'+(ix+1)+' / '+l.length+'</span><button class="btn pri" data-act="next">'+'<span>'+(ix<l.length-1?t('Next','下一题'):t('Done','完成'))+'</span>'+ic('chev',18)+'</button>';
+  return shell({title:kbName(it.kb),back:true,right:submitChip(),body:h,foot:foot})
+}
+function afterItem(id){
+  var it=itemById(id);if(!it)return;CUR={id:id,t0:Date.now(),timer:0,saving:null,media:{}};
+  if(it.kb==='KB2')renderMedia();
+}
+function saveNow(extra){
+  var id=CUR.id;if(!id)return Promise.resolve(true);var it=itemById(id),r=R(id)||{},tx=$('#tx')?$('#tx').value:(r.text||'');
+  var ch=extra&&('choice' in extra)?extra.choice:(r.choice||null),ms=extra&&extra.ms?extra.ms:0;
+  var sv=$('#sv');if(sv){sv.textContent=t('Saving…','保存中…');sv.className='sv'}
+  S.pend++;var at=Date.now();if(S.live)draftPut(id,{choice:ch,text:tx,at:at});
+  return api('PUT','/v1/response',{body:{item:id,choice:ch,text:tx,ms:ms}}).then(function(x){S.pend--;
+    var s2=$('#sv');
+    if(x.ok){if(S.live)draftDrop(id,at);S.resp[id]=x.j.response;if(s2&&CUR.id===id){s2.textContent=t('Saved','已保存')+(S.live?'':' · '+t('on this device','在本设备'));s2.className='sv'}return true}
+    if(S.live&&x.j&&x.j.error==='offline'){var r0=R(id)||{};r0.choice=ch;r0.text=tx;r0.unsent=true;S.resp[id]=r0;if(s2&&CUR.id===id){s2.textContent=t('Kept on this device. It will be saved when you are back online.','已暂存在本设备，联网后会自动保存。');s2.className='sv'}return true}
+    if(s2&&CUR.id===id){s2.textContent=errMsg(x.j);s2.className='sv bad'}return false});
+}
+/* Live safety copy: every answer is also kept in localStorage 'kb2.draft' until the server confirms it.
+   At sign-in, server answers and local copies are merged: newest wins per question (newer local copies are sent to the server). */
+function draftAll(){try{return JSON.parse(localStorage.getItem('kb2.draft')||'{}')||{}}catch(e){return {}}}
+function draftPut(id,v){try{var d=draftAll(),u=S.user||'';d[u]=d[u]||{};d[u][id]=v;localStorage.setItem('kb2.draft',JSON.stringify(d))}catch(e){}}
+function draftDrop(id,at){try{var d=draftAll(),u=S.user||'';if(d[u]&&d[u][id]&&d[u][id].at<=at){delete d[u][id];if(!Object.keys(d[u]).length)delete d[u];localStorage.setItem('kb2.draft',JSON.stringify(d))}}catch(e){}}
+function draftMerge(){
+  if(!S.live||S.role==='owner')return Promise.resolve(0);var d=draftAll(),mine=d[S.user||'']||{},ids=Object.keys(mine),n=0;
+  return ids.reduce(function(p,id){return p.then(function(){var v=mine[id],sr=S.resp[id];
+    if(!itemById(id)){draftDrop(id,v.at);return}
+    if(sr&&sr.updated_at&&sr.updated_at>=v.at){draftDrop(id,v.at);return}
+    return api('PUT','/v1/response',{body:{item:id,choice:v.choice,text:v.text||'',ms:0}}).then(function(x){if(x.ok){S.resp[id]=x.j.response;draftDrop(id,v.at);n++}})})},Promise.resolve()).then(function(){return n})}
+function flush(){clearTimeout(CUR.timer);CUR.timer=0;return CUR.id&&$('#tx')?saveNow():Promise.resolve(true)}
+function pickChoice(v){var id=CUR.id,r=R(id)||{};if(r.choice===v)return;var ms=Math.min(600000,Date.now()-CUR.t0);CUR.t0=Date.now();clickFx();
+  $$('.opt').forEach(function(o){o.classList.toggle('on',o.querySelector('input').value===v)});saveNow({choice:v,ms:ms})}
+function typed(){clearTimeout(CUR.timer);var sv=$('#sv');if(sv){sv.textContent=t('Typing…','输入中…');sv.className='sv'}CUR.timer=setTimeout(function(){CUR.timer=0;saveNow()},700)}
+function step(d){flush().then(function(okk){if(!okk&&$('#sv')&&$('#sv').className.indexOf('bad')>=0&&d!==0){toast(t('This answer was not saved. Fix it first.','这题没有保存成功，请先处理。'));return}
+  var it=itemById(CUR.id),l=listFor(it.module,it.kb),ix=l.indexOf(it)+d;if(d===0||ix<0||ix>=l.length)go('list/'+it.module+'/'+it.kb);else go('item/'+encodeURIComponent(l[ix].id))})}
+
+/* ---------- voice and photo ---------- */
+function renderMedia(){
+  var el=$('#md');if(!el)return;var id=CUR.id,r=R(id)||{};var rec=S.rec&&S.rec.item===id;
+  var h='<div class="mrow">';
+  if(rec)h+='<div class="rec"><i class="rdot"></i><b id="rt">'+fmtSecs((Date.now()-S.rec.t0)/1000)+'</b><button class="chip" data-act="micStop">'+ic('stop',16)+'<span>'+t('Stop','停止')+'</span></button></div>';
+  else h+='<button class="chip" data-act="micStart">'+ic('mic',16)+'<span>'+(r.has_voice?t('Record again','重录'):t('Voice (optional)','语音（可选）'))+'</span></button>';
+  h+='<button class="chip" data-act="photoPick">'+ic('cam',16)+'<span>'+(r.has_photo?t('Photo again','重拍'):t('Photo (optional)','照片（可选）'))+'</span></button></div>';
+  if(r.has_voice)h+='<div class="mitem"><audio controls preload="none" id="au"></audio><button class="ib sm" data-act="mdel" data-t="voice" aria-label="'+t('Delete voice','删除语音')+'">'+ic('trash',18)+'</button></div>';
+  if(r.has_photo)h+='<div class="mitem"><img class="thumb" id="ph" alt=""><button class="ib sm" data-act="mdel" data-t="photo" aria-label="'+t('Delete photo','删除照片')+'">'+ic('trash',18)+'</button></div>';
+  h+='<p class="fine">'+t('Do not say names, companies, phone numbers or show faces or labels.','不要说出人名、公司名、电话，也不要拍到人脸或标签。')+'</p>';
+  el.innerHTML=h;
+  ['voice','photo'].forEach(function(ty){if(!r['has_'+ty])return;api('GET','/v1/media?item='+encodeURIComponent(id)+'&type='+ty).then(function(x){if(!x.ok||!x.blob||CUR.id!==id)return;var u=URL.createObjectURL(x.blob);var e=ty==='voice'?$('#au'):$('#ph');if(e)e.src=u})})
+}
+function micStart(){
+  if(!navigator.mediaDevices||!window.MediaRecorder){toast(t('Voice recording is not available in this browser.','这个浏览器不能录音。'));return}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){
+    var ch=[],mr=new MediaRecorder(st);S.rec={item:CUR.id,mr:mr,t0:Date.now(),st:st};
+    mr.ondataavailable=function(e){if(e.data&&e.data.size)ch.push(e.data)};
+    mr.onstop=function(){st.getTracks().forEach(function(x){x.stop()});var id=S.rec.item,bl=new Blob(ch,{type:mr.mimeType||'audio/webm'});S.rec=null;clearInterval(S.rtimer);
+      if(bl.size<500){renderMedia();return}
+      api('PUT','/v1/media?item='+encodeURIComponent(id)+'&type=voice',{raw:bl,type:bl.type}).then(function(x){if(x.ok){var r=R(id)||{};r.has_voice=true;r.unsent=true;S.resp[id]=r;toast(t('Voice saved','语音已保存'))}else toast(errMsg(x.j));if(CUR.id===id)renderMedia()})};
+    mr.start();clearInterval(S.rtimer);S.rtimer=setInterval(function(){var e=$('#rt');if(e&&S.rec)e.textContent=fmtSecs((Date.now()-S.rec.t0)/1000);else clearInterval(S.rtimer);if(S.rec&&Date.now()-S.rec.t0>180000)micStop()},500);renderMedia()
+  }).catch(function(){toast(t('Microphone is blocked. Allow it in the browser settings.','麦克风被禁用，请在浏览器设置里允许。'))})
+}
+function micStop(){if(S.rec&&S.rec.mr&&S.rec.mr.state!=='inactive')S.rec.mr.stop()}
+function photoPicked(f){
+  if(!f)return;var id=CUR.id;var img=new Image(),u=URL.createObjectURL(f);
+  img.onload=function(){var m=1280,w=img.width,h=img.height,k=Math.min(1,m/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
+    c.toBlob(function(bl){api('PUT','/v1/media?item='+encodeURIComponent(id)+'&type=photo',{raw:bl,type:'image/jpeg'}).then(function(x){if(x.ok){var r=R(id)||{};r.has_photo=true;r.unsent=true;S.resp[id]=r;toast(t('Photo saved','照片已保存'))}else toast(errMsg(x.j));if(CUR.id===id)renderMedia()})},'image/jpeg',.82)};
+  img.onerror=function(){toast(t('Could not read that picture.','读不了这张图片。'))};img.src=u
+}
+function mediaDelete(ty){var id=CUR.id;api('DELETE','/v1/media?item='+encodeURIComponent(id)+'&type='+ty).then(function(x){if(x.ok){var r=R(id)||{};r['has_'+ty]=false;r.unsent=true;S.resp[id]=r;renderMedia()}else toast(errMsg(x.j))})}
+
+/* ---------- submit ---------- */
+function submitPlan(){var an=0,un=0,k1=0,k2=0,nw=0,ch=0;items().forEach(function(i){var r=R(i.id);if(KB.isAnswered(r)){an++;if(i.kb==='KB1')k1++;else k2++;if(r.unsent){un++;if(r.sent_at)ch++;else nw++}}});return {an:an,un:un,k1:k1,k2:k2,nw:nw,ch:ch,empty:items().length-an}}
+function openSubmit(){
+  flush().then(function(){var p=submitPlan(),h;
+    var last=S.me&&S.me.last_submit?t('Last submitted: ','上次提交：')+fmtDate(S.me.last_submit.at):'';
+    if(!p.an)h='<h3>'+t('Nothing to send yet','还没有可提交的内容')+'</h3><p>'+t('You have not answered anything. Answer one question first, then submit. You do not need to finish all of them.','你还没有回答任何题。先回答一题再提交。不需要全部做完。')+'</p><div class="btns"><button class="btn pri" data-act="close">OK</button></div>';
+    else if(!p.un)h='<h3>'+t('Nothing new to send','没有新的内容')+'</h3><p>'+t('All your '+p.an+' answers were already sent to '+S.to+'. If you change an answer, press Submit again.','你的 '+p.an+' 个答案已经提交给 '+S.to+'。修改答案后请再次提交。')+'</p><p class="fine">'+esc(last)+'</p><div class="btns"><button class="btn pri" data-act="close">OK</button></div>';
+    else h='<h3>'+t('Submit to '+S.to,'提交给 '+S.to)+'</h3><p>'+t(S.to+' is the reviewer. You are sending '+p.un+' answer'+(p.un>1?'s':'')+' now ('+p.nw+' new, '+p.ch+' changed). Your answers so far: '+p.an+' ('+p.k1+' scenario, '+p.k2+' open).',S.to+' 是审核人。现在提交 '+p.un+' 个答案（新增 '+p.nw+'，修改 '+p.ch+'）。你目前共答了 '+p.an+' 题（情景题 '+p.k1+'，开放题 '+p.k2+'）。')+'</p>'+
+      '<ul class="ul"><li>'+t('Sent: your answers, typed text, voice and photos.','会发送：你的答案、文字、语音和照片。')+'</li><li>'+t('Not sent: '+p.empty+' empty question'+(p.empty===1?'':'s')+'.',' 不发送：'+p.empty+' 道还没答的题。')+'</li><li>'+t('You can submit again later. Edits stay private until you do.','以后可以再次提交；修改在你再次提交前不会被看到。')+'</li><li>'+t('Text is checked for personal details first.','文字会先检查是否含个人信息。')+'</li>'+(S.live?'':'<li>'+t('Practice mode: it stays on this device.','练习模式：只保存在本设备。')+'</li>')+'</ul><p class="err" id="se"></p><div class="btns"><button class="btn pri" data-act="send" id="sb">'+ic('send',18)+'<span>'+t('Send to '+S.to,'发送给 '+S.to)+'</span></button><button class="btn" data-act="close">'+t('Not now','先不发')+'</button></div>';
+    openSheet(h)})
+}
+function doSend(thenOut){
+  var b=$('#sb');if(b){b.disabled=true}
+  api('POST','/v1/submit',{body:{}}).then(function(x){
+    if(x.ok&&thenOut){toast(t('Sent to '+S.to,'已提交给 '+S.to));return logout()}
+    if(!x.ok){if(b)b.disabled=false;var e=$('#se');if(e){e.textContent=errMsg(x.j);if(x.j.items)e.textContent+=' ('+x.j.items.map(function(i){return i.split('/').pop()}).join(', ')+')'}return}
+    return Promise.all([api('GET','/v1/responses'),refreshMe()]).then(function(rs){if(rs[0].ok)S.resp=rs[0].j.responses;
+      var j=x.j;openSheet('<h3>'+ic('check',22)+' '+t('Sent to '+S.to,'已提交给 '+S.to)+'</h3><p>'+(j.no_change?t('Nothing had changed.','没有变化。'):t(j['new']+' new and '+j.changed+' changed answers were sent. You have answered '+j.answered+' of '+j.total+'.','已发送新增 '+j['new']+'、修改 '+j.changed+' 个答案。你已答 '+j.answered+' / '+j.total+' 题。'))+'</p><p class="fine">'+t('You can keep going and submit again any time.','可以继续答题，随时再次提交。')+'</p><div class="btns"><button class="btn pri" data-act="close">'+t('Keep answering','继续答题')+'</button><button class="btn" data-act="logout">'+t('Switch person / Leave','换人 / 退出')+'</button></div>');render(true)})})
+}
+
+/* ---------- sheets: me, about ---------- */
+function openSheet(h){$('#sheet').innerHTML='<div class="grab"></div>'+h;document.body.classList.add('sh');$('#sheet').classList.add('on');$('#scrim').classList.add('on');var f=$('#sheet [data-act=send],#sheet input,#sheet .btn.pri');if(f&&f.focus)setTimeout(function(){try{f.focus({preventScroll:true})}catch(e){}},50)}
+function closeSheet(){$('#sheet').classList.remove('on');$('#scrim').classList.remove('on');document.body.classList.remove('sh')}
+function openAcct(){
+  openSheet('<h3>'+esc(S.user||'')+' <span class="tag">'+(S.role==='owner'?t('Reviewer','审核人'):t('Contributor','贡献者'))+'</span></h3>'+
+  '<div class="seg"><button data-act="lang" data-v="zh" class="'+(S.lang==='zh'?'on':'')+'">中文</button><button data-act="lang" data-v="en" class="'+(S.lang==='en'?'on':'')+'">EN</button></div>'+
+  '<button class="sw-row" data-act="snd"><span>'+t('Click sound','点击声音')+'</span><i class="sw'+(S.sound?' on':'')+'"></i></button>'+
+  
+  '<button class="btn" data-act="about">'+t('About this content and licence','关于内容和许可')+'</button>'+
+  
+  '<button class="btn pri" data-act="logout">'+ic('out',18)+'<span>'+t('Switch person / Leave','换人 / 退出')+'</span></button><button class="btn" data-act="close">'+t('Close','关闭')+'</button><p class="fine">'+esc(META)+'</p>')
+}
+function openAbout(){
+  var a=S.pack&&S.pack.attribution||{};
+  openSheet('<h3>'+t('About this content','关于内容')+'</h3><p>'+t('This is a draft. Nothing here is verified.','这是草稿，内容均未核实。')+'</p><ul class="ul"><li><b>'+t('Open questions','开放问题')+':</b> '+t('wording from the public RB checklist (ISO 9001 clause 8.4), copied exactly. Marked “RB-derived, AI draft, unverified”.','措辞取自公开的 RB 清单（ISO 9001 第 8.4 条），原样复制。标注“RB 来源，AI 草稿，未核实”。')+'</li><li><b>'+t('Scenario questions','情景选择题')+':</b> '+t('written by FTA. Marked “FTA draft, unverified”. The 8.4.1 / 8.4.2 / 8.4.3 grouping is FTA’s, not RB’s.','由 FTA 编写，标注“FTA 草稿，未核实”。8.4.1 / 8.4.2 / 8.4.3 的分组是 FTA 的，不是 RB 的。')+'</li></ul><p class="fine">'+esc(a.copyright||'')+'<br>'+esc(a.licence||'')+' · '+esc(a.repo||'')+' · '+esc((a.commit||'').slice(0,7))+'</p><div class="btns"><button class="btn pri" data-act="close">OK</button></div>')
+}
+/* ===== Reviewer desk (SQE0) ===== */
+var D={tab:'people',filter:'sent',users:null,totals:null,user:null,stats:null,loading:false,err:''};
+function deskTabs(){return '<div class="seg tabs">'+[['people',t('People','人员')],['stats',t('Questions','题目')],['export',t('Export','导出')]].map(function(x){return '<button data-act="dtab" data-v="'+x[0]+'" class="'+(D.tab===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div>'}
+function flagText(f){var m={'pattern:same':t('Same answer every time','每题选同一个'),'pattern:alternating':t('Alternating answers','轮流选两个'),too_fast:t('Answered very fast','答得非常快'),duplicate_text:t('Same text as someone else','文字和别人一样')};return m[f]||f}
+function vDesk(){
+  var body=deskTabs();
+  if(D.err)body+='<p class="err">'+esc(D.err)+'</p>';
+  if(D.tab==='people'){
+    if(!D.users)body+='<p class="empty">'+t('Loading…','加载中…')+'</p>';
+    else{var us=D.users.filter(function(u){return D.filter==='all'||u.sent>0}),ns=D.users.filter(function(u){return u.sent>0}).length;
+      body+='<p class="hint ctr">'+t(ns+' of '+D.users.length+' numbers have sent answers','有 '+ns+' / '+D.users.length+' 个编号提交过答案')+'</p><div class="seg"><button data-act="dfilter" data-v="sent" class="'+(D.filter==='sent'?'on':'')+'">'+t('Sent','已提交')+'</button><button data-act="dfilter" data-v="all" class="'+(D.filter==='all'?'on':'')+'">'+t('All numbers','全部编号')+'</button></div>';
+      body+=us.length?'<div class="card flush">'+us.map(function(u){return '<button class="row" data-act="open" data-to="desk/user/'+u.id+'"><div class="rt"><b>'+u.id+(u.label?' · '+esc(u.label):'')+(u.disabled?' · '+t('disabled','已停用'):'')+'</b><small>'+t('Scenario '+u.KB1+'/'+D.totals.KB1+' · Open '+u.KB2+'/'+D.totals.KB2,'情景题 '+u.KB1+'/'+D.totals.KB1+' · 开放题 '+u.KB2+'/'+D.totals.KB2)+(u.last_submit?' · '+fmtDate(u.last_submit):'')+'</small></div><div class="rc">'+(u.flags.length?'<span class="tag">'+ic('flag',12)+u.flags.length+'</span>':'')+ic('chev',18)+'</div></button>'}).join('')+'</div>':'<p class="empty">'+t('Nobody has sent anything yet.','还没有人提交。')+'</p>'}
+  }else if(D.tab==='stats'){
+    if(!D.stats)body+='<p class="empty">'+t('Loading…','加载中…')+'</p>';
+    else body+='<p class="hint ctr">'+t(D.stats.users_sent+(D.stats.users_sent===1?' person has':' people have')+' sent answers','已有 '+D.stats.users_sent+' 人提交')+'</p>'+D.stats.items.map(function(i){var it=itemById(i.id),tot=0,k;for(k in i.dist)tot+=i.dist[k];
+      var bars=Object.keys(i.dist).sort().map(function(k2){var lab=it&&it.kb==='KB1'?k2:(KB.KB2_OPTIONS[i.kind].filter(function(o){return o.id===k2})[0]||{en:k2,zh:k2}),txt=typeof lab==='string'?lab:L(lab),pc=tot?Math.round(i.dist[k2]/tot*100):0;return '<div class="bd"><span>'+esc(txt)+'</span><div class="bar1"><i style="width:'+pc+'%"></i></div><b>'+i.dist[k2]+'</b></div>'}).join('');
+      return '<section class="card"><p class="sc">'+esc(i.kb==='KB1'?t('Scenario','情景题'):t('Open','开放题'))+' · '+t(i.sent+' sent','提交 '+i.sent)+(i.key?' · '+t('FTA key '+i.key+', '+(i.match==null?0:i.match)+'% match','FTA 参考答案 '+i.key+'，一致 '+(i.match==null?0:i.match)+'%'):'')+'</p><b class="clip2">'+esc(i.text)+'</b>'+bars+'</section>'}).join('');
+  }else{
+    body+='<section class="card"><h2>'+t('Export all sent answers','导出所有已提交答案')+'</h2><p class="hint">'+t('Includes the question, the RB ids, the marks, the review scores'+(S.live?' and the FTA key.':'.'),'包含题目、RB 编号、标注、评分'+(S.live?'和 FTA 参考答案。':'。'))+'</p><div class="btns"><button class="btn pri" data-act="export" data-v="json">'+ic('dl',18)+'<span>JSON</span></button><button class="btn" data-act="export" data-v="yaml">'+ic('dl',18)+'<span>YAML</span></button></div></section>'
+  }
+  return shell({title:t('Reviewer desk','审核台'),right:'',body:body,wide:true,banner:banner()})
+}
+function loadDesk(){
+  if(D.tab==='people'&&!D.users)return api('GET','/v1/admin/users').then(function(x){if(x.ok){D.users=x.j.users;D.totals=x.j.totals}else D.err=errMsg(x.j);render(true)});
+  if(D.tab==='stats'&&!D.stats)return api('GET','/v1/admin/stats').then(function(x){if(x.ok)D.stats=x.j;else D.err=errMsg(x.j);render(true)});
+}
+function gradeText(g){return g==='match'?t('Matches the FTA draft key','与 FTA 草稿答案一致'):g==='differs'?t('Differs from the FTA draft key','与 FTA 草稿答案不同'):g==='unsure'?t('Said not sure','选了“不确定”'):''}
+function vDUser(id){
+  var U=D.user&&D.user.user&&D.user.user.id===id?D.user:null;
+  var head=shell({title:id,back:true,wide:true,body:U?'':'<p class="empty">'+t('Loading…','加载中…')+'</p>'});
+  if(!U)return head;
+  var h='';
+  if(U.flags.length)h+='<div class="note"><b>'+t('Check','留意')+'</b> '+U.flags.map(flagText).map(esc).join(' · ')+'</div>';
+  var sent=U.items.filter(function(i){return i.sent}).length;
+  h+='<p class="hint ctr">'+t(sent+' answers sent','已提交 '+sent+' 个答案')+(U.user.last_login?' · '+t('last visit ','上次进入 ')+fmtDate(U.user.last_login):'')+'</p>';
+  ['KB1','KB2'].forEach(function(kb){var l=U.items.filter(function(i){return i.kb===kb&&i.sent});h+='<h3 class="sec">'+kbName(kb)+' · '+l.length+'</h3>';
+    if(!l.length)h+='<p class="hint">'+t('Nothing sent.','没有提交。')+'</p>';
+    l.forEach(function(i){var sd=i.sent,ch='';
+      if(kb==='KB1'){var o=(i.options||[]).filter(function(x){return x.id===sd.choice})[0];ch='<p class="ans"><b>'+esc(sd.choice||'-')+'</b> '+esc(o?o.text:(sd.choice==='E'?t('I am not sure','我不确定'):''))+'</p>'+(i.key?'<p class="key '+(i.grade||'')+'">'+esc(gradeText(i.grade))+' · FTA '+esc(i.key.answer)+'</p><details class="more"><summary>'+t('Why (FTA draft)','理由（FTA 草稿）')+'</summary><p class="fine">'+esc(i.key.why)+'</p></details>':(S.live?'':'<p class="fine">'+t('No key in practice mode.','练习模式没有参考答案。')+'</p>'))}
+      else{var lab=sd.choice?KB.KB2_OPTIONS[i.kind].filter(function(o){return o.id===sd.choice})[0]:null;ch=(lab?'<p class="ans"><b>'+esc(L(lab))+'</b></p>':'')}
+      if(sd.text)ch+='<p class="txt">'+esc(sd.text)+'</p>';
+      if(sd.has_voice)ch+='<audio controls preload="none" data-media="voice" data-i="'+esc(i.id)+'"></audio>';
+      if(sd.has_photo)ch+='<img class="thumb" data-media="photo" data-i="'+esc(i.id)+'" alt="">';
+      var rv=i.review||{},sc=rv.score;
+      var rvh=kb==='KB2'?'<div class="rv" data-i="'+esc(i.id)+'"><div class="seg">'+[[0,t('Weak','弱')],[1,t('OK','可')],[2,t('Strong','强')]].map(function(x){return '<button data-act="score" data-s="'+x[0]+'" class="'+(sc===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div><input class="rc2" type="text" maxlength="300" placeholder="'+t('Comment (optional)','备注（可选）')+'" value="'+esc(rv.comment||'')+'"><button class="btn sm" data-act="rsave">'+t('Save review','保存评分')+'</button></div>':'';
+      h+='<section class="card"><p class="sc">'+esc(i.id.split('/').pop())+' · '+esc(markText(i.mark))+'</p><b class="clip2">'+esc(i.text)+'</b>'+ch+rvh+'</section>'})});
+  h+='<h3 class="sec">'+t('This number','这个编号')+'</h3><div class="btns"><button class="btn" data-act="ddis">'+(U.user.disabled?t('Turn this number back on','重新启用这个编号'):t('Turn this number off','停用这个编号'))+'</button></div>';
+  return shell({title:id,back:true,wide:true,body:h})
+}
+function afterDUser(){$$('[data-media]').forEach(function(e){var id=D.user.user.id,ty=e.getAttribute('data-media');api('GET','/v1/admin/media?user='+id+'&item='+encodeURIComponent(e.getAttribute('data-i'))+'&type='+ty).then(function(x){if(x.ok&&x.blob)e.src=URL.createObjectURL(x.blob)})})}
+function doExport(fmt){
+  api('GET','/v1/admin/export'+(fmt==='yaml'?'?fmt=yaml':'')).then(function(x){
+    if(!x.ok){toast(errMsg(x.j));return}
+    var txt=fmt==='yaml'?(x.yaml||x.blob&&null):JSON.stringify(x.j.doc||x.j,null,2);
+    var go2=function(s){var bl=new Blob([s],{type:fmt==='yaml'?'text/yaml':'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='kb-answers.'+(fmt==='yaml'?'yaml':'json');document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500);toast(t('Downloaded','已下载'))};
+    if(x.blob&&!txt)x.blob.text().then(go2);else go2(txt)})
+}
+/* ===== Desktop (computer) layout: sidebar list of every question + main pane. Same data, same server, same routes. ===== */
+/* Responsive: wide screens (>=700px) get the sidebar layout, narrow screens (phones) get the phone layout. One page works everywhere. */
+var DKMQ=window.matchMedia?window.matchMedia('(min-width:700px)'):{matches:true};
+function dkWide(){return !!DKMQ.matches}
+document.body.classList.toggle('dk',dkWide());
+(function(){var f=function(){var w=dkWide();if(document.body.classList.contains('dk')!==w){document.body.classList.toggle('dk',w);try{render(true)}catch(e){}}};if(DKMQ.addEventListener)DKMQ.addEventListener('change',f);else if(DKMQ.addListener)DKMQ.addListener(f)})();
+var _shellPhone=shell;
+shell=function(o){
+  if(!dkWide()||S.role==='owner'||!S.pack)return _shellPhone(o);
+  var r=route(),cur=r[0]==='item'?r[1]:'',nav='';
+  S.pack.modules.forEach(function(m){
+    nav+='<div class="nm">'+esc(L(m.name))+'</div>';
+    ['KB1','KB2'].forEach(function(kb){var l=listFor(m.id,kb),c=counts(l);if(!l.length)return;
+      nav+='<button class="nk'+(r[0]==='list'&&r[2]===kb?' on':'')+'" data-act="open" data-to="list/'+esc(m.id)+'/'+kb+'"><span>'+kbName(kb)+'</span><span class="cnt'+(c.done===c.total?' full':'')+'" data-k="'+kb+'">'+c.done+'/'+c.total+'</span></button>';
+      var secs=S.pack.sections.filter(function(s){return s.module===m.id}).sort(function(a,b){return a.ord-b.ord});
+      secs.forEach(function(s){var ls=l.filter(function(i){return i.section===s.id});if(!ls.length)return;
+        nav+='<div class="ns">'+esc(L(s.title))+'</div>'+ls.map(function(i){var d=done(i.id),rr=R(i.id),n=l.indexOf(i)+1;
+          return '<button class="nv'+(i.id===cur?' on':'')+'" data-act="open" data-to="item/'+encodeURIComponent(i.id)+'" data-id="'+esc(i.id)+'"><span class="st'+(d?' ok':'')+'">'+(d?ic('check',14):n)+'</span><span class="nt">'+esc(i.text)+'</span>'+(rr&&rr.unsent?'<i class="ud" title="'+t('Not sent yet','未提交')+'"></i>':'')+'</button>'}).join('')})})});
+  var tot=items().length,an=answeredCount(),un=unsentCount();
+  var side='<aside class="side" aria-label="'+t('Questions','题目')+'"><div class="sh1"><div class="logo sm">'+ic('logo',20)+'</div><b>FTA · KB 知识库采集</b></div>'+
+    '<button class="nk'+(r[0]?'':' on')+'" data-act="open" data-to=""><span>'+t('Overview','总览')+'</span><span class="cnt" id="dkTot">'+an+'/'+tot+'</span></button>'+
+    '<div class="nav" id="dkNav">'+nav+'</div>'+
+    '<div class="sfoot"><button class="btn pri" data-act="submit" id="dkSub">'+ic('send',18)+'<span>'+t('Submit to '+S.to,'提交给 '+S.to)+'</span>'+(un?'<i class="dot">'+un+'</i>':'')+'</button>'+
+    '<div class="srow"><button class="ib who" data-act="acct">'+ic('user',18)+'<span>'+esc(S.user||'')+'</span></button><button class="ib so" data-act="logout" id="dkOut">'+ic('out',18)+'<span>'+t('Switch / Leave','换人 / 退出')+'</span></button></div></div></aside>';
+  var bk=o.back?'<button class="ib bk" data-act="back" aria-label="'+t('Back','返回')+'">'+ic('back')+'<span>'+t('Back','返回')+'</span></button>':'<span></span>';
+  var keys=r[0]==='item'?'<p class="fine kh">'+t('Keyboard: A–E or 1–5 picks an answer · ← → previous / next','键盘：A–E 或 1–5 选答案 · ← → 上一题 / 下一题')+'</p>':'';
+  return '<div class="dkw">'+side+'<div class="dmain"><header class="top">'+bk+'<div class="tt">'+esc(o.title||'')+'</div><div class="tr">'+(o.right||'')+'</div></header><main class="mn">'+(o.banner||'')+o.body+keys+'</main>'+(o.foot?'<footer class="bar">'+o.foot+'</footer>':'')+'</div></div>'
+};
+var _renderPhone=render;
+render=function(keep){var n=$('#dkNav'),st=n?n.scrollTop:0;_renderPhone(keep);var m=$('#dkNav');if(m){m.scrollTop=st;var a=$('.nv.on',m);if(a){var ar=a.getBoundingClientRect(),mr=m.getBoundingClientRect();if(ar.top<mr.top||ar.bottom>mr.bottom)a.scrollIntoView({block:'center'})}}};
+function dkSync(){var nav=$('#dkNav');if(!nav)return;
+  $$('.nv',nav).forEach(function(b){var id=b.getAttribute('data-id'),d=done(id),rr=R(id),st=$('.st',b);
+    if(d&&!st.classList.contains('ok')){st.classList.add('ok');st.innerHTML=ic('check',14)}
+    var ud=$('.ud',b);if(rr&&rr.unsent&&!ud)b.insertAdjacentHTML('beforeend','<i class="ud"></i>');else if(!(rr&&rr.unsent)&&ud)ud.remove()});
+  S.pack.modules.forEach(function(m){['KB1','KB2'].forEach(function(kb){var c=counts(listFor(m.id,kb)),e=$('.cnt[data-k='+kb+']',nav);if(e){e.textContent=c.done+'/'+c.total;e.classList.toggle('full',c.done===c.total)}})});
+  var tt=$('#dkTot');if(tt)tt.textContent=answeredCount()+'/'+items().length;
+  var sb=$('#dkSub'),un=unsentCount();if(sb){var dt=$('.dot',sb);if(un){if(!dt)sb.insertAdjacentHTML('beforeend','<i class="dot"></i>');$('.dot',sb).textContent=un}else if(dt)dt.remove()}}
+var _saveNowPhone=saveNow;
+saveNow=function(extra){return _saveNowPhone(extra).then(function(x){try{dkSync()}catch(e){}return x})};
+document.addEventListener('keydown',function(ev){
+  if(S.role==='owner'||!S.tok||$('#sheet').classList.contains('on'))return;var tg=ev.target&&ev.target.tagName;if(tg==='TEXTAREA'||tg==='INPUT'&&ev.target.type!=='radio'||ev.metaKey||ev.ctrlKey||ev.altKey)return;
+  var r=route();if(r[0]!=='item')return;var k=ev.key;
+  if(k==='ArrowRight'){ev.preventDefault();step(1);return}if(k==='ArrowLeft'){ev.preventDefault();var it=itemById(CUR.id),l=listFor(it.module,it.kb);if(l.indexOf(it)>0)step(-1);return}
+  var ix='abcde'.indexOf(k.toLowerCase());if(ix<0)ix='12345'.indexOf(k);if(ix<0)return;
+  var ins=$$('.opt input');if(ins[ix]){ev.preventDefault();ins[ix].checked=true;pickChoice(ins[ix].value)}
+});
+/* ===== render, events, boot ===== */
+var LASTV='';
+function render(keep){
+  var app=$('#app'),r=route(),h='',pos=window.scrollY;
+  if(!S.tok||!S.user||!S.pack){app.innerHTML=vStart();var f=$('#lu');if(f)f.addEventListener('keydown',function(e){if(e.key==='Enter')doStart(e)});return}
+  var name=r[0]||'';
+  if(S.role==='owner'){
+    if(name==='desk'&&r[1]==='user'&&r[2]){
+      var id=KB.normUser(r[2]);if(!D.user||D.user.user.id!==id){D.user=null;api('GET','/v1/admin/user?id='+id).then(function(x){if(x.ok){D.user=x.j;render(true)}else{D.err=errMsg(x.j);go('desk')}})}
+      h=vDUser(id)
+    }else{if(name!=='desk'){go('desk');return}h=vDesk()}
+  }else{
+    if(name==='list'&&r[1]&&r[2])h=vList(r[1],r[2]);else if(name==='item'&&r[1])h=vItem(r[1]);else h=vHome();
+  }
+  app.innerHTML=h;
+  if(!keep)window.scrollTo(0,0);else window.scrollTo(0,pos);
+  if(S.role==='owner'){if(name==='desk'&&r[1]==='user')afterDUser();else loadDesk()}
+  else if(name==='item'&&r[1]&&CUR.id!==r[1])afterItem(r[1]);
+  else if(name==='item'&&r[1]){renderMediaMaybe()}
+}
+function renderMediaMaybe(){var it=itemById(CUR.id);if(it&&it.kb==='KB2')renderMedia()}
+
+document.addEventListener('click',function(ev){
+  var el=ev.target.closest&&ev.target.closest('[data-act]');if(!el)return;var a=el.getAttribute('data-act');
+  if(a==='back'){var r=route();if(r[0]==='item')step(0);else if(r[0]==='desk')go('desk');else go('');return}
+  if(a==='open'){var to=el.getAttribute('data-to');flush().then(function(){go(to)});return}
+  if(a==='next')return step(1);if(a==='prev')return step(-1);
+  if(a==='submit')return openSubmit();if(a==='send')return doSend();if(a==='close')return closeSheet();
+  if(a==='start')return doStart(ev);if(a==='acct')return openAcct();if(a==='about'){closeSheet();return openAbout()}
+  if(a==='logout')return S.role==='owner'?(closeSheet(),logout()):askLogout();if(a==='logoutGo'){closeSheet();return logout()}if(a==='sendOut'){var sb=$('#sb');if(sb)sb.disabled=true;return doSend(true)}
+  if(a==='lang'){S.lang=el.getAttribute('data-v');cfgSave();document.documentElement.lang=S.lang;if($('#sheet').classList.contains('on'))closeSheet();render(true);return}
+  if(a==='snd'){S.sound=!S.sound;cfgSave();el.querySelector('.sw').classList.toggle('on',S.sound);clickFx();return}
+  if(a==='micStart')return micStart();if(a==='micStop')return micStop();
+  if(a==='photoPick'){$('#photoIn').value='';$('#photoIn').click();return}
+  if(a==='mdel')return mediaDelete(el.getAttribute('data-t'));
+  if(a==='dtab'){D.tab=el.getAttribute('data-v');D.err='';render(true);return}
+  if(a==='dfilter'){D.filter=el.getAttribute('data-v');render(true);return}
+  if(a==='export')return doExport(el.getAttribute('data-v'));
+  if(a==='score'){var rv=el.closest('.rv');$$('.seg button',rv).forEach(function(b){b.classList.toggle('on',b===el)});clickFx();return}
+  if(a==='rsave'){var rv2=el.closest('.rv'),on=$('.seg button.on',rv2);if(!on){toast(t('Pick Weak, OK or Strong first.','先选 弱 / 可 / 强。'));return}
+    api('PUT','/v1/admin/review',{body:{user:D.user.user.id,item:rv2.getAttribute('data-i'),score:parseInt(on.getAttribute('data-s'),10),comment:$('.rc2',rv2).value}}).then(function(x){toast(x.ok?t('Review saved','评分已保存'):errMsg(x.j))});return}
+    if(a==='ddis'){var u=D.user.user,dis=!u.disabled;api('POST','/v1/admin/disable',{body:{user:u.id,disabled:dis}}).then(function(x){if(x.ok){u.disabled=dis;D.users=null;toast(dis?t('Disabled','已停用'):t('Enabled','已启用'));render(true)}else toast(errMsg(x.j))});return}
+});
+document.addEventListener('change',function(ev){var e=ev.target;if(e.matches&&e.matches('input[data-in=choice]'))pickChoice(e.value);if(e.id==='photoIn')photoPicked(e.files&&e.files[0])});
+document.addEventListener('input',function(ev){if(ev.target.matches&&ev.target.matches('textarea[data-in=text]'))typed()});
+document.addEventListener('focusout',function(ev){if(ev.target.matches&&ev.target.matches('textarea[data-in=text]')&&CUR.timer)flush()});
+$('#scrim').addEventListener('click',closeSheet);
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closeSheet()});
+window.addEventListener('hashchange',function(){render()});
+window.addEventListener('beforeunload',function(){if(CUR.timer)flush()});
+
+(function boot(){
+  cfgLoad();document.documentElement.lang=S.lang;S.tok=tokLoad();
+  idbOpen().then(function(){
+    if(!S.tok){render();return}
+    loadAll().then(function(m){if(!m||m.ok===false){S.tok='';tokSave()}render()})
+  })
+})();
+</script></body></html>
