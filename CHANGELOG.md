@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-09
+
+- New public /partners/ page (U.S. auditor-partner recruiting, EP1 video; no password); Partners added to nav
+- Nav: LOM and AS removed from public menu; new /internal/ (0000) links LOM, AS, and /internal/saa/ (SAA internal area moved off the public SAA page)
+- /lom/ now redirects to the no-name R2 copy (no password, unchanged content)
+- Homepage cleanup: removed "since 1992", leaked HTML comment, duplicate "What we do" block, "Video coming soon" placeholder
+- SAA: full MIT notice moved to saa/data/LICENSE-Quality-Engineering-Skills.txt + /internal/saa/; short credit line on public page
+
 ## 2026-10-20
 
 - Add note under the password gate (e29d4e7, 9a4cef9)

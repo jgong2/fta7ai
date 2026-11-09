@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FTA — Internal</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--accent:#D07C3E;--accent-dark:#A85A28;--accent-soft:#FBEEE1;--green:#8AAE2A;--green-pale:#E7F1C9;--gd-text:#2C3A10;--ink:#20261C;--ink-2:#5B6353;--line:#E7EAE0;--band:#F7F9F1;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:84px;gap:28px}
+.brand{display:flex;flex-direction:column;line-height:1.02;gap:4px}
+.brand .mark{font-size:40px;font-weight:800;letter-spacing:3px}
+.brand .tag-line{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+nav.menu{display:flex;margin-left:auto}
+nav.menu a{padding:9px 4px;margin:0 11px;color:var(--ink-2);font-size:15px;font-weight:500;border-bottom:2px solid transparent}
+nav.menu a:hover{color:var(--ink)} nav.menu a.active{color:var(--ink);font-weight:700;border-bottom-color:var(--ink)}
+.cta-btn{background:var(--accent);color:#fff!important;padding:10px 20px;border-radius:8px;font-weight:600;font-size:15px}
+.eyebrow{display:inline-block;color:var(--ink-2);font-weight:700;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:44px;line-height:1.14;font-weight:800;letter-spacing:-.8px;margin-bottom:20px}
+h2{font-size:30px;font-weight:800;letter-spacing:-.4px;margin-bottom:14px}
+h3{font-size:19px;font-weight:700;margin-bottom:8px}
+.lead{font-size:18.5px;color:var(--ink-2);max-width:760px}
+.hero{padding:72px 0 56px}
+.sec{padding:60px 0;border-top:1px solid var(--line)} .sec.band{background:var(--band)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px 26px}
+.card p,.card li{color:var(--ink-2);font-size:15.5px}
+.card ul{padding-left:18px;margin-top:6px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--gd-text);background:var(--green);padding:5px 11px;border-radius:7px;margin-bottom:14px}
+.std{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.std div{border:1px solid var(--line);border-radius:12px;padding:16px 20px;background:#fff}
+.std b{display:block} .std span{color:var(--ink-2);font-size:15px}
+.std .first{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;color:var(--ink-2);font-size:15px}
+.facts b{color:var(--ink)}
+video{width:100%;border-radius:16px;background:#000;display:block;box-shadow:0 24px 60px -30px rgba(30,40,55,.55)}
+.vcap{color:var(--ink-2);font-size:14px;margin-top:10px;text-align:center}
+.btn-primary{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;padding:14px 28px;border-radius:9px;font-weight:600;font-size:16px}
+.btn-primary:hover{background:var(--accent-dark)}
+.contact{background:var(--green-pale);border-radius:20px;padding:52px;text-align:center}
+.contact p{color:#54602f;font-size:18px;max-width:600px;margin:0 auto 26px}
+footer{background:#2b3222;color:#cdd4c1;padding:40px 0 26px;margin-top:70px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
+.foot-bot{border-top:1px solid #444c37;margin-top:28px;padding-top:20px;font-size:13px;color:#97a086;text-align:center}
+.foot-bot a{color:#97a086}
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:10px}
+.links a.card{display:block;transition:.2s} .links a.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.links .go{color:var(--accent-dark);font-weight:700;font-size:14.5px;margin-top:12px;display:block}
+.small{font-size:13px;color:var(--ink-2)}
+@media(max-width:900px){.grid2,.cards,.links{grid-template-columns:1fr}h1{font-size:32px}h2{font-size:25px}nav.menu{display:none}.wrap{padding:0 20px}.contact{padding:36px 22px}.cta-btn{margin-left:auto}}
+</style>
+</head>
+<body>
+<div id="ftagate" style="position:fixed;inset:0;z-index:2147483000;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f2f2ef">
+<div style="font-size:12px;letter-spacing:.3em;color:#ff8a3d;margin-bottom:14px">FTA · PRIVATE PREVIEW</div>
+<div style="font-size:22px;font-weight:700;margin-bottom:22px">Please enter access code</div>
+<input id="ftapw" type="password" inputmode="numeric" maxlength="8" autocomplete="off" style="width:200px;font-size:28px;letter-spacing:.5em;text-align:center;background:#111;border:1px solid #333;color:#f2f2ef;border-radius:14px;padding:12px 0 12px .5em;outline:none">
+<button id="ftago" style="margin-top:16px;width:200px;font-size:17px;font-weight:800;border:0;border-radius:14px;padding:13px;background:#ff8a3d;color:#0a0a0a">Enter</button>
+<div id="ftaerr" style="color:#ffbd8a;font-size:14px;height:20px;margin-top:12px"></div>
+<div id="ftanote" style="max-width:340px;margin-top:18px;font-size:12px;line-height:1.6;color:#8a8a85">fta7ai.com is password-protected and not yet public. To connect, say hi in my <a href="https://github.com/jgong2/jgong2/discussions/1" target="_blank" rel="noopener" style="color:#ffbd8a;text-decoration:underline">collaboration discussion</a>.</div></div>
+<script>(function(){var g=document.getElementById('ftagate');try{if(sessionStorage.getItem('fta_cn_ok')==='1'){g.style.display='none';return}}catch(e){}
+document.documentElement.style.overflow='hidden';
+function ok(){var v=document.getElementById('ftapw').value;if(v==='0000'){try{sessionStorage.setItem('fta_cn_ok','1')}catch(e){}g.style.display='none';document.documentElement.style.overflow=''}else{document.getElementById('ftaerr').textContent='Incorrect code'}}
+document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').addEventListener('keydown',function(e){if(e.key==='Enter')ok()});})();</script>
+
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="mark">FTA</span><span class="tag-line">Consulting Quality</span></a>
+    <nav class="menu">
+      <a href="/">Home</a>
+      <a href="/saa/">SAA</a>
+      <a href="/videos/">Insight Series</a>
+      <a href="/partners/">Partners</a>
+      <a href="mailto:jg@fta7ai.com">Contact</a>
+    </nav>
+    <a class="cta-btn" href="mailto:jg@fta7ai.com">Get in touch</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">Internal · not linked from public pages</span>
+    <h1>FTA internal</h1>
+    <p class="lead">Working areas behind the site access code.</p>
+  </div></section>
+  <section class="sec band"><div class="wrap">
+    <div class="links">
+      <a class="card" href="https://pub-30706c81faa54695a98187c4fb4a7883.r2.dev/index.html" target="_blank" rel="noopener"><span class="tag">LOM</span><h3>LOM Fund</h3><p>AI · Innovation · Investment. Moved to its own Cloudflare-hosted page (no-name address, opens in mainland China).</p><span class="go">Open LOM &rarr;</span></a>
+      <a class="card" href="/as/"><span class="tag">AS</span><h3>AS prototype</h3><p>The AS prototype (formerly in the public top menu).</p><span class="go">Open AS &rarr;</span></a>
+      <a class="card" href="/internal/saa/"><span class="tag">SAA</span><h3>SAA &mdash; Area for internal use</h3><p>Modules, framework and interfaces, moved off the public SAA page. Includes the full MIT license notice for the adapted framework.</p><span class="go">Open SAA internal &rarr;</span></a>
+    </div>
+    <p class="small" style="margin-top:22px">Access code is the same as the main site. This page is a soft gate only (client-side); do not put secrets here.</p>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot"><span class="mark">FTA</span><span style="color:#9fa891;font-size:14px">Consulting Quality · Chicago HQ · Hong Kong base</span></div>
+  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a href="/">Home</a> · <a href="/saa/">SAA</a> · <a href="/partners/">Partners</a></div>
+</div></footer>
+</body>
+</html>
