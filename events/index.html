@@ -65,7 +65,8 @@ select{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line
 .cal .cell.empty{background:transparent;border-color:transparent}
 .cal .cell.today{box-shadow:inset 0 0 0 2px var(--accent)}
 .cal .num{font-weight:700;color:var(--ink)}
-.cal .chip-ev{display:block;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--accent-dark);font-weight:600}
+.cal .chip-ev{display:block;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--accent-dark);font-weight:600;text-decoration:none}
+.cal .chip-ev:hover{text-decoration:none;color:var(--accent)}
 .cards{display:flex;flex-direction:column;gap:14px}
 .card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff}
 .card.registered{border-color:var(--green);box-shadow:0 0 0 3px var(--green-pale)}
@@ -102,13 +103,76 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
 .foot-bot{border-top:1px solid #444c37;margin-top:28px;padding-top:20px;font-size:13px;color:#97a086;text-align:center}
 .foot-bot a{color:#97a086}
 .empty{padding:24px;color:var(--ink-2)}
+
+.card, .plain-event, .month-block, .overview-month{scroll-margin-top:108px}
+.overview{padding:4px 0 8px}
+.overview-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 20px;margin-bottom:14px}
+.overview h2{font-size:22px;font-weight:800;letter-spacing:-.2px}
+.overview .overview-sub{color:var(--ink-2);font-size:14.5px;max-width:760px;margin-top:6px}
+.fold-btns{display:none;flex-wrap:wrap;gap:8px}
+body.js-on .fold-btns{display:flex}
+.fold-btns button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+.fold-btns button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.fold-btns button:focus-visible, summary:focus-visible, .overview-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.overview-month{border:1px solid var(--line);border-radius:12px;background:#fff;min-width:0}
+.overview-month.current{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.overview-month > summary{list-style:none;cursor:pointer;padding:14px 16px 12px;display:flex;align-items:center;gap:8px;font-weight:800}
+.overview-month > summary::-webkit-details-marker, .overview-month > summary::marker{display:none;content:""}
+.overview-month > summary .ym{flex:1;font-size:15.5px;line-height:1.3}
+.overview-month > summary .n{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--band);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.overview-list{list-style:none;padding:0 12px 14px;display:flex;flex-direction:column;gap:8px}
+.overview-item{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:inherit;text-decoration:none;background:var(--band)}
+.overview-item:hover{text-decoration:none;border-color:var(--accent);background:var(--accent-soft)}
+.overview-item .row1{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.overview-item .when{font-weight:800;font-size:13px;white-space:nowrap}
+.overview-item .nm{font-weight:700;font-size:14px;flex:1 1 8em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.overview-item .city{font-size:12px;color:var(--ink-2)}
+.overview-item .why{display:block;margin-top:4px;font-size:12.5px;color:var(--ink-2);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.overview-empty{padding:0 16px 16px;color:var(--ink-2);font-size:14px}
+.chev{display:inline-block;width:1em;flex:0 0 auto;color:var(--accent-dark);font-weight:800;line-height:1}
+.chev::before{content:"▸"}
+details[open] > summary > .chev::before{content:"▾"}
+.month-block > details > summary.month-sum{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding-top:8px;border-top:1px solid var(--line);margin-bottom:14px}
+.month-block > details > summary.month-sum::-webkit-details-marker, .month-block > details > summary.month-sum::marker{display:none;content:""}
+.month-block > details > summary.month-sum h2{border:none;padding:0;margin:0;flex:1}
+.month-block > details > summary.month-sum .n{font-size:13px;font-weight:700;color:var(--ink-2);background:var(--band);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.card > summary.card-summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.card > summary.card-summary::-webkit-details-marker, .card > summary.card-summary::marker{display:none;content:""}
+.card[open] > summary.card-summary{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.card-summary .sum-date{font-weight:700;white-space:nowrap}
+.card-summary .sum-name{font-weight:800;flex:1 1 12em;min-width:8em}
+.card-summary .sum-city{color:var(--ink-2);font-size:13px}
+.card.flash, .plain-event.flash{animation:card-flash 1.6s ease}
+@keyframes card-flash{
+  0%,100%{background:#fff}
+  15%,55%{background:var(--accent-soft);box-shadow:0 0 0 4px #E9C9A9}
+}
+.plain-event > summary.plain-sum{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:15px}
+.plain-event > summary.plain-sum::-webkit-details-marker, .plain-event > summary.plain-sum::marker{display:none;content:""}
+.plain-event[open] > summary.plain-sum{margin-bottom:8px;padding-bottom:8px}
+@media(prefers-reduced-motion:reduce){
+  .card.flash, .plain-event.flash{animation:none;background:var(--accent-soft)}
+}
+
 @media(max-width:900px){
   .wrap{padding:0 20px}
-  h1{font-size:30px}
+  .nav{height:64px}
+  .brand .mark{font-size:32px}
+  .hero{padding:20px 0 10px}
+  .eyebrow{margin-bottom:8px}
+  h1{font-size:28px;margin-bottom:8px}
+  .lead{font-size:15px}
+  .meta{gap:6px 16px;margin-top:10px;font-size:13px}
+  .disclaimer{padding:10px 12px;font-size:13px}
   .nav-title{display:none}
   .facts{grid-template-columns:1fr}
   .cal .cell{min-height:62px}
   .deadlines li{grid-template-columns:1fr}
+  .overview-grid{grid-template-columns:1fr}
+  .overview-head{margin-bottom:10px}
+  .overview h2{font-size:20px}
+  .overview .overview-sub{font-size:13.5px}
 }
 </style>
 </head>
@@ -133,6 +197,26 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
     </div>
     <p class="disclaimer">只收录已核实日期的活动。深圳市机器人协会「两周一链」2027 年 1 月场次尚未公布，故未列入。状态与费用以本页当时记录为准，报名和付款由本人决定。</p>
   </div></section>
+
+  <section class="overview" id="overview">
+    <div class="wrap">
+      <div class="overview-head">
+        <div>
+          <h2>三个月总览 · Three-month view</h2>
+          <p class="overview-sub">从本月起往后三个月。点一条简介可跳到下方详情；跨月活动会在每个涉及到的月份出现。月份和条目都可以折叠。</p>
+        </div>
+        <div class="fold-btns">
+          <button type="button" id="fold-expand">全部展开</button>
+          <button type="button" id="fold-collapse">全部折叠</button>
+        </div>
+      </div>
+      <div class="overview-grid" id="overview-grid">
+<details class="overview-month current" data-fold="overview" data-fold-id="2026-11" open><summary><span class="chev" aria-hidden="true"></span><span class="ym">2026年11月 · November 2026</span><span class="n">6 场</span></summary><ul class="overview-list"><li><a class="overview-item" href="#optics-valley-packaging-ai-chip-2026"><span class="row1"><span class="when">11/25–27</span><span class="nm">2026 中国光谷先进封装与 AI 芯片产业大会</span><span class="badge watching">观察</span><span class="city">武汉</span></span><span class="why">武汉本地。25 日报到；主论坛 11/26 9:00–12:00。</span></a></li><li><a class="overview-item" href="#digitech-asean-2026"><span class="row1"><span class="when">11/25–27</span><span class="nm">DigiTech ASEAN Thailand &amp; AI Connect</span><span class="badge watching">观察</span><span class="city">曼谷</span></span><span class="why">东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。</span></a></li><li><a class="overview-item" href="#hpc-summit-thailand-2026"><span class="row1"><span class="when">11/25</span><span class="nm">HPC Summit Thailand</span><span class="badge watching">观察</span><span class="city">曼谷</span></span><span class="why">AI 算力基础设施方向。</span></a></li><li><a class="overview-item" href="#waiac-2026"><span class="row1"><span class="when">11/26–28</span><span class="nm">2026 WAIAC 世界人工智能应用大会</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">高交会同期活动，同一场馆。日期经官网核实为 11/26–28。</span></a></li><li><a class="overview-item" href="#chtf-2026"><span class="row1"><span class="when">11/26–28</span><span class="nm">第二十八届中国国际高新技术成果交易会（高交会）</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">国家级展会，有人工智能展区，同期有「中国高新技术论坛」。</span></a></li><li><a class="overview-item" href="#iaicc-2026"><span class="row1"><span class="when">11/27</span><span class="nm">IAICC 国际人工智能及创意大会</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">偏创意、游戏和 AIGC。与高交会同一天，只能二选一。具体场馆 f13 当时未列出。</span></a></li></ul></details>
+<details class="overview-month" data-fold="overview" data-fold-id="2026-12" open><summary><span class="chev" aria-hidden="true"></span><span class="ym">2026年12月 · December 2026</span><span class="n">6 场</span></summary><ul class="overview-list"><li><a class="overview-item" href="#genai-shenzhen-2026"><span class="row1"><span class="when">12/4–5</span><span class="nm">GenAI Shenzhen</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">中欧对接性质，约 500 人。第一天是参访和双边会谈，第二天是主会。</span></a></li><li><a class="overview-item" href="#affiliate-world-asia-2026"><span class="row1"><span class="when">12/9–10</span><span class="nm">Affiliate World Asia</span><span class="badge watching">观察</span><span class="city">曼谷</span></span><span class="why">本身做联盟营销，不是 AI 会。</span></a></li><li><a class="overview-item" href="#bangkok-hackathon-2026"><span class="row1"><span class="when">12/14–18</span><span class="nm">MIT Media Lab × 盘谷银行 AI 与机器人黑客松</span><span class="badge registered">已报名</span><span class="city">曼谷</span></span><span class="why">已报名（2026-11-16 约 20:40，北京时间），录取结果约 11 月底。</span></a></li><li><a class="overview-item" href="#gba-ai-infra-2026"><span class="row1"><span class="when">12/15</span><span class="nm">大湾区 AI 应用生态 × 数字基础设施大会</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">中国互联网协会主办，偏算力、数据和产业对接。</span></a></li><li><a class="overview-item" href="#bangkok-entrepreneurs-meetup-2026-12"><span class="row1"><span class="when">12/15、12/22、12/29</span><span class="nm">曼谷创业者与天使投资人聚会</span><span class="badge watching">观察</span><span class="city">曼谷</span></span><span class="why">每周二晚上 18:00。</span></a></li><li><a class="overview-item" href="#bangkok-ai-engineers-meetup-2026-12"><span class="row1"><span class="when">12/19、12/26</span><span class="nm">曼谷 AI 工程师聚会</span><span class="badge watching">观察</span><span class="city">曼谷</span></span><span class="why">每周六上午 10:00。</span></a></li></ul></details>
+<details class="overview-month" data-fold="overview" data-fold-id="2027-01" open><summary><span class="chev" aria-hidden="true"></span><span class="ym">2027年1月 · January 2027</span><span class="n">2 场</span></summary><ul class="overview-list"><li><a class="overview-item" href="#gbwico-2027"><span class="row1"><span class="when">1/2–5</span><span class="nm">大湾区智能计算与优化研讨会（GBWICO 2027）</span><span class="badge watching">观察</span><span class="city">东莞</span></span><span class="why">不交注册费，只关注时间和地点。</span></a></li><li><a class="overview-item" href="#delta-and-bay-build-sprint-2027"><span class="row1"><span class="when">1/11–20</span><span class="nm">Delta &amp; Bay Build Sprint</span><span class="badge watching">观察</span><span class="city">深圳</span></span><span class="why">给硬件和机器人创始人办的冲刺营，有工厂参观、供应商对接和华强北行程。</span></a></li></ul></details>
+      </div>
+    </div>
+  </section>
 
   <div class="wrap">
     <div class="toolbar">
@@ -166,7 +250,8 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
       <h2>活动列表 · Event list</h2>
       <p class="plain-intro">以下为嵌在页面里的完整条目，供无脚本浏览或其它 AI 直接阅读原始 HTML。资料截至 2026-11-17（北京时间）。Dates are inclusive. Status: watching 观察 / considering 考虑 / registered 已报名 / going 决定去 / not_going 不去.</p>
       
-<article class="plain-event" data-id="gbwico-2027" data-status="watching" data-start="2027-01-02">
+<details class="plain-event" id="gbwico-2027" data-id="gbwico-2027" data-status="watching" data-start="2027-01-02">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">1/2–5</span> <span class="sum-name">大湾区智能计算与优化研讨会（GBWICO 2027）</span> <span class="badge watching">观察</span> <span class="sum-city">东莞</span></summary>
   <h3>大湾区智能计算与优化研讨会（GBWICO 2027）</h3>
   <p class="en">Great Bay Workshop on Intelligent Computing &amp; Optimization (GBWICO 2027)</p>
   <p><b>日期 Dates:</b> 2027-01-02 – 2027-01-05</p>
@@ -179,10 +264,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 不交注册费，只关注时间和地点。日程：1/2 报到与现场注册；1/3–4 学术报告（到场交流最合适的两天）；1/5 自由研讨、离会。校内酒店：湾大松山湖学术交流中心酒店，东莞市松山湖园区大学路 16 号 10 栋东门，电话（冯经理）13380188208。12/25 后不再为会议预留房间；房费入住时付给酒店。不注册也可以自行订房入住、进出校园交流（前提是订到房间）。另有研讨会页 https://yangliu-op.github.io/gbwico2027/</p>
   <p><b>官方链接 Official link:</b> <a href="https://conf.orsc.org.cn/conferences/detail?id=67" rel="noopener" target="_blank">https://conf.orsc.org.cn/conferences/detail?id=67</a></p>
   <p><b>来源 Source:</b> f13+SA · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="bangkok-hackathon-2026" data-status="registered" data-start="2026-12-14">
+<details class="plain-event" id="bangkok-hackathon-2026" data-id="bangkok-hackathon-2026" data-status="registered" data-start="2026-12-14">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/14–18</span> <span class="sum-name">MIT Media Lab × 盘谷银行 AI 与机器人黑客松</span> <span class="badge registered">已报名</span> <span class="sum-city">曼谷</span></summary>
   <h3>MIT Media Lab × 盘谷银行 AI 与机器人黑客松</h3>
   <p class="en">MIT Media Lab × Bangkok Bank AI &amp; Robotics Hackathon</p>
   <p><b>日期 Dates:</b> 2026-12-14 – 2026-12-18</p>
@@ -195,10 +280,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 已报名（2026-11-16 约 20:40，北京时间），录取结果约 11 月底。其中一个赛道是 Future of Manufacturing，与 FTA 方向接近。要求全程参加：14 日上午在盘谷银行大楼破冰，晚上有游船招待会；白天约 9:00–17:00 在 Cloud 11 集中工作，晚上回酒店。</p>
   <p><b>官方链接 Official link:</b> <a href="https://www.media.mit.edu/events/ai-robotics-hackathon-bangkok-2026/" rel="noopener" target="_blank">https://www.media.mit.edu/events/ai-robotics-hackathon-bangkok-2026/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="optics-valley-packaging-ai-chip-2026" data-status="watching" data-start="2026-11-25">
+<details class="plain-event" id="optics-valley-packaging-ai-chip-2026" data-id="optics-valley-packaging-ai-chip-2026" data-status="watching" data-start="2026-11-25">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/25–27</span> <span class="sum-name">2026 中国光谷先进封装与 AI 芯片产业大会</span> <span class="badge watching">观察</span> <span class="sum-city">武汉</span></summary>
   <h3>2026 中国光谷先进封装与 AI 芯片产业大会</h3>
   <p class="en">2026 China Optics Valley Advanced Packaging and AI Chip Industry Conference</p>
   <p><b>日期 Dates:</b> 2026-11-25 – 2026-11-27</p>
@@ -211,10 +296,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 武汉本地。25 日报到；主论坛 11/26 9:00–12:00。主办包括江城实验室等，同期有 AI 算力分会和「创业之芯」路演。与深圳高交会、曼谷 DigiTech 同一周撞车。公开报道称部分同期分会在光谷科技会展中心举行。</p>
   <p><b>官方链接 Official link:</b> <a href="https://event.huodongxing.com/event/1882629330300" rel="noopener" target="_blank">https://event.huodongxing.com/event/1882629330300</a></p>
   <p><b>来源 Source:</b> f13（报名页经公开检索核实） · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="digitech-asean-2026" data-status="watching" data-start="2026-11-25">
+<details class="plain-event" id="digitech-asean-2026" data-id="digitech-asean-2026" data-status="watching" data-start="2026-11-25">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/25–27</span> <span class="sum-name">DigiTech ASEAN Thailand &amp; AI Connect</span> <span class="badge watching">观察</span> <span class="sum-city">曼谷</span></summary>
   <h3>DigiTech ASEAN Thailand &amp; AI Connect</h3>
   <p class="en">DigiTech ASEAN Thailand &amp; AI Connect</p>
   <p><b>日期 Dates:</b> 2026-11-25 – 2026-11-27</p>
@@ -227,10 +312,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。与深圳高交会几乎同一时间，人不能两头跑。</p>
   <p><b>官方链接 Official link:</b> <a href="https://digitechasean.com/" rel="noopener" target="_blank">https://digitechasean.com/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="hpc-summit-thailand-2026" data-status="watching" data-start="2026-11-25">
+<details class="plain-event" id="hpc-summit-thailand-2026" data-id="hpc-summit-thailand-2026" data-status="watching" data-start="2026-11-25">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/25</span> <span class="sum-name">HPC Summit Thailand</span> <span class="badge watching">观察</span> <span class="sum-city">曼谷</span></summary>
   <h3>HPC Summit Thailand</h3>
   <p class="en">HPC Summit Thailand</p>
   <p><b>日期 Dates:</b> 2026-11-25</p>
@@ -243,10 +328,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> AI 算力基础设施方向。日期已由 f13 查到（11/25），但公开资料里场馆尚未写清，故地点只记到城市。</p>
   <p><b>官方链接 Official link:</b> （无已核实官网 / no verified official URL）</p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="chtf-2026" data-status="watching" data-start="2026-11-26">
+<details class="plain-event" id="chtf-2026" data-id="chtf-2026" data-status="watching" data-start="2026-11-26">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/26–28</span> <span class="sum-name">第二十八届中国国际高新技术成果交易会（高交会）</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>第二十八届中国国际高新技术成果交易会（高交会）</h3>
   <p class="en">China Hi-Tech Fair 2026 (CHTF)</p>
   <p><b>日期 Dates:</b> 2026-11-26 – 2026-11-28</p>
@@ -259,10 +344,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 国家级展会，有人工智能展区，同期有「中国高新技术论坛」。f13 认为年底前广东最值得优先考虑的一场。11/25–28 与武汉光谷大会、曼谷 DigiTech 撞车。</p>
   <p><b>官方链接 Official link:</b> <a href="https://www.chtf.com/" rel="noopener" target="_blank">https://www.chtf.com/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="waiac-2026" data-status="watching" data-start="2026-11-26">
+<details class="plain-event" id="waiac-2026" data-id="waiac-2026" data-status="watching" data-start="2026-11-26">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/26–28</span> <span class="sum-name">2026 WAIAC 世界人工智能应用大会</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>2026 WAIAC 世界人工智能应用大会</h3>
   <p class="en">WAIAC 2026 World Artificial Intelligence Application Conference</p>
   <p><b>日期 Dates:</b> 2026-11-26 – 2026-11-28</p>
@@ -275,10 +360,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 高交会同期活动，同一场馆。日期经官网核实为 11/26–28。</p>
   <p><b>官方链接 Official link:</b> <a href="https://waiac.xyz/" rel="noopener" target="_blank">https://waiac.xyz/</a></p>
   <p><b>来源 Source:</b> f13（日期经官网核实） · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="iaicc-2026" data-status="watching" data-start="2026-11-27">
+<details class="plain-event" id="iaicc-2026" data-id="iaicc-2026" data-status="watching" data-start="2026-11-27">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">11/27</span> <span class="sum-name">IAICC 国际人工智能及创意大会</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>IAICC 国际人工智能及创意大会</h3>
   <p class="en">IAICC International AI and Creative Conference</p>
   <p><b>日期 Dates:</b> 2026-11-27</p>
@@ -291,10 +376,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 偏创意、游戏和 AIGC。与高交会同一天，只能二选一。具体场馆 f13 当时未列出。</p>
   <p><b>官方链接 Official link:</b> <a href="https://iaicc.cn/zh-hans/2026/" rel="noopener" target="_blank">https://iaicc.cn/zh-hans/2026/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="genai-shenzhen-2026" data-status="watching" data-start="2026-12-04">
+<details class="plain-event" id="genai-shenzhen-2026" data-id="genai-shenzhen-2026" data-status="watching" data-start="2026-12-04">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/4–5</span> <span class="sum-name">GenAI Shenzhen</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>GenAI Shenzhen</h3>
   <p class="en">GenAI Shenzhen</p>
   <p><b>日期 Dates:</b> 2026-12-04 – 2026-12-05</p>
@@ -307,10 +392,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 中欧对接性质，约 500 人。第一天是参访和双边会谈，第二天是主会。</p>
   <p><b>官方链接 Official link:</b> <a href="https://www.genaishenzhen.com/" rel="noopener" target="_blank">https://www.genaishenzhen.com/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="affiliate-world-asia-2026" data-status="watching" data-start="2026-12-09">
+<details class="plain-event" id="affiliate-world-asia-2026" data-id="affiliate-world-asia-2026" data-status="watching" data-start="2026-12-09">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/9–10</span> <span class="sum-name">Affiliate World Asia</span> <span class="badge watching">观察</span> <span class="sum-city">曼谷</span></summary>
   <h3>Affiliate World Asia</h3>
   <p class="en">Affiliate World Asia</p>
   <p><b>日期 Dates:</b> 2026-12-09 – 2026-12-10</p>
@@ -323,10 +408,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 本身做联盟营销，不是 AI 会。f13 指这是该月曼谷人最密的一场之一，周边酒会往往会延到后面几天。</p>
   <p><b>官方链接 Official link:</b> <a href="https://affiliateworldconferences.com/asia" rel="noopener" target="_blank">https://affiliateworldconferences.com/asia</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="gba-ai-infra-2026" data-status="watching" data-start="2026-12-15">
+<details class="plain-event" id="gba-ai-infra-2026" data-id="gba-ai-infra-2026" data-status="watching" data-start="2026-12-15">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/15</span> <span class="sum-name">大湾区 AI 应用生态 × 数字基础设施大会</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>大湾区 AI 应用生态 × 数字基础设施大会</h3>
   <p class="en">Greater Bay Area AI Application Ecosystem × Digital Infrastructure Conference</p>
   <p><b>日期 Dates:</b> 2026-12-15</p>
@@ -339,13 +424,13 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 中国互联网协会主办，偏算力、数据和产业对接。</p>
   <p><b>官方链接 Official link:</b> <a href="https://www.isc.org.cn/article/31071952957992960.html" rel="noopener" target="_blank">https://www.isc.org.cn/article/31071952957992960.html</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="bangkok-entrepreneurs-meetup-2026-12" data-status="watching" data-start="2026-12-15">
+<details class="plain-event" id="bangkok-entrepreneurs-meetup-2026-12" data-id="bangkok-entrepreneurs-meetup-2026-12" data-status="watching" data-start="2026-12-15">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/15、12/22、12/29</span> <span class="sum-name">曼谷创业者与天使投资人聚会</span> <span class="badge watching">观察</span> <span class="sum-city">曼谷</span></summary>
   <h3>曼谷创业者与天使投资人聚会</h3>
   <p class="en">Bangkok Entrepreneurs, Angel Investors and Wantrepreneurs</p>
-  <p><b>日期 Dates:</b> 2026-12-15 – 2026-12-29（场次 sessions: 2026-12-15, 2026-12-22, 2026-12-29）</p>
+  <p><b>日期 Dates:</b> 2026-12-15、2026-12-22、2026-12-29</p>
   <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · Amber Bar, Asok</p>
   <p><b>类型 Type:</b> 社交聚会 / meetup</p>
   <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
@@ -355,13 +440,13 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 每周二晚上 18:00。12 月中下旬有 15、22、29 日三场。约 60 到 100 人，一半是路过泰国的创业者和投资人，没有主题、不用上台。适合街角人脉。start/end 只表示跨度，实际场次见 dates。</p>
   <p><b>官方链接 Official link:</b> <a href="https://www.meetup.com/bangkok-entrepreneurs-angel-investors-and-wantrepreneurs/" rel="noopener" target="_blank">https://www.meetup.com/bangkok-entrepreneurs-angel-investors-and-wantrepreneurs/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="bangkok-ai-engineers-meetup-2026-12" data-status="watching" data-start="2026-12-19">
+<details class="plain-event" id="bangkok-ai-engineers-meetup-2026-12" data-id="bangkok-ai-engineers-meetup-2026-12" data-status="watching" data-start="2026-12-19">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">12/19、12/26</span> <span class="sum-name">曼谷 AI 工程师聚会</span> <span class="badge watching">观察</span> <span class="sum-city">曼谷</span></summary>
   <h3>曼谷 AI 工程师聚会</h3>
   <p class="en">AI Engineers Meetup Bangkok</p>
-  <p><b>日期 Dates:</b> 2026-12-19 – 2026-12-26（场次 sessions: 2026-12-19, 2026-12-26）</p>
+  <p><b>日期 Dates:</b> 2026-12-19、2026-12-26</p>
   <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · 暹罗百丽宫四楼 SCBX NEXT TECH</p>
   <p><b>类型 Type:</b> 技术聚会 / meetup</p>
   <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
@@ -371,10 +456,10 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 每周六上午 10:00。f13 查到 12 月 19 日和 26 日有场。工程师边喝咖啡边试新工具，人不多。start/end 只表示跨度，实际场次见 dates。</p>
   <p><b>官方链接 Official link:</b> <a href="https://createwith.com/event/bangkok-ai-engineers-meetup-bangkok-nov-2026-1" rel="noopener" target="_blank">https://createwith.com/event/bangkok-ai-engineers-meetup-bangkok-nov-2026-1</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
-
-<article class="plain-event" data-id="delta-and-bay-build-sprint-2027" data-status="watching" data-start="2027-01-11">
+<details class="plain-event" id="delta-and-bay-build-sprint-2027" data-id="delta-and-bay-build-sprint-2027" data-status="watching" data-start="2027-01-11">
+  <summary class="plain-sum"><span class="chev" aria-hidden="true"></span><span class="sum-date">1/11–20</span> <span class="sum-name">Delta &amp; Bay Build Sprint</span> <span class="badge watching">观察</span> <span class="sum-city">深圳</span></summary>
   <h3>Delta &amp; Bay Build Sprint</h3>
   <p class="en">Delta &amp; Bay Build Sprint</p>
   <p><b>日期 Dates:</b> 2027-01-11 – 2027-01-20</p>
@@ -387,7 +472,7 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <p><b>为什么值得看 / 备注 Why / notes:</b> 给硬件和机器人创始人办的冲刺营，有工厂参观、供应商对接和华强北行程。比 1/3–10 的窗口晚几天；若行程能往后延，f13 认为这段时间最能碰到真正做事的人。</p>
   <p><b>官方链接 Official link:</b> <a href="https://deltaandbay.com/" rel="noopener" target="_blank">https://deltaandbay.com/</a></p>
   <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
-</article>
+</details>
 
     </section>
   </div>
@@ -727,11 +812,57 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
 </script>
 <script>
 (function(){
-  var TODAY = "2026-11-17";
+  function todayInShanghai(){
+    try{
+      var fmt = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Shanghai",year:"numeric",month:"2-digit",day:"2-digit"});
+      var s = fmt.format(new Date());
+      if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+      var y,m,d;
+      fmt.formatToParts(new Date()).forEach(function(p){
+        if(p.type==="year") y=p.value;
+        if(p.type==="month") m=p.value;
+        if(p.type==="day") d=p.value;
+      });
+      if(y&&m&&d) return y+"-"+m+"-"+d;
+    }catch(e){}
+    return "2026-11-17";
+  }
+  var TODAY = todayInShanghai();
+  var FOLD_KEY = "fta-event-radar-folds-v1";
   var STATUS_ZH = {watching:"观察",considering:"考虑",registered:"已报名",going:"决定去",not_going:"不去"};
   var STATUS_EN = {watching:"Watching",considering:"Considering",registered:"Registered",going:"Going",not_going:"Not going"};
   var WEEKDAYS = ["一 Mon","二 Tue","三 Wed","四 Thu","五 Fri","六 Sat","日 Sun"];
+  var MONTH_EN = ["","January","February","March","April","May","June","July","August","September","October","November","December"];
   var MONTH_ZH = {"2026-11":"2026年11月 · November 2026","2026-12":"2026年12月 · December 2026","2027-01":"2027年1月 · January 2027","2027-02":"2027年2月 · February 2027"};
+  var lastData = null;
+  var folds = loadFolds();
+
+  function loadFolds(){
+    try{
+      var raw = localStorage.getItem(FOLD_KEY);
+      var o = raw ? JSON.parse(raw) : null;
+      if(o && typeof o==="object"){
+        o.overview = o.overview||{};
+        o.months = o.months||{};
+        o.events = o.events||{};
+        return o;
+      }
+    }catch(e){}
+    return {overview:{},months:{},events:{}};
+  }
+  function saveFolds(){
+    try{ localStorage.setItem(FOLD_KEY, JSON.stringify(folds)); }catch(e){}
+  }
+  function isOpen(kind, id, fallback){
+    var map = folds[kind] || {};
+    if(Object.prototype.hasOwnProperty.call(map, id)) return !!map[id];
+    return fallback;
+  }
+  function setOpen(kind, id, open){
+    folds[kind] = folds[kind] || {};
+    folds[kind][id] = !!open;
+    saveFolds();
+  }
 
   function $(id){return document.getElementById(id);}
   function pad(n){return n<10?"0"+n:""+n;}
@@ -755,6 +886,55 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
     if(ev.start===ev.end) return ev.start;
     return ev.start+" – "+ev.end;
   }
+  function md(s){return String(parseInt(s.slice(5,7),10))+"/"+String(parseInt(s.slice(8,10),10));}
+  function dateInMonth(ev, ym){
+    var days=eventDays(ev).filter(function(d){return d.slice(0,7)===ym;});
+    if(!days.length) return "";
+    if(ev.dates && ev.dates.length) return days.map(md).join("、");
+    if(days.length===1) return md(days[0]);
+    var a=days[0], b=days[days.length-1];
+    if(a.slice(5,7)===b.slice(5,7)) return md(a)+"–"+String(parseInt(b.slice(8,10),10));
+    return md(a)+"–"+md(b);
+  }
+  function compactDateLabel(ev){
+    if(ev.dates && ev.dates.length) return ev.dates.map(md).join("、");
+    if(ev.start===ev.end) return md(ev.start);
+    if(ev.start.slice(5,7)===ev.end.slice(5,7) && ev.start.slice(0,4)===ev.end.slice(0,4))
+      return md(ev.start)+"–"+String(parseInt(ev.end.slice(8,10),10));
+    return md(ev.start)+"–"+md(ev.end);
+  }
+  function shortWhy(ev){
+    var s=String(ev.why||"").trim();
+    if(!s) return "";
+    if(s.length<=42) return s;
+    var acc="", rest=s;
+    while(rest.length){
+      var i=rest.indexOf("。");
+      if(i<0){ acc+=rest; break; }
+      acc+=rest.slice(0,i+1);
+      if(acc.length>=12) break;
+      rest=rest.slice(i+1);
+    }
+    if(acc.length>42) acc=acc.slice(0,40)+"…";
+    return acc;
+  }
+  function monthTitle(ym){
+    if(MONTH_ZH[ym]) return MONTH_ZH[ym];
+    var p=ym.split("-"), year=+p[0], month=+p[1];
+    return year+"年"+month+"月 · "+(MONTH_EN[month]||"")+" "+year;
+  }
+  function threeMonths(fromYmd){
+    var p=fromYmd.split("-"), y=+p[0], m=+p[1], out=[];
+    for(var i=0;i<3;i++){
+      var mm=m+i, yy=y;
+      while(mm>12){mm-=12;yy++;}
+      out.push(yy+"-"+pad(mm));
+    }
+    return out;
+  }
+  function eventTouchesMonth(ev, ym){
+    return eventDays(ev).some(function(d){return d.slice(0,7)===ym;});
+  }
   function escapeHtml(s){
     return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
@@ -763,10 +943,48 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
     return '<a href="'+escapeHtml(url)+'" rel="noopener" target="_blank">'+escapeHtml(url)+'</a>';
   }
 
+  function renderOverview(events){
+    var months=threeMonths(TODAY);
+    var html=months.map(function(ym, idx){
+      var evs=events.filter(function(ev){return eventTouchesMonth(ev,ym);})
+        .slice()
+        .sort(function(a,b){
+          var da=eventDays(a).filter(function(d){return d.slice(0,7)===ym;})[0]||a.start;
+          var db=eventDays(b).filter(function(d){return d.slice(0,7)===ym;})[0]||b.start;
+          return da<db?-1:da>db?1:a.name.localeCompare(b.name,"zh");
+        });
+      var open=isOpen("overview", ym, true)?" open":"";
+      var current=idx===0?" current":"";
+      var body;
+      if(!evs.length){
+        body='<p class="overview-empty">这个月没有已核实的活动。</p>';
+      }else{
+        body='<ul class="overview-list">'+evs.map(function(ev){
+          var st=ev.status||"watching";
+          var why=shortWhy(ev);
+          return '<li><a class="overview-item" href="#'+escapeHtml(ev.id)+'">'+
+            '<span class="row1">'+
+              '<span class="when">'+escapeHtml(dateInMonth(ev,ym))+'</span>'+
+              '<span class="nm">'+escapeHtml(ev.name)+'</span>'+
+              '<span class="badge '+escapeHtml(st)+'">'+escapeHtml(ev.status_zh||STATUS_ZH[st]||st)+'</span>'+
+              '<span class="city">'+escapeHtml(ev.city||"")+'</span>'+
+            '</span>'+
+            (why?'<span class="why">'+escapeHtml(why)+'</span>':'')+
+          '</a></li>';
+        }).join("")+'</ul>';
+      }
+      return '<details class="overview-month'+current+'" data-fold="overview" data-fold-id="'+escapeHtml(ym)+'"'+open+'>'+
+        '<summary><span class="chev" aria-hidden="true"></span><span class="ym">'+escapeHtml(monthTitle(ym))+'</span><span class="n">'+evs.length+' 场</span></summary>'+
+        body+'</details>';
+    }).join("");
+    $("overview-grid").innerHTML = html;
+  }
+
   function render(data){
     var events = (data && data.events) ? data.events.slice() : [];
     $("last-updated").textContent = data.updated || TODAY;
     $("entry-count").textContent = String(events.length);
+    renderOverview(events);
 
     var status = $("filter-status").value;
     var sort = $("sort-date").value;
@@ -821,10 +1039,13 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
     months.sort();
     if(sort==="desc") months.reverse();
 
+    var usedIds = {};
     var html = months.map(function(m){
-      return '<section class="month-block" id="m-'+m+'"><h2>'+(MONTH_ZH[m]||m)+'</h2>'+
+      var open=isOpen("months", m, true)?" open":"";
+      return '<section class="month-block" id="m-'+m+'"><details data-fold="months" data-fold-id="'+m+'"'+open+'>'+
+        '<summary class="month-sum"><span class="chev" aria-hidden="true"></span><h2>'+escapeHtml(monthTitle(m))+'</h2><span class="n">'+byMonth[m].length+' 场</span></summary>'+
         monthGrid(m, byMonth[m]) +
-        '<div class="cards">'+byMonth[m].map(cardHtml).join("")+'</div></section>';
+        '<div class="cards">'+byMonth[m].map(function(ev){return cardHtml(ev, usedIds);}).join("")+'</div></details></section>';
     }).join("");
     $("radar").innerHTML = html;
   }
@@ -832,7 +1053,7 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   function monthGrid(ym, evs){
     var parts=ym.split("-"), year=+parts[0], month=+parts[1];
     var first=new Date(year,month-1,1);
-    var startPad=(first.getDay()+6)%7; // Monday first
+    var startPad=(first.getDay()+6)%7;
     var daysIn=new Date(year,month,0).getDate();
     var byDay={};
     evs.forEach(function(ev){
@@ -847,21 +1068,31 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
       var ds=ym+"-"+pad(day);
       var cls="cell"+(ds===TODAY?" today":"");
       var evHtml=(byDay[ds]||[]).map(function(ev){
-        return '<span class="chip-ev" title="'+escapeHtml(ev.name)+'">'+escapeHtml(shortName(ev))+'</span>';
+        return '<a class="chip-ev" href="#'+escapeHtml(ev.id)+'" title="'+escapeHtml(ev.name)+'">'+escapeHtml(shortName(ev))+'</a>';
       }).join("");
       cells+='<div class="'+cls+'"><div class="num">'+day+'</div>'+evHtml+'</div>';
     }
     return '<div class="cal">'+cells+'</div>';
   }
 
-  function cardHtml(ev){
+  function cardHtml(ev, usedIds){
     var deadlines=(ev.deadlines||[]).map(function(d){
       return escapeHtml(d.date)+" "+escapeHtml(d.label_zh||d.label||"");
     }).join("；") || "—";
     var st=ev.status||"watching";
-    return '<article class="card '+st+'" id="'+escapeHtml(ev.id)+'">'+
-      '<div class="card-top"><span class="badge '+st+'">'+escapeHtml(ev.status_zh||STATUS_ZH[st]||st)+' / '+escapeHtml(STATUS_EN[st]||st)+'</span>'+
-      '<span class="type">'+escapeHtml(ev.type||"")+(ev.type_en?" · "+escapeHtml(ev.type_en):"")+'</span></div>'+
+    var idAttr="";
+    if(!usedIds[ev.id]){
+      usedIds[ev.id]=true;
+      idAttr=' id="'+escapeHtml(ev.id)+'"';
+    }
+    var open=isOpen("events", ev.id, false)?" open":"";
+    return '<details class="card '+st+'"'+idAttr+' data-fold="events" data-fold-id="'+escapeHtml(ev.id)+'"'+open+'>'+
+      '<summary class="card-summary"><span class="chev" aria-hidden="true"></span>'+
+      '<span class="badge '+st+'">'+escapeHtml(ev.status_zh||STATUS_ZH[st]||st)+' / '+escapeHtml(STATUS_EN[st]||st)+'</span>'+
+      '<span class="sum-date">'+escapeHtml(compactDateLabel(ev))+'</span>'+
+      '<span class="sum-name">'+escapeHtml(ev.name)+'</span>'+
+      '<span class="sum-city">'+escapeHtml(ev.city||"")+'</span></summary>'+
+      '<div class="card-body">'+
       '<h3>'+escapeHtml(ev.name)+'</h3>'+
       '<p class="en">'+escapeHtml(ev.name_en||"")+'</p>'+
       '<dl class="facts">'+
@@ -873,14 +1104,95 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
       '</dl>'+
       '<p class="why">'+escapeHtml(ev.why||"")+'</p>'+
       '<p class="src">来源 Source: '+escapeHtml(ev.source||"")+' · 本条更新 Record updated: '+escapeHtml(ev.updated||"")+'</p>'+
-    '</article>';
+      '</div></details>';
+  }
+
+  function findCard(id){
+    if(!id) return null;
+    var safe = String(id).replace(/\\/g,"\\\\").replace(/"/g,"");
+    var radar = $("radar");
+    if(radar){
+      var direct = radar.querySelector('[id="'+safe+'"]');
+      if(direct) return direct;
+      var byFold = radar.querySelector('details.card[data-fold-id="'+safe+'"]');
+      if(byFold) return byFold;
+    }
+    var el = document.getElementById(id);
+    if(el && !el.closest("#events-plain")) return el;
+    return el;
+  }
+
+  function jumpToEvent(id){
+    if(!id) return;
+    if($("filter-status") && $("filter-status").value!=="all" && lastData){
+      $("filter-status").value="all";
+      render(lastData);
+    }
+    var card = findCard(id);
+    if(!card) return;
+    var month = card.closest("details[data-fold='months']");
+    if(month && !month.open){
+      month.open=true;
+      setOpen("months", month.getAttribute("data-fold-id"), true);
+    }
+    if(card.tagName==="DETAILS" && !card.open){
+      card.open=true;
+      setOpen("events", card.getAttribute("data-fold-id")||id, true);
+    }
+    card.classList.remove("flash");
+    void card.offsetWidth;
+    card.classList.add("flash");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    card.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"});
+  }
+
+  function setAllFolds(open){
+    document.querySelectorAll("#overview details[data-fold], #radar details[data-fold]").forEach(function(el){
+      var kind=el.getAttribute("data-fold");
+      var id=el.getAttribute("data-fold-id");
+      // Keep the three-month overview open when collapsing all, so the visibility layer stays on screen.
+      if(!open && kind==="overview") return;
+      el.open = open;
+      if(kind && id){
+        folds[kind]=folds[kind]||{};
+        folds[kind][id]=open;
+      }
+    });
+    saveFolds();
   }
 
   function boot(data){
+    lastData = data;
     document.body.classList.add("js-on");
     render(data);
     $("filter-status").addEventListener("change", function(){render(data);});
     $("sort-date").addEventListener("change", function(){render(data);});
+    $("fold-expand").addEventListener("click", function(){setAllFolds(true);});
+    $("fold-collapse").addEventListener("click", function(){setAllFolds(false);});
+    document.addEventListener("toggle", function(e){
+      var el=e.target;
+      if(!el || !el.getAttribute) return;
+      var kind=el.getAttribute("data-fold");
+      var id=el.getAttribute("data-fold-id");
+      if(!kind || !id) return;
+      if(!el.closest || !(el.closest("#overview") || el.closest("#radar"))) return;
+      setOpen(kind, id, el.open);
+    }, true);
+    document.addEventListener("click", function(e){
+      var a = e.target && e.target.closest ? e.target.closest("a.overview-item, a.chip-ev") : null;
+      if(!a) return;
+      var href=a.getAttribute("href")||"";
+      if(href.charAt(0)!=="#") return;
+      var id=href.slice(1);
+      if(!id) return;
+      e.preventDefault();
+      if(history.replaceState) history.replaceState(null,"","#"+id);
+      else location.hash=id;
+      jumpToEvent(id);
+    });
+    if(location.hash){
+      jumpToEvent(location.hash.replace(/^#/,""));
+    }
   }
 
   var embedded = {};
@@ -897,5 +1209,6 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   });
 })();
 </script>
+
 </body>
 </html>

@@ -18,6 +18,12 @@ Other AI agents (Claude, ChatGPT, Grok, etc.) should:
 3. Not invent dates, fees, venues, or status. If a fact is not verified, leave it blank or write `未核实` / note the uncertainty.
 4. After editing, keep `events/index.html` in sync: its embedded JSON (`#events-data`) and the plain-text `#events-plain` block must match `events.json`. The easiest way is to regenerate those two blocks from `events.json` when you change the file, then commit both.
 
+## Three-month overview and folding
+
+The top of the page is a **三个月总览** (three-month view): the current calendar month in Asia/Shanghai plus the next two, computed in the browser from today's date. Each month lists a one-line summary (date, name, city, status, short why). Clicking a summary expands that event's detail card and its month group below, then scrolls to it and briefly highlights it. An event that spans months appears in each month it touches.
+
+Month blocks in the overview, month groups in the detail section, and each event card can be folded independently (▸ / ▾). The **全部展开** / **全部折叠** buttons open or close the detail month groups and event cards; **全部折叠** leaves the three-month overview months open so the visibility layer stays on screen. Overview months can still be folded individually. Fold state is remembered in `localStorage` (`fta-event-radar-folds-v1`) when available. The no-script fallback embeds the same three-month summaries (frozen at the last commit's "today") and uses `<details>` so items still fold.
+
 ## How to add or update an event
 
 1. Edit `events.json` only after you have a verified `start` (and `end`) date from a source (official page, organizer email, or a teammate's researched note that cites a source).
