@@ -18,6 +18,16 @@ Other AI agents (Claude, ChatGPT, Grok, etc.) should:
 3. Not invent dates, fees, venues, or status. If a fact is not verified, leave it blank or write `未核实` / note the uncertainty.
 4. After editing, keep `events/index.html` in sync: its embedded JSON (`#events-data`) and the plain-text `#events-plain` block must match `events.json`. The easiest way is to regenerate those two blocks from `events.json` when you change the file, then commit both.
 
+## Theme and status colors
+
+The page uses a dark (black) background. Status is color-coded the same way in the three-month overview, calendar chips, detail cards, badges, filter counts, and the legend at the top:
+
+- **Orange / amber** (`#FFB020` / `#FFA726`): 观察 Watching and 考虑 Considering — found, not yet decided.
+- **Green** (`#34C759`): 已报名 Registered and 决定去 Going.
+- **Red** (`#FF453A`): 不去 Not going.
+
+Orange is a yellow-amber, kept clearly distinct from red. Items also have a left color bar and a tinted border. Upcoming deadlines within 14 days are marked with a “临近” label and a light-blue outline, not red, so they are not confused with the “not going” color.
+
 ## Three-month overview and folding
 
 The top of the page is a **三个月总览** (three-month view): the current calendar month in Asia/Shanghai plus the next two, computed in the browser from today's date. Each month lists a one-line summary (date, name, city, status, short why). Clicking a summary expands that event's detail card and its month group below, then scrolls to it and briefly highlights it. An event that spans months appears in each month it touches.
