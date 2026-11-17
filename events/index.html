@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FTA Event Radar · 活动雷达</title>
+<meta name="description" content="FTA 关注的外部活动追踪。A public radar of external events FTA is watching — not events FTA hosts." />
+<style>
+:root{
+  --accent:#D07C3E;
+  --accent-dark:#A85A28;
+  --accent-soft:#FBEEE1;
+  --green:#8AAE2A;
+  --green-dark:#5F7A16;
+  --green-pale:#E7F1C9;
+  --gd-text:#2C3A10;
+  --ink:#20261C;
+  --ink-2:#5B6353;
+  --line:#E7EAE0;
+  --band:#F7F9F1;
+  --white:#fff;
+  --danger:#9B3B1E;
+  --danger-soft:#F8E6DE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Noto Sans SC",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-dark);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:84px;gap:20px}
+.brand{display:flex;flex-direction:column;line-height:1.02;gap:4px;color:inherit;text-decoration:none}
+.brand .mark{font-size:40px;font-weight:800;letter-spacing:3px}
+.brand .tag-line{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+.nav-title{margin-left:8px;padding-left:20px;border-left:1px solid var(--line)}
+.nav-title b{display:block;font-size:16px;font-weight:800}
+.nav-title span{display:block;font-size:12px;color:var(--ink-2)}
+.home-link{margin-left:auto;color:var(--ink-2);font-size:15px;font-weight:500}
+.home-link:hover{color:var(--ink);text-decoration:none}
+.hero{padding:56px 0 28px}
+.eyebrow{display:inline-block;color:var(--ink-2);font-weight:700;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:40px;line-height:1.16;font-weight:800;letter-spacing:-.6px;margin-bottom:14px}
+.lead{font-size:17px;color:var(--ink-2);max-width:760px}
+.meta{display:flex;flex-wrap:wrap;gap:16px 28px;margin-top:18px;color:var(--ink-2);font-size:14px}
+.meta b{color:var(--ink)}
+.disclaimer{background:var(--accent-soft);border:1px solid #E9C9A9;border-radius:12px;padding:14px 18px;margin:8px 0 0;font-size:14px;color:#7A4A1F}
+.toolbar{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;padding:22px 0 8px}
+.field label{display:block;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+select{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:180px}
+.counts{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 20px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px;color:var(--ink-2);background:#fff}
+.chip b{color:var(--ink)}
+.deadlines{background:var(--band);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:28px}
+.deadlines h2{font-size:18px;margin-bottom:10px}
+.deadlines ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.deadlines li{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline;font-size:14.5px}
+.deadlines .when{font-weight:700}
+.deadlines li.soon{background:var(--danger-soft);border-radius:8px;padding:8px 10px;margin:0 -10px}
+.deadlines li.soon .when{color:var(--danger)}
+.month-block{margin:0 0 36px}
+.month-block h2{font-size:22px;font-weight:800;margin:0 0 14px;padding-top:8px;border-top:1px solid var(--line)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:18px}
+.cal .wd,.cal .cell{min-height:74px;border:1px solid var(--line);border-radius:8px;padding:6px 7px;background:#fff;font-size:12px}
+.cal .wd{min-height:0;background:var(--band);font-weight:700;color:var(--ink-2);text-align:center;padding:6px 0;border:none}
+.cal .cell.empty{background:transparent;border-color:transparent}
+.cal .cell.today{box-shadow:inset 0 0 0 2px var(--accent)}
+.cal .num{font-weight:700;color:var(--ink)}
+.cal .chip-ev{display:block;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--accent-dark);font-weight:600}
+.cards{display:flex;flex-direction:column;gap:14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff}
+.card.registered{border-color:var(--green);box-shadow:0 0 0 3px var(--green-pale)}
+.card.watching{border-color:var(--line)}
+.card.considering{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.card.going{border-color:var(--green)}
+.card.not_going{opacity:.72}
+.card-top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:8px}
+.badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.4px;border-radius:7px;padding:3px 9px}
+.badge.watching{background:var(--band);color:var(--ink-2)}
+.badge.considering{background:var(--accent-soft);color:var(--accent-dark)}
+.badge.registered,.badge.going{background:var(--green);color:var(--gd-text)}
+.badge.not_going{background:var(--line);color:var(--ink-2)}
+.type{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--ink-2);text-transform:uppercase}
+.card h3{font-size:20px;font-weight:800;letter-spacing:-.2px;margin:4px 0 2px}
+.card .en{color:var(--ink-2);font-size:14.5px;margin-bottom:10px}
+.facts{display:grid;grid-template-columns:160px 1fr;gap:4px 16px;font-size:14.5px}
+.facts dt{color:var(--ink-2)}
+.facts dd{color:var(--ink)}
+.why{margin-top:12px;color:var(--ink);font-size:14.5px}
+.src{margin-top:8px;font-size:13px;color:var(--ink-2)}
+#events-plain{margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+body.js-on #events-plain{display:none}
+#events-plain h2{font-size:22px;margin-bottom:8px}
+#events-plain .plain-intro{color:var(--ink-2);margin-bottom:20px;font-size:14.5px}
+.plain-event{border-top:1px solid var(--line);padding:18px 0}
+.plain-event h3{font-size:18px;margin-bottom:4px}
+.plain-event .en{color:var(--ink-2);margin-bottom:8px}
+.plain-event p{margin:4px 0}
+.plain-event ul{margin:4px 0 8px 20px}
+footer{background:#2b3222;color:#cdd4c1;padding:40px 0 26px;margin-top:70px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
+.foot-bot{border-top:1px solid #444c37;margin-top:28px;padding-top:20px;font-size:13px;color:#97a086;text-align:center}
+.foot-bot a{color:#97a086}
+.empty{padding:24px;color:var(--ink-2)}
+@media(max-width:900px){
+  .wrap{padding:0 20px}
+  h1{font-size:30px}
+  .nav-title{display:none}
+  .facts{grid-template-columns:1fr}
+  .cal .cell{min-height:62px}
+  .deadlines li{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="mark">FTA</span><span class="tag-line">Consulting Quality</span></a>
+    <div class="nav-title"><b>Event Radar</b><span>活动雷达</span></div>
+    <a class="home-link" href="/">Home</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">FTA Event Radar · 外部活动追踪</span>
+    <h1>活动雷达</h1>
+    <p class="lead">网上找到、尚未确认行程的活动清单。电脑和手机打开同一地址即可查看；数据在 <a href="events.json">events.json</a>，供人或其它 AI 读取。这不是 FTA 主办的会议列表。</p>
+    <div class="meta">
+      <span>时区 Time zone <b>北京时间 Asia/Shanghai (UTC+8)</b></span>
+      <span>最后更新 Last updated <b id="last-updated">2026-11-17T10:30:00+08:00</b></span>
+      <span>条目 Entries <b id="entry-count">14</b></span>
+    </div>
+    <p class="disclaimer">只收录已核实日期的活动。深圳市机器人协会「两周一链」2027 年 1 月场次尚未公布，故未列入。状态与费用以本页当时记录为准，报名和付款由本人决定。</p>
+  </div></section>
+
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="field">
+        <label for="filter-status">状态 Status</label>
+        <select id="filter-status">
+          <option value="all">全部 All</option>
+          <option value="watching">观察 Watching</option>
+          <option value="considering">考虑 Considering</option>
+          <option value="registered">已报名 Registered</option>
+          <option value="going">决定去 Going</option>
+          <option value="not_going">不去 Not going</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sort-date">排序 Sort</label>
+        <select id="sort-date">
+          <option value="asc">日期升序 Date ↑</option>
+          <option value="desc">日期降序 Date ↓</option>
+        </select>
+      </div>
+    </div>
+    <div class="counts" id="counts"></div>
+    <div class="deadlines" id="deadlines-box" hidden>
+      <h2>即将到来的截止日期 · Upcoming deadlines</h2>
+      <ul id="deadlines-list"></ul>
+    </div>
+    <div id="radar"><p class="empty">正在载入活动… Loading events…</p></div>
+
+    <section id="events-plain">
+      <h2>活动列表 · Event list</h2>
+      <p class="plain-intro">以下为嵌在页面里的完整条目，供无脚本浏览或其它 AI 直接阅读原始 HTML。资料截至 2026-11-17（北京时间）。Dates are inclusive. Status: watching 观察 / considering 考虑 / registered 已报名 / going 决定去 / not_going 不去.</p>
+      
+<article class="plain-event" data-id="gbwico-2027" data-status="watching" data-start="2027-01-02">
+  <h3>大湾区智能计算与优化研讨会（GBWICO 2027）</h3>
+  <p class="en">Great Bay Workshop on Intelligent Computing &amp; Optimization (GBWICO 2027)</p>
+  <p><b>日期 Dates:</b> 2027-01-02 – 2027-01-05</p>
+  <p><b>城市/地点 City / venue:</b> 东莞 / Dongguan · 大湾区大学松山湖校区</p>
+  <p><b>类型 Type:</b> 学术研讨会 / academic workshop</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 不交注册费（已决定）。官网收费：早鸟（≤2026-12-18）非会员教师 1300 元，正常（≥2026-12-19）1650 元；另有会员教师 1000/1300 元、会员学生 600/800 元、非会员学生 800/1000 元。校内酒店房费入住时自付，会务组不代收。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <ul><li>2026-12-18 — 早鸟交费截止 / Early-bird payment deadline</li><li>2026-12-25 — 注册截止 / Registration deadline</li><li>2026-12-25 — 会议协议酒店预留截止（此后不再为会议预留房间） / Workshop hotel room hold ends</li></ul>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 不交注册费，只关注时间和地点。日程：1/2 报到与现场注册；1/3–4 学术报告（到场交流最合适的两天）；1/5 自由研讨、离会。校内酒店：湾大松山湖学术交流中心酒店，东莞市松山湖园区大学路 16 号 10 栋东门，电话（冯经理）13380188208。12/25 后不再为会议预留房间；房费入住时付给酒店。不注册也可以自行订房入住、进出校园交流（前提是订到房间）。另有研讨会页 https://yangliu-op.github.io/gbwico2027/</p>
+  <p><b>官方链接 Official link:</b> <a href="https://conf.orsc.org.cn/conferences/detail?id=67" rel="noopener" target="_blank">https://conf.orsc.org.cn/conferences/detail?id=67</a></p>
+  <p><b>来源 Source:</b> f13+SA · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="bangkok-hackathon-2026" data-status="registered" data-start="2026-12-14">
+  <h3>MIT Media Lab × 盘谷银行 AI 与机器人黑客松</h3>
+  <p class="en">MIT Media Lab × Bangkok Bank AI &amp; Robotics Hackathon</p>
+  <p><b>日期 Dates:</b> 2026-12-14 – 2026-12-18</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · Cloud 11</p>
+  <p><b>类型 Type:</b> 黑客松 / hackathon</p>
+  <p><b>状态 Status:</b> 已报名 / Registered (<code>registered</code>)</p>
+  <p><b>费用 Cost:</b> 报名免费。录取后主办方为外地选手统一安排酒店，具体费用未单独核实。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <ul><li>2026-11-30 — 录取结果约 11 月底发出（原报名截止为 11/30 16:59 曼谷时间；已于 11/16 提交） / Admission results ~end of November (application deadline was 16:59 ICT 30 Nov; already submitted 16 Nov)</li></ul>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 已报名（2026-11-16 约 20:40，北京时间），录取结果约 11 月底。其中一个赛道是 Future of Manufacturing，与 FTA 方向接近。要求全程参加：14 日上午在盘谷银行大楼破冰，晚上有游船招待会；白天约 9:00–17:00 在 Cloud 11 集中工作，晚上回酒店。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://www.media.mit.edu/events/ai-robotics-hackathon-bangkok-2026/" rel="noopener" target="_blank">https://www.media.mit.edu/events/ai-robotics-hackathon-bangkok-2026/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="optics-valley-packaging-ai-chip-2026" data-status="watching" data-start="2026-11-25">
+  <h3>2026 中国光谷先进封装与 AI 芯片产业大会</h3>
+  <p class="en">2026 China Optics Valley Advanced Packaging and AI Chip Industry Conference</p>
+  <p><b>日期 Dates:</b> 2026-11-25 – 2026-11-27</p>
+  <p><b>城市/地点 City / venue:</b> 武汉 / Wuhan · 中国光谷</p>
+  <p><b>类型 Type:</b> 产业大会 / industry conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 预约报名；公开转载页有「限时免费」字样，费用以主办方为准，此处不作为已核实报价。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 武汉本地。25 日报到；主论坛 11/26 9:00–12:00。主办包括江城实验室等，同期有 AI 算力分会和「创业之芯」路演。与深圳高交会、曼谷 DigiTech 同一周撞车。公开报道称部分同期分会在光谷科技会展中心举行。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://event.huodongxing.com/event/1882629330300" rel="noopener" target="_blank">https://event.huodongxing.com/event/1882629330300</a></p>
+  <p><b>来源 Source:</b> f13（报名页经公开检索核实） · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="digitech-asean-2026" data-status="watching" data-start="2026-11-25">
+  <h3>DigiTech ASEAN Thailand &amp; AI Connect</h3>
+  <p class="en">DigiTech ASEAN Thailand &amp; AI Connect</p>
+  <p><b>日期 Dates:</b> 2026-11-25 – 2026-11-27</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · IMPACT 会展中心</p>
+  <p><b>类型 Type:</b> 行业展 / industry expo</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。与深圳高交会几乎同一时间，人不能两头跑。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://digitechasean.com/" rel="noopener" target="_blank">https://digitechasean.com/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="hpc-summit-thailand-2026" data-status="watching" data-start="2026-11-25">
+  <h3>HPC Summit Thailand</h3>
+  <p class="en">HPC Summit Thailand</p>
+  <p><b>日期 Dates:</b> 2026-11-25</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · 场馆待核实</p>
+  <p><b>类型 Type:</b> 产业会议 / industry conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> AI 算力基础设施方向。日期已由 f13 查到（11/25），但公开资料里场馆尚未写清，故地点只记到城市。</p>
+  <p><b>官方链接 Official link:</b> （无已核实官网 / no verified official URL）</p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="chtf-2026" data-status="watching" data-start="2026-11-26">
+  <h3>第二十八届中国国际高新技术成果交易会（高交会）</h3>
+  <p class="en">China Hi-Tech Fair 2026 (CHTF)</p>
+  <p><b>日期 Dates:</b> 2026-11-26 – 2026-11-28</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 深圳国际会展中心（宝安）</p>
+  <p><b>类型 Type:</b> 展会 / trade fair</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 国家级展会，有人工智能展区，同期有「中国高新技术论坛」。f13 认为年底前广东最值得优先考虑的一场。11/25–28 与武汉光谷大会、曼谷 DigiTech 撞车。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://www.chtf.com/" rel="noopener" target="_blank">https://www.chtf.com/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="waiac-2026" data-status="watching" data-start="2026-11-26">
+  <h3>2026 WAIAC 世界人工智能应用大会</h3>
+  <p class="en">WAIAC 2026 World Artificial Intelligence Application Conference</p>
+  <p><b>日期 Dates:</b> 2026-11-26 – 2026-11-28</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 深圳国际会展中心（宝安）</p>
+  <p><b>类型 Type:</b> 大会 / conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实（官网有参会报名入口）</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 高交会同期活动，同一场馆。日期经官网核实为 11/26–28。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://waiac.xyz/" rel="noopener" target="_blank">https://waiac.xyz/</a></p>
+  <p><b>来源 Source:</b> f13（日期经官网核实） · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="iaicc-2026" data-status="watching" data-start="2026-11-27">
+  <h3>IAICC 国际人工智能及创意大会</h3>
+  <p class="en">IAICC International AI and Creative Conference</p>
+  <p><b>日期 Dates:</b> 2026-11-27</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 待核实</p>
+  <p><b>类型 Type:</b> 大会 / conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 偏创意、游戏和 AIGC。与高交会同一天，只能二选一。具体场馆 f13 当时未列出。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://iaicc.cn/zh-hans/2026/" rel="noopener" target="_blank">https://iaicc.cn/zh-hans/2026/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="genai-shenzhen-2026" data-status="watching" data-start="2026-12-04">
+  <h3>GenAI Shenzhen</h3>
+  <p class="en">GenAI Shenzhen</p>
+  <p><b>日期 Dates:</b> 2026-12-04 – 2026-12-05</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 深圳先进院（SIAT）</p>
+  <p><b>类型 Type:</b> 对接会 / matchmaking / conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 中欧对接性质，约 500 人。第一天是参访和双边会谈，第二天是主会。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://www.genaishenzhen.com/" rel="noopener" target="_blank">https://www.genaishenzhen.com/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="affiliate-world-asia-2026" data-status="watching" data-start="2026-12-09">
+  <h3>Affiliate World Asia</h3>
+  <p class="en">Affiliate World Asia</p>
+  <p><b>日期 Dates:</b> 2026-12-09 – 2026-12-10</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · Centara Grand</p>
+  <p><b>类型 Type:</b> 行业大会 / industry conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 门票不便宜；具体价格未核实。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 本身做联盟营销，不是 AI 会。f13 指这是该月曼谷人最密的一场之一，周边酒会往往会延到后面几天。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://affiliateworldconferences.com/asia" rel="noopener" target="_blank">https://affiliateworldconferences.com/asia</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="gba-ai-infra-2026" data-status="watching" data-start="2026-12-15">
+  <h3>大湾区 AI 应用生态 × 数字基础设施大会</h3>
+  <p class="en">Greater Bay Area AI Application Ecosystem × Digital Infrastructure Conference</p>
+  <p><b>日期 Dates:</b> 2026-12-15</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 深圳国际交流中心</p>
+  <p><b>类型 Type:</b> 产业大会 / industry conference</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 中国互联网协会主办，偏算力、数据和产业对接。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://www.isc.org.cn/article/31071952957992960.html" rel="noopener" target="_blank">https://www.isc.org.cn/article/31071952957992960.html</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="bangkok-entrepreneurs-meetup-2026-12" data-status="watching" data-start="2026-12-15">
+  <h3>曼谷创业者与天使投资人聚会</h3>
+  <p class="en">Bangkok Entrepreneurs, Angel Investors and Wantrepreneurs</p>
+  <p><b>日期 Dates:</b> 2026-12-15 – 2026-12-29（场次 sessions: 2026-12-15, 2026-12-22, 2026-12-29）</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · Amber Bar, Asok</p>
+  <p><b>类型 Type:</b> 社交聚会 / meetup</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 买一杯酒即可进入。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 每周二晚上 18:00。12 月中下旬有 15、22、29 日三场。约 60 到 100 人，一半是路过泰国的创业者和投资人，没有主题、不用上台。适合街角人脉。start/end 只表示跨度，实际场次见 dates。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://www.meetup.com/bangkok-entrepreneurs-angel-investors-and-wantrepreneurs/" rel="noopener" target="_blank">https://www.meetup.com/bangkok-entrepreneurs-angel-investors-and-wantrepreneurs/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="bangkok-ai-engineers-meetup-2026-12" data-status="watching" data-start="2026-12-19">
+  <h3>曼谷 AI 工程师聚会</h3>
+  <p class="en">AI Engineers Meetup Bangkok</p>
+  <p><b>日期 Dates:</b> 2026-12-19 – 2026-12-26（场次 sessions: 2026-12-19, 2026-12-26）</p>
+  <p><b>城市/地点 City / venue:</b> 曼谷 / Bangkok · 暹罗百丽宫四楼 SCBX NEXT TECH</p>
+  <p><b>类型 Type:</b> 技术聚会 / meetup</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 未核实</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <p>无单独截止日期 / No separate deadline recorded.</p>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 每周六上午 10:00。f13 查到 12 月 19 日和 26 日有场。工程师边喝咖啡边试新工具，人不多。start/end 只表示跨度，实际场次见 dates。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://createwith.com/event/bangkok-ai-engineers-meetup-bangkok-nov-2026-1" rel="noopener" target="_blank">https://createwith.com/event/bangkok-ai-engineers-meetup-bangkok-nov-2026-1</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+
+<article class="plain-event" data-id="delta-and-bay-build-sprint-2027" data-status="watching" data-start="2027-01-11">
+  <h3>Delta &amp; Bay Build Sprint</h3>
+  <p class="en">Delta &amp; Bay Build Sprint</p>
+  <p><b>日期 Dates:</b> 2027-01-11 – 2027-01-20</p>
+  <p><b>城市/地点 City / venue:</b> 深圳 / Shenzhen · 深圳（具体场地以主办方通知为准）</p>
+  <p><b>类型 Type:</b> 硬件冲刺营 / hardware sprint</p>
+  <p><b>状态 Status:</b> 观察 / Watching (<code>watching</code>)</p>
+  <p><b>费用 Cost:</b> 1200 美元，含住宿；40 个名额，需申请。</p>
+  <p><b>截止日期 Deadlines:</b></p>
+  <ul><li>2026-12-14 — 主办方确认是否开营 / Organizer confirms whether the sprint will run</li></ul>
+  <p><b>为什么值得看 / 备注 Why / notes:</b> 给硬件和机器人创始人办的冲刺营，有工厂参观、供应商对接和华强北行程。比 1/3–10 的窗口晚几天；若行程能往后延，f13 认为这段时间最能碰到真正做事的人。</p>
+  <p><b>官方链接 Official link:</b> <a href="https://deltaandbay.com/" rel="noopener" target="_blank">https://deltaandbay.com/</a></p>
+  <p><b>来源 Source:</b> f13 · <b>本条更新 Record updated:</b> 2026-11-17</p>
+</article>
+
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot"><span class="mark">FTA</span><span style="color:#9fa891;font-size:14px">Consulting Quality · Chicago HQ · Hong Kong base</span></div>
+  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a href="/">Home</a> · <a href="/saa/">SAA</a> · <a href="/partners/">Partners</a></div>
+</div></footer>
+
+<script type="application/json" id="events-data">
+{
+  "title": "FTA Event Radar · 活动雷达",
+  "timezone": "Asia/Shanghai",
+  "updated": "2026-11-17T10:30:00+08:00",
+  "note": "FTA 关注的外部活动追踪（不是 FTA 主办的会议列表）。只收录已核实日期的活动。日期均为包含起止日。状态：watching 观察 / considering 考虑 / registered 已报名 / going 决定去 / not_going 不去。资料截至 2026-11-17（北京时间）。深圳市机器人协会「两周一链」2027 年 1 月场次尚未公布，故未列入。",
+  "events": [
+    {
+      "id": "gbwico-2027",
+      "name": "大湾区智能计算与优化研讨会（GBWICO 2027）",
+      "name_en": "Great Bay Workshop on Intelligent Computing & Optimization (GBWICO 2027)",
+      "start": "2027-01-02",
+      "end": "2027-01-05",
+      "city": "东莞",
+      "city_en": "Dongguan",
+      "venue": "大湾区大学松山湖校区",
+      "type": "学术研讨会",
+      "type_en": "academic workshop",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "不交注册费（已决定）。官网收费：早鸟（≤2026-12-18）非会员教师 1300 元，正常（≥2026-12-19）1650 元；另有会员教师 1000/1300 元、会员学生 600/800 元、非会员学生 800/1000 元。校内酒店房费入住时自付，会务组不代收。",
+      "deadlines": [
+        {
+          "date": "2026-12-18",
+          "label_zh": "早鸟交费截止",
+          "label": "Early-bird payment deadline"
+        },
+        {
+          "date": "2026-12-25",
+          "label_zh": "注册截止",
+          "label": "Registration deadline"
+        },
+        {
+          "date": "2026-12-25",
+          "label_zh": "会议协议酒店预留截止（此后不再为会议预留房间）",
+          "label": "Workshop hotel room hold ends"
+        }
+      ],
+      "why": "不交注册费，只关注时间和地点。日程：1/2 报到与现场注册；1/3–4 学术报告（到场交流最合适的两天）；1/5 自由研讨、离会。校内酒店：湾大松山湖学术交流中心酒店，东莞市松山湖园区大学路 16 号 10 栋东门，电话（冯经理）13380188208。12/25 后不再为会议预留房间；房费入住时付给酒店。不注册也可以自行订房入住、进出校园交流（前提是订到房间）。另有研讨会页 https://yangliu-op.github.io/gbwico2027/",
+      "official_url": "https://conf.orsc.org.cn/conferences/detail?id=67",
+      "source": "f13+SA",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "bangkok-hackathon-2026",
+      "name": "MIT Media Lab × 盘谷银行 AI 与机器人黑客松",
+      "name_en": "MIT Media Lab × Bangkok Bank AI & Robotics Hackathon",
+      "start": "2026-12-14",
+      "end": "2026-12-18",
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "Cloud 11",
+      "type": "黑客松",
+      "type_en": "hackathon",
+      "status": "registered",
+      "status_zh": "已报名",
+      "cost": "报名免费。录取后主办方为外地选手统一安排酒店，具体费用未单独核实。",
+      "deadlines": [
+        {
+          "date": "2026-11-30",
+          "label_zh": "录取结果约 11 月底发出（原报名截止为 11/30 16:59 曼谷时间；已于 11/16 提交）",
+          "label": "Admission results ~end of November (application deadline was 16:59 ICT 30 Nov; already submitted 16 Nov)"
+        }
+      ],
+      "why": "已报名（2026-11-16 约 20:40，北京时间），录取结果约 11 月底。其中一个赛道是 Future of Manufacturing，与 FTA 方向接近。要求全程参加：14 日上午在盘谷银行大楼破冰，晚上有游船招待会；白天约 9:00–17:00 在 Cloud 11 集中工作，晚上回酒店。",
+      "official_url": "https://www.media.mit.edu/events/ai-robotics-hackathon-bangkok-2026/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "optics-valley-packaging-ai-chip-2026",
+      "name": "2026 中国光谷先进封装与 AI 芯片产业大会",
+      "name_en": "2026 China Optics Valley Advanced Packaging and AI Chip Industry Conference",
+      "start": "2026-11-25",
+      "end": "2026-11-27",
+      "city": "武汉",
+      "city_en": "Wuhan",
+      "venue": "中国光谷",
+      "type": "产业大会",
+      "type_en": "industry conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "预约报名；公开转载页有「限时免费」字样，费用以主办方为准，此处不作为已核实报价。",
+      "deadlines": [],
+      "why": "武汉本地。25 日报到；主论坛 11/26 9:00–12:00。主办包括江城实验室等，同期有 AI 算力分会和「创业之芯」路演。与深圳高交会、曼谷 DigiTech 同一周撞车。公开报道称部分同期分会在光谷科技会展中心举行。",
+      "official_url": "https://event.huodongxing.com/event/1882629330300",
+      "source": "f13（报名页经公开检索核实）",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "digitech-asean-2026",
+      "name": "DigiTech ASEAN Thailand & AI Connect",
+      "name_en": "DigiTech ASEAN Thailand & AI Connect",
+      "start": "2026-11-25",
+      "end": "2026-11-27",
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "IMPACT 会展中心",
+      "type": "行业展",
+      "type_en": "industry expo",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。与深圳高交会几乎同一时间，人不能两头跑。",
+      "official_url": "https://digitechasean.com/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "hpc-summit-thailand-2026",
+      "name": "HPC Summit Thailand",
+      "name_en": "HPC Summit Thailand",
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "场馆待核实",
+      "type": "产业会议",
+      "type_en": "industry conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "AI 算力基础设施方向。日期已由 f13 查到（11/25），但公开资料里场馆尚未写清，故地点只记到城市。",
+      "official_url": "",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "chtf-2026",
+      "name": "第二十八届中国国际高新技术成果交易会（高交会）",
+      "name_en": "China Hi-Tech Fair 2026 (CHTF)",
+      "start": "2026-11-26",
+      "end": "2026-11-28",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "深圳国际会展中心（宝安）",
+      "type": "展会",
+      "type_en": "trade fair",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "国家级展会，有人工智能展区，同期有「中国高新技术论坛」。f13 认为年底前广东最值得优先考虑的一场。11/25–28 与武汉光谷大会、曼谷 DigiTech 撞车。",
+      "official_url": "https://www.chtf.com/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "waiac-2026",
+      "name": "2026 WAIAC 世界人工智能应用大会",
+      "name_en": "WAIAC 2026 World Artificial Intelligence Application Conference",
+      "start": "2026-11-26",
+      "end": "2026-11-28",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "深圳国际会展中心（宝安）",
+      "type": "大会",
+      "type_en": "conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实（官网有参会报名入口）",
+      "deadlines": [],
+      "why": "高交会同期活动，同一场馆。日期经官网核实为 11/26–28。",
+      "official_url": "https://waiac.xyz/",
+      "source": "f13（日期经官网核实）",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "iaicc-2026",
+      "name": "IAICC 国际人工智能及创意大会",
+      "name_en": "IAICC International AI and Creative Conference",
+      "start": "2026-11-27",
+      "end": "2026-11-27",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "待核实",
+      "type": "大会",
+      "type_en": "conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "偏创意、游戏和 AIGC。与高交会同一天，只能二选一。具体场馆 f13 当时未列出。",
+      "official_url": "https://iaicc.cn/zh-hans/2026/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "genai-shenzhen-2026",
+      "name": "GenAI Shenzhen",
+      "name_en": "GenAI Shenzhen",
+      "start": "2026-12-04",
+      "end": "2026-12-05",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "深圳先进院（SIAT）",
+      "type": "对接会",
+      "type_en": "matchmaking / conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "中欧对接性质，约 500 人。第一天是参访和双边会谈，第二天是主会。",
+      "official_url": "https://www.genaishenzhen.com/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "affiliate-world-asia-2026",
+      "name": "Affiliate World Asia",
+      "name_en": "Affiliate World Asia",
+      "start": "2026-12-09",
+      "end": "2026-12-10",
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "Centara Grand",
+      "type": "行业大会",
+      "type_en": "industry conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "门票不便宜；具体价格未核实。",
+      "deadlines": [],
+      "why": "本身做联盟营销，不是 AI 会。f13 指这是该月曼谷人最密的一场之一，周边酒会往往会延到后面几天。",
+      "official_url": "https://affiliateworldconferences.com/asia",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "gba-ai-infra-2026",
+      "name": "大湾区 AI 应用生态 × 数字基础设施大会",
+      "name_en": "Greater Bay Area AI Application Ecosystem × Digital Infrastructure Conference",
+      "start": "2026-12-15",
+      "end": "2026-12-15",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "深圳国际交流中心",
+      "type": "产业大会",
+      "type_en": "industry conference",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "中国互联网协会主办，偏算力、数据和产业对接。",
+      "official_url": "https://www.isc.org.cn/article/31071952957992960.html",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "bangkok-entrepreneurs-meetup-2026-12",
+      "name": "曼谷创业者与天使投资人聚会",
+      "name_en": "Bangkok Entrepreneurs, Angel Investors and Wantrepreneurs",
+      "start": "2026-12-15",
+      "end": "2026-12-29",
+      "dates": [
+        "2026-12-15",
+        "2026-12-22",
+        "2026-12-29"
+      ],
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "Amber Bar, Asok",
+      "type": "社交聚会",
+      "type_en": "meetup",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "买一杯酒即可进入。",
+      "deadlines": [],
+      "why": "每周二晚上 18:00。12 月中下旬有 15、22、29 日三场。约 60 到 100 人，一半是路过泰国的创业者和投资人，没有主题、不用上台。适合街角人脉。start/end 只表示跨度，实际场次见 dates。",
+      "official_url": "https://www.meetup.com/bangkok-entrepreneurs-angel-investors-and-wantrepreneurs/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "bangkok-ai-engineers-meetup-2026-12",
+      "name": "曼谷 AI 工程师聚会",
+      "name_en": "AI Engineers Meetup Bangkok",
+      "start": "2026-12-19",
+      "end": "2026-12-26",
+      "dates": [
+        "2026-12-19",
+        "2026-12-26"
+      ],
+      "city": "曼谷",
+      "city_en": "Bangkok",
+      "venue": "暹罗百丽宫四楼 SCBX NEXT TECH",
+      "type": "技术聚会",
+      "type_en": "meetup",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "未核实",
+      "deadlines": [],
+      "why": "每周六上午 10:00。f13 查到 12 月 19 日和 26 日有场。工程师边喝咖啡边试新工具，人不多。start/end 只表示跨度，实际场次见 dates。",
+      "official_url": "https://createwith.com/event/bangkok-ai-engineers-meetup-bangkok-nov-2026-1",
+      "source": "f13",
+      "updated": "2026-11-17"
+    },
+    {
+      "id": "delta-and-bay-build-sprint-2027",
+      "name": "Delta & Bay Build Sprint",
+      "name_en": "Delta & Bay Build Sprint",
+      "start": "2027-01-11",
+      "end": "2027-01-20",
+      "city": "深圳",
+      "city_en": "Shenzhen",
+      "venue": "深圳（具体场地以主办方通知为准）",
+      "type": "硬件冲刺营",
+      "type_en": "hardware sprint",
+      "status": "watching",
+      "status_zh": "观察",
+      "cost": "1200 美元，含住宿；40 个名额，需申请。",
+      "deadlines": [
+        {
+          "date": "2026-12-14",
+          "label_zh": "主办方确认是否开营",
+          "label": "Organizer confirms whether the sprint will run"
+        }
+      ],
+      "why": "给硬件和机器人创始人办的冲刺营，有工厂参观、供应商对接和华强北行程。比 1/3–10 的窗口晚几天；若行程能往后延，f13 认为这段时间最能碰到真正做事的人。",
+      "official_url": "https://deltaandbay.com/",
+      "source": "f13",
+      "updated": "2026-11-17"
+    }
+  ]
+}
+</script>
+<script>
+(function(){
+  var TODAY = "2026-11-17";
+  var STATUS_ZH = {watching:"观察",considering:"考虑",registered:"已报名",going:"决定去",not_going:"不去"};
+  var STATUS_EN = {watching:"Watching",considering:"Considering",registered:"Registered",going:"Going",not_going:"Not going"};
+  var WEEKDAYS = ["一 Mon","二 Tue","三 Wed","四 Thu","五 Fri","六 Sat","日 Sun"];
+  var MONTH_ZH = {"2026-11":"2026年11月 · November 2026","2026-12":"2026年12月 · December 2026","2027-01":"2027年1月 · January 2027","2027-02":"2027年2月 · February 2027"};
+
+  function $(id){return document.getElementById(id);}
+  function pad(n){return n<10?"0"+n:""+n;}
+  function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+  function parseISO(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+  function addDays(s,n){var d=parseISO(s);d.setDate(d.getDate()+n);return ymd(d);}
+  function eachDay(start,end){
+    var out=[],d=start;
+    while(d<=end){out.push(d);d=addDays(d,1);}
+    return out;
+  }
+  function eventDays(ev){
+    if(ev.dates && ev.dates.length) return ev.dates.slice();
+    return eachDay(ev.start, ev.end);
+  }
+  function shortName(ev){
+    return ev.name.length>18 ? ev.name.slice(0,16)+"…" : ev.name;
+  }
+  function dateLabel(ev){
+    if(ev.dates && ev.dates.length) return ev.dates.join("、");
+    if(ev.start===ev.end) return ev.start;
+    return ev.start+" – "+ev.end;
+  }
+  function escapeHtml(s){
+    return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function linkOrDash(url){
+    if(!url) return "—";
+    return '<a href="'+escapeHtml(url)+'" rel="noopener" target="_blank">'+escapeHtml(url)+'</a>';
+  }
+
+  function render(data){
+    var events = (data && data.events) ? data.events.slice() : [];
+    $("last-updated").textContent = data.updated || TODAY;
+    $("entry-count").textContent = String(events.length);
+
+    var status = $("filter-status").value;
+    var sort = $("sort-date").value;
+    var filtered = events.filter(function(ev){return status==="all" || ev.status===status;});
+    filtered.sort(function(a,b){
+      var c = a.start < b.start ? -1 : a.start > b.start ? 1 : a.name.localeCompare(b.name,"zh");
+      return sort==="desc" ? -c : c;
+    });
+
+    var counts = {all:events.length,watching:0,considering:0,registered:0,going:0,not_going:0};
+    events.forEach(function(ev){if(counts[ev.status]!=null) counts[ev.status]++;});
+    $("counts").innerHTML = ["all","watching","considering","registered","going","not_going"].map(function(k){
+      var label = k==="all" ? "全部 All" : (STATUS_ZH[k]+" "+STATUS_EN[k]);
+      return '<span class="chip">'+label+' <b>'+counts[k]+'</b></span>';
+    }).join("");
+
+    var upcoming = [];
+    events.forEach(function(ev){
+      (ev.deadlines||[]).forEach(function(d){
+        if(d.date >= TODAY) upcoming.push({date:d.date, ev:ev, label:d.label_zh||d.label||"", label_en:d.label||""});
+      });
+    });
+    upcoming.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0;});
+    var box=$("deadlines-box"), list=$("deadlines-list");
+    if(upcoming.length){
+      box.hidden=false;
+      var soonLimit=addDays(TODAY,14);
+      list.innerHTML = upcoming.map(function(item){
+        var soon = item.date<=soonLimit ? " soon" : "";
+        return '<li class="'+soon+'"><span class="when">'+escapeHtml(item.date)+'</span><span>'+escapeHtml(item.label)+(item.label_en && item.label_en!==item.label ? ' / '+escapeHtml(item.label_en):'')+' — '+escapeHtml(item.ev.name)+'</span></li>';
+      }).join("");
+    } else {
+      box.hidden=true;
+      list.innerHTML="";
+    }
+
+    if(!filtered.length){
+      $("radar").innerHTML = '<p class="empty">这个状态下没有活动。No events in this status.</p>';
+      return;
+    }
+
+    var months = [];
+    var byMonth = {};
+    filtered.forEach(function(ev){
+      var keys = {};
+      eventDays(ev).forEach(function(d){keys[d.slice(0,7)]=true;});
+      Object.keys(keys).forEach(function(m){
+        if(!byMonth[m]){byMonth[m]=[];months.push(m);}
+        byMonth[m].push(ev);
+      });
+    });
+    months.sort();
+    if(sort==="desc") months.reverse();
+
+    var html = months.map(function(m){
+      return '<section class="month-block" id="m-'+m+'"><h2>'+(MONTH_ZH[m]||m)+'</h2>'+
+        monthGrid(m, byMonth[m]) +
+        '<div class="cards">'+byMonth[m].map(cardHtml).join("")+'</div></section>';
+    }).join("");
+    $("radar").innerHTML = html;
+  }
+
+  function monthGrid(ym, evs){
+    var parts=ym.split("-"), year=+parts[0], month=+parts[1];
+    var first=new Date(year,month-1,1);
+    var startPad=(first.getDay()+6)%7; // Monday first
+    var daysIn=new Date(year,month,0).getDate();
+    var byDay={};
+    evs.forEach(function(ev){
+      eventDays(ev).forEach(function(d){
+        if(d.slice(0,7)!==ym) return;
+        (byDay[d]=byDay[d]||[]).push(ev);
+      });
+    });
+    var cells='<div class="wd">'+WEEKDAYS.join('</div><div class="wd">')+'</div>';
+    for(var i=0;i<startPad;i++) cells+='<div class="cell empty"></div>';
+    for(var day=1;day<=daysIn;day++){
+      var ds=ym+"-"+pad(day);
+      var cls="cell"+(ds===TODAY?" today":"");
+      var evHtml=(byDay[ds]||[]).map(function(ev){
+        return '<span class="chip-ev" title="'+escapeHtml(ev.name)+'">'+escapeHtml(shortName(ev))+'</span>';
+      }).join("");
+      cells+='<div class="'+cls+'"><div class="num">'+day+'</div>'+evHtml+'</div>';
+    }
+    return '<div class="cal">'+cells+'</div>';
+  }
+
+  function cardHtml(ev){
+    var deadlines=(ev.deadlines||[]).map(function(d){
+      return escapeHtml(d.date)+" "+escapeHtml(d.label_zh||d.label||"");
+    }).join("；") || "—";
+    var st=ev.status||"watching";
+    return '<article class="card '+st+'" id="'+escapeHtml(ev.id)+'">'+
+      '<div class="card-top"><span class="badge '+st+'">'+escapeHtml(ev.status_zh||STATUS_ZH[st]||st)+' / '+escapeHtml(STATUS_EN[st]||st)+'</span>'+
+      '<span class="type">'+escapeHtml(ev.type||"")+(ev.type_en?" · "+escapeHtml(ev.type_en):"")+'</span></div>'+
+      '<h3>'+escapeHtml(ev.name)+'</h3>'+
+      '<p class="en">'+escapeHtml(ev.name_en||"")+'</p>'+
+      '<dl class="facts">'+
+        '<dt>日期 Dates</dt><dd>'+escapeHtml(dateLabel(ev))+'</dd>'+
+        '<dt>城市/地点 City / venue</dt><dd>'+escapeHtml(ev.city)+(ev.city_en?" / "+escapeHtml(ev.city_en):"")+" · "+escapeHtml(ev.venue||"")+'</dd>'+
+        '<dt>费用 Cost</dt><dd>'+escapeHtml(ev.cost||"未核实")+'</dd>'+
+        '<dt>截止日期 Deadlines</dt><dd>'+deadlines+'</dd>'+
+        '<dt>官方链接 Official</dt><dd>'+linkOrDash(ev.official_url)+'</dd>'+
+      '</dl>'+
+      '<p class="why">'+escapeHtml(ev.why||"")+'</p>'+
+      '<p class="src">来源 Source: '+escapeHtml(ev.source||"")+' · 本条更新 Record updated: '+escapeHtml(ev.updated||"")+'</p>'+
+    '</article>';
+  }
+
+  function boot(data){
+    document.body.classList.add("js-on");
+    render(data);
+    $("filter-status").addEventListener("change", function(){render(data);});
+    $("sort-date").addEventListener("change", function(){render(data);});
+  }
+
+  var embedded = {};
+  try { embedded = JSON.parse($("events-data").textContent); } catch(e) { embedded = {updated:TODAY,events:[]}; }
+
+  var url = "events.json?t=" + Date.now();
+  fetch(url, {cache:"no-store"}).then(function(res){
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    return res.json();
+  }).then(function(data){
+    boot(data);
+  }).catch(function(){
+    boot(embedded);
+  });
+})();
+</script>
+</body>
+</html>
