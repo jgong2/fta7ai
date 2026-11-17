@@ -1,7 +1,7 @@
 {
   "title": "FTA Event Radar · 活动雷达",
   "timezone": "Asia/Shanghai",
-  "updated": "2026-11-17T10:30:00+08:00",
+  "updated": "2026-11-17T11:15:00+08:00",
   "note": "FTA 关注的外部活动追踪（不是 FTA 主办的会议列表）。只收录已核实日期的活动。日期均为包含起止日。状态：watching 观察 / considering 考虑 / registered 已报名 / going 决定去 / not_going 不去。资料截至 2026-11-17（北京时间）。深圳市机器人协会「两周一链」2027 年 1 月场次尚未公布，故未列入。",
   "events": [
     {
@@ -97,11 +97,11 @@
       "venue": "IMPACT 会展中心",
       "type": "行业展",
       "type_en": "industry expo",
-      "status": "watching",
-      "status_zh": "观察",
+      "status": "not_going",
+      "status_zh": "不去",
       "cost": "未核实",
       "deadlines": [],
-      "why": "东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。与深圳高交会几乎同一时间，人不能两头跑。",
+      "why": "JG 2026-11-17 确认 11 月去不了曼谷。东盟数字和 AI 行业展，约 400 个品牌、80 位讲者。与深圳高交会几乎同一时间，人不能两头跑。",
       "official_url": "https://digitechasean.com/",
       "source": "f13",
       "updated": "2026-11-17"
@@ -117,11 +117,11 @@
       "venue": "场馆待核实",
       "type": "产业会议",
       "type_en": "industry conference",
-      "status": "watching",
-      "status_zh": "观察",
+      "status": "not_going",
+      "status_zh": "不去",
       "cost": "未核实",
       "deadlines": [],
-      "why": "AI 算力基础设施方向。日期已由 f13 查到（11/25），但公开资料里场馆尚未写清，故地点只记到城市。",
+      "why": "JG 2026-11-17 确认 11 月去不了曼谷。AI 算力基础设施方向。日期已由 f13 查到（11/25），但公开资料里场馆尚未写清，故地点只记到城市。",
       "official_url": "",
       "source": "f13",
       "updated": "2026-11-17"
