@@ -1,7 +1,7 @@
 {
   "title": "FTA Event Radar · 活动雷达",
   "timezone": "Asia/Shanghai",
-  "updated": "2026-11-17T11:15:00+08:00",
+  "updated": "2026-11-17T11:20:00+08:00",
   "note": "FTA 关注的外部活动追踪（不是 FTA 主办的会议列表）。只收录已核实日期的活动。日期均为包含起止日。状态：watching 观察 / considering 考虑 / registered 已报名 / going 决定去 / not_going 不去。资料截至 2026-11-17（北京时间）。深圳市机器人协会「两周一链」2027 年 1 月场次尚未公布，故未列入。",
   "events": [
     {
@@ -77,11 +77,11 @@
       "venue": "中国光谷",
       "type": "产业大会",
       "type_en": "industry conference",
-      "status": "watching",
-      "status_zh": "观察",
+      "status": "going",
+      "status_zh": "决定去",
       "cost": "预约报名；公开转载页有「限时免费」字样，费用以主办方为准，此处不作为已核实报价。",
       "deadlines": [],
-      "why": "武汉本地。25 日报到；主论坛 11/26 9:00–12:00。主办包括江城实验室等，同期有 AI 算力分会和「创业之芯」路演。与深圳高交会、曼谷 DigiTech 同一周撞车。公开报道称部分同期分会在光谷科技会展中心举行。",
+      "why": "JG 2026-11-17 决定去。武汉本地。25 日报到；主论坛 11/26 9:00–12:00。主办包括江城实验室等，同期有 AI 算力分会和「创业之芯」路演。与深圳高交会、曼谷 DigiTech 同一周撞车。公开报道称部分同期分会在光谷科技会展中心举行。",
       "official_url": "https://event.huodongxing.com/event/1882629330300",
       "source": "f13（报名页经公开检索核实）",
       "updated": "2026-11-17"

@@ -20,13 +20,13 @@ Other AI agents (Claude, ChatGPT, Grok, etc.) should:
 
 ## Theme and status colors
 
-The page uses a dark (black) background. Status is color-coded the same way in the three-month overview, calendar chips, detail cards, badges, filter counts, and the legend at the top:
+The page keeps a **light** (white) background. Status is color-coded the same way in the three-month overview, calendar chips, detail cards, badges, filter counts, and the legend at the top:
 
-- **Orange / amber** (`#FFB020` / `#FFA726`): 观察 Watching and 考虑 Considering — found, not yet decided.
-- **Green** (`#34C759`): 已报名 Registered and 决定去 Going.
-- **Red** (`#FF453A`): 不去 Not going.
+- **Near-black** (`#222222`): 观察 Watching and 考虑 Considering — found, not yet decided. Neutral, not orange.
+- **Deep green** (`#1E7B3A`): 已报名 Registered and 决定去 Going.
+- **Muted dark red** (`#B03A2E`): 不去 Not going. Not a bright red.
 
-Orange is a yellow-amber, kept clearly distinct from red. Items also have a left color bar and a tinted border. Upcoming deadlines within 14 days are marked with a “临近” label and a light-blue outline, not red, so they are not confused with the “not going” color.
+Items also have a left color bar and a lightly tinted border. Upcoming deadlines within 14 days are marked with a ⏰ label and a blue outline, not red, so they are not confused with the “not going” color.
 
 ## Three-month overview and folding
 
