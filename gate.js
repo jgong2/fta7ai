@@ -1,17 +1,28 @@
-/* FTA client-side gate. One code, one session, all gated pages.
-   sessionStorage key: fta_ok (legacy keys are accepted and upgraded).
-   This is a soft overlay only; do not put secrets behind it. */
+/* FTA client-side gate. Soft overlay only; do not put secrets behind it.
+   Default site gate: code and session key used by /saa/, /datacenter/, and other
+   internal tools. A separate "employee" profile uses its own code and session
+   key; the default site session must not unlock it, and vice versa. */
 (function () {
-  var KEY = 'fta_ok';
+  var DEFAULT_KEY = 'fta_ok';
+  var DEFAULT_CODE = '0000';
   var LEGACY = ['fta_cn_ok', 'fta_dc_ok', 'fta_mvp_ok', 'fta_inv', 'fta_tal'];
-  var CODE = '0000';
+  var EMPLOYEE_KEY = 'fta_emp_ok';
+  var EMPLOYEE_CODE = '312312';
 
-  function unlocked() {
+  function profile(g) {
+    var name = (g && g.getAttribute('data-gate')) || 'site';
+    if (name === 'employee') {
+      return { key: EMPLOYEE_KEY, code: EMPLOYEE_CODE, legacy: [] };
+    }
+    return { key: DEFAULT_KEY, code: DEFAULT_CODE, legacy: LEGACY };
+  }
+
+  function unlocked(p) {
     try {
-      if (sessionStorage.getItem(KEY) === '1') return true;
-      for (var i = 0; i < LEGACY.length; i++) {
-        if (sessionStorage.getItem(LEGACY[i]) === '1') {
-          sessionStorage.setItem(KEY, '1');
+      if (sessionStorage.getItem(p.key) === '1') return true;
+      for (var i = 0; i < p.legacy.length; i++) {
+        if (sessionStorage.getItem(p.legacy[i]) === '1') {
+          sessionStorage.setItem(p.key, '1');
           return true;
         }
       }
@@ -51,8 +62,9 @@
   }
 
   function bind(g) {
+    var p = profile(g);
     build(g);
-    if (unlocked()) {
+    if (unlocked(p)) {
       g.style.display = 'none';
       document.documentElement.style.overflow = '';
       return;
@@ -62,8 +74,8 @@
     function ok() {
       var input = document.getElementById('ftapw');
       var err = document.getElementById('ftaerr');
-      if (input && input.value === CODE) {
-        try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      if (input && input.value === p.code) {
+        try { sessionStorage.setItem(p.key, '1'); } catch (e) {}
         g.style.display = 'none';
         document.documentElement.style.overflow = '';
       } else if (err) {

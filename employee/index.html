@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FTA — Employee</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--accent:#D07C3E;--accent-dark:#A85A28;--ink:#20261C;--ink-2:#5B6353;--line:#E7EAE0;--band:#F7F9F1;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-dark)}
+.wrap{max-width:920px;margin:0 auto;padding:0 28px}
+header{border-bottom:1px solid var(--line);padding:22px 0}
+.brand{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--ink);text-decoration:none}
+.tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-left:10px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.4px;margin:36px 0 10px}
+.lead{color:var(--ink-2);margin-bottom:36px;max-width:640px}
+h2{font-size:18px;font-weight:800;margin:36px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:0;padding-top:0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 8px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px 9px 0;border-bottom:1px solid var(--line)}
+th{color:var(--ink-2);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.gate{white-space:nowrap}
+.note{font-size:13.5px;color:var(--ink-2);margin:8px 0 0}
+ul{margin:0 0 8px 18px;color:var(--ink)}
+li{margin:6px 0}
+code, .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+footer{color:var(--ink-2);font-size:13px;padding:40px 0 48px}
+</style>
+</head>
+<body>
+<div id="ftagate" data-gate="employee" data-title="Employee only"></div>
+<script src="/gate.js"></script>
+
+<header><div class="wrap">
+  <a class="brand" href="/">FTA</a><span class="tag">Employee</span>
+</div></header>
+
+<main class="wrap">
+  <h1>FTA sites and tools</h1>
+  <p class="lead">A map of FTA web properties and related repositories. Access codes are not listed on this page.</p>
+
+  <h2>fta7ai.com pages</h2>
+  <table>
+    <thead><tr><th>Path</th><th>Gate</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><a href="/">/</a></td><td class="gate">Public</td><td>Company homepage — supplier quality consulting</td></tr>
+      <tr><td><a href="/#services">/#services</a></td><td class="gate">Public</td><td>What we do — services and industry scope</td></tr>
+      <tr><td><a href="/#contact">/#contact</a></td><td class="gate">Public</td><td>Contact</td></tr>
+      <tr><td><a href="/partners/">/partners/</a></td><td class="gate">Public</td><td>U.S. supplier-auditor and SQE partner recruiting</td></tr>
+      <tr><td><a href="/videos/">/videos/</a></td><td class="gate">Public</td><td>Insight Series films</td></tr>
+      <tr><td><a href="/saa/">/saa/</a></td><td class="gate">Site gate</td><td>SAA (Supplier Audit Agent) product page, including Ask SAA — under development</td></tr>
+      <tr><td><a href="/internal/saa/">/internal/saa/</a></td><td class="gate">Site gate</td><td>SAA internal area — modules, framework, license notice</td></tr>
+      <tr><td><a href="/datacenter/">/datacenter/</a></td><td class="gate">Site gate</td><td>Data Center — October films and ASTM knowledge-base demo (content parked; not used for public positioning)</td></tr>
+      <tr><td><a href="/internal/">/internal/</a></td><td class="gate">Site gate</td><td>Internal directory of tools</td></tr>
+      <tr><td><a href="/events/">/events/</a></td><td class="gate">Site gate</td><td>Event Radar — external events FTA is watching</td></tr>
+      <tr><td><a href="/as/">/as/</a></td><td class="gate">Site gate</td><td>AS · Auditing Secretary prototype (rev03, draft)</td></tr>
+      <tr><td><a href="/kb/">/kb/</a> and <a href="/kb/desktop.html">/kb/desktop.html</a></td><td class="gate">Site gate</td><td>KB collector — knowledge-base intake by SQE number</td></tr>
+      <tr><td><a href="/cn/investor.html">/cn/investor.html</a></td><td class="gate">Site gate</td><td>Chinese investor page</td></tr>
+      <tr><td><a href="/cn/talent.html">/cn/talent.html</a></td><td class="gate">Site gate</td><td>Chinese technical-partner page</td></tr>
+      <tr><td><a href="/employee/">/employee/</a></td><td class="gate">Employee gate</td><td>This map — separate employee access, not the site gate</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Shared assets: <span class="mono">/gate.js</span>, <span class="mono">/nav-public.css</span>. Hosting is GitHub Pages from <span class="mono">main</span> of the site repo. <span class="mono">/lom/</span> is not in use on this host (left as-is).</p>
+
+  <h2>SAA / Ask SAA</h2>
+  <ul>
+    <li>Product page: <a href="https://fta7ai.com/saa/">https://fta7ai.com/saa/</a> (site gate)</li>
+    <li>Ask SAA worker: <span class="mono">https://saa-ask-20261020.jinsonggong.workers.dev/ask</span></li>
+    <li>Internal SAA area: <a href="https://fta7ai.com/internal/saa/">https://fta7ai.com/internal/saa/</a></li>
+  </ul>
+
+  <h2>LOM</h2>
+  <ul>
+    <li>Cloudflare R2 copy: <a href="https://pub-30706c81faa54695a98187c4fb4a7883.r2.dev/index.html">https://pub-30706c81faa54695a98187c4fb4a7883.r2.dev/index.html</a></li>
+    <li>Workers: <a href="https://lomfund.jinsonggong.workers.dev/">https://lomfund.jinsonggong.workers.dev/</a></li>
+    <li><span class="mono">lom.fta7ai.com</span> is not live.</li>
+  </ul>
+
+  <h2>GitHub repositories</h2>
+  <ul>
+    <li><a href="https://github.com/jgong2/fta7ai">jgong2/fta7ai</a> — this website (public; GitHub Pages)</li>
+    <li><a href="https://github.com/jgong2/fta-research">jgong2/fta-research</a> — research and working documents</li>
+    <li><a href="https://github.com/jgong2/fta-skills">jgong2/fta-skills</a> — skills</li>
+  </ul>
+
+  <h2>Restore point</h2>
+  <p>Git tag <span class="mono">pre-consolidation-20261121</span> on <span class="mono">jgong2/fta7ai</span> marks <span class="mono">main</span> immediately before the 2026-11-21 public-site consolidation. To restore that snapshot: <span class="mono">git checkout pre-consolidation-20261121 -- .</span> then commit and push.</p>
+</main>
+
+<footer class="wrap">FTA · employee map · not for public circulation</footer>
+</body>
+</html>

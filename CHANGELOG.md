@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-21 (copy + employee map)
+
+- Homepage / What we do: industry-open copy. Automotive, medical device, aerospace, and general manufacturing as peers. Services: process audit, production audit, supplier audit, APQP, PPAP, 8D/CAPA; scope includes IATF 16949, VDA 6.3, ISO 13485, and AS9100-type work (scope, not certification). Removed the duplicate Field notes band and the overlapping in-page Insight Series / SAA video blocks (Insight Series lives at /videos/).
+- Quiet "Employee only" link at the bottom of the homepage footer → /employee/, separate employee gate and session (not the site gate). noindex. Site map of FTA pages, SAA worker, LOM addresses, GitHub repos, and the revert tag. Access codes are not listed on the page.
+
 ## 2026-11-21
 
 - Restore point: git tag `pre-consolidation-20261121` on the previous main tip
