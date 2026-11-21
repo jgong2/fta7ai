@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-21
+
+- Restore point: git tag `pre-consolidation-20261121` on the previous main tip
+- Public site (homepage, /partners/, /videos/) opens with no password; "not yet public" gate text removed
+- Public top nav in two groups, with a visible gap: Home · What we do · Insight Series · Contact  |  SAA · Data Center · Partners (quieter). Mobile wraps instead of hiding the menu
+- SAA (/saa/, including Ask SAA) gated with 0000; the landing before the code shows "AI Audit Agents (SAA and more)" and an under-development teaser
+- Homepage: a modest "AI Audit Agents (SAA and more) — under development" entry near the bottom of Home; the large SAA hero/strip was removed so the main focus stays audit services
+- Data Center content moved to /datacenter/ (films and ASTM demo unchanged); the homepage nav still says only "Data Center" (no extra explanation). The gate says "For internal usage"
+- The same client-side 0000 gate (one sessionStorage key, one entry unlocks all) plus noindex on /events/, /as/, /kb/, /internal/, /cn/, and the Data Center / ASTM demo
+
 ## 2026-11-09
 
 - Removed an unused page

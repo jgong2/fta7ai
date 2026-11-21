@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>FTA · 让中国制造被世界信任</title>
 <meta name="description" content="FTA：供应链质量智能体。AI 原生公司，让中国制造被世界信任。">
 <style>
@@ -104,10 +105,10 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 #gate button{margin-top:16px;width:200px;background:var(--or);color:#0a0a0a;border:0;border-radius:14px;padding:14px;font-size:17px;font-weight:800}
 #gate .err{color:var(--or-l);font-size:14px;margin-top:12px;min-height:20px}
 </style>
-<script>try{if(sessionStorage.getItem('fta_inv')!=='1')document.documentElement.classList.add('lock')}catch(e){document.documentElement.classList.add('lock')}</script>
 </head>
 <body id="page-top">
-<div id="gate"><div class="kicker">FTA · 投资人专页</div><h2 style="margin:0">请输入打开密码</h2><input id="pw" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><button onclick="unlock()">进入</button><div class="err" id="pwerr"></div></div>
+<div id="ftagate" data-title="For internal usage"></div>
+<script src="/gate.js"></script>
 
 <div id="app">
 <div class="wrap">
@@ -239,8 +240,6 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 <a id="top" href="#page-top" aria-label="回到顶部">↑<br>顶部</a>
 <div id="toast">已复制</div>
 <script>
-function unlock(){if(document.getElementById('pw').value==='0000'){try{sessionStorage.setItem('fta_inv','1')}catch(e){}document.documentElement.classList.remove('lock');window.scrollTo(0,0)}else{document.getElementById('pwerr').textContent='密码不对，请再试一次'}}
-document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock()});
 document.querySelectorAll('.ph').forEach(function(b){b.addEventListener('click',function(){var v=document.createElement('video');v.src=b.getAttribute('data-v');v.controls=true;v.autoplay=true;v.setAttribute('playsinline','');b.parentNode.replaceChild(v,b)})});
 var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12}):null;
 document.querySelectorAll('.reveal').forEach(function(el){io?io.observe(el):el.classList.add('in')});

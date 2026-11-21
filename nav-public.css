@@ -1,0 +1,50 @@
+/* FTA public top nav: group 1 (main) | gap | group 2 (quiet). */
+nav.menu{
+  display:flex;
+  align-items:center;
+  margin-left:auto;
+  flex-wrap:wrap;
+  gap:0;
+}
+nav.menu .nav-group{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+nav.menu .nav-gap{
+  display:inline-block;
+  width:0;
+  height:16px;
+  margin:0 18px;
+  border-left:1px solid var(--line, #E7EAE0);
+  align-self:center;
+  flex:0 0 0;
+}
+nav.menu .nav-quiet a{
+  font-size:13px;
+  font-weight:500;
+  color:#8a9084;
+}
+nav.menu .nav-quiet a:hover{color:var(--ink, #20261C)}
+nav.menu .nav-quiet a.active{color:var(--ink, #20261C);font-weight:600;border-bottom-color:currentColor}
+
+/* Dark Insight Series header */
+.nav-dark nav.menu .nav-gap{border-left-color:#3a4a63}
+.nav-dark nav.menu .nav-quiet a{color:#8a9bb0}
+.nav-dark nav.menu .nav-quiet a:hover,
+.nav-dark nav.menu .nav-quiet a.active{color:#e8eef7}
+
+@media (max-width: 900px){
+  header .nav, header .wrap.nav{
+    height:auto;
+    min-height:64px;
+    flex-wrap:wrap;
+    padding:10px 0;
+    gap:8px 16px;
+  }
+  nav.menu{
+    display:flex !important;
+    width:100%;
+    margin-left:0;
+    row-gap:8px;
+    order:3;
+  }
+  nav.menu .nav-gap{margin:0 12px;height:14px}
+  header .cta-btn{margin-left:auto}
+}

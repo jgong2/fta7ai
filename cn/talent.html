@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>FTA · SAI 技术合作伙伴</title>
 <meta name="description" content="FTA 正在开发供应商质量审核 AI（SAI），寻找技术合作伙伴。">
 <style>
@@ -104,10 +105,10 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 #gate button{margin-top:16px;width:200px;background:var(--or);color:#0a0a0a;border:0;border-radius:14px;padding:14px;font-size:17px;font-weight:800}
 #gate .err{color:var(--or-l);font-size:14px;margin-top:12px;min-height:20px}
 </style>
-<script>try{if(sessionStorage.getItem('fta_tal')!=='1')document.documentElement.classList.add('lock')}catch(e){document.documentElement.classList.add('lock')}</script>
 </head>
 <body id="page-top">
-<div id="gate"><div class="kicker">FTA · SAI</div><h2 style="margin:0">请输入打开密码</h2><input id="pw" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><button onclick="unlock()">进入</button><div class="err" id="pwerr"></div></div>
+<div id="ftagate" data-title="For internal usage"></div>
+<script src="/gate.js"></script>
 
 <nav><div class="wrap">
 <a href="#about">关于 FTA</a><a href="#videos">视频</a><a href="#stack">架构</a><a href="#work">合作方式</a><a href="#contact">联系</a>
@@ -238,8 +239,6 @@ html.lock #gate{display:flex;position:fixed;inset:0;z-index:99;background:var(--
 <a id="top" href="#page-top" aria-label="回到顶部">↑<br>顶部</a>
 <div id="toast">已复制</div>
 <script>
-function unlock(){if(document.getElementById('pw').value==='0000'){try{sessionStorage.setItem('fta_tal','1')}catch(e){}document.documentElement.classList.remove('lock');window.scrollTo(0,0)}else{document.getElementById('pwerr').textContent='密码不对，请再试一次'}}
-document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock()});
 
 document.querySelectorAll('.ph').forEach(function(b){b.addEventListener('click',function(){var v=document.createElement('video');v.src=b.getAttribute('data-v');v.controls=true;v.autoplay=true;v.setAttribute('playsinline','');b.parentNode.replaceChild(v,b)})});
 function cp(t){var ok=function(){var s=document.getElementById('toast');s.style.display='block';setTimeout(function(){s.style.display='none'},1500)};try{navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()})}catch(e){fb(t);ok()}}

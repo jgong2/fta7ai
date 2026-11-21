@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FTA — Supplier Quality Consulting</title>
+<link rel="stylesheet" href="/nav-public.css">
 <style>
   :root{
     --accent:#D07C3E;        /* 唯一动作色（按钮/CTA/链接） */
@@ -148,7 +149,6 @@
     .cards,.sq-grid{grid-template-columns:1fr 1fr}
     .feat-cover{aspect-ratio:16/9}
     h1{font-size:34px}h2{font-size:26px}
-    nav.menu{display:none}
   }
   @media(max-width:560px){.sq-grid{grid-template-columns:1fr}}
   .cover video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;border-radius:inherit}
@@ -167,33 +167,27 @@
   .pill b{color:var(--ink);font-weight:700}
   .disclaimer{background:var(--accent-soft);border:1px solid #E9C9A9;border-radius:12px;padding:15px 18px;margin-bottom:22px;font-size:14px;color:#7A4A1F;line-height:1.6}
   .disclaimer a{color:var(--accent-dark);font-weight:700}
+
+  .ai-entry{padding:32px 0 48px;border-top:1px solid var(--line)}
+  .ai-entry .ai-kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-bottom:8px}
+  .ai-entry h3{font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px}
+  .ai-entry p{font-size:14.5px;color:var(--ink-2);max-width:560px;margin-bottom:10px}
+  .ai-entry a{font-size:14px;color:var(--ink-2);font-weight:600}
+  .ai-entry a:hover{color:var(--accent-dark)}
 </style>
 </head>
 <body>
-<div id="ftagate" style="position:fixed;inset:0;z-index:2147483000;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f2f2ef">
-<div style="font-size:12px;letter-spacing:.3em;color:#ff8a3d;margin-bottom:14px">FTA · PRIVATE PREVIEW</div>
-<div style="font-size:22px;font-weight:700;margin-bottom:22px">Please enter access code</div>
-<input id="ftapw" type="password" inputmode="numeric" maxlength="8" autocomplete="off" style="width:200px;font-size:28px;letter-spacing:.5em;text-align:center;background:#111;border:1px solid #333;color:#f2f2ef;border-radius:14px;padding:12px 0 12px .5em;outline:none">
-<button id="ftago" style="margin-top:16px;width:200px;font-size:17px;font-weight:800;border:0;border-radius:14px;padding:13px;background:#ff8a3d;color:#0a0a0a">Enter</button>
-<div id="ftaerr" style="color:#ffbd8a;font-size:14px;height:20px;margin-top:12px"></div>
-<div id="ftanote" style="max-width:340px;margin-top:18px;font-size:12px;line-height:1.6;color:#8a8a85">fta7ai.com is password-protected and not yet public. To connect, say hi in my <a href="https://github.com/jgong2/jgong2/discussions/1" target="_blank" rel="noopener" style="color:#ffbd8a;text-decoration:underline">collaboration discussion</a>.</div></div>
-<script>(function(){var g=document.getElementById('ftagate');try{if(sessionStorage.getItem('fta_cn_ok')==='1'){g.style.display='none';return}}catch(e){}
-document.documentElement.style.overflow='hidden';
-function ok(){var v=document.getElementById('ftapw').value;if(v==='0000'){try{sessionStorage.setItem('fta_cn_ok','1')}catch(e){}g.style.display='none';document.documentElement.style.overflow=''}else{document.getElementById('ftaerr').textContent='Incorrect code'}}
-document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').addEventListener('keydown',function(e){if(e.key==='Enter')ok()});})();</script>
-
-
 <header>
   <div class="wrap nav">
     <div class="brand"><span class="mark">FTA</span><span class="tag-line">Consulting Quality</span></div>
     <nav class="menu">
-      <a href="/saa/">SAA</a>
-      <a data-go="home" class="active">Home</a>
-      <a data-go="services">What we do</a>
-      <a data-go="insights">Insight Series</a>
-      <a data-go="datacenter">Data Center</a>
-      <a href="/partners/">Partners</a>
-      <a data-go="contact">Contact</a>
+      <span class="nav-group nav-main">
+        <a data-go="home" class="active">Home</a><a data-go="services">What we do</a><a data-go="insights">Insight Series</a><a data-go="contact">Contact</a>
+      </span>
+      <span class="nav-gap" aria-hidden="true"></span>
+      <span class="nav-group nav-quiet">
+        <a href="/saa/">SAA</a><a href="/datacenter/">Data Center</a><a href="/partners/">Partners</a>
+      </span>
     </nav>
     <a class="cta-btn" data-go="contact">Get in touch</a>
   </div>
@@ -225,33 +219,17 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
     <span>SQE-led · <b>20+ years</b></span>
   </div></div>
 
-  <!-- ====== FTA-added 2026-10-20: SAA hero row (same layout and style as the hero above) ====== -->
-  <div class="saa-hero" id="saa-hero"><div class="wrap hero-grid" style="grid-template-columns:1fr">
-    <div>
-      <span class="eyebrow">AI Supplier Audit Agent</span>
-      <h2>SAA — Supplier Audit Agent</h2>
-      <p class="lead">An AI assistant for on-site supplier audits: describe what you observed, and SAA maps it to the clause, lists the evidence to request, and suggests a grade. Starting with ISO 9001 §8.4; IATF 16949 and ISO 13485 are coming.</p>
-      <div class="btn-row">
-        <a class="btn-primary" href="/saa/">Try SAA (Alpha)</a>
-        <a class="btn-ghost" href="/saa/#ask-saa">Ask SAA a question &rarr;</a>
-      </div>
-    </div>
-  </div></div>
-
-  <div class="sec"><div class="wrap">
-    <div class="saa-strip"><div class="saa-card">
-      <div class="txt">
-        <span class="eyebrow">An FTA venture</span>
-        <p>SAA — our Supplier Audit Agent, powered by FTA’s supplier-quality knowledge engine. A runnable skeleton, in early preview.</p>
-      </div>
-      <a class="go" data-go="saa">Internal testing SAA</a>
-    </div></div>
-  </div></div>
-
   <div class="sec band"><div class="cta-band">
     <h2>Field notes from the audit floor</h2>
     <p>Seven short pieces on what actually happens between placing an order and receiving good parts.</p>
     <a class="btn-primary" data-go="insights">Watch the Insight Series</a>
+  </div></div>
+
+  <div class="ai-entry"><div class="wrap">
+    <p class="ai-kicker">Under development</p>
+    <h3>AI Audit Agents (SAA and more)</h3>
+    <p>We&rsquo;re building AI audit agents, starting with SAA, the Supplier Audit Agent.</p>
+    <a href="/saa/">Open the SAA area &rarr;</a>
   </div></div>
 </section>
 
@@ -300,66 +278,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       <div class="cover sq" style="background-image:url('videos/EP7_ThirtyMetersToTheTruth_poster.jpg')" data-v="videos/EP7_ThirtyMetersToTheTruth_web_ready.mp4"><div class="ep">EP7</div><div class="pbtn"></div><div class="cap"><b>Thirty Meters to the Truth</b><span class="sub">One quality problem refused to die for ten years — the answer sat thirty meters away.</span></div></div>
     </div>
 
-    <div class="saa-link"><a data-go="saa">SAA ↗</a></div>
-  </div></div>
-</section>
-
-<!-- ====== Data Center 资料中心（Boss 2026-10-16 令加 · 只放 10 月新作 · Jose）====== -->
-<section class="page" id="datacenter">
-  <div class="sec"><div class="wrap">
-    <div id="dcgate" style="max-width:360px;margin:60px auto;text-align:center">
-      <span class="eyebrow">Data Center</span>
-      <p style="color:var(--ink-2);margin:14px 0 18px">Enter access code</p>
-      <input id="dcpw" type="password" maxlength="8" autocomplete="off" style="width:200px;font-size:24px;letter-spacing:.4em;text-align:center;border:1px solid #ccc;border-radius:12px;padding:10px 0 10px .4em">
-      <div><button class="btn-primary" id="dcgo" style="margin-top:14px;width:200px">Enter</button></div>
-      <div id="dcerr" style="color:#c2410c;font-size:13px;height:18px;margin-top:10px"></div>
-    </div>
-    <div id="dcbody" style="display:none">
-    <div class="sec-head">
-      <span class="eyebrow">Data Center</span>
-      <h2>New from FTA · October 2026</h2>
-      <p>Our latest films, made this month by FTA&rsquo;s AI team. Tap any card to play.</p>
-    </div>
-
-    <div class="cover feat-cover" style="background-image:url('videos/SAA_Promo_202610_EN_poster.jpg')" data-v="videos/SAA_Promo_202610_EN.mp4">
-      <div class="ep">FEATURED · SAA · 6:41</div>
-      <div class="pbtn"></div>
-      <div class="cap"><b>SAA — Supplier Audit Agent</b><span class="sub">The full October film: how FTA&rsquo;s Supplier Audit Agent reads supplier quality documents.</span></div>
-    </div>
-
-    <div class="sq-grid">
-      <div class="cover sq" style="background-image:url('videos/EP01_EyesOnTheGround_202610_EN_poster.jpg')" data-v="videos/EP01_EyesOnTheGround_202610_EN.mp4"><div class="ep">EPISODE 1</div><div class="pbtn"></div><div class="cap"><b>Eyes on the Ground</b><span class="sub">Who is really watching your suppliers on the other side of the world.</span></div></div>
-      <div class="cover sq" style="background-image:url('videos/EP03_CAPA_202610_artist_voiceover_poster.jpg')" data-v="videos/EP03_CAPA_202610_artist_voiceover.mp4"><div class="ep">EPISODE 3</div><div class="pbtn"></div><div class="cap"><b>The 8D Looked Perfect</b><span class="sub">Telling a real corrective action from a paperwork closure.</span></div></div>
-    </div>
-
-    <div class="saa-link"><a data-go="saa">SAA ↗</a></div>
-
-    <div style="margin-top:120px;text-align:center"><a id="mvpopen" style="font-size:12px;color:#9aa0a6;letter-spacing:.08em;cursor:pointer">· MVP ·</a></div>
-    <div id="mvpgate" style="display:none;max-width:320px;margin:16px auto;text-align:center">
-      <input id="mvppw" type="password" maxlength="8" autocomplete="off" style="width:180px;font-size:20px;letter-spacing:.4em;text-align:center;border:1px solid #ccc;border-radius:10px;padding:8px 0 8px .4em">
-      <div><button class="btn-primary" id="mvpgo" style="margin-top:10px;width:180px">Unlock</button></div>
-      <div id="mvperr" style="color:#c2410c;font-size:13px;height:18px;margin-top:8px"></div>
-    </div>
-    <div id="mvpbox" style="display:none">
-<div class="engine" style="margin-top:18px">
-      <div class="disclaimer"><b>Early preview</b> &mdash; live demo of FTA&rsquo;s ASTM knowledge base. Answers are citations only (standard, section, page, short excerpt) &mdash; never full text. For a real demonstration, contact us directly &rarr; <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a></div>
-      <div class="erow"><span class="edot"></span><span class="etag">ENGINE STATUS: LIVE DEMO &mdash; ASTM knowledge base, citation-only</span></div>
-      <p class="ehint">Ask the engine a question to see the retrieval flow run end-to-end.</p>
-      <div class="ask">
-        <input id="q" type="text" placeholder="e.g. A106 Grade B carbon and manganese limits" />
-        <button class="btn-primary" onclick="ask()">Ask</button>
-      </div>
-      <div class="answer" id="ans">Awaiting your question&hellip;</div>
-      <div class="pipeline">
-        <span class="pill">1 &middot; <b>Query</b></span>
-        <span class="pill">2 &middot; <b>Embed</b> (vector)</span>
-        <span class="pill">3 &middot; <b>Retrieve</b> chunks</span>
-        <span class="pill">4 &middot; <b>LLM</b> synthesize</span>
-        <span class="pill">5 &middot; <b>Answer</b> + sources</span>
-      </div>
-    </div>
-    </div>
-    </div><!-- /dcbody -->
+    <div class="saa-link"><a href="/saa/">SAA ↗</a></div>
   </div></div>
 </section>
 
@@ -415,7 +334,7 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
     <div class="brand"><span class="mark">FTA</span></div>
     <span style="color:#9fa891;font-size:14px">Consulting Quality · Chicago HQ · Hong Kong base</span>
   </div>
-  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a data-go="datacenter">Data Center</a> · <a data-go="saa">SAA</a> · <a href="/partners/">Partners</a></div>
+  <div class="foot-bot">© 2026 FTA. All rights reserved. · jg@fta7ai.com · <a href="/datacenter/">Data Center</a> · <a href="/saa/">SAA</a> · <a href="/partners/">Partners</a></div>
 </div></footer>
 
 <script>
@@ -433,43 +352,6 @@ document.getElementById('ftago').onclick=ok;document.getElementById('ftapw').add
       c.style.cursor='default';
     });
   });
-  var MVP_API="https://affects-passive-prefer-measured.trycloudflare.com";
-  function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
-  function ask(){
-    var q=document.getElementById('q').value.trim();
-    var ans=document.getElementById('ans');
-    if(!q){ans.textContent='Type a question first.';return;}
-    var code=(document.getElementById('mvppw')||{}).value||'0000';
-    ans.innerHTML='<span style="color:var(--accent-dark)">▍ searching ASTM knowledge base…</span>';
-    fetch(MVP_API+'/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,tier:'fast',access_code:code})})
-    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
-    .then(function(x){
-      if(x.s!==200||!x.j.ok){ans.innerHTML='Service replied '+x.s+'. '+esc((x.j&&x.j.error)||'');return;}
-      var h='<b style="color:var(--ink)">'+esc(x.j.conclusion)+'</b><br><br>';
-      (x.j.citations||[]).forEach(function(c){h+='<div style="margin:0 0 10px">· <b>ASTM '+esc(c.std_no)+'</b> §'+esc(c.section_no)+' '+esc(c.section_title)+' · p.'+esc(c.page)+(c.edition_yr?' · '+esc(c.edition_yr):'')+'<br><span style="color:var(--ink-2)">“'+esc(c.excerpt)+'”</span></div>';});
-      h+='<div style="font-size:12px;color:var(--ink-2)">'+esc(x.j.gate&&x.j.gate.notice)+' · '+esc(x.j.took_ms)+' ms</div>';
-      ans.innerHTML=h;
-    })
-    .catch(function(){ans.innerHTML='Could not reach the search service right now (the demo server may be offline). Contact <a href="mailto:jg@fta7ai.com">jg@fta7ai.com</a>.';});
-  }
-  var _q=document.getElementById('q'); if(_q){_q.addEventListener('keydown',function(e){if(e.key==='Enter')ask();});}
-
-  (function(){
-    function unlock(gid,bid,pid,eid,code,key){
-      var g=document.getElementById(gid),b=document.getElementById(bid);
-      function show(){g.style.display='none';b.style.display='block';}
-      try{if(sessionStorage.getItem(key)==='1'){show();}}catch(e){}
-      function ok(){if(document.getElementById(pid).value===code){try{sessionStorage.setItem(key,'1')}catch(e){}show();}else{document.getElementById(eid).textContent='Incorrect code';}}
-      return ok;
-    }
-    var dcok=unlock('dcgate','dcbody','dcpw','dcerr','0000','fta_dc_ok');
-    document.getElementById('dcgo').addEventListener('click',dcok);
-    document.getElementById('dcpw').addEventListener('keydown',function(e){if(e.key==='Enter')dcok();});
-    var mok=unlock('mvpgate','mvpbox','mvppw','mvperr','0000','fta_mvp_ok');
-    document.getElementById('mvpopen').addEventListener('click',function(){var b=document.getElementById('mvpbox');if(b.style.display!=='block'){document.getElementById('mvpgate').style.display='block';}});
-    document.getElementById('mvpgo').addEventListener('click',mok);
-    document.getElementById('mvppw').addEventListener('keydown',function(e){if(e.key==='Enter')mok();});
-  })();
 </script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FTA — Partner with us · Supplier auditors & SQEs</title>
+<link rel="stylesheet" href="/nav-public.css">
 <style>
 :root{--accent:#D07C3E;--accent-dark:#A85A28;--accent-soft:#FBEEE1;--green:#8AAE2A;--green-pale:#E7F1C9;--gd-text:#2C3A10;--ink:#20261C;--ink-2:#5B6353;--line:#E7EAE0;--band:#F7F9F1;--white:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,7 +54,7 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
 .links a.card{display:block;transition:.2s} .links a.card:hover{border-color:var(--accent);transform:translateY(-3px)}
 .links .go{color:var(--accent-dark);font-weight:700;font-size:14.5px;margin-top:12px;display:block}
 .small{font-size:13px;color:var(--ink-2)}
-@media(max-width:900px){.grid2,.cards,.links{grid-template-columns:1fr}h1{font-size:32px}h2{font-size:25px}nav.menu{display:none}.wrap{padding:0 20px}.contact{padding:36px 22px}.cta-btn{margin-left:auto}}
+@media(max-width:900px){.grid2,.cards,.links{grid-template-columns:1fr}h1{font-size:32px}h2{font-size:25px}nav.menu{display:flex}.wrap{padding:0 20px}.contact{padding:36px 22px}.cta-btn{margin-left:auto}}
 </style>
 </head>
 <body>
@@ -62,11 +63,13 @@ footer .mark{color:#fff;font-size:28px;font-weight:800;letter-spacing:3px}
   <div class="wrap nav">
     <a class="brand" href="/"><span class="mark">FTA</span><span class="tag-line">Consulting Quality</span></a>
     <nav class="menu">
-      <a href="/">Home</a>
-      <a href="/saa/">SAA</a>
-      <a href="/videos/">Insight Series</a>
-      <a href="/partners/" class="active">Partners</a>
-      <a href="mailto:jg@fta7ai.com">Contact</a>
+      <span class="nav-group nav-main">
+        <a href="/">Home</a><a href="/#services">What we do</a><a href="/videos/">Insight Series</a><a href="/#contact">Contact</a>
+      </span>
+      <span class="nav-gap" aria-hidden="true"></span>
+      <span class="nav-group nav-quiet">
+        <a href="/saa/">SAA</a><a href="/datacenter/">Data Center</a><a href="/partners/" class="active">Partners</a>
+      </span>
     </nav>
     <a class="cta-btn" href="mailto:jg@fta7ai.com">Get in touch</a>
   </div>
