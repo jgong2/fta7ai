@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-21 (founder bio)
+
+- What we do: added "Who you'll work with" founder bio (Jinsong Gong; based in Chicago and Hong Kong), after services/scope and before the CTA.
+
 ## 2026-11-21 (copy + employee map)
 
 - Homepage / What we do: industry-open copy. Automotive, medical device, aerospace, and general manufacturing as peers. Services: process audit, production audit, supplier audit, APQP, PPAP, 8D/CAPA; scope includes IATF 16949, VDA 6.3, ISO 13485, and AS9100-type work (scope, not certification). Removed the duplicate Field notes band and the overlapping in-page Insight Series / SAA video blocks (Insight Series lives at /videos/).
