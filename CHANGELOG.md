@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-21 (remove LinkedIn)
+
+- Removed the LinkedIn link from both bios. No LinkedIn link on the site. Founder bio remains on the homepage and on What we do; wording unchanged.
+
+
 ## 2026-11-21 (founder bio on homepage + LinkedIn)
 
 - Same approved founder bio now also on the homepage (first page), placed after the hero and trust bar and before the modest AI entry, so it is prominent without crowding the hero. It remains on What we do.
