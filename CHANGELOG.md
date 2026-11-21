@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-21 (founder bio on homepage + LinkedIn)
+
+- Same approved founder bio now also on the homepage (first page), placed after the hero and trust bar and before the modest AI entry, so it is prominent without crowding the hero. It remains on What we do.
+- "Connect on LinkedIn" added after the bio in both places (opens in a new tab). Bio wording is unchanged.
+
+
 ## 2026-11-21 (founder bio)
 
 - What we do: added "Who you'll work with" founder bio (Jinsong Gong; based in Chicago and Hong Kong), after services/scope and before the CTA.
